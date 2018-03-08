@@ -1,0 +1,7 @@
+object models and collections:
+
+persons
+roles
+opportunities
+achievements
+

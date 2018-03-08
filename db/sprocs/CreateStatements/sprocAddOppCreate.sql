@@ -1,0 +1,66 @@
+DELIMITER $$
+CREATE DEFINER=`eLeapisit`@`%` PROCEDURE `sprocAddOpp`(
+in Title_v varchar(45),
+in Description_v varchar(45),
+in StartDate_v datetime, 
+in EndDate_v datetime,
+in CreateDate_v datetime,
+in ClassID_v int,
+in TotalSeats_v int,
+in OwnerID_v int,
+in StatusID_v int,
+in Notes_v varchar(45),
+in Pay_v smallint,
+in Donation_v smallint, 
+in IsPaid_v binary,
+in IsServiceLearining_v binary,
+in IsRecurrent_v binary,
+in IsVirtual_v binary,
+in Duration_v int,
+in TimePeriodStart_v datetime,
+in TimePeriodEnd_v datetime)
+BEGIN
+declare lastid int;
+INSERT INTO dbo.opportunityTable
+(Title,
+Description,
+StartDate,
+EndDate,
+CreateDate,
+ClassID,
+TotalSeats,
+OwnerID,
+StatusID,
+Notes,
+Pay,
+Donation,
+IsPaid,
+IsServiceLearining,
+IsRecurrent,
+IsVirtual,
+Duration,
+TimePeriodStart,
+TimePeriodEnd)
+VALUES
+(Title_v,
+Description_v,
+StartDate_v,
+EndDate_v,
+CreateDate_v,
+ClassID_v,
+TotalSeats_v,
+OwnerID_v,
+StatusID_v,
+Notes_v,
+Pay_v,
+Donation_v,
+IsPaid_v,
+IsServiceLearining_v,
+IsRecurrent_v,
+IsVirtual_v,
+Duration_v,
+TimePeriodStart_v,
+TimePeriodEnd_v);
+SELECT * from dbo.opportunityTable Where dbo.opportunityTable.OpportunityID =( SELECT LAST_INSERT_ID());
+END$$
+DELIMITER ;

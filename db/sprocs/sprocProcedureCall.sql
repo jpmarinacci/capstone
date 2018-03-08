@@ -1,0 +1,14 @@
+CALL `dbo`.`sprocAddClass`(<{in ClassID_v int}>, <{in ClassName_v varchar(45)}>);
+CALL `dbo`.`sprocAddOpp`(<{in Title_v varchar(45)}>, <{in Description_v varchar(45)}>, <{in StartDate_v datetime}>, <{in EndDate_v datetime}>, <{in CreateDate_v datetime}>, <{in ClassID_v int}>, <{in TotalSeats_v int}>, <{in OwnerID_v int}>, <{in StatusID_v int}>, <{in Notes_v varchar(45)}>, <{in Pay_v smallint}>, <{in Donation_v smallint}>, <{in IsPaid_v binary}>, <{in IsServiceLearining_v binary}>, <{in IsRecurrent_v binary}>, <{in IsVirtual_v binary}>, <{in Duration_v int}>, <{in TimePeriodStart_v datetime}>, <{in TimePeriodEnd_v datetime}>);
+CALL `dbo`.`sprocAddPer`(<{in RoleID_v int}>, <{in Username_v varchar(45)}>, <{in Email_v varchar(45)}>, <{in Phone_v varchar(45)}>, <{in ThemeID_v int}>, <{in PicID_v int}>);
+CALL `dbo`.`sprocAddPics`(<{in PicURL_v varchar(45)}>);
+CALL `dbo`.`sprocAddRole`(<{in RoleName_v varchar(45)}>, <{in RoleDescription_v varchar(45)}>);
+CALL `dbo`.`sprocAddState`(<{in ThemeData_v varchar(45)}>, <{in ThemeDecription_v varchar(45)}>);
+CALL `dbo`.`sprocAllClass`();
+CALL `dbo`.`sprocAllOpp`();
+CALL `dbo`.`sprocAllPer`();
+CALL `dbo`.`sprocAllPics`();
+CALL `dbo`.`sprocAllRole`();
+CALL `dbo`.`sprocAllState`();
+CALL `dbo`.`sprocRoleFind`();
+CALL `dbo`.`statusproc`();

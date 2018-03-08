@@ -1,0 +1,17 @@
+<div class="<%= cssClass %>">
+    <div class="centerText mt10">
+        <img src="img/macrocosm.jpg" class="homePageImg" />
+    </div>
+    <%= tempText %>
+    <!-- both print and percent= work for writing out params -->
+    <div>
+        <% if (isCool) { %>
+            <span>
+                <% print(combinedSentenceText) %>
+            </span>
+            <div class="mt20">
+                <% print(tempExclamation) %>
+            </div>
+        <% } else print(whatever) %>
+    </div>
+</div>

@@ -1,0 +1,223 @@
+
+//First generate/upload the key and set the permisions
+upload keys - rsa/pub (filezilla) and move it into ~/.ssh directory //note: convert line endings
+//check key formats:
+#region key formats
+		-----BEGIN RSA PRIVATE KEY-----
+		Proc-Type: 4,ENCRYPTED
+		-----END RSA PRIVATE KEY-----
+		
+		ssh-rsa  (or)
+		---- BEGIN SSH2 PUBLIC KEY ----
+		---- END SSH2 PUBLIC KEY ----
+#endregion
+//ssh-keygen -f ~/.ssh/id_rsa -t rsa -b 4096
+//ssh-keygen -f ~/.ssh/id -t ecdsa -b 521
+
+//set permissions on ssh keys
+chown ubuntu:ubuntu ~/.ssh/id_rsa*
+chmod 600 ~/.ssh/id_rsa
+chmod 644 ~/.ssh/id_rsa.pub
+
+//download the public/private keys
+//open with puttygen/ create ppk
+//add the public key contents to the ~/.ssh/authorized_keys
+
+//Importantly create a ~/.ssh/config file
+#region config
+	Host bitbucket.org
+	 IdentityFile ~/.ssh/id_rsa
+
+	Host github.com
+	 IdentityFile ~/.ssh/id_rsa
+#endregion
+
+
+//Nextly, update the colors so I can see it better:
+//uncomment (delete)# before force_color_prompt=yes
+//edit the ~/.bashrc :
+
+//special thanks to Charlie Calvert @ Elvenware
+//www.ccalvert.net
+
+region# .bashrc  
+
+	#==================#
+	#=== Elven Code ===#  
+	#==================#
+
+	set-node-path () {
+		if ! echo "$NODE_PATH" | /bin/grep -Eq "(^|:)$1($|:)" ; then
+			export NODE_PATH="$1:$NODE_PATH"
+		fi
+	}
+
+	set-system-path () {
+		if ! echo "$PATH" | /bin/grep -Eq "(^|:)$1($|:)" ; then
+			export PATH="$1:$PATH"
+		fi
+	}
+
+	# General
+	set-system-path "$HOME/bin"
+	export CHROME_BIN=/usr/bin/chromium-browser
+
+	# Node Support
+	set-node-path "$HOME/npm/lib/node_modules"
+	set-system-path "$HOME/npm/bin"
+
+	# Java Path Support
+	export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+
+	# Android Path Support
+	export ANDROID_HOME="$HOME/Android/Sdk"
+	export ANDROID_PLATFORM_TOOLS="$HOME/Android/Sdk/platform-tools"
+	set-system-path "$ANDROID_HOME/tools:$ANDROID_PLATFORM_TOOLS"
+
+	# Edit and uncomment to load a key automatically.
+	#ssh-add -l | grep -q "made on rohan-elf"
+	#if [ $? -eq 0 ]; then
+	#	echo OK
+	#else
+	#	echo FAIL
+	#	ssh-add ~/.ssh/id_rsa
+	#fi
+
+	# === End Elven Code === #
+		
+	# General
+	set-system-path "$HOME/bin"
+	export CHROME_BIN=/usr/bin/chromium-browser
+
+	# Node Support
+	set-node-path "$HOME/npm/lib/node_modules"
+	set-system-path "$HOME/npm/bin"
+
+	export PYTHONPATH="${PYTHONPATH}:$JSOBJECTS/Python/:$JSOBJECTS/Python/Utils/"
+
+	# Java Path Support
+
+#end region
+
+	//optionally add the python path line
+	#export PYTHONPATH="${PYTHONPATH}:$JSOBJECTS/Python/:$JSOBJECTS/Python/Utils/"
+
+//install Node Version Manager
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
+
+//run the bashrc to make sure that nvm is available
+source ~/.bashrc
+
+nvm install 7
+
+//sudo reboot ?
+
+//head to the root user directory
+cd ~
+git clone <git@github.com:user/project.git> (ssh version)
+
+//in project folder:
+npm install express --save-dev
+//do an npm install
+//optionally - do a bower install from appropriate directory
+
+sudo apt-get install nginx
+
+sudo rm /etc/nginx/sites-available/default
+
+//create a sites-available file
+sudo nano /etc/nginx/sites-available/<siteName>
+
+#region sitesAvailableFile
+	server {
+	  listen 80;
+	  server_name <siteName>;
+	  location / {
+		proxy_set_header  X-Real-IP  $remote_addr;
+		proxy_set_header  Host       $http_host;
+		proxy_pass        http://127.0.0.1:17490;
+	  }
+	}
+#endregion
+
+//create symbolic link in sites-enabled dir:
+sudo ln -s /etc/nginx/sites-available/<siteName> 
+
+//Restart nginx for the new config to take effect.
+sudo service nginx restart
+
+//In local version of project install pm2 globally
+// npm i -g pm2
+
+//on the server 
+npm install pm2@latest -g
+pm2 update
+ 
+//navigate to app folder
+pm2 start <server.js>
+pm2 startup
+//*copy and run output
+pm2 save
+
+//see what's running
+pm2 ls
+
+# Use the number listed in pm2 ls
+# to stop the daemon
+pm2 stop <server>
+# Remove it from the list
+pm2 delete index
+# Start it again, but give it a
+# catchy name
+pm2 start <server> --name “Tutorial”
+
+
+
+
+
+/*Windows automatically load pageant: -->
+find Pageant location in windows search (right click) - open file location
+in search bar: type run ; in run type:
+shell:common startup 
+copy pageant shortcut from Putty folder to Startup folder
+right click properties on Pageant shortcut
+edit Start in: change to the directory of your keys location
+edit Target: append your key name ie: 
+"C:\Program Files\PuTTY\pageant.exe" someKeyName.ppk
+Apply OK */
+
+//use ssh copy only to add key to connect to the already connected machine with dif key
+http://www.ccalvert.net/Os/Linux/ConfigureLinux.html#ssh-copy-id
+
+
+//optionally
+edit the /.bash_profile
+region# bash_profile
+
+	#thanks to evan@eklitzke.org
+	eval $(ssh-agent) &>/dev/null
+	ssh-add &>/dev/null
+	export SSH_AUTH_SOCK
+
+	# source .bashrc only if this is a VT or SSH connection
+	if [ $(env | grep -c SSH_CONNECTION) -ne 0 ] || [ $TERM = "linux" ]; then
+		source ~/.bashrc
+	fi
+
+#end region
+
+
+db:
+mysql -u root -p
+show databases;
+create database <aDBname>
+CREATE USER 'someUser'@'localhost' IDENTIFIED BY 'xxx';
+//select host, user from mysql.user;
+//drop user 'someUser'@'localhost';
+grant all privileges on aDBname.* to 'someUser'@'localhost' with grant option;
+//show grants for 'someUser'@'localhost';
+mysql -u root -p
+create table presidents (id int NOT NULL AUTO_INCREMENT, first varchar(128), last varchar(128), PRIMARY KEY (id));
+describe presidents;
+insert into presidents (first, last) values ('George', 'Washington');
+

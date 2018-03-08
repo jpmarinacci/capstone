@@ -1,0 +1,78 @@
+//helpful linux server commands
+
+//pm2 services
+pm2 ls
+pm2 stop <server>
+pm2 start <server>
+
+//reboot the system
+sudo reboot
+
+//running services
+service --status-all
+
+//running node services
+ps aux | grep node
+ps -ef | grep node
+
+//stop a running process
+kill -9 <pId>
+
+//stop all node processes
+killall -9 node
+
+//check running services and ports
+netstat -plnt
+
+//list a process by port
+sudo netstat -lpn |grep :<port>
+sudo netstat -antlp | grep <port>
+
+//show running ssh-agent processes
+ps -ef | grep ssh-agent 
+
+//resume process as a background task
+ctrl+z
+
+//stopping apache
+/etc/init.d/apache2 stop
+
+//which services have init.d script
+sysv-rc-conf
+
+//permissions
+chmod 767 <fileName>
+
+//owner
+chown ubuntu:ubuntu <fileName>
+
+//check syntax of conf file
+init-checkconf /etc/init/job.conf
+
+//debug key issues:
+ssh host -i ~/.ec2/key.ppk -vvv
+
+
+//old Server
+//installation notes:
+sudo apt-get install tasksel
+sudo tasksel install lamp-server
+sudo apt-get update
+sudo apt-get upgrade
+sudo tasksel install lamp-server
+//optionally:
+sudo apt-get install mysql-server
+sudo apt-get install git
+
+//http://www.zohaib.me/how-to-reliably-start-a-service-with-upstart/
+//to use old school style upstart
+sudo apt-get install upstart-sysv
+sudo update-initramfs -u
+sudo reboot
+
+//disabling apache
+sudo update-rc.d apache2 disable
+sudo update-rc.d -f apache2 remove
+
+sudo apt install sysv-rc-conf
+

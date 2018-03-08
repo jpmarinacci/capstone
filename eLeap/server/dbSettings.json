@@ -1,0 +1,7 @@
+{
+	"dbServer": "eleapdb.coq3w2iehupx.us-west-2.rds.amazonaws.com",
+	"dbServerPassword": "isit490",
+	"dbUserName":"eLeapisit",
+	"dbUserPassword":"capstone490",
+	"dbName": "dbo"
+}

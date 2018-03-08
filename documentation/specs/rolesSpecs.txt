@@ -1,0 +1,8 @@
+Roles
+Person (Basic Access)
+Student (Can access Classes to Join)
+Community Member (Can create opportunity not connected to classes)
+Admin (can approve and disapprove opportunities)
+Faculty (Can create opportunity not connected to clases)
+SuperUser (Development team)
+Instructors (Can connect opportunity to classes and create opportunity)

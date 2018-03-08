@@ -1,0 +1,12 @@
+node_modules
+eLeap/node_modules
+bower_components
+npm-debug.log
+Thumbs.db
+thumbs.db
+*.project
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+external
+public/images

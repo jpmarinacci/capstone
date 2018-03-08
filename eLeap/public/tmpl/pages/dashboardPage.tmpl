@@ -1,0 +1,113 @@
+<!--replace with dashboard page html tmpl-->
+<!--div class="col-12">
+    <button class="logOutButton smallButton float-right mt10 mr20">Log Out</button>
+    <div class="centerText mb10">
+        Here's the dashboard area
+    </div>
+    <div class="col-12 mt50">
+    	<a href="/dbTest">test db</a><br>
+    	<a href="/home">home page</a>
+    </div>
+    <button class="createOpportunityButton smallButton mb10 mt10">create an opportunity</button>
+    <div class="opportunityForm mb10"></div>
+    <div class="opportunites">
+        <div class="row">
+            <ul class='opportunitiesList col-8 offset-2'></ul>
+        </div>
+    </div>
+</div-->
+<div class="content-dashboard col-12">
+    <button>
+        <h3 class="heading-helper heading-helper--sm heading-helper--markered ">DASHBOARD
+            <button class="add">Add A New Project</button>
+        </h3>
+    </button>
+    <a href="/opportunity">go to opportunity page</a>
+    <div class="full-row">
+        <div class="widget widget-timetable-large dashboard-timetable">
+            <h3 class="widget__heading">My Report</h3>
+            <div id="wijlinechart-large" style="width: 100%; height: 170px"></div>
+            <form class="select select--sm select--widget" name="select" method="get" action="#">
+                <select class="select-box" id="select-box2" name="select-box" tabindex="0">
+                    <option value="default" selected="selected">this month</option>
+                    <option value="popular">last 3 month</option>
+                    <option value="rating">YTD</option>
+                </select>
+            </form>
+            <h3 class="widget__heading">
+                <span class=chart_opp>-- Opportunities</span>&nbsp;&nbsp;
+                <span class=chart_my>-- My Contributions</span>
+            </h3>
+        </div>
+    </div>
+    <div class="divider divider--colored present-divider">
+        <span class="divider-dot"></span>
+    </div>
+    <div class="tabs present-addition">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#opportunities" data-toggle="tab">Opportunities</a>
+            </li>
+            <li>
+                <a href="#applications" data-toggle="tab">My Applications</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="opportunities">
+                <div class="full-row">
+                    <div class="content">
+                        <!--div class="opportunitiesList"></div-->
+                        <div class="table-responsive">
+                            <table class="opportunityTable table table--target table--mod table--forum table--secondary">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Date</th>
+                                        <th>Owner</th>
+                                        <th>Location</th>
+                                        <th>Datetime</th>
+                                        <th>Hours</th>
+                                        <th>Slots Available</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="applications">
+                <div class="full-row">
+                    <div class="content">
+                        <div class="table-responsive">
+                            <table class="table table--target table--mod table--forum table--secondary">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Date</th>
+                                        <th>Owner</th>
+                                        <th>Submitted On</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                        <a class="table__category" href="/project">Rise Project Learning</a>
+                                        </td>
+                                        <td>Jan 15, 2018 10:53</td>
+                                        <td>Maricel Medina-Mora</td>
+                                        <td>Mar 01, 2018 10:53</td>
+                                        <td>
+                                        <i class="fa fa-circle color-green"></i>&nbsp;APPROVED</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
