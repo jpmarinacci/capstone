@@ -4,7 +4,7 @@
 
 
 define(['jquery', 'underscore', 'backbone', 'eLeap'],
-	function ($, _, Backbone, eLeap) {'use strict';
+	function ($, _, Backbone, eLeap) { 'use strict';
 	
 	var thisServer = undefined;
 	

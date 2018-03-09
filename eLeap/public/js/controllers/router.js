@@ -2,8 +2,8 @@
  *	@authors: JP Marinacci
  */
 
-define(['underscore', 'backbone', 'eLeap', 'controllers/user', 'navigation/sidebar'], 
-function (_, Backbone, eLeap, user, Sidebar) { 'use strict';
+define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'navigation/sidebar'], 
+function ($, _, Backbone, eLeap, user, Sidebar) { 'use strict';
 	
 	var thisRouter;
 	

@@ -21,7 +21,8 @@ instantiateDbServer = function() {
 	            }
 	            return;
 	        };
-	        /*let sql = `CALL filterTodo(?)`;
+	        /* call a sproc:
+	         let sql = `CALL filterTodo(?)`;
 			connection.query(sql, true, (error, results, fields) => {
 			  if (error) {
 			    return console.error(error.message);
@@ -30,6 +31,13 @@ instantiateDbServer = function() {
 			});*/
 			this.connection.query(sql, sprocParams, processQuery);
 	    },
+	    makeQs: function(numArgs) {
+			var qs = "";
+			for(var i = 0; i < numArgs; i++) {
+				qs += (i < numArgs-1) ? "?," : "?";
+			}
+	        return "(" + qs + ");";
+		},
 	    processSproc: function(results, response) {
 	    	if (!results.error) {
 				results.status = "success";
@@ -112,13 +120,6 @@ instantiateDbServer = function() {
 				//console.log(thisDbServer);
 				thisDbServer.connect();	
 			}, 3000);
-		},
-		makeQs: function(numArgs) {
-			var qs = "";
-			for(var i = 0; i < numArgs; i++) {
-				qs += (i < numArgs-1) ? "?," : "?";
-			}
-	        return "(" + qs + ");";
 		},
 	    close: function() {
 	    	console.log("closing db connection");

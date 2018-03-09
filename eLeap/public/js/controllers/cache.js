@@ -4,7 +4,7 @@
 
 
 define(['jquery', 'underscore', 'backbone', 'eLeap', 'collections/roles'],
-	function ($, _, Backbone, eLeap, Roles) {'use strict';
+	function ($, _, Backbone, eLeap, Roles) { 'use strict';
 	
 	var thisCache = undefined;
 	
