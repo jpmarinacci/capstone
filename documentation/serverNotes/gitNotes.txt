@@ -1,7 +1,37 @@
-git Notes
+git Notes:
+
+for more details:https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html
+
+<<< undo local changes for a file: (even deleted)
+ 	
+	git checkout -- <filename>
+	
+<<< optionally:
+	
+	git checkout HEAD path/to/file path/to/another_file
+
+
+<<< Instead, to drop all your local changes and commits, fetch the latest history from the server and point your local master branch at it, do this:
+	
+	git fetch origin
+	git reset --hard origin/master
+
+	git reset HEAD
+
+<<<< reset everything to your last commit. Note that 'git reset --hard HEAD' destroys any useful changes you have made in parent directories of the current working directory.
+
+	git reset --hard HEAD	
+
+<<<< If you do have uncommitted changes, but the 'git reset HEAD' doesn't work, then save your uncommitted changes with 'git stash'
+
+	git stash
+	git reset --hard HEAD
+	git stash pop
+
 
 !!! Don't attempt this code unless absolutely necessary!!!!
-<<<< Remove the history from >>>>
+<<< Remove the history from >>>>
+
 	rm -rf .git
 
 	-- recreate the repos from the current content only
@@ -9,12 +39,28 @@ git Notes
 	git add .
 	git commit -m "Initial commit"
 
-	-- push to the github remote repos ensuring you overwrite history
+<<< push to the github remote repos ensuring you overwrite history
+	
 	git remote add origin git@github.com:<YOUR ACCOUNT>/<YOUR REPOS>.git
 	git push -u --force origin master
-<<<< >>>>>>>
+	
+<<< >>>>>>>
 
 !!! Don't attempt this code unless absolutely necessary!!!!
-<<<< Remove a branch >>>>
-	git push origin --delete feature/login
-<<<< >>>>>>>
+<<< Delete a branch on your remote repository:
+	
+	git push origin --<branchname>
+	
+<<< Create a new branch and switch to it
+	
+	git checkout -b <branchname>
+	
+<<< Push the branch to your remote repository, so others can use it:
+	
+	git push origin <branchname>
+
+<<< connect a local repository to a branch >>>
+	
+	git remote add origin <server>
+
+
