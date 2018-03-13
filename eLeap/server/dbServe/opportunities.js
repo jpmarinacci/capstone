@@ -85,7 +85,7 @@ var opportunities = {
     },
     
 	joinOpportunity: function(request, response) { 'use strict';	
-   		var sprocName = "sprocName";
+   		var sprocName = "sprocJoinOpp";
 		var params = [
 			request.body.OpportunityID ? request.body.OpportunityID : null,
 			request.body.PersonID ? request.body.PersonID : null
@@ -99,7 +99,7 @@ var opportunities = {
     },
     
     leaveOpportunity: function(request, response) { 'use strict';	
-   		var sprocName = "sprocName";
+   		var sprocName = "sprocLeaveOpp";
 		var params = [
 			request.body.OpportunityID ? request.body.OpportunityID : null,
 			request.body.PersonID ? request.body.PersonID : null
@@ -113,9 +113,19 @@ var opportunities = {
     },
     
 	updateOpportunity: function(request, response) { 'use strict';	
-		var sprocName = "sprocName";
+		var sprocName = "sprocUpdateOpp";
 		var params = [];
 		console.log("updateOpportunity route called");
+		console.log("calling "+ sprocName);
+		function processSproc(results) {
+			dbServer.processSproc(results, response);
+		};
+		dbServer.sproc(sprocName, params, processSproc);
+   },
+   	updateOpportunity: function(request, response) { 'use strict';	
+		var sprocName = "sprocDeleteOpp";
+		var params = [];
+		console.log("deleteOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
 			dbServer.processSproc(results, response);
