@@ -21,6 +21,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			isRecurrent: "",
 			isServiceLearning: "",
 			isVirtual: "",
+			latitude: "",
+			location: "",
+			longitude: "",
 			notes: "",
 			ownerId: "",
 			pay: "",
@@ -140,6 +143,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(dbOpportunity.IsRecurrent)				jsonOpportunity.isRecurrent = dbOpportunity.IsRecurrent;
 			if(dbOpportunity.IsServiceLearning)			jsonOpportunity.isServiceLearning = dbOpportunity.IsServiceLearning;
 			if(dbOpportunity.IsVirtual)					jsonOpportunity.isVirtual = dbOpportunity.IsVirtual;
+			if(dbOpportunity.Latitude)					jsonOpportunity.latitude = dbOpportunity.Latitude;
+			if(dbOpportunity.Location)					jsonOpportunity.location = dbOpportunity.Location;
+			if(dbOpportunity.Longitude)					jsonOpportunity.longitude = dbOpportunity.Longitude;
 			if(dbOpportunity.Notes)						jsonOpportunity.notes = dbOpportunity.Notes;
 			if(dbOpportunity.OwnerID)					jsonOpportunity.ownerId = dbOpportunity.OwnerID;
 			if(dbOpportunity.OpportunityID)				jsonOpportunity.opportunityId = dbOpportunity.OpportunityID;
@@ -167,6 +173,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(jsonOpportunity.isRecurrent)				dbOpportunity.IsRecurrent = jsonOpportunity.isRecurrent ? true: false;
 			if(jsonOpportunity.isServiceLearning)		dbOpportunity.IsServiceLearning = jsonOpportunity.isServiceLearning ? true: false;
 			if(jsonOpportunity.isVirtual)				dbOpportunity.IsVirtual = jsonOpportunity.isVirtual ? true: false;
+			if(jsonOpportunity.latitude)				dbOpportunity.Latitude = jsonOpportunity.latitude;
+			if(jsonOpportunity.location)				dbOpportunity.Location = jsonOpportunity.location;
+			if(jsonOpportunity.longitude)				dbOpportunity.Longitude = jsonOpportunity.longitude;
 			if(jsonOpportunity.notes)					dbOpportunity.Note = jsonOpportunity.notes;
 			if(jsonOpportunity.ownerId)					dbOpportunity.OwnedID = jsonOpportunity.ownerId;
 			if(jsonOpportunity.opportunityId)			dbOpportunity.OpportunityID = OpportunityId;

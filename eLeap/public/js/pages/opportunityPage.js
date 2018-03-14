@@ -17,6 +17,16 @@ function (eLeap, $, _, Backbone, opportunityPageTmpl) {
 			this.options = _.extend({}, options);
 			this.renderFramework();
 			this.opportunityId = options.opportunityId;
+			if(this.opportunityId === "create") {
+				this.$(".oppportunityEditView").show();
+				this.$(".opportunityDetailsView").hide();
+				var thisPage = this;
+				require(['forms/opportunityForm'], function(OpportunityForm) {
+					thisPage.opportunityForm = new OpportunityForm({
+						el: thisPage.$(".opportunityForm")
+					});
+				});
+			}
 		},
 		
 		renderFramework: function(){
