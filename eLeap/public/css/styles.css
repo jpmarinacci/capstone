@@ -23,6 +23,10 @@ ul, ol {
 	display: none;
 }
 
+.pointer {
+	cursor: pointer;
+}
+
 .centerText {
 	text-align: center;
 }

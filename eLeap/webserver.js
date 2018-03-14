@@ -132,6 +132,7 @@ app.get('/home', sendIndexFile);
 app.get('/login', sendIndexFile);
 app.get('/opportunity/:id', sendIndexFile);
 app.get('/sample', sendIndexFile);
+app.get('/signup', sendIndexFile);
 app.get('/team', sendIndexFile);
 app.get('/themesettings', sendIndexFile);
 

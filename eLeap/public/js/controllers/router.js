@@ -27,6 +27,7 @@ function ($, _, Backbone, eLeap, user, Sidebar) { 'use strict';
 			'opportunity/:id':'opportunity',
 			'sample':'sample',
 			'sample/:param': 'sample',
+			'signup':'signup',
 			'team': 'team',
 			'themesettings': 'themeSettings',
 			'*path':  'loginPage'
@@ -183,6 +184,17 @@ function ($, _, Backbone, eLeap, user, Sidebar) { 'use strict';
 					bringInAParam: sampleParam,
 					bringInObj: sampleObjParam,
 					isCool: true
+				});
+			});
+		},
+		
+		signup: function() {
+			this.beginNewPage();
+			this.lastRoute = '/signup';
+			$("#pages").empty().append("<div id='signupPage'></div>");
+			require(['pages/signupPage'], function(SignupPage) {
+				thisRouter.currentPage = eLeap.run.signupPage = new SignupPage({
+					el: "#signupPage"
 				});
 			});
 		},

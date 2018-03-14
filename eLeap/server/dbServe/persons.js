@@ -23,15 +23,17 @@ var persons = {
     },
     
     getPerson: function(request, response) { 'use strict';
-		var sprocName = "sprocName";
+		var sprocName = "sprocFindPer";
 		var params = [
-			request.body.PersonID ? request.body.PersonID : null,
+			//request.body.PersonID ? request.body.PersonID : null,
+			request.body.Email ? request.body.Email : null
 		];
 		console.log("getPerson route called");
 		console.log("calling "+ sprocName);
 		console.log("sproc params:");
 		console.log(params);
 		function processSproc(results) {
+			results = results[0];
 			dbServer.processSproc(results, response);
 		};
 		dbServer.sproc(sprocName, params, processSproc);

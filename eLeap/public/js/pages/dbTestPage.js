@@ -130,7 +130,7 @@ function (eLeap, $, _, Backbone, pageTmpl) {'use strict';
 		runCreatePersonTest: function() {
 			var thisPage = this;
 			require(['forms/signupForm'], function(SignupForm) {
-				thisPage.opportunityForm = new SignupForm({
+				thisPage.signupForm = new SignupForm({
 					el: thisPage.$(".signupForm")
 				});
 			});

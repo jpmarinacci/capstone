@@ -28,18 +28,18 @@ function ( $, _, Backbone, eLeap, user, notifications, Person, signupFormTmpl) {
 		},
 		
 		gatherInput: function() {
-			var personJson = {
+			/*var personJson = {
 				email: this.$(".signupEmail").val(),
 				personName: this.$(".signupName").val(),
 				phone: this.$(".signupPhone").val(),
 				roleId: Number(this.$(".signupRole").val())
-			};
-			/*var personJson = {
-				email: "dude1@website.com",
-				personName: "firstDude",
-				phone: "555-555-5555",
-				roleId: 1
 			};*/
+			var personJson = {
+				email: "kajayr@yahoo.com",
+				personName: "Leo",
+				phone: "425-444-0923",
+				roleId: 2
+			};
 			this.person.set(personJson);
 		},
 		

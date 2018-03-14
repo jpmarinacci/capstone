@@ -14,7 +14,8 @@ function (eLeap, $, _, Backbone, router, user, loginPageTmpl) {
 		pageTmpl: _.template(loginPageTmpl),
 		
 		events: {
-			'click .loginButton': 'login'
+			'click .loginButton': 'commandLogin',
+			'click .signupLink': 'commandSignup'
 		},
 		
 		initialize: function (options) {
@@ -28,12 +29,20 @@ function (eLeap, $, _, Backbone, router, user, loginPageTmpl) {
 			$(".logoHeader").show();
 		},
 		
-		login: function() {
+		commandLogin: function() {
 			this.$(".spinnerContainer").show();
+			var email = this.$(".loginEmail").val();
+			user.person.set({
+				'email': email
+			});
 			setTimeout(function(){
 				router.lastRoute = '/dashboard';
 				user.login();
 			}, 800);
+		},
+		
+		commandSignup: function() {
+			router.navigate('/signup', { trigger:true });
 		}
 	});
 	return eLeap.own.LoginPage;

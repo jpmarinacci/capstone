@@ -49,7 +49,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					}
 				});
 			} else if(method === 'read') {
-				server.postRoute(this.routes.getPerson, this.toJSON(), function (response) {
+				server.postRoute(this.routes.getPerson, this.translatePersonToDB(this.toJSON()), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
@@ -69,7 +69,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					}
 				});
 			} else if(method === 'update'){
-				server.postRoute(this.routes.updatePerson, this.toJSON(), function (response) {
+				server.postRoute(this.routes.updatePerson, this.translatePersonToDB(this.toJSON()), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
@@ -110,7 +110,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		translatePersonToDB: function(jsonPerson) {
 			var dbPerson = {};
 			//do the opposite for translate to db type language
-			if(jsonPerson.personId)					dbPerson.ClassID = jsonPerson.classId;
+			if(jsonPerson.personId)					dbPerson.PersonID = jsonPerson.personId;
 			if(jsonPerson.personName)				dbPerson.PersonName = jsonPerson.personName;
 			if(jsonPerson.roleId)					dbPerson.RoleID = jsonPerson.roleId;
 			if(jsonPerson.email)					dbPerson.Email = jsonPerson.email;

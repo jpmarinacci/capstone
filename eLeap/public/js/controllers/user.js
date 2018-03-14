@@ -18,12 +18,26 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 		},
 		
 		login: function () {
+			this.loginGetPerson();
 			this.isLoggedIn = true;
 			this.trigger('user:loggedIn');
 		},
 		
 		logout: function() {
 			this.isLoggedIn = false;
+		},
+		
+		loginGetPerson: function() {
+			this.listenToOnce(this.person, 'sync', this.gotPerson);
+			var options = {
+				success: function(person) {
+					console.log(person);
+				},
+				error: function(error) {
+					//error out
+				}
+			};
+			this.person.fetch({}, options);
 		},
 		
 		isUserLoggedIn: function() {

@@ -6,8 +6,7 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/blankPage.tmpl'],
-function (eLeap, $, _, Backbone, blankPageTmpl) {
-	'use strict';
+function (eLeap, $, _, Backbone, blankPageTmpl) { 'use strict';
 		
 	eLeap.own.BlankPage = Backbone.View.extend({
 		
