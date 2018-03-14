@@ -5,7 +5,30 @@ var opportunities = {
 	
 	createOpportunity: function(request, response) { 'use strict';
 		var sprocName = "sprocAddOpp";
-		var params = [];
+		var params = [
+			request.body.Title ? request.body.Title : null,
+			request.body.Description ? request.body.Description : null,
+			request.body.StartDate ? request.body.StartDate : null,
+			request.body.EndDate ? request.body.EndDate : null,
+			request.body.CreateDate ? request.body.CreateDate : null,
+			request.body.ClassID ? request.body.ClassID : null,
+			request.body.TotalSeats ? request.body.TotalSeats : null,
+			request.body.OwnerID ? request.body.OwnerID : null,
+			request.body.StatusID ? request.body.StatusID : null,
+			request.body.Notes ? request.body.Notes : null,
+			request.body.Pay ? request.body.Pay : null,
+			request.body.Donation ? request.body.Donation : null,
+			request.body.IsPaid ? request.body.IsPaid : null,
+			request.body.IsServiceLearining ? request.body.IsServiceLearining : null,
+			request.body.IsRecurrent ? request.body.IsRecurrent : null,
+			request.body.IsVirtual ? request.body.IsVirtual : null,
+			request.body.Duration ? request.body.Duration : null,
+			request.body.TimePeriodStart ? request.body.TimePeriodStart : null,
+			request.body.TimePeriodEnd ? request.body.TimePeriodEnd: null,
+			request.body.Location ? request.body.Location: null,
+			request.body.Longitude ? request.body.Longitude: null,
+			request.body.Latitude ? request.body.Latitude : null
+		];
 		console.log("createOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
