@@ -32,8 +32,10 @@ var opportunities = {
 		console.log("createOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
+			//results = results[0];
 			dbServer.processSproc(results, response);
 		};
+		
 		dbServer.sproc(sprocName, params, processSproc);
     },
     
