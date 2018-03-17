@@ -37,7 +37,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		
 		routes: { //CRUD rest call route signatures
 			createOpportunity: "/createOpportunity",
-			readOpportunity: "/readOpportunity",
+			getOpportunity: "/getOpportunity",
 			updateOpportunity: "/updateOpportunity",
 			deleteOpportunity: "deleteOpportunity"
 		},
@@ -65,7 +65,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					}
 				});
 			} else if(method === 'read') {
-				server.postRoute(this.routes.readOpportunity, this.toJSON(), function (response) {
+				server.postRoute(this.routes.getOpportunity, this.toJSON(), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
