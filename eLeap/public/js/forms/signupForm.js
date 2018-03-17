@@ -5,9 +5,9 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'controllers/notifications',
+define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'controllers/cache', 'controllers/notifications',
 		'models/person', 'text!../../tmpl/forms/signupForm.tmpl'],
-function ( $, _, Backbone, eLeap, user, notifications, Person, signupFormTmpl) { 'use strict';
+function ( $, _, Backbone, eLeap, user, cache, notifications, Person, signupFormTmpl) { 'use strict';
 		
 	eLeap.own.SignForm = Backbone.View.extend({
 		
@@ -21,25 +21,41 @@ function ( $, _, Backbone, eLeap, user, notifications, Person, signupFormTmpl) {
 			this.options = _.extend({}, options);
 			this.person = options.person || new Person();
 			this.renderFramework();
+			this.listenForEvents();
+			cache.fetchRoles();
 		},
 		
 		renderFramework: function(){
 			this.$el.html(this.formTmpl());
 		},
 		
+		listenForEvents: function() {
+			if(cache.roles) {
+				this.listenTo(cache.roles, 'reset', this.renderRoles);
+			}
+		},
+		
+		renderRoles: function(roles) {
+			//render roles
+			var thisForm = this;
+			cache.roles.each(function(role) {
+				thisForm.$(".selectRoles").append("<option value='"+role.get("roleIddb")+"'>"+role.get("roleName")+"</option>");
+			});
+		},
+		
 		gatherInput: function() {
-			/*var personJson = {
+			var personJson = {
 				email: this.$(".signupEmail").val(),
 				personName: this.$(".signupName").val(),
 				phone: this.$(".signupPhone").val(),
 				roleId: Number(this.$(".signupRole").val())
-			};*/
-			var personJson = {
+			};
+			/*var personJson = {
 				email: "kajayr@yahoo.com",
 				personName: "Leo",
 				phone: "425-444-0923",
 				roleId: 2
-			};
+			};*/
 			this.person.set(personJson);
 		},
 		
