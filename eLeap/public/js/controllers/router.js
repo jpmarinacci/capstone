@@ -2,8 +2,8 @@
  *	@authors: JP Marinacci
  */
 
-define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'navigation/sidebar'], 
-function ($, _, Backbone, eLeap, user, Sidebar) { 'use strict';
+define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'navigation/sidebar', 'navigation/navbar'], 
+function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 	
 	var thisRouter;
 	
@@ -12,6 +12,9 @@ function ($, _, Backbone, eLeap, user, Sidebar) { 'use strict';
 		lastRoute: '/',
 		
 		initialize: function() {
+			this.navbar = new Navbar({
+				el: "#navbar"
+			});
 			this.listenForEvents();
 		},
 		
@@ -44,6 +47,7 @@ function ($, _, Backbone, eLeap, user, Sidebar) { 'use strict';
 			this.sidebar = new Sidebar({
 				el: "#sidebar"
 			});
+			this.navbar.showLogOutBtn();
 			if (window.location.pathname === "/" + this.lastRoute) {
 				window.location.assign("/" + this.lastRoute);
 			} else {
@@ -57,6 +61,9 @@ function ($, _, Backbone, eLeap, user, Sidebar) { 'use strict';
 		
 		logOut: function () {
 			user.logout();
+			if(this.sidebar) {
+				this.sidebar.remove();
+			}
 			this.navigate('/login', { trigger: true });
 		},
 		

@@ -21257,10 +21257,11 @@ html#ecwid_html body#ecwid_body .ecwid-productBrowser.ecwid-productBrowser-Searc
   display: inline-block;
   margin-left: 120px;
 }
-.btn--logout {
+.btnLogout {
   padding-left: 26px;
   padding-right: 26px;
   margin-left: 10px;
+  color: white;
 }
 .test-btn {
   padding: 17px 26px 15px;
