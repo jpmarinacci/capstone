@@ -20,6 +20,12 @@ function (eLeap, $, _, Backbone, sidebarTmpl) {
 		
 		renderFramework: function(){
 			this.$el.html(this.sidebarTmpl());
+		},
+		
+		remove: function() {
+			this.$el.off().empty();
+			this.stopListening();
+			return this;
 		}
 	});
 	return eLeap.own.Sidebar;
