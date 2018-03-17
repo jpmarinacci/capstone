@@ -39,7 +39,6 @@ function ( $, _, Backbone, eLeap, user, cache, notifications, Person, signupForm
 			//render roles
 			var thisForm = this;
 			cache.roles.each(function(role) {
-				thisForm.$(".selectRoles").append("<option value='Please select your role'>");
 				thisForm.$(".selectRoles").append("<option value='"+role.get("roleIddb")+"'>"+role.get("roleName")+"</option>");
 			});
 		},
