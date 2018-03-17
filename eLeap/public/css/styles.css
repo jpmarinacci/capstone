@@ -87,6 +87,9 @@ ul, ol {
 .mr10 {
 	margin-right: 10px;
 }
+.mr15 {
+	margin-right: 15px;
+}
 .mr20 {
 	margin-right: 20px;
 }
@@ -95,6 +98,9 @@ ul, ol {
 }
 .mt10 {
 	margin-top: 10px;
+}
+.mt15 {
+	margin-top: 15px;
 }
 .mt20 {
 	margin-top: 20px;
@@ -154,7 +160,8 @@ ul, ol {
 	/* corresponds with .bannerWrapper*/
 	margin-top: 80px;
 }
-.bannerWrapper{
+
+.bannerWrapper {
     position: fixed;
     top: 0;
     z-index: 2002;
@@ -162,6 +169,7 @@ ul, ol {
     height: 80px;
     background-color: #34495e;
 }
+
 .bannerWrapper img {
 	max-height: 80px;
 }

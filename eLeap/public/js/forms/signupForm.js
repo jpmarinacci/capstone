@@ -39,7 +39,9 @@ function ( $, _, Backbone, eLeap, user, cache, notifications, Person, signupForm
 			//render roles
 			var thisForm = this;
 			cache.roles.each(function(role) {
-				thisForm.$(".selectRoles").append("<option value='"+role.get("roleIddb")+"'>"+role.get("roleName")+"</option>");
+				if(role.get("roleId") !== 7) {
+					thisForm.$(".selectRoles").append("<option value='"+role.get("roleIddb")+"'>"+role.get("roleName")+"</option>");
+				}
 			});
 		},
 		
