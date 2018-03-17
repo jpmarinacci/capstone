@@ -1148,11 +1148,12 @@ ol {
 .top-scroll-special {
   background-color: #a2dbeb;
 }
-.full-row {
+/*.full-row {
   overflow: hidden;
   margin: -15px;
   padding-left: 50px;
 }
+*/
 .column-sm {
   width: 33.3%;
   padding: 0 15px;

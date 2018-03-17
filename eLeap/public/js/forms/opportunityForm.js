@@ -32,23 +32,23 @@ function (eLeap, $, _, Backbone, user, notifications, Opportunity, opportunityFo
 		gatherInput: function() {
 			var opportuntityJson = {
 				//classId: "",
-				description: this.$(".opportunityFormDescription").val(),
 				/*donation: "",
-				duration: "",
-				endDate: "",
-				isPaid: "",
-				isRecurrent: "",
-				isServiceLearning: "",
 				isVirtual: "",
 				notes: "",*/
-				ownerId: user.person.get('personId'),
 				/*pay: "",
-				startDate: "",
 				statusId: "",
 				timePeriodEnd: "",
 				timePeriodStart: "",*/
+                description: this.$(".opportunityFormDescription").val(),
+                duration: this.$(".duration").val(),
+                isPaid: this.$(".isPaid").val(),
+                isRecurrent: this.$(".isRecurrent").val(),
+                isServiceLearning: this.$(".isServiceLearning").val(),
+                startDate: this.$(".startDate").val(),
+                endDate: this.$(".endDate").val(),
+                ownerId: user.person.get('personId'),
 				title: this.$(".opportunityFormTitle").val(),
-				//totalSeats: ""
+				totalSeats: this.$(".totalSeats").val()
 			};
 			this.opportunity.set(opportuntityJson);
 		},
