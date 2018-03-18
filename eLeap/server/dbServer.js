@@ -5,6 +5,9 @@ var fs = require('fs');
 instantiateDbServer = function() {
 	var dbSettings = JSON.parse(fs.readFileSync(__dirname + '/dbSettings.json'));
 	var dbServer = {
+		isValidParam: function(param, type) {
+			//validate all the params
+		},
 		sproc: function(sprocName, sprocParams, callback) {
 	        var sql = "call " + sprocName + this.makeQs(sprocParams.length);
 	        function processQuery (error, results, fields) {

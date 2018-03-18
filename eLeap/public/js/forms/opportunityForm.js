@@ -5,9 +5,9 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/user', 'controllers/notifications', 
+define(['eLeap', 'jquery', 'underscore', 'backbone', "jquery-ui", 'controllers/user', 'controllers/notifications', 
 		'models/opportunity', 'text!../../tmpl/forms/opportunityForm.tmpl'],
-function (eLeap, $, _, Backbone, user, notifications, Opportunity, opportunityFormTmpl) { 'use strict';
+function (eLeap, $, _, Backbone, jqueryUI, user, notifications, Opportunity, opportunityFormTmpl) { 'use strict';
 		
 	eLeap.own.OpportunityForm = Backbone.View.extend({
 		
@@ -25,11 +25,14 @@ function (eLeap, $, _, Backbone, user, notifications, Opportunity, opportunityFo
 		
 		renderFramework: function(){
 			this.$el.html(this.formTmpl({
-				//opportunity: this.opportunity
+				opportunity: this.opportunity
 			}));
+			this.$(".startDateTimeInput").datepicker();
 		},
 		
 		gatherInput: function() {
+			var oppDate = null;
+			var oppTime = null;
 			var opportuntityJson = {
 				//classId: "",
 				/*donation: "",
@@ -44,8 +47,8 @@ function (eLeap, $, _, Backbone, user, notifications, Opportunity, opportunityFo
                 isPaid: this.$(".isPaid").val(),
                 isRecurrent: this.$(".isRecurrent").val(),
                 isServiceLearning: this.$(".isServiceLearning").val(),
-                startDate: this.$(".startDate").val(),
-                endDate: this.$(".endDate").val(),
+                startDate: this.$(".startDateTimeInput").val(),
+                endDate: this.$(".endDateTimeInput").val(),
                 ownerId: user.person.get('personId'),
 				title: this.$(".opportunityFormTitle").val(),
 				totalSeats: this.$(".totalSeats").val()

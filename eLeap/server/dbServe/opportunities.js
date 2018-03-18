@@ -6,7 +6,7 @@ var opportunities = {
 	createOpportunity: function(request, response) { 'use strict';
 		var sprocName = "sprocAddOpp";
 		var params = [
-			request.body.Title ? request.body.Title : null,
+			dbServer.isValidParam((request.body.Title ? request.body.Title : null), "string"),
 			request.body.Description ? request.body.Description : null,
 			request.body.StartDate ? request.body.StartDate : null,
 			request.body.EndDate ? request.body.EndDate : null,
@@ -85,7 +85,7 @@ var opportunities = {
     },
     
 	getOpportunity: function(request, response) { 'use strict';	
-   		var sprocName = "sprocName";
+   		var sprocName = "sprocGetOppID";
 		var params = [
 			request.body.OpportunityID ? request.body.OpportunityID : null,
 			request.body.PersonID ? request.body.PersonID : null

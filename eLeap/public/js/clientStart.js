@@ -12,6 +12,7 @@ require.config({
 		"dropzone": "../bower_components/dropzone/dist/dropzone",
 		"jquery": "../bower_components/jquery/dist/jquery.min",
 		"jquery.autogrow-textarea": "node_modules/jquery.autogrow-textarea/jquery.autogrow-textarea",
+		"jquery-ui": "../bower_components/jquery-ui/jquery-ui.min",
 		"spectrum": "../bower_components/spectrum/spectrum",
 		"text": "../bower_components/text/text",
 		"templates": "../../tmpl",
@@ -30,6 +31,9 @@ require.config({
 		},
 		"dropzone": {
 			exports: 'Dropzone'
+		},
+		"jquery-ui": {
+			deps: ["jquery"]
 		},
 		"jquery.autogrow-textarea": {
 			deps: ["jquery"]

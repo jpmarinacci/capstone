@@ -184,6 +184,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(jsonOpportunity.statusId)				dbOpportunity.StatusID = jsonOpportunity.statusId;
 			if(jsonOpportunity.timePeriodEndDate)		dbOpportunity.TimePeriodEndDate = jsonOpportunity.timePeriodEndDate;
 			if(jsonOpportunity.timePeriodStartDate)		dbOpportunity.TimePeriodStartDate = jsonOpportunity.timePeriodStartDate;
+			if(jsonOpportunity.startDateTime)			dbOpportunity.StartDateTime = jsonOpportunity.startDateTime;
+			if(jsonOpportunity.timePeriodEnd)			dbOpportunity.TimePeriodEnd = jsonOpportunity.timePeriodEnd;
+			if(jsonOpportunity.timePeriodStart)			dbOpportunity.TimePeriodStart = jsonOpportunity.timePeriodStart;
 			if(jsonOpportunity.title)					dbOpportunity.Title = jsonOpportunity.title;
 			if(jsonOpportunity.totalSeats)				dbOpportunity.TotalSeats = jsonOpportunity.totalSeats;
 				
