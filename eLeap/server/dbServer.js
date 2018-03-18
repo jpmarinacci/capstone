@@ -6,7 +6,10 @@ instantiateDbServer = function() {
 	var dbSettings = JSON.parse(fs.readFileSync(__dirname + '/dbSettings.json'));
 	var dbServer = {
 		isValidParam: function(param, type) {
-			//validate all the params
+			if(typeof param === type){
+				
+			}
+			else return false;
 		},
 		sproc: function(sprocName, sprocParams, callback) {
 	        var sql = "call " + sprocName + this.makeQs(sprocParams.length);

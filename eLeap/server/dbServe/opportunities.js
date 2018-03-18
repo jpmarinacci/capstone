@@ -10,7 +10,7 @@ var opportunities = {
 			request.body.Description ? request.body.Description : null,
 			request.body.StartDate ? request.body.StartDate : null,
 			request.body.EndDate ? request.body.EndDate : null,
-			request.body.CreateDate ? request.body.CreateDate : null,
+			request.body.CreateDate ? new Date() : null,
 			request.body.ClassID ? request.body.ClassID : null,
 			request.body.TotalSeats ? request.body.TotalSeats : null,
 			request.body.OwnerID ? request.body.OwnerID : null,
