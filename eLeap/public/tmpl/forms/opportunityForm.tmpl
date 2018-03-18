@@ -1,31 +1,3 @@
-<!--
-Create a new opportunity
-
-<div>Title: <input class="opportunityFormTitle"/></div>
-<div>Description: <input class="opportunityFormDescription"/></div>
-
-            classId<br>
-            createDate<br>
-            donation<br>
-            duration<br>
-            endDate<br>
-            isPaid<br>
-            isRecurrent<br>
-            isServiceLearning<br>
-            isVirtual<br>
-            latitude<br>
-            location<br>
-            longitude<br>
-            notes<br>
-            pay<br>
-            startDate<br>
-            statusId<br>
-            timePeriodEnd<br>
-            timePeriodStart<br>
-            totalSeats<br>
-
-<button class="saveOpportunity smallButton mb20">save opportunity</button>
--->
 <div class="full-row">
     <h3 class="heading-helper heading-helper--sm">Create an Opportunity</h3>
     <div class="leftText">
@@ -39,51 +11,57 @@ Create a new opportunity
                         <tr>
                             <td>Title</td>
                             <td>
-                                <input name="opportunityFormTitle" size="80">
+                                <input class="opportunityFormTitle" size="80">
                             </td>
                         </tr>
                         <tr>
                             <td>Description</td>
                             <td>
-                                <textarea name="opportunityFormDescription" rows="6" cols="80"></textarea>
+                                <textarea class="opportunityFormDescription" rows="6" cols="80"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <td>Start Date</td>
                             <td>
-                                <input name="startDateTimeInput" type="text" size="18">
+                                <input class="startDateTimeInput" type="text" size="18">
                             </td>
                         </tr>
                         <tr>
-                            <td>End Date</td>
+                            <td>Start Time</td>
                             <td>
-                                <input name="endDateTimeInput" type="text" size="18">
+                                <input class="startTimeInput" type="text" size="18">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Duration</td>
+                            <td>
+                                <input class="durationInput" type="text" size="18">
                             </td>
                         </tr>
                         <tr>
                             <td>Number of hours</td>
                             <td>
-                                <input name="duration" size="4">
+                                <input class="duration" size="4">
                             </td>
                         </tr>
                         <tr>
                             <td>Open slots</td>
                             <td>
-                                <input name="totalSeats" size="4">
+                                <input class="totalSeats" size="4">
                             </td>
                         </tr>
                         <tr>
                             <td>Is it Service Learning?</td>
                             <td>
-                                <input type="radio" name="isServiceLearning" value="no" checked> No
-                                <input type="radio" name="isServiceLearning" value="yes"> Yes
+                                <input type="radio" class="isServiceLearning" value="no" checked> No
+                                <input type="radio" class="isServiceLearning" value="yes"> Yes
                             </td>
                         </tr>
                         <tr>
                             <td>Is it paid?</td>
                             <td>
-                                <input type="radio" name="isPaid" value="no" checked> No
-                                <input type="radio" name="isPaid" value="yes"> Yes
+                                <input type="radio" class="isPaid" value="no" checked> No
+                                <input type="radio" class="isPaid" value="yes"> Yes
                                 <input placeholder="Amount" name="pay" size="8">
                             </td>
                         </tr>

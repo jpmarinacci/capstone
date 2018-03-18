@@ -46,8 +46,11 @@ function ( $, _, Backbone, eLeap, user, cache, notifications, Person, signupForm
 		},
 		
 		gatherInput: function() {
+			var email = this.$(".signupEmail").val();
+			//validate inputs
+			//if(validate.isValid(email));
 			var personJson = {
-				email: this.$(".signupEmail").val(),
+				email: email,
 				personName: this.$(".signupName").val(),
 				phone: this.$(".signupPhone").val(),
 				roleId: Number(this.$(".signupRole").val())
