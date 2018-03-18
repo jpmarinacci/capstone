@@ -25,7 +25,7 @@ function (eLeap, $, _, Backbone, user, notifications, Opportunity, opportunityFo
 		
 		renderFramework: function(){
 			this.$el.html(this.formTmpl({
-				//opportunity: this.opportunity
+				opportunity: this.opportunity
 			}));
 			this.$(".startDateTimeInput").datepicker();
 		},

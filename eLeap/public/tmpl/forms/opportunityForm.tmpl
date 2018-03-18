@@ -90,9 +90,13 @@ Create a new opportunity
                         <tr>
                             <td>Is it recurrent?</td>
                             <td>
-                                <input type="radio" name="isRecurrent" value="yes" checked> No
-                                <input type="radio" name="isRecurrent" value="no"> Yes, every
-                                <input placeholder="?" size="4"> days
+                                <input type="radio" name="isRecurrent" value="0" checked> No
+                                <input type="radio" name="isRecurrent"> Yes,
+                                <select name="isRecurrent">
+                                    <option value="1">Every day</option>
+                                    <option value="2">Every week</option>
+                                    <option value="3">Every month</option>
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -102,11 +106,9 @@ Create a new opportunity
                         </tr>
                         </tbody>
                         </colgroup>
-                        <colgroup>
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
