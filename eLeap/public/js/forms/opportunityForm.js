@@ -27,9 +27,12 @@ function (eLeap, $, _, Backbone, user, notifications, Opportunity, opportunityFo
 			this.$el.html(this.formTmpl({
 				//opportunity: this.opportunity
 			}));
+			this.$(".startDateTimeInput").datepicker();
 		},
 		
 		gatherInput: function() {
+			var oppDate = null;
+			var oppTime = null;
 			var opportuntityJson = {
 				//classId: "",
 				/*donation: "",
@@ -44,8 +47,8 @@ function (eLeap, $, _, Backbone, user, notifications, Opportunity, opportunityFo
                 isPaid: this.$(".isPaid").val(),
                 isRecurrent: this.$(".isRecurrent").val(),
                 isServiceLearning: this.$(".isServiceLearning").val(),
-                startDate: this.$(".startDateInput").val(),
-                endDate: this.$(".endDateInput").val(),
+                startDate: this.$(".startDateTimeInput").val(),
+                endDate: this.$(".endDateTimeInput").val(),
                 ownerId: user.person.get('personId'),
 				title: this.$(".opportunityFormTitle").val(),
 				totalSeats: this.$(".totalSeats").val()
