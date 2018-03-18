@@ -4,10 +4,10 @@ var login = {
 		console.log("isUserLoggedIn route called");
 		//login tbd
 		var session = request.session;
-		if(session.email){
-		response.send(true);
-		}
-		else{response.send(false);
+		if(session.email) {
+			response.send(session.email);
+		} else {
+			response.send(false);
 		}
 	},
 	
