@@ -28,6 +28,7 @@ function (eLeap, $, _, Backbone, jqueryUI, user, notifications, Opportunity, opp
 				opportunity: this.opportunity
 			}));
 			this.$(".startDateTimeInput").datepicker();
+			//this.$(".startTimeInput").timepicker();
 		},
 		
 		gatherInput: function() {

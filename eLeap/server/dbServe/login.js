@@ -6,6 +6,7 @@ var login = {
 	login: function(request, response) { 'use strict';
 		console.log("login route called");
 		//login tbd
+		var sessions = request.session;
 	},
 	
 	logout: function(request, response) { 'use strict';

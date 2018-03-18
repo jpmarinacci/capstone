@@ -12,6 +12,7 @@ require.config({
 		"dropzone": "../bower_components/dropzone/dist/dropzone",
 		"jquery": "../bower_components/jquery/dist/jquery.min",
 		"jquery.autogrow-textarea": "node_modules/jquery.autogrow-textarea/jquery.autogrow-textarea",
+		"jquery-datetime-picker": "../bower_components/jquery-datetime-picker-bygiro/dist/jquery.datetimepicker.ByGiro.min",
 		"jquery-ui": "../bower_components/jquery-ui/jquery-ui.min",
 		"spectrum": "../bower_components/spectrum/spectrum",
 		"text": "../bower_components/text/text",
@@ -33,6 +34,9 @@ require.config({
 			exports: 'Dropzone'
 		},
 		"jquery-ui": {
+			deps: ["jquery"]
+		},
+		"jquery-datetime-picker" : {
 			deps: ["jquery"]
 		},
 		"jquery.autogrow-textarea": {

@@ -44,14 +44,14 @@ app.use(bodyParser.json());
 
 var cookieSecret = "";
 app.use(cookieParser());
-//app.use(cookieParser(cookieSecret));
-/*app.use(session({
-	secret: "",
+app.use(cookieParser(cookieSecret));
+app.use(session({
+	secret: "dreamBig",
 	key:"",
 	resave: false,
     saveUninitialized: true,
     cookie: {secure: true}
-}));*/
+}));
 
 app.use(function(req, res, next) {
 	req.session = req.session || {};
