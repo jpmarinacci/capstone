@@ -85,7 +85,7 @@ var opportunities = {
     },
     
 	getOpportunity: function(request, response) { 'use strict';	
-   		var sprocName = "sprocName";
+   		var sprocName = "sprocGetOppID";
 		var params = [
 			request.body.OpportunityID ? request.body.OpportunityID : null,
 			request.body.PersonID ? request.body.PersonID : null
