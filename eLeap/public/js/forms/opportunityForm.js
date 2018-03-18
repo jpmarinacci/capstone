@@ -5,9 +5,9 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', "jquery-ui", 'controllers/user', 'controllers/notifications', 
+define(['eLeap', 'jquery', 'underscore', 'backbone', "jquery-datetime-picker", 'controllers/user', 'controllers/notifications', 
 		'models/opportunity', 'text!../../tmpl/forms/opportunityForm.tmpl'],
-function (eLeap, $, _, Backbone, jqueryUI, user, notifications, Opportunity, opportunityFormTmpl) { 'use strict';
+function (eLeap, $, _, Backbone, jqueryDTP, user, notifications, Opportunity, opportunityFormTmpl) { 'use strict';
 		
 	eLeap.own.OpportunityForm = Backbone.View.extend({
 		
@@ -27,7 +27,8 @@ function (eLeap, $, _, Backbone, jqueryUI, user, notifications, Opportunity, opp
 			this.$el.html(this.formTmpl({
 				opportunity: this.opportunity
 			}));
-			this.$(".startDateTimeInput").datepicker();
+			$.datetimepicker.setLocale('en');
+			//this.$(".startDateTimeInput").datetimepicker();
 			//this.$(".startTimeInput").timepicker();
 		},
 		
