@@ -6,12 +6,15 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/navigation/sidebar.tmpl'],
-function (eLeap, $, _, Backbone, sidebarTmpl) {
-	'use strict';
+function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		
 	eLeap.own.Sidebar = Backbone.View.extend({
 		
 		sidebarTmpl: _.template(sidebarTmpl),
+		
+		events: {
+			'click .dashboardLink': 'commandClickDashboard'
+		},
 		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
@@ -26,7 +29,14 @@ function (eLeap, $, _, Backbone, sidebarTmpl) {
 			this.$el.off().empty();
 			this.stopListening();
 			return this;
+		},
+		
+		commandClickDashboard: function() {
+			require(['controllers/router',], function(router) {
+				router.navigate('/dashboard', {trigger: true});
+			});
 		}
 	});
 	return eLeap.own.Sidebar;
 });
+
