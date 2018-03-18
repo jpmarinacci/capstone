@@ -18,6 +18,19 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 		},
 		
 		login: function () {
+			var loginSuccess = function(response) {
+				console.log(response);
+				/*thisUser.isLoggedIn = true;
+				
+				thisUser.listenToOnce(thisUser.person, 'sync', thisUser.gotPerson);
+				thisUser.person.fetch();*/
+				
+			};
+			var loginError = function(error) {
+				
+			};
+			var options = {};
+			server.postRoute('/login', {}, loginSuccess, loginError, options);
 			this.loginGetPerson();
 			this.isLoggedIn = true;
 			this.trigger('user:loggedIn');

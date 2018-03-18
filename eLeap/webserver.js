@@ -8,7 +8,6 @@ var printEnvironment = function() {
 printEnvironment();
 
 var express = require('express');
-var session = require('express-session');
 var http = require('http');
 var https = require('https');
 var path = require('path');
@@ -17,6 +16,7 @@ var fs = require('fs');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var mysql = require('mysql');
 
 var dbServer = require('./server/dbServer');
