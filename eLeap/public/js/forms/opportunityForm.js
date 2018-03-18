@@ -44,8 +44,8 @@ function (eLeap, $, _, Backbone, user, notifications, Opportunity, opportunityFo
                 isPaid: this.$(".isPaid").val(),
                 isRecurrent: this.$(".isRecurrent").val(),
                 isServiceLearning: this.$(".isServiceLearning").val(),
-                startDate: this.$(".startDate").val(),
-                endDate: this.$(".endDate").val(),
+                startDate: this.$(".startDateInput").val(),
+                endDate: this.$(".endDateInput").val(),
                 ownerId: user.person.get('personId'),
 				title: this.$(".opportunityFormTitle").val(),
 				totalSeats: this.$(".totalSeats").val()

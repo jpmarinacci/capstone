@@ -27,7 +27,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			notes: "",
 			ownerId: "",
 			pay: "",
-			startDate: "",
+			startDateTime: "",
 			statusId: "",
 			timePeriodEnd: "",
 			timePeriodStart: "",
@@ -150,7 +150,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(dbOpportunity.OwnerID)					jsonOpportunity.ownerId = dbOpportunity.OwnerID;
 			if(dbOpportunity.OpportunityID)				jsonOpportunity.opportunityId = dbOpportunity.OpportunityID;
 			if(dbOpportunity.Pay)						jsonOpportunity.pay = dbOpportunity.Pay;
-			if(dbOpportunity.StartDate)					jsonOpportunity.startDate = dbOpportunity.StartDate;
+			if(dbOpportunity.StartDateTime)				jsonOpportunity.startDateTime = dbOpportunity.StartDateTime;
 			if(dbOpportunity.StatusID)					jsonOpportunity.statusId = dbOpportunity.StatusID;
 			if(dbOpportunity.TimePeriodEnd)				jsonOpportunity.timePeriodEnd = dbOpportunity.TimePeriodEnd;
 			if(dbOpportunity.TimePeriodStart)			jsonOpportunity.timePeriodStart = dbOpportunity.TimePeriodStart;
@@ -181,6 +181,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(jsonOpportunity.opportunityId)			dbOpportunity.OpportunityID = OpportunityId;
 			if(jsonOpportunity.pay)						dbOpportunity.Pay = jsonOpportunity.pay;
 			if(jsonOpportunity.statusId)				dbOpportunity.StatusID = jsonOpportunity.statusId;
+			if(jsonOpportunity.startDateTime)			dbOpportunity.StartDateTime = jsonOpportunity.startDateTime;
 			if(jsonOpportunity.timePeriodEnd)			dbOpportunity.TimePeriodEnd = jsonOpportunity.timePeriodEnd;
 			if(jsonOpportunity.timePeriodStart)			dbOpportunity.TimePeriodStart = jsonOpportunity.timePeriodStart;
 			if(jsonOpportunity.title)					dbOpportunity.Title = jsonOpportunity.title;
