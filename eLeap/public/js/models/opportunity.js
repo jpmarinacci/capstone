@@ -16,9 +16,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			description: "",
 			donation: "",
 			duration: "",
-			endDate: "",
+			endDateTime: "",
 			isPaid: "",
-			isRecurrent: "",
+			recurrent: "",
 			isServiceLearning: "",
 			isVirtual: "",
 			latitude: "",
@@ -29,8 +29,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			pay: "",
 			startDateTime: "",
 			statusId: "",
-			timePeriodEnd: "",
-			timePeriodStart: "",
+			timePeriodEndDate: "",
+			timePeriodStartDate: "",
 			title: "",
 			totalSeats: ""
 		},
@@ -140,7 +140,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(dbOpportunity.Duration)					jsonOpportunity.duration = dbOpportunity.Duration;
 			if(dbOpportunity.EndDate)					jsonOpportunity.endDate = dbOpportunity.EndDate;
 			if(dbOpportunity.IsPaid)					jsonOpportunity.isPaid = dbOpportunity.IsPaid;
-			if(dbOpportunity.IsRecurrent)				jsonOpportunity.isRecurrent = dbOpportunity.IsRecurrent;
+			if(dbOpportunity.Recurrent)					jsonOpportunity.recurrent = dbOpportunity.Recurrent;
 			if(dbOpportunity.IsServiceLearning)			jsonOpportunity.isServiceLearning = dbOpportunity.IsServiceLearning;
 			if(dbOpportunity.IsVirtual)					jsonOpportunity.isVirtual = dbOpportunity.IsVirtual;
 			if(dbOpportunity.Latitude)					jsonOpportunity.latitude = dbOpportunity.Latitude;
@@ -152,8 +152,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(dbOpportunity.Pay)						jsonOpportunity.pay = dbOpportunity.Pay;
 			if(dbOpportunity.StartDateTime)				jsonOpportunity.startDateTime = dbOpportunity.StartDateTime;
 			if(dbOpportunity.StatusID)					jsonOpportunity.statusId = dbOpportunity.StatusID;
-			if(dbOpportunity.TimePeriodEnd)				jsonOpportunity.timePeriodEnd = dbOpportunity.TimePeriodEnd;
-			if(dbOpportunity.TimePeriodStart)			jsonOpportunity.timePeriodStart = dbOpportunity.TimePeriodStart;
+			if(dbOpportunity.TimePeriodEndDate)			jsonOpportunity.timePeriodEndDate = dbOpportunity.TimePeriodEnDate;
+			if(dbOpportunity.TimePeriodStartDate)		jsonOpportunity.timePeriodStartDate = dbOpportunity.TimePeriodStartDate;
 			if(dbOpportunity.Title)						jsonOpportunity.title = dbOpportunity.Title;
 			if(dbOpportunity.TotalSeats)				jsonOpportunity.totalSeats = dbOpportunity.TotalSeats;
 			
@@ -168,9 +168,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(jsonOpportunity.description)				dbOpportunity.Description = jsonOpportunity.description;
 			if(jsonOpportunity.donation)				dbOpportunity.Donation = jsonOpportunity.donation;
 			if(jsonOpportunity.duration)				dbOpportunity.Duration = jsonOpportunity.Duration;
-			if(jsonOpportunity.endDate)					dbOpportunity.EndDate = jsonOpportunity.endDate;
+			if(jsonOpportunity.endDateTime)				dbOpportunity.EndDateTime = jsonOpportunity.endDateTime;
 			if(jsonOpportunity.isPaid)					dbOpportunity.IsPaid = jsonOpportunity.isPaid ? true: false;
-			if(jsonOpportunity.isRecurrent)				dbOpportunity.IsRecurrent = jsonOpportunity.isRecurrent ? true: false;
+			if(jsonOpportunity.recurrent)				dbOpportunity.Recurrent = jsonOpportunity.recurrent ? true: false;
 			if(jsonOpportunity.isServiceLearning)		dbOpportunity.IsServiceLearning = jsonOpportunity.isServiceLearning ? true: false;
 			if(jsonOpportunity.isVirtual)				dbOpportunity.IsVirtual = jsonOpportunity.isVirtual ? true: false;
 			if(jsonOpportunity.latitude)				dbOpportunity.Latitude = jsonOpportunity.latitude;
@@ -180,7 +180,10 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(jsonOpportunity.ownerId)					dbOpportunity.OwnedID = jsonOpportunity.ownerId;
 			if(jsonOpportunity.opportunityId)			dbOpportunity.OpportunityID = OpportunityId;
 			if(jsonOpportunity.pay)						dbOpportunity.Pay = jsonOpportunity.pay;
+			if(jsonOpportunity.startDateTime)			jsonOpportunity.StartDateTime = jsonOpportunity.StartDateTime;
 			if(jsonOpportunity.statusId)				dbOpportunity.StatusID = jsonOpportunity.statusId;
+			if(jsonOpportunity.timePeriodEndDate)		dbOpportunity.TimePeriodEndDate = jsonOpportunity.timePeriodEndDate;
+			if(jsonOpportunity.timePeriodStartDate)		dbOpportunity.TimePeriodStartDate = jsonOpportunity.timePeriodStartDate;
 			if(jsonOpportunity.startDateTime)			dbOpportunity.StartDateTime = jsonOpportunity.startDateTime;
 			if(jsonOpportunity.timePeriodEnd)			dbOpportunity.TimePeriodEnd = jsonOpportunity.timePeriodEnd;
 			if(jsonOpportunity.timePeriodStart)			dbOpportunity.TimePeriodStart = jsonOpportunity.timePeriodStart;
