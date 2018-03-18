@@ -24,8 +24,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'collections/roles'],
 				options.chainedSuccess = options.success;
 				options.chainedError = options.error;
 				options.success = function(response) {
-					thisCache.isFetchPending = false;
-					thisCache.isFetched = true;
+					thisCache.roles.isFetchPending = false;
+					thisCache.roles.isFetched = true;
 					if(options.chainedSuccess) {
 						if(options.context) {
 							options.chainedSuccess.call(options.context, response);

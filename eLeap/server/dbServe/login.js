@@ -7,7 +7,7 @@ var login = {
 		if(session.email) {
 			response.send(session.email);
 		} else {
-			response.send(false);
+			response.send("session is :" + session);
 		}
 	},
 	
@@ -16,18 +16,19 @@ var login = {
 		//login tbd
 		var sessions = request.session;
 		sessions.email = "user1@none.com";
-		response.send("logged in");
+		response.send("logged in as:" + sessions.email);
 	},
 	
 	logout: function(request, response) { 'use strict';
 		console.log("logoff route called");
 		req.session.destroy(function(err) {
 	  		if(err) {
-	    	console.log(err);
+	  			console.log(err);
 	  		} else {
-	    	res.redirect('/');
-  		}
-	});
+	  			//res.redirect('/');
+	  			console.log("session destroyed");
+	  		}
+		});
 	}
 };
 
