@@ -6,8 +6,7 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/navigation/navbar.tmpl'],
-function (eLeap, $, _, Backbone, navbarTmpl) {
-	'use strict';
+function (eLeap, $, _, Backbone, navbarTmpl) { 'use strict';
 		
 	eLeap.own.Navbar = Backbone.View.extend({
 		
@@ -39,3 +38,4 @@ function (eLeap, $, _, Backbone, navbarTmpl) {
 	});
 	return eLeap.own.Navbar;
 });
+

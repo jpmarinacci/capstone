@@ -27,3 +27,4 @@ function (eLeap, $, _, Backbone, SignupForm, signupTmpl) { 'use strict';
 	});
 	return eLeap.own.SignupPage;
 });
+

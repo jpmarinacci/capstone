@@ -49,4 +49,3 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'collections/roles'],
 	return getCache();
 });
 
-
