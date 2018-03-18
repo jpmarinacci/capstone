@@ -1,12 +1,14 @@
 /* educationary leap web-server script */
 
-var printEnvironment = function() {
+/*var printEnvironment = function() {
 	console.log("Starting Educationary Leap server...");
 	console.log("--- Development Environement ---\n--- Happy Coding --------------- :)");
 	//replace with cool ASCII pics
 };
-printEnvironment();
+printEnvironment();*/
 
+var printServer = require('./server/printServer');
+printServer.printDev();
 var express = require('express');
 var http = require('http');
 var https = require('https');
