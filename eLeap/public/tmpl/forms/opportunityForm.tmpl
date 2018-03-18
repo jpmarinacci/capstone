@@ -35,78 +35,81 @@ Create a new opportunity
                     <table class="table table--target table--mod table--forum table--secondary">
                         <colgroup class="col-small">
                         <colgroup class="col-wide-lg">
-                        <tbody>
-                        <tr>
-                            <td>Title</td>
-                            <td>
-                                <input name="opportunityFormTitle" size="80">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Description</td>
-                            <td>
-                                <textarea name="opportunityFormDescription" rows="6" cols="80"></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Start Date</td>
-                            <td>
-                                <input name="startDate" type=text size="18">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>End Date</td>
-                            <td>
-                                <input name="endDate" type=text size="18">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Number of hours</td>
-                            <td>
-                                <input name="duration" size="4">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Open slots</td>
-                            <td>
-                                <input name="totalSeats" size="4">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Is it Service Learning?</td>
-                            <td>
-                                <input type="radio" name="isServiceLearning" value="no" checked> No
-                                <input type="radio" name="isServiceLearning" value="yes"> Yes
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Is it paid?</td>
-                            <td>
-                                <input type="radio" name="isPaid" value="no" checked> No
-                                <input type="radio" name="isPaid" value="yes"> Yes
-                                <input placeholder="Amount" name="pay" size=8>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Is it recurrent?</td>
-                            <td>
-                                <input type="radio" name="isRecurrent" value="yes" checked> No
-                                <input type="radio" name="isRecurrent" value="no"> Yes, every
-                                <input placeholder="?" size=4> days
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="centerText">
-                                <button class="btn btn-warning btn--decorated">Submit</button>
-                            </td>
-                        </tr>
-                        </tbody>
+                            <tbody>
+                                <tr>
+                                    <td>Title</td>
+                                    <td>
+                                        <input name="opportunityFormTitle" size="80">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Description</td>
+                                    <td>
+                                        <textarea name="opportunityFormDescription" rows="6" cols="80"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Start Date</td>
+                                    <td>
+                                        <input name="startDate" type=text size="18">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>End Date</td>
+                                    <td>
+                                        <input name="endDate" type=text size="18">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Number of hours</td>
+                                    <td>
+                                        <input name="duration" size="4">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Open slots</td>
+                                    <td>
+                                        <input name="totalSeats" size="4">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Is it Service Learning?</td>
+                                    <td>
+                                        <input type="radio" name="isServiceLearning" value="no" checked> No
+                                        <input type="radio" name="isServiceLearning" value="yes"> Yes
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Is it paid?</td>
+                                    <td>
+                                        <input type="radio" name="isPaid" value="no" checked> No
+                                        <input type="radio" name="isPaid" value="yes"> Yes
+                                        <input placeholder="Amount" name="pay" size=8>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Is it recurrent?</td>
+                                    <td>
+                                        <input type="radio" name="isRecurrent" value="0" checked> No
+                                        <input type="radio" name="isRecurrent"> Yes,
+                                        <select name="isRecurrent">
+                                            <option value="1">Every day</option>
+                                            <option value="2">Every week</option>
+                                            <option value="3">Every month</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="centerText">
+                                        <button class="saveOpportunity btn btn-warning btn--decorated">Submit</button>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </colgroup>
-                        <colgroup>
+                        </colgroup>
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
