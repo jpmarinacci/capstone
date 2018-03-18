@@ -8,6 +8,7 @@ var printEnvironment = function() {
 printEnvironment();
 
 var express = require('express');
+var session = require('express-session');
 var http = require('http');
 var https = require('https');
 var path = require('path');
@@ -92,6 +93,7 @@ app.post('/updateOpportunity', opportunities.updateOpportunity);
 *****************************************************************/
 app.post('/login', login.login);
 app.post('/logout', login.logout);
+app.post('/isUserLoggedIn', login.isUserLoggedIn);
 
 /*****************************************************************
  * Persons

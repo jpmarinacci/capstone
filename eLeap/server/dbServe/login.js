@@ -3,6 +3,12 @@ var mysql = require('mysql');
 
 var login = {
 	
+	isUserLoggedIn: function(request, response) { 'use strict';
+		console.log("isUserLoggedIn route called");
+		//login tbd
+		var sessions = request.session;
+	},
+	
 	login: function(request, response) { 'use strict';
 		console.log("login route called");
 		//login tbd
