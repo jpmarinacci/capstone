@@ -4,6 +4,7 @@ var login = {
 		console.log("isUserLoggedIn route called");
 		//login tbd
 		var session = request.session;
+		console.log(session.email);
 		if(session.email){
 		response.send(true);
 		}
@@ -14,8 +15,8 @@ var login = {
 	login: function(request, response) { 'use strict';
 		console.log("login route called");
 		//login tbd
-		var sessions = request.session;
-		sessions.email = "user1@none.com";
+	request.session.email = "user1@none.com";
+		console.log(request.session.email);
 		response.send("logged in");
 	},
 	
