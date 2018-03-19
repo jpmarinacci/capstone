@@ -7,6 +7,8 @@ var printEnvironment = function() {
 };
 printEnvironment();
 
+var printServer = require('./server/printServer');
+//printServer.printDev();
 var express = require('express');
 var http = require('http');
 var https = require('https');

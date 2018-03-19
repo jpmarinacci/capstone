@@ -5,9 +5,9 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'controllers/user', 'text!../../tmpl/pages/loginPage.tmpl'],
-function (eLeap, $, _, Backbone, router, user, loginPageTmpl) {
-	'use strict';
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'controllers/user',
+		'text!../../tmpl/pages/loginPage.tmpl'],
+function (eLeap, $, _, Backbone, router, user, loginPageTmpl) { 'use strict';
 		
 	eLeap.own.LoginPage = Backbone.View.extend({
 		
@@ -47,3 +47,4 @@ function (eLeap, $, _, Backbone, router, user, loginPageTmpl) {
 	});
 	return eLeap.own.LoginPage;
 });
+

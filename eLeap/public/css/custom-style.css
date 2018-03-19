@@ -5157,12 +5157,12 @@ ol {
   background-position: 0 -2px;
 }
 .copy {
-  margin-top: 50px;
-  padding: 24px 0 28px;
+  /*margin-top: 50px;*/
+  padding: 24px 28px;
   font-size: 12px;
   text-align: center;
   color: #758594;
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  /*border-top: 1px solid rgba(0, 0, 0, 0.15);*/
 }
 .copy a {
   text-decoration: none;

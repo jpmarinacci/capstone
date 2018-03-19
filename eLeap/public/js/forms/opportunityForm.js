@@ -5,9 +5,9 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/user', 'controllers/notifications', 
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'jquery-ui', 'jquery-timepicker', 'controllers/user', 'controllers/notifications', 
 		'models/opportunity', 'text!../../tmpl/forms/opportunityForm.tmpl'],
-function (eLeap, $, _, Backbone, user, notifications, Opportunity, opportunityFormTmpl) { 'use strict';
+function (eLeap, $, _, Backbone, jqueryUI, jqueryTimePicker, user, notifications, Opportunity, opportunityFormTmpl) { 'use strict';
 		
 	eLeap.own.OpportunityForm = Backbone.View.extend({
 		
@@ -27,8 +27,18 @@ function (eLeap, $, _, Backbone, user, notifications, Opportunity, opportunityFo
 			this.$el.html(this.formTmpl({
 				opportunity: this.opportunity
 			}));
-			//this.$(".startDateTimeInput").datetimepicker();
-			//this.$(".startTimeInput").timepicker();
+			this.$(".startDateTimeInput").datepicker();
+			this.$(".startTimeInput").timepicker({
+			    timeFormat: 'h:mm p',
+			    interval: 60,
+			    minTime: '10',
+			    maxTime: '6:00pm',
+			    defaultTime: '7',
+			    startTime: '10:00',
+			    dynamic: false,
+			    dropdown: true,
+			    scrollbar: true
+			});
 		},
 		
 		gatherInput: function() {

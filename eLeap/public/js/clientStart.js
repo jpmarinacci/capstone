@@ -12,15 +12,12 @@ require.config({
 		"dropzone": "../bower_components/dropzone/dist/dropzone",
 		"jquery": "../bower_components/jquery/dist/jquery.min",
 		"jquery.autogrow-textarea": "node_modules/jquery.autogrow-textarea/jquery.autogrow-textarea",
-		"jquery-datetime-picker": "../bower_components/jquery-datetime-picker-bygiro/dist/jquery.datetimepicker.ByGiro.min",
+		"jquery-timepicker": "../bower_components/jquery-timepicker-wvega/jquery.timepicker",
 		"jquery-ui": "../bower_components/jquery-ui/jquery-ui.min",
 		"spectrum": "../bower_components/spectrum/spectrum",
 		"text": "../bower_components/text/text",
 		"templates": "../../tmpl",
-		"underscore": "../bower_components/underscore/underscore-min",
-		/*"wijmo.data.ajax": "../assets/javascript/wijmo.data.ajax.3.20141.34",
-		"wijmo-pro.all": "../assets/javascript/jquery.wijmo-pro.all.3.20141.34.min",
-		"wijmo-open.all": "../assets/javascript/jquery.wijmo-open.all.3.20141.34.min"*/
+		"underscore": "../bower_components/underscore/underscore-min"
 	},
 
 	shim: {
@@ -36,21 +33,12 @@ require.config({
 		"jquery-ui": {
 			deps: ["jquery"]
 		},
-		"jquery-datetime-picker" : {
+		"jquery-timepicker" : {
 			deps: ["jquery"]
 		},
 		"jquery.autogrow-textarea": {
 			deps: ["jquery"]
-		},
-		/*"wijmo.data.ajax": {
-			deps: ["jquery"]
-		},
-		"wijmo-pro.all": {
-			deps: ["jquery"]
-		},
-		"wijmo-open.all": {
-			deps: ["jquery"]
-		}*/
+		}
 	}
 });
 

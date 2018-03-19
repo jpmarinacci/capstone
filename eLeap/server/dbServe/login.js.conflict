@@ -1,22 +1,37 @@
+
 var login = {
 	
 	isUserLoggedIn: function(request, response) { 'use strict';
 		console.log("isUserLoggedIn route called");
 		//login tbd
 		var session = request.session;
+<<<<<<< HEAD
+		console.log(session.email);
+		if(session.email){
+		response.send(true);
+		}
+		else{response.send(false);
+=======
 		if(session.email) {
 			response.send(session.email);
 		} else {
 			response.send("session is :" + session);
+>>>>>>> 674fc3b6fd14af815c2e06ed68367856cbaf70d1
 		}
 	},
 	
 	login: function(request, response) { 'use strict';
 		console.log("login route called");
 		//login tbd
+<<<<<<< HEAD
+	request.session.email = "user1@none.com";
+		console.log(request.session.email);
+		response.send("logged in");
+=======
 		var sessions = request.session;
 		sessions.email = "user1@none.com";
 		response.send("logged in as:" + sessions.email);
+>>>>>>> 674fc3b6fd14af815c2e06ed68367856cbaf70d1
 	},
 	
 	logout: function(request, response) { 'use strict';
@@ -33,3 +48,4 @@ var login = {
 };
 
 module.exports = login;
+

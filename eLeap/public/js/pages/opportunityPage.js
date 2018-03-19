@@ -6,8 +6,7 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/opportunity', 'text!../../tmpl/pages/opportunityPage.tmpl'],
-function (eLeap, $, _, Backbone, Opportunity, opportunityPageTmpl) {
-	'use strict';
+function (eLeap, $, _, Backbone, Opportunity, opportunityPageTmpl) { 'use strict';
 		
 	eLeap.own.OpportunityPage = Backbone.View.extend({
 		

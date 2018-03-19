@@ -2,7 +2,6 @@
  * @authors: JP Marinacci
  */
 
-
 define(['jquery', 'underscore', 'backbone', 'eLeap'],
 	function ($, _, Backbone, eLeap) { 'use strict';
 	
@@ -68,6 +67,5 @@ define(['jquery', 'underscore', 'backbone', 'eLeap'],
 		return thisServer;
 	}
 	return getServer();
-	
 });
 

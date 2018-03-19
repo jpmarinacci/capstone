@@ -40,7 +40,7 @@ var opportunities = {
     },
     
 	deleteOpportunity: function(request, response) { 'use strict';	
-   		var sprocName = "sprocName";
+   		var sprocName = "sprocDeleteOpp";
 		var params = [];
 		console.log("deleteOpportunity route called");
 		console.log("calling "+ sprocName);
@@ -146,17 +146,7 @@ var opportunities = {
 			dbServer.processSproc(results, response);
 		};
 		dbServer.sproc(sprocName, params, processSproc);
-   },
-   	updateOpportunity: function(request, response) { 'use strict';	
-		var sprocName = "sprocDeleteOpp";
-		var params = [];
-		console.log("deleteOpportunity route called");
-		console.log("calling "+ sprocName);
-		function processSproc(results) {
-			dbServer.processSproc(results, response);
-		};
-		dbServer.sproc(sprocName, params, processSproc);
-    }
+   }
 };
 
 module.exports = opportunities;
