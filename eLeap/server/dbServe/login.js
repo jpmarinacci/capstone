@@ -4,6 +4,7 @@ var login = {
 		console.log("isUserLoggedIn route called");
 		//login tbd
 		var session = request.session;
+		
 		if(session.email) {
 			response.send(session.email);
 		} else {
