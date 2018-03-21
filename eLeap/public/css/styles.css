@@ -668,9 +668,6 @@ ul, ol {
 .tab-content > .active {
   display: block;
 }
-.tab-content > .tab-pane {
-  display: none;
-}
 .table--target.table--secondary thead tr {
   background-color: #85d6de;
 }

@@ -43,21 +43,17 @@ function (eLeap, $, _, Backbone, router, user, Opportunities, dashboardPageTmpl,
 		},
 		
 		render: function() {
-			//temp render for opportunites
-			this.$(".opportunites").prepend("<div>Opportunites returned from the database:</div>");
 			if(this.opportunities) {
 				var thisPage = this;
 				this.opportunities.each(function(opportunity){
-					if(opportunity.get('opportunityId')) {
-						/*var itemHtml = thisPage.oppItemTmpl({
-							opportunity: opportunity.toJSON()
-						});
-						thisPage.$(".opportunitiesList").append(itemHtml);*/
-						var itemHtml = thisPage.oppTblItm({
-							opportunity: opportunity.toJSON()
-						});
-						thisPage.$(".opportunityTable tbody").append(itemHtml);
-					}
+					/*var itemHtml = thisPage.oppItemTmpl({
+						opportunity: opportunity.toJSON()
+					});
+					thisPage.$(".opportunitiesList").append(itemHtml);*/
+					var itemHtml = thisPage.oppTblItm({
+						opportunity: opportunity.toJSON()
+					});
+					thisPage.$(".opportunityTable tbody").append(itemHtml);
 				});
 			}
 		},
