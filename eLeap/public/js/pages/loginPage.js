@@ -6,8 +6,8 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'controllers/user',
-		'text!../../tmpl/pages/loginPage.tmpl'],
-function (eLeap, $, _, Backbone, router, user, loginPageTmpl) { 'use strict';
+	'text!../../tmpl/pages/loginPage.tmpl'],
+	function (eLeap, $, _, Backbone, router, user, loginPageTmpl) { 'use strict';
 		
 	eLeap.own.LoginPage = Backbone.View.extend({
 		

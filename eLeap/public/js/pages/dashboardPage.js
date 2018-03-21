@@ -16,7 +16,6 @@ function (eLeap, $, _, Backbone, router, user, Opportunities, dashboardPageTmpl,
 		oppTblItm: _.template(oppTblItm),
 		
 		events: {
-			'click .logOutButton':'logOff',
 			'click .add': 'addOpportuntiy'
 		},
 		
@@ -70,14 +69,6 @@ function (eLeap, $, _, Backbone, router, user, Opportunities, dashboardPageTmpl,
 					el: thisPage.$(".opportunityForm")
 				});
 			});
-		},
-		
-		createPerson: function() {
-			
-		},
-		
-		logOff: function() {
-			router.logOut();
 		}
 	});
 	return eLeap.own.DashboardPage;

@@ -13,7 +13,7 @@ function (eLeap, $, _, Backbone, navbarTmpl) { 'use strict';
 		navbarTmpl: _.template(navbarTmpl),
 		
 		events: {
-			'click .btnLogout': 'logOut'
+			'click .btnLogout': 'logout'
 		},
 		
 		initialize: function (options) {
@@ -25,10 +25,10 @@ function (eLeap, $, _, Backbone, navbarTmpl) { 'use strict';
 			this.$el.html(this.navbarTmpl());
 		},
 		
-		logOut: function() {
+		logout: function() {
 			this.$(".btnLogout").hide();
 			require(['controllers/router'], function(router) {
-				router.logOut();
+				router.logout();
 			});
 		},
 		

@@ -61,7 +61,7 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 			});
 		},
 		
-		logOut: function () {
+		logout: function () {
 			user.logout();
 			if(this.sidebar) {
 				this.sidebar.remove();
