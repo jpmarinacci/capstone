@@ -9,11 +9,12 @@ require.config({
 		"backbone": "../bower_components/backbone/backbone-min",
 		"bootbox": "../bower_components/bootbox/bootbox.min",
 		"bootstrap": "../bower_components/bootstrap/dist/js/bootstrap.min",
+		"datetimepicker": "../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min",
 		"dropzone": "../bower_components/dropzone/dist/dropzone",
 		"jquery": "../bower_components/jquery/dist/jquery.min",
 		"jquery.autogrow-textarea": "node_modules/jquery.autogrow-textarea/jquery.autogrow-textarea",
-		"jquery-timepicker": "../bower_components/jquery-timepicker/jquery.ui.timepicker",
 		"jquery-ui": "../bower_components/jquery-ui/jquery-ui.min",
+		"moment": "../bower_components/moment/min/moment.min",
 		"spectrum": "../bower_components/spectrum/spectrum",
 		"text": "../bower_components/text/text",
 		"templates": "../../tmpl",
@@ -31,9 +32,6 @@ require.config({
 			exports: 'Dropzone'
 		},
 		"jquery-ui": {
-			deps: ["jquery"]
-		},
-		"jquery-timepicker" : {
 			deps: ["jquery"]
 		},
 		"jquery.autogrow-textarea": {
