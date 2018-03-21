@@ -6,29 +6,33 @@ var opportunities = {
 	createOpportunity: function(request, response) { 'use strict';
 		var sprocName = "sprocAddOpp";
 		var params = [
-			dbServer.isValidParam((request.body.Title ? request.body.Title : null), "string"),
-			request.body.Description ? request.body.Description : null,
-			request.body.StartDate ? request.body.StartDate : null,
-			request.body.EndDate ? request.body.EndDate : null,
-			request.body.CreateDate ? new Date() : null,
-			request.body.ClassID ? request.body.ClassID : null,
-			request.body.TotalSeats ? request.body.TotalSeats : null,
-			request.body.OwnerID ? request.body.OwnerID : null,
-			request.body.StatusID ? request.body.StatusID : null,
-			request.body.Notes ? request.body.Notes : null,
-			request.body.Pay ? request.body.Pay : null,
-			request.body.Donation ? request.body.Donation : null,
-			request.body.IsPaid ? request.body.IsPaid : null,
-			request.body.IsServiceLearining ? request.body.IsServiceLearining : null,
-			request.body.IsRecurrent ? request.body.IsRecurrent : null,
-			request.body.IsVirtual ? request.body.IsVirtual : null,
-			request.body.Duration ? request.body.Duration : null,
-			request.body.TimePeriodStart ? request.body.TimePeriodStart : null,
-			request.body.TimePeriodEnd ? request.body.TimePeriodEnd: null,
-			request.body.Location ? request.body.Location: null,
-			request.body.Longitude ? request.body.Longitude: null,
-			request.body.Latitude ? request.body.Latitude : null
+			//dbServer.isValidParam((//), "string"),
+			
+			request.body.title ? request.body.title : null, 
+			request.body.description ? request.body.description : null,
+			request.body.startDateTime ? request.body.startDateTime : null,
+			request.body.endDateTime ? request.body.endDateTime : null,
+			request.body.createDate ? new Date() : null,
+			request.body.classID ? request.body.classID : null,
+			request.body.totalSeats ? request.body.totalSeats : null,
+			request.body.ownerID ? request.body.ownerID : null,
+			request.body.statusID ? request.body.statusID : null,
+			request.body.notes ? request.body.notes : null,
+			request.body.pay ? request.body.pay : null,
+			request.body.donation ? request.body.donation : null,
+			request.body.isPaid ? request.body.isPaid : null,
+			request.body.isServiceLearning ? request.body.isServiceLearning : null,
+			request.body.recurrence ? request.body.recurrence : null,
+			request.body.isVirtual ? request.body.isVirtual : null,
+			request.body.duration ? request.body.duration : null,
+			request.body.timePeriodStartDate ? request.body.timePeriodStartDate : null,
+			request.body.timePeriodEndDate ? request.body.timePeriodEndDate: null,
+			request.body.location ? request.body.location: null,
+			request.body.longitude ? request.body.longitude: null,
+			request.body.latitude ? request.body.latitude : null
 		];
+		console.log("params:");
+		console.log(params);
 		console.log("createOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
