@@ -2,7 +2,6 @@
  * @author: JP Marinacci
  */
 
-
 define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/person'],
 	function ($, _, Backbone, eLeap, server, Person) { 'use strict';
 	
@@ -19,19 +18,16 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 		
 		login: function () {
 			var loginSuccess = function(response) {
-				console.log(response);
-				/*thisUser.isLoggedIn = true;
-				
-				thisUser.listenToOnce(thisUser.person, 'sync', thisUser.gotPerson);
-				thisUser.person.fetch();*/
-				
+				//console.log(response);
 			};
-			var loginError = function(error) {
-				
-			};
+			var loginError = function(error) {};
 			var options = {};
 			server.postRoute('/login', {}, loginSuccess, loginError, options);
-			this.loginGetPerson();
+			this.getPerson();
+			this.clientLogin();
+		},
+		
+		clientLogin: function() {
 			this.isLoggedIn = true;
 			this.trigger('user:loggedIn');
 		},
@@ -40,42 +36,26 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 			this.isLoggedIn = false;
 		},
 		
-		loginGetPerson: function() {
+		getPerson: function() {
 			this.listenToOnce(this.person, 'sync', this.gotPerson);
 			var options = {
 				success: function(person) {
 					console.log(person);
 				},
-				error: function(error) {
-					//error out
-				}
+				error: function(error) {}
 			};
 			this.person.fetch({}, options);
 		},
 		
 		isUserLoggedIn: function() {
 			var loginSuccess = function(response) {
-				console.log(response);
-				/*thisUser.isLoggedIn = true;
-				
-				thisUser.listenToOnce(thisUser.person, 'sync', thisUser.gotPerson);
-				thisUser.person.fetch();*/
-				
+				//console.log(response);
 			};
-			var loginError = function(error) {
-				
-			};
+			var loginError = function(error) {};
 			var options = {};
 			server.postRoute('/isUserLoggedIn', {}, loginSuccess, loginError, options);
 			
-			//temp user login 
-			//thisUser.trigger('user:loggedIn');
-			
 			return this.isLoggedIn;
-		},
-		
-		gotPerson: function(person) {
-			//thisUser.person.set(person.toJSON());
 		}
 	});
 	
@@ -85,5 +65,4 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 	}
 	return getUser();
 });
-
 

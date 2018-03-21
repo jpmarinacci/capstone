@@ -5,9 +5,9 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'controllers/cache', 'controllers/notifications',
+define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'controllers/cache', 'controllers/router', 'controllers/notifications',
 		'models/person', 'text!../../tmpl/forms/signupForm.tmpl'],
-function ( $, _, Backbone, eLeap, user, cache, notifications, Person, signupFormTmpl) { 'use strict';
+function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, signupFormTmpl) { 'use strict';
 		
 	eLeap.own.SignForm = Backbone.View.extend({
 		
@@ -40,7 +40,7 @@ function ( $, _, Backbone, eLeap, user, cache, notifications, Person, signupForm
 			var thisForm = this;
 			cache.roles.each(function(role) {
 				if(role.get("roleId") !== 7) {
-					thisForm.$(".selectRoles").append("<option value='"+role.get("roleIddb")+"'>"+role.get("roleName")+"</option>");
+					thisForm.$(".selectRoles").append("<option value='"+role.get("roleId")+"'>"+role.get("roleName")+"</option>");
 				}
 			});
 		},
@@ -49,18 +49,11 @@ function ( $, _, Backbone, eLeap, user, cache, notifications, Person, signupForm
 			var email = this.$(".signupEmail").val();
 			//validate inputs
 			//if(validate.isValid(email));
-			//var Number(this.$(".selectRoles").val())
-			/*var personJson = {
+			var personJson = {
 				email: email,
 				personName: this.$(".signupName").val(),
 				phone: this.$(".signupPhone").val(),
-				roleId:1 
-			};*/
-			var personJson = {
-				email: "jp.marinacci@arczap.com",
-				personName: "JP",
-				phone: "nunya",
-				roleId: 7
+				roleId: Number(this.$(".selectRoles").val())
 			};
 			this.person.set(personJson);
 		},
@@ -69,8 +62,11 @@ function ( $, _, Backbone, eLeap, user, cache, notifications, Person, signupForm
 			notifications.notifyUser("Person created");
 			this.gatherInput();
 			var options = {
-				success: function() {
+				success: function(person) {
+					user.person.set(person);
 					notifications.notifyUser("Person created");
+					router.lastRoute = '/dashboard';
+					user.clientLogin();
 				},
 				error: function() {
 					notifications.notifyUser("error -- Person creation failed");

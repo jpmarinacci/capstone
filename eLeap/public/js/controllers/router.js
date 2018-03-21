@@ -44,10 +44,12 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 		},
 		
 		successfulLogin: function() {
-			this.sidebar = new Sidebar({
-				el: "#sidebar"
-			});
 			this.navbar.showLogOutBtn();
+			if(!this.sidebar) {
+				this.sidebar = new Sidebar({
+					el: "#sidebar"
+				});
+			}
 			if (window.location.pathname === "/" + this.lastRoute) {
 				window.location.assign("/" + this.lastRoute);
 			} else {

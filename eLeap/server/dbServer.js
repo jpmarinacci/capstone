@@ -96,7 +96,8 @@ instantiateDbServer = function() {
 					throw error;
 					return;
 				} else {
-					thisDbServer.retry();
+					this.retry();
+					//thisDbServer.retry();
 				}
 			} else {
 				console.log("database connected.");
