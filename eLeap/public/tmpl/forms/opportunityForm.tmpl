@@ -21,27 +21,36 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Start Date</td>
+                            <td>Opportunity Start Date</td>
                             <td>
-                                <input class="startDateTimeInput" type="text" size="18">
+                                <input class="startDateInput" type="text" size="18">(MM/DD/YYYY)
                             </td>
                         </tr>
                         <tr>
-                            <td>Start Time</td>
+                            <td>Opportunity End Date</td>
                             <td>
-                                <input class="startTimeInput" type="text" size="18">
+                                <input class="endDateInput" type="text" size="18">(MM/DD/YYYY)
                             </td>
                         </tr>
                         <tr>
                             <td>End Time</td>
                             <td>
                                 <input class="endTimeInput" type="text" size="18">
+                            <td>Start time in the working day</td>
+                            <td>
+                                <input class="startTimeInput" type="text" size="18">(e.g. 10:00)
                             </td>
                         </tr>
                         <tr>
-                            <td>Number of hours</td>
+                            <td>End time in the working day</td>
                             <td>
-                                <input class="duration" size="4">
+                                <input class="endTimeInput" type="text" size="18">(e.g. 18:00)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Working hours in total</td>
+                            <td>
+                                <input class="durationInput" size="4">
                             </td>
                         </tr>
                         <tr>
@@ -53,16 +62,16 @@
                         <tr>
                             <td>Is it Service Learning?</td>
                             <td>
-                                <input type="radio" class="isServiceLearning" value="no" checked> No
-                                <input type="radio" class="isServiceLearning" value="yes"> Yes
+                                <input type="radio" name = "isServiceLearning" class="isServiceLearning" value="no" checked> No
+                                <input type="radio" name = "isServiceLearning" class="isServiceLearning" value="yes"> Yes
                             </td>
                         </tr>
                         <tr>
                             <td>Is it paid?</td>
                             <td>
-                                <input type="radio" class="isPaid" value="no" checked> No
-                                <input type="radio" class="isPaid" value="yes"> Yes
-                                <input placeholder="Amount" name="pay" size="8">
+                                <input type="radio" name ="isPaid" class="isPaid" value="no" checked> No
+                                <input type="radio" name ="isPaid" class="isPaid" value="yes"> Yes
+                                <input placeholder="Amount" name="isPaid" size="8">
                             </td>
                         </tr>
                         <tr>
