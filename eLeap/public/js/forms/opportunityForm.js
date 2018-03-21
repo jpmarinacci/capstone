@@ -39,11 +39,28 @@ function (eLeap, $, _, Backbone, jqueryUI, jqueryTimePicker, user, notifications
 			    dropdown: true,
 			    scrollbar: true
 			});
+			this.$(".endTimeInput").timepicker({
+				 timeFormat: 'h:mm p',
+			    interval: 60,
+			    minTime: '10',
+			    maxTime: '6:00pm',
+			    defaultTime: '7',
+			    startTime: '10:00',
+			    dynamic: false,
+			    dropdown: true,
+			    scrollbar: true
+			});
 		},
 		
 		gatherInput: function() {
-			var oppDate = null;
-			var oppTime = null;
+			//var startDateInput = this.$(".startDateTimeInput").val();
+			//var startTimeInput = this.$(".startTimeInput").val();
+			//var oppDate = new Date(startDateInput);
+			//var startDateTime = oppDate.setTime(startTimeInput);
+			
+			//var endTime = this.$(".endTimeInput").val();
+			//var startDateTime = oppDate.setHours(oppTime);
+			//var endDateTime = oppDate.setHours(endTime);
 			var opportuntityJson = {
 				//classId: "",
 				/*donation: "",
@@ -51,15 +68,14 @@ function (eLeap, $, _, Backbone, jqueryUI, jqueryTimePicker, user, notifications
 				notes: "",*/
 				/*pay: "",
 				statusId: "",
-				timePeriodEnd: "",
-				timePeriodStart: "",*/
+				timePeriodEnd: "",*/
+				timePeriodStartDate: new Date(),
                 description: this.$(".opportunityFormDescription").val(),
-                duration: this.$(".duration").val(),
-                isPaid: this.$(".isPaid").val(),
-                isRecurrent: this.$(".isRecurrent").val(),
-                isServiceLearning: this.$(".isServiceLearning").val(),
-                startDate: this.$(".startDateTimeInput").val(),
-                endDate: this.$(".endDateTimeInput").val(),
+                //duration: this.$(".duration").val(),
+                isPaid: true,// this.$(".isPaid").val(),
+                //isServiceLearning: this.$(".isServiceLearning").val(),
+                startDateTime: new Date(),
+                //endDateTime: endDateTime,
                 ownerId: user.person.get('personId'),
 				title: this.$(".opportunityFormTitle").val(),
 				totalSeats: this.$(".totalSeats").val()

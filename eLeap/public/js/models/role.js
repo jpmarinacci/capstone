@@ -25,7 +25,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		sync: function (method, thisModel, options) {
 			options = options || {};
 			if(method === 'create') {
-				server.postRoute(this.routes.readRole, this.toJSON(), function (response) {
+				server.postRoute(this.routes.readRole, q.toJSON(), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
@@ -107,7 +107,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			}
 		},
 		
-		parse: function (dbRole) {
+		/*parse: function (dbRole) {
 			return this.translateRoleFromDB(dbRole);
 		},
 		
@@ -125,7 +125,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(dbRole.roleDescription)			jsonRole.RoleDescription = dbRole.roleDescription;
 			if(dbRole.roleName)					jsonRole.RoleName = dbRole.roleName;
 			return dbRole;
-		}
+		}*/
 	});
 
 	return eLeap.own.Role;

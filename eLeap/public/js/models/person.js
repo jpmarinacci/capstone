@@ -14,9 +14,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			email:"",
 			personName: "",
 			phone:"",
-			picID:"",
-			roleID: "",
-			themeID:"",
+			picId:"",
+			roleId: "",
+			themeId:"",
 		},
 		
 		routes: {
@@ -29,7 +29,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		sync: function (method, thisModel, options) {
 			options = options || {};
 			if(method === 'create') {
-				server.postRoute(this.routes.signupPerson, this.translatePersonToDB(this.toJSON()), function (response) {
+				//this.translatePersonToDB()
+				server.postRoute(this.routes.signupPerson, this.toJSON(), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
@@ -91,7 +92,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			}
 		},
 		
-		parse: function (dbPerson) {
+		/*parse: function (dbPerson) {
 			return this.translatePersonFromDB(dbPerson);
 		},
 		
@@ -117,8 +118,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(jsonPerson.phone)					dbPerson.Phone = jsonPerson.phone;
 			if(jsonPerson.themeId)					dbPerson.ThemeID = jsonPerson.themeId;
 			return dbPerson;
-		}
-
+		}*/
 	});
 
 	return eLeap.own.Person;

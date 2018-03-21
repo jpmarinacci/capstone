@@ -26,7 +26,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			notes: "",
 			ownerId: "",
 			pay: "",
-			recurrent: "",
+			recurrence: "",
 			startDateTime: "",
 			statusId: "",
 			timePeriodEndDate: "",
@@ -45,7 +45,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		sync: function (method, thisModel, options) {
 			options = options || {};
 			if(method === 'create') {
-				server.postRoute(this.routes.createOpportunity, this.translateOpportunityToDB(this.toJSON()), function (response) {
+				// this.translateOpportunityToDB(this.toJSON())
+				server.postRoute(this.routes.createOpportunity, this.toJSON(), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
@@ -127,7 +128,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			}
 		},
 		
-		parse: function (dbOpportunity) {
+		/*parse: function (dbOpportunity) {
 			return this.translateOpportunityFromDB(dbOpportunity);
 		},
 		
@@ -190,7 +191,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(jsonOpportunity.totalSeats)				dbOpportunity.TotalSeats = jsonOpportunity.totalSeats;
 				
 			return dbOpportunity;
-		}
+		}*/
 	});
 
 	return eLeap.own.Opportunity;

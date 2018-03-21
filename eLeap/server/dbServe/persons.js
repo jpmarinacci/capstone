@@ -5,12 +5,12 @@ var persons = {
 	signupPerson: function(request, response) { 'use strict';
 		var sprocName = "sprocAddPer";
 		var params = [
-			request.body.RoleID ? request.body.RoleID : null,
-			request.body.PersonName ? request.body.PersonName : null,
-			request.body.Email ? request.body.Email : null,
-			request.body.Phone ? request.body.Phone : null,
-			request.body.ThemeID ? request.body.ThemeID : null,
-			request.body.PicID ? request.body.PicID : null
+			request.body.roleId ? request.body.roleId : null,
+			request.body.personName ? request.body.personName : null,
+			request.body.email ? request.body.email : null,
+			request.body.phone ? request.body.phone : null,
+			request.body.themeId ? request.body.themeId : null,
+			request.body.picId ? request.body.picId : null
 		];
 		console.log("signupPerson route called");
 		console.log("calling "+ sprocName);
