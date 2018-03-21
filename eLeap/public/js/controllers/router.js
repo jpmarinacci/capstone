@@ -65,6 +65,7 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 			user.logout();
 			if(this.sidebar) {
 				this.sidebar.remove();
+				this.sidebar = undefined;
 			}
 			this.navigate('/login', { trigger: true });
 		},

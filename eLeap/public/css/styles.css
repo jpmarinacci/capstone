@@ -366,19 +366,7 @@ ul, ol {
 	padding-right: 20px;
 	padding-bottom: 5px;
 }
-.nav-sidebar {
-	position: absolute;
-    top: 0;
-    left: -245px;
-    z-index: 200;
-    -webkit-transform: translateX(0%);
-    -moz-transform: translateX(0%);
-    -ms-transform: translateX(0%);
-    transform: translateX(0%);
-    -webkit-transition: -webkit-transform 500ms ease-in;
-    -moz-transition: -moz-transform 500ms ease-in;
-    transition: transform 500ms ease-in;
-}
+
 .nav-sidebar.navigation-open {
 	-webkit-transform: translateX(100%);
     -moz-transform: translateX(100%);
@@ -963,6 +951,51 @@ table th[class*="col-"] {
 }
 .collapse.in {
     display: block;
+}
+.wrapper {
+  overflow: hidden;
+}
+.block-title {
+  position: relative;
+  padding: 34px 0 31px;
+  margin-top: 0;
+  margin-bottom: 40px;
+  font: 28px 'Varela Round', sans-serif;
+  text-align: center;
+  color: #34495e;
+  border-bottom: 1px solid #dfe6e7;
+}
+.block-title:before {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  width: 80px;
+  height: 3px;
+  margin-left: -40px;
+  background-color: #85d6de;
+}
+.block-title--bottom {
+  margin-bottom: 60px;
+}
+.login {
+  max-width: 310px;
+  margin: 0 auto;
+}
+.bottom-space--small {
+  margin-top: 100px;
+}
+.divider-color {
+  width: 100%;
+  height: 2px;
+  background-image: url("../assets/images/components/stripe.png");
+  background-repeat: repeat-x;
+}
+.login .login__btn {
+  margin-top: 28px;
+  margin-bottom: 65px;
+  display: block;
+  width: 100%;
 }
 
 /**************** Media Queries *********************/
