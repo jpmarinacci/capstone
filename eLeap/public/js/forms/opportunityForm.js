@@ -51,45 +51,21 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 		            close: 'glyphicon glyphicon-remove'*/
                 }
 			});
-			/*this.$(".startTimeInput").timepicker({
-			    timeFormat: 'h:mm p',
-			    interval: 60,
-			    minTime: '10',
-			    maxTime: '6:00pm',
-			    defaultTime: '7',
-			    startTime: '10:00',
-			    dynamic: false,
-			    dropdown: true,
-			    scrollbar: true
+			this.$(".endDateTimeInput").datetimepicker({
+				 icons: {
+                    time: "fa fa-clock",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down",
+                    previous: "glyphicon glyphicon-chevron-left",
+                    next: "glyphicon glyphicon-chevron-right"
+                }
 			});
-			this.$(".endTimeInput").timepicker();*/
-			/*this.$(".timepPeriodStartInput").periodpicker({
-				norange: true, // use only one value
-				cells: [1, 1], // show only one month
-			
-				resizeButton: false, // deny resize picker
-				fullsizeButton: false,
-				fullsizeOnDblClick: false,
-			
-				timepicker: true, // use timepicker
-				timepickerOptions: {
-					hours: true,
-					minutes: true,
-					seconds: false,
-					ampm: true
-				}
-			});*/
 		},
 		
 		gatherInput: function() {
-			//var startDateInput = this.$(".startDateTimeInput").val();
-			//var startTimeInput = this.$(".startTimeInput").val();
-			//var oppDate = new Date(startDateInput);
-			//var startDateTime = oppDate.setTime(startTimeInput);
-			
-			//var endTime = this.$(".endTimeInput").val();
-			//var startDateTime = oppDate.setHours(oppTime);
-			//var endDateTime = oppDate.setHours(endTime);
+			var startDateTime = new Date(this.$(".startDateTimeInput").val());
+			var endDateTime = new Date(this.$(".endDateTimeInput").val());
 			var opportuntityJson = {
 				//classId: "",
 				/*donation: "",
@@ -98,16 +74,16 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 				/*pay: "",
 				statusId: "",
 				timePeriodEnd: "",*/
-				timePeriodStartDate: new Date(),
+				//timePeriodStartDate: new Date(),
                 description: this.$(".opportunityFormDescription").val(),
                 //duration: this.$(".duration").val(),
                 isPaid: true,// this.$(".isPaid").val(),
                 //isServiceLearning: this.$(".isServiceLearning").val(),
-                startDateTime: new Date(),
-                //endDateTime: endDateTime,
-                ownerId: user.person.get('personId'),
+                startDateTime: startDateTime,
+                endDateTime: endDateTime,
+                ownerId: user.person.get('personId') || 1,
 				title: this.$(".opportunityFormTitle").val(),
-				totalSeats: this.$(".totalSeats").val()
+				totalSeats: Number(this.$(".totalSeats").val())
 			};
 			this.opportunity.set(opportuntityJson);
 		},

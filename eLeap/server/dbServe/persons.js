@@ -26,7 +26,7 @@ var persons = {
 		var sprocName = "sprocFindPer";
 		var params = [
 			//request.body.PersonID ? request.body.PersonID : null,
-			request.body.Email ? request.body.Email : null
+			request.body.email ? request.body.email : null
 		];
 		console.log("getPerson route called");
 		console.log("calling "+ sprocName);
@@ -42,7 +42,7 @@ var persons = {
     updatePerson: function(request, response) { 'use strict';
     	var sprocName = "sprocName";
 		var params = [
-			request.body.PersonID ? request.body.PersonID : null,
+			request.body.personID ? request.body.personID : null,
 		];
 		console.log("updatePerson route called");
 		console.log("calling "+ sprocName);
