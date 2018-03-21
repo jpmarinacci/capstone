@@ -12,7 +12,7 @@ require.config({
 		"dropzone": "../bower_components/dropzone/dist/dropzone",
 		"jquery": "../bower_components/jquery/dist/jquery.min",
 		"jquery.autogrow-textarea": "node_modules/jquery.autogrow-textarea/jquery.autogrow-textarea",
-		"jquery-timepicker": "../bower_components/jquery-timepicker-wvega/jquery.timepicker",
+		"jquery-timepicker": "../bower_components/jquery-timepicker/jquery.ui.timepicker",
 		"jquery-ui": "../bower_components/jquery-ui/jquery-ui.min",
 		"spectrum": "../bower_components/spectrum/spectrum",
 		"text": "../bower_components/text/text",
