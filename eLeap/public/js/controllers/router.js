@@ -70,6 +70,7 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 		beginNewPage: function() {
 			if(this.currentPage) {
 				this.currentPage.remove();
+				this.currentPage = undefined;
 			}
 		},
 		
@@ -121,8 +122,8 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 			this.beginNewPage();
 			this.lastRoute = '/dbTest';
 			$("#pages").empty().append("<div id='dbTest'> DATA: </div>");
-			require(['pages/dbTestPage'], function(dbTestPage) {
-				thisRouter.currentPage = eLeap.run.dbTestPage = new dbTestPage({
+			require(['pages/dbTestPage'], function(DbTestPage) {
+				thisRouter.currentPage = eLeap.run.dbTestPage = new DbTestPage({
 					el: "#dbTest"
 				});
 			});
@@ -165,7 +166,7 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 			this.lastRoute = '/opportunity/' + id;
 			$("#pages").empty().append("<div id='opportunityPage'></div>");
 			require(['pages/opportunityPage'], function(OpportunityPage) {
-				thisRouter.currentPage = eLeap.run.loginPage = new OpportunityPage({
+				thisRouter.currentPage = eLeap.run.opportunityPage = new OpportunityPage({
 					el: "#opportunityPage",
 					opportunityId: id
 				});

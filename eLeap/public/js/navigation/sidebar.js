@@ -13,7 +13,8 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		sidebarTmpl: _.template(sidebarTmpl),
 		
 		events: {
-			'click .dashboardLink': 'commandClickDashboard'
+			'click .dashboardLink': 'commandClickDashboard',
+			'click .createNewBtn': 'commandCreateNewOpportunity'
 		},
 		
 		initialize: function (options) {
@@ -34,6 +35,12 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		commandClickDashboard: function() {
 			require(['controllers/router',], function(router) {
 				router.navigate('/dashboard', {trigger: true});
+			});
+		},
+		
+		commandCreateNewOpportunity: function() {
+			require(['controllers/router',], function(router) {
+				router.navigate('/opportunity/create', {trigger: true});
 			});
 		}
 	});

@@ -5,8 +5,9 @@
 
 /* base html css */
 body {
-  /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100%;
+  background-color: #34495e;
 }
 
 a {
@@ -150,6 +151,10 @@ ul, ol {
 }
 
 /* app ui /navbar specific css */
+
+#pages {
+	background-color: white;
+}
 
 #pages > div {
 	width: 100%;

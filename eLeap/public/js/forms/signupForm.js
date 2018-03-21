@@ -50,18 +50,18 @@ function ( $, _, Backbone, eLeap, user, cache, notifications, Person, signupForm
 			//validate inputs
 			//if(validate.isValid(email));
 			//var Number(this.$(".selectRoles").val())
-			var personJson = {
+			/*var personJson = {
 				email: email,
 				personName: this.$(".signupName").val(),
 				phone: this.$(".signupPhone").val(),
 				roleId:1 
-			};
-			/*var personJson = {
-				email: "kajayr@yahoo.com",
-				personName: "Leo",
-				phone: "425-444-0923",
-				roleId: 2
 			};*/
+			var personJson = {
+				email: "jp.marinacci@arczap.com",
+				personName: "JP",
+				phone: "nunya",
+				roleId: 7
+			};
 			this.person.set(personJson);
 		},
 		
