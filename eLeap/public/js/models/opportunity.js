@@ -11,6 +11,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		idAttribute: "opportunityId",
 
 		defaults: {
+			availableSeats: "",
 			classId: "",
 			createDate: "",
 			description: "",
