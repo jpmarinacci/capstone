@@ -3,25 +3,25 @@ var login = {
 	isUserLoggedIn: function(request, response) { 'use strict';
 		console.log("isUserLoggedIn route called");
 		//login tbd
-		var session = request.session;
+		/*var session = request.session;
 		
 		if(session.email) {
 			response.send(session.email);
 		} else {
 			response.send("session is :" + session);
-		}
+		}*/
 	},
 	
 	login: function(request, response) { 'use strict';
 		console.log("login route called");
 		//login tbd
-		var sessions = request.session;
+		/*var sessions = request.session;
 		sessions.email = "user1@none.com";
-		response.send("logged in as:" + sessions.email);
+		response.send("logged in as:" + sessions.email);*/
 	},
 	
 	logout: function(request, response) { 'use strict';
-		console.log("logoff route called");
+		/*console.log("logoff route called");
 		req.session.destroy(function(err) {
 	  		if(err) {
 	  			console.log(err);
@@ -29,7 +29,7 @@ var login = {
 	  			//res.redirect('/');
 	  			console.log("session destroyed");
 	  		}
-		});
+		});*/
 	}
 };
 
