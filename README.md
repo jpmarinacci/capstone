@@ -6,6 +6,3 @@ A Github repository for The Educationary Leap Website
  -- Connecting Students with Opportunites --
 
 :P
-
-git remote add <name> <url>
-git pull <url>
