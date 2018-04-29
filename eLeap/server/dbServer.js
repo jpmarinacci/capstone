@@ -91,11 +91,11 @@ instantiateDbServer = function() {
 				}
 				console.log(results[0]);
 			});*/
+			var sql = "call " + sprocName + this.makeQs(sprocParams.length);
 			function processQuery (error, results, fields) {
 				if (error) {
 					results = results || {};
 					results.error = error;
-					results.sql = sql;
 					console.log("database error:");
 					console.log(error.code ? error.code : ": gremlins");
 				}
@@ -117,7 +117,7 @@ instantiateDbServer = function() {
 	    },
 		processSprocError: function(results, response) {
 			console.log("database error occurred: " + results);
-			response.send("database error occurred: " + results.sql);
+			response.send("database error occurred: " + results);
 	    }
 	};
 	
