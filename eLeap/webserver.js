@@ -21,7 +21,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var mysql = require('mysql');
 
-//var dbServer = require('./server/dbServer');
+var dbServer = require('./server/dbServer');
 var applicationState = require('./server/dbServe/applicationState');
 var opportunities = require('./server/dbServe/opportunities');
 var login = require('./server/dbServe/login');
