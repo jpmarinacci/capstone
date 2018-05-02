@@ -39,7 +39,7 @@ ul, ol {
 }
 
 .text-big {
-	font-size: 38px;
+	font-size: 30px;
 }
 
 .text-light {
@@ -123,7 +123,7 @@ ul, ol {
 }
 
 .icon-big {
-	font-size: 68px;
+	font-size: 58px;
 	padding-top: 20px;
 }
 
@@ -253,7 +253,8 @@ ul, ol {
     border: solid black 0.5px;
     padding-left: 7px;
     padding: 2px 0px 2px 7px;
-    margin-bottom: 10px;
+    margin: 10px 0 10px 0;
+    font-size: 18px;
 }
 
 .loginButton {
