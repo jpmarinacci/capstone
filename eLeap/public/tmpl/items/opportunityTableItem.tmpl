@@ -1,26 +1,10 @@
 <tr>
-    <td>
-        <%= opportunity.title || "null" %> (Rise Project Learning)
-    </td>
+    <td><%= opportunity.title || "null" %> (Rise Project Learning)</td>
+    <td><%= opportunity.opportunity.Type || "null" %></td>
     <td><%= new Date(opportunity.startDateTime) || "null" %></td>
     <td><%= new Date(opportunity.endDateTime) || "null" %></td>
-    <td><%= opportunity.ownerID || "null" %> (Maricel Medina-Mora)</td>
-    <td><%= opportunity.description || "null" %></td>
-    <td><%= opportunity.location || "null" %></td>
-    <td><%= opportunity.latitude || "null" %></td>
-    <td><%= opportunity.longitude || "null" %></td>
     <td><%= opportunity.totalSeats || "null" %></td>
-    <td>unknown #</td>
-    <td><%= opportunity.notes || "null" %></td>
-    <td><%= opportunity.pay || "null" %></td>
-    <td><%= opportunity.donation || "null" %></td>
-    <td><%= opportunity.isPaid || "null" %></td>
-    <td><%= opportunity.isServiceLearning || "null" %></td>
-    <td><%= opportunity.isVirtual || "null" %></td>
-    <td><%= opportunity.recurrence || "null" %></td>
-    <td><%= opportunity.duration || "null" %></td>
-    <td><%= opportunity.timePeriodStart || "null" %></td>
-    <td><%= opportunity.timePeriodEndDate || "null" %></td>
+    <td><%= opportunity.totalSeats || "null" %></td>
     <td>
         <button class="btn btn-info btn-sm">Apply</button>
     </td>

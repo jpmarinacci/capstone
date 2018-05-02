@@ -1,6 +1,10 @@
 var dbServer = require('../dbServer');
 var mysql = require('mysql');
-//var fileStore = require('session-file-store');
+
+var session = require('express-session');
+var fileStore = require('session-file-store')(session);
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 
 var login = {
 	

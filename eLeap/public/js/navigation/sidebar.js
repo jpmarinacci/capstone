@@ -7,11 +7,13 @@
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/navigation/sidebar.tmpl'],
 function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
-		
+
+
+
 	eLeap.own.Sidebar = Backbone.View.extend({
-		
-		sidebarTmpl: _.template(sidebarTmpl),
-		
+
+        sidebarTmpl: _.template(sidebarTmpl),
+
 		events: {
 			'click .dashboardLink': 'commandClickDashboard',
 			//'click .createNewBtn': 'commandCreateNewOpportunity'
@@ -45,5 +47,6 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		}
 	});
 	return eLeap.own.Sidebar;
+
 });
 
