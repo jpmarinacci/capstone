@@ -177,5 +177,14 @@ app.use(function(error, req, res, next) {
     res.status(500).send(message);
 });
 
+// Session handling
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}))
+
 module.exports = app;
 

@@ -92,6 +92,9 @@ instantiateDbServer = function() {
 				console.log(results[0]);
 			});*/
 			var sql = "call " + sprocName + this.makeQs(sprocParams.length);
+
+			console.log ("SQL: " + sql);
+
 			function processQuery (error, results, fields) {
 				if (error) {
 					results = results || {};
