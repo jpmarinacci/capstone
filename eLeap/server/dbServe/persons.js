@@ -44,10 +44,10 @@ var persons = {
     updatePerson: function(request, response) { 'use strict';
     	var sprocName = "sprocName";
 		var params = [
-			request.body.personID ? request.body.personID : null,
+			request.body.personId ? Number(request.body.personId): null,
 		];
 		console.log("updatePerson route called");
-		console.log("calling "+ sprocName);
+		console.log("calling " + sprocName);
 		function processSproc(results) {
 			dbServer.processSproc(results, response);
 		};
@@ -58,7 +58,7 @@ var persons = {
 		var sprocName = "sprocAllPer";
 		var params = [];
 		console.log("getAllPersons route called");
-		console.log("calling "+ sprocName);
+		console.log("calling " + sprocName);
 		function processSproc(results) {
 			dbServer.processSproc(results, response);
 		};

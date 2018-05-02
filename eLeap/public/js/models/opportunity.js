@@ -17,7 +17,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			classId: "",
 			classType: "",
 			classYear: "",
-			courseSummery: "",
+			courseSummary: "",
 			createDate: "",
 			deliverables: "",
 			description: "",
@@ -57,7 +57,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			timePeriodEndDate: "",
 			timePeriodStartDate: "",	
 			title: "",
-			totalSeats:""
+			totalSeats: ""
 		},
 		
 		routes: { //CRUD rest call route signatures

@@ -7,7 +7,7 @@ var roles = {
 		var sprocName = "sprocAllRole";
 		var params = [];
 		console.log("getRoles route called");
-		console.log("calling "+ sprocName);
+		console.log("calling " + sprocName);
 		function processSproc(results) {
 			dbServer.processSproc(results, response);
 		};

@@ -6,8 +6,8 @@ var applicationState = {
 	updateApplicationState: function(request, response) { 'use strict';	
 		var sprocName = "sprocName";
 		var params = [
-			request.body.ApplicationStateID ? request.body.ApplicationStateID : null,
-			request.body.PersonID ? request.body.PersonID : null,
+			request.body.applicationStateId ? Number(request.body.applicationStateId): null,
+			request.body.personId ? Number(request.body.personId): null,
 		];
 		console.log("updateApplicationState route called");
 		console.log("calling "+ sprocName);
