@@ -5,21 +5,24 @@ var login = {
 	
 	isUserLoggedIn: function(request, response) { 'use strict';
 		console.log("---\nisUserLoggedIn route called\n---");
-		var sessions = request.session;
-		
-		if(sessions.user) {
-			response.send(sessions.user);
-            console.log("session exist, logged in :" + sessions.user);
+
+		var sess = request.session;
+        console.log("session :" + sess.loginUser);
+
+		if(sess.isLoggedIn == true) {
+			response.send(sess.loginUser);
+            console.log("session exist, logged in :" + sess.loginUser);
 		} else {
-			response.send("session expired :" + sessions);
-            console.log("session expired :" + sessions.user);
+			response.send("session expired :" + sess);
+            console.log("session expired :" + sess.loginUser);
 		}
 	},
-	
+
 	login: function(request, response) { 'use strict';
+
 		console.log("---\nlogin route called\n---");
 
-		var sessions = request.session;
+		var sess = request.session;
         var sprocName = "sprocAuth";
 
 		//From Form Post
@@ -43,9 +46,10 @@ var login = {
         dbServer.sproc(sprocName, params, processSproc);
 
         //Save
-		sessions.user = userEmail;
+		sess.loginUser = userEmail;
+        sess.isLoggedIn = true;
 
-		console.log("logged in as:" + sessions.user);
+		console.log("logged in as:" + sess.loginUser);
 	},
 	
 	logout: function(request, response) { 'use strict';
@@ -56,7 +60,7 @@ var login = {
 	  		if(err) {
 	  			console.log(err);
 	  		} else {
-	  			//res.redirect('/');
+                response.redirect('/');
 	  			console.log("session destroyed");
 	  		}
 		});

@@ -18,8 +18,10 @@ var fs = require('fs');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var session = require('express-session');
 var mysql = require('mysql');
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
+var identityKey = 'eleapkey';
 
 var dbServer = require('./server/dbServer');
 var applicationState = require('./server/dbServe/applicationState');
@@ -42,6 +44,7 @@ var proxiedHttp = require("findhit-proxywrap").proxy(http, {strict: false});
 app.set('port', process.env.PORT || 17490);
 app.use(favicon(__dirname + '/public/img/risingDragonFolder.ico'));
 
+//Session and cookie
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -49,7 +52,9 @@ var cookieSecret = "";
 app.use(cookieParser());
 app.use(cookieParser(cookieSecret));
 app.use(session({
+    name: identityKey,
 	secret: "dreamBig",
+    store: new FileStore(),
 	key:"",
 	resave: false,
     saveUninitialized: true,
@@ -177,14 +182,4 @@ app.use(function(error, req, res, next) {
     res.status(500).send(message);
 });
 
-// Session handling
-app.set('trust proxy', 1) // trust first proxy
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-}))
-
 module.exports = app;
-
