@@ -30,8 +30,10 @@ var persons = {
 		];
 		console.log("getPerson route called");
 		console.log("calling "+ sprocName);
-		console.log("sproc params:");
-		console.log(params);
+		//console.log("sproc params:");
+		//console.log(params);
+        console.log("Session check: " + request.session.name);
+
 		function processSproc(results) {
 			results = results[0];
 			dbServer.processSproc(results, response);
