@@ -280,12 +280,35 @@ ul, ol {
 	height: 300px;
 }
 
-/* Opportunity Page */
+/* Opportunity Form Page */
 
 .opportunityForm {
 	text-align: left;
 }
+.oppFormList li {
+	margin-bottom: 5px;	
+}
+.oppFormList .oppFormLabel {
+	display: inline-block;
+	width: 200px;
+	font-weight: 600;
+}
+.oppFormList .oppFormInputContainer {
+	display: inline-block;
+	width: 400px;
+}
+.oppFormList .oppFormTextInput {
+	width: 100%;
+}
+.formSection {
+	width: 700px;
+	padding: 10px;
+	border: solid 0.5px slategrey;
+	border-radius: 2px;
+	margin-bottom: 5px;
+}
 
+/* Opportunity Page */
 .opportunityItem, .roleItem, .personItem {
 	border: solid 0.5px darkslateblue;
 	padding: 2px;

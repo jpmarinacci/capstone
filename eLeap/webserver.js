@@ -20,8 +20,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var session = require('express-session');
-var FileStore = require('session-file-store')(session);
-var identityKey = 'eleapkey';
 
 var dbServer = require('./server/dbServer');
 var applicationState = require('./server/dbServe/applicationState');
@@ -51,10 +49,11 @@ app.use(bodyParser.json());
 var cookieSecret = "";
 app.use(cookieParser());
 app.use(cookieParser(cookieSecret));
+
 app.use(session({
-    name: identityKey,
+    name: 'eleapkey',
 	secret: "dreamBig",
-    store: new FileStore(),
+    //store: new fileStore(),
 	key:"",
 	resave: false,
     saveUninitialized: true,

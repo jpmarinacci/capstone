@@ -14,6 +14,8 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 		formTmpl: _.template(opportunityFormTmpl),
 		
 		events: {
+			'click .oppFormIsClass': 'toggleClassSection',
+			'click .oppFormOppType': 'toggleTypeSection',
 			'click .saveOpportunity': 'saveOpportunity',
 		},
 		
@@ -63,6 +65,40 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 			});
 		},
 		
+		toggleClassSection: function() {
+			this.$(".oppFormClassSection").toggle();
+			this.$(".oppFormNonClassSection").toggle();
+		},
+		
+		toggleTypeSection: function(event) {
+			this.$(".oppTypeSection").hide();
+			var type = event.currentTarget.value;
+			switch(type) {
+				case 'service':
+					this.$(".oppFormServiceSection").show();
+					break;
+				case 'volunteer':
+					this.$(".oppFormVolunteerSection").show();
+					break;
+				case 'project':
+					this.$(".oppFormProjectSection").show();
+					break;
+				case 'gig':
+					this.$(".oppFormGigSection").show();
+					this.$(".oppFormGigDeliverableSharedSection").show();
+					break;
+				case 'deliverable':
+					this.$(".oppFormDeliverableSection").show();
+					this.$(".oppFormGigDeliverableSharedSection").show();
+					break;
+				case 'other':
+					this.$(".oppFormOtherSection").show();
+					break;
+				default:
+					break;
+			}
+		},
+		
 		gatherInput: function() {
 			var startDateTime = new Date(this.$(".startDateTimeInput").val());
 			var endDateTime = new Date(this.$(".endDateTimeInput").val());
@@ -76,7 +112,7 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 				courseSummary: "",
 				createDate: "",
 				deliverables: "",
-				description: this.$(".opportunityFormDescription").val(),
+				description: this.$(".oppFormDescription").val(),
 				donation: "",
 				duration: "",
 				endDateTime: endDateTime,
@@ -112,7 +148,7 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 				term: "",
 				timePeriodEndDate: "",
 				timePeriodStartDate: "",	
-				title: this.$(".opportunityFormTitle").val(),
+				title: this.$(".oppFormTitle").val(),
 				totalSeats: Number(this.$(".totalSeats").val())
 			};
 			this.opportunity.set(opportuntityJson);
