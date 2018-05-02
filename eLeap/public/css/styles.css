@@ -1154,3 +1154,11 @@ table th[class*="col-"] {
 	padding-left: 20px;
 }
 
+.footer {
+    width: 100%;
+    padding-top:20px;
+    background-color: #34495e;
+    text-align: center;
+    color: #eeeeee;
+}
+

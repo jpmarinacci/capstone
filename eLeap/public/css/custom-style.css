@@ -5004,6 +5004,8 @@ ol {
 }
 .footer {
   background-color: #34495e;
+  text-align: center;
+  color: #eeeeee;
 }
 .footer .success {
   padding-bottom: 75px;
