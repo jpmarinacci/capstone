@@ -133,11 +133,11 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 				estimatedClassSize: this.$(".oppFormClassSize").val(),
 				examples: this.$(".oppFormExamples").val(),
 				hoursRequired: this.$(".oppFormHours").val(),
-				isClass: this.$(".oppFormIsClass:checked"),
-				isRequredForClass: this.$(".oppFormIsRequredForClass:checked"),
-				isPaid: this.$(".oppFormIsPaid:checked").val(),
+				isClass: this.$(".oppFormIsClass:checked").val() ? true:false,
+				isRequredForClass: this.$(".oppFormIsRequredForClass:checked").val() ? true:false,
+				isPaid: this.$(".oppFormIsPaid:checked").val() ? true:false,
 				isServiceLearning: false,
-				isTeams: this.$(".oppFormIsTeams:checked").val(),
+				isTeams: this.$(".oppFormIsTeams:checked").val() ? true:false,
 				isVirtual: false,
 				latitude: null,
 				location: this.$(".oppFormAddress").val(),
@@ -172,14 +172,14 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 			notifications.notifyUser("opportunity created");
 			this.gatherInput();
 			var options = {
-				success: function() {
+				success: function(opportunity) {
 					notifications.notifyUser("opportunity created");
 				},
-				error: function() {
-					notifications.notifyUser("error -- opportunity creation failed");
+				error: function(error) {
+					notifications.notifyUser("error -- opportunity creation failed: /n"+ error);
 				}
 			};
-			//this.opportunity.save({}, options);
+			this.opportunity.save({}, options);
 		}
 	});
 	return eLeap.own.OpportunityForm;

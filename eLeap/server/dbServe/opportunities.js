@@ -8,7 +8,10 @@ var opportunities = {
 		var params = [
 			//dbServer.isValidParam((//), "string"),
 			request.body.agencyCommitment ? request.body.agencyCommitment: "", 
-			request.body.applicationDueDate ? new Date(request.body.applicationDueDate): "",
+			//temp --->
+			request.body.applicationDueDate ? request.body.applicationDueDate: "",
+			//--end temp-->
+			//request.body.applicationDueDate ? new Date(request.body.applicationDueDate): "",
 			request.body.classId ? Number(request.body.classId): "",
 			//request.body.className ? request.body.className: "",
 			request.body.classType ? request.body.classType: "",
@@ -55,12 +58,12 @@ var opportunities = {
 			request.body.title ? request.body.title: "",
 			request.body.totalSeats ? Number(request.body.totalSeats): "",
 		];
-		console.log("params:");
+		console.log("params("+params.length+"):");
 		console.log(params);
 		console.log("createOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
-			//results = results[0];
+			results = results[0];
 			dbServer.processSproc(results, response);
 		};
 		

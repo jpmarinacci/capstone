@@ -12,53 +12,53 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 
 		defaults: {
 			agencyCommitment: "",
-			applicationDueDate: "",
-			availableSeats: "",
-			classId: "",
+			applicationDueDate: undefined,
+			availableSeats: 0,
+			classId: 0,
 			className: "",
 			classType: "",
-			classYear: "",
+			classYear: 0,
 			courseSummary: "",
-			createDate: "",
+			createDate: undefined,
 			deliverables: "",
 			description: "",
-			donation: "",
-			duration: "",
-			endDateTime: "",
-			estimatedClassSize: "",
+			donation: 0,
+			duration: 0,
+			endDateTime: undefined,
+			estimatedClassSize: 0,
 			examples: "",
-			hoursRequired: "",
-			isClass: "",
-			isRequredForClass: "",
-			isPaid: "",
-			isServiceLearning: "",
-			isTeams: "",
-			isVirtual: "",
-			latitude: "",
+			hoursRequired: 0,
+			isClass: false,
+			isRequredForClass: false,
+			isPaid: false,
+			isServiceLearning: false,
+			isTeams: false,
+			isVirtual: false,
+			latitude: undefined,
 			location: "",
-			longitude: "",
-			minimumPersonsRequired: "",
+			longitude: undefined,
+			minimumPersonsRequired: 0,
 			notAllowed: "",
 			notes: "",
-			numTeams: "",
+			numTeams: 0,
 			onBoarding: "",
 			opportunityType: "",
-			ownerId: "",
-			pay: "",
+			ownerId: 0,
+			pay: 0,
 			preferredAgencyType: "",
 			preferredServiceWorkType: "",
 			recurrence: "",
 			requirments: "",
-			startDateTime: "",
-			statusId: "",
+			startDateTime: undefined,
+			statusId: 0,
 			supportDescription: "",
 			supportPreference: "",
-			teamSize: "",
+			teamSize: 0,
 			term: "",
-			timePeriodEndDate: "",
-			timePeriodStartDate: "",	
+			timePeriodEndDate: undefined,
+			timePeriodStartDate: undefined,	
 			title: "",
-			totalSeats: ""
+			totalSeats: 0
 		},
 		
 		routes: { //CRUD rest call route signatures
@@ -71,7 +71,6 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		sync: function (method, thisModel, options) {
 			options = options || {};
 			if(method === 'create') {
-				// this.translateOpportunityToDB(this.toJSON())
 				server.postRoute(this.routes.createOpportunity, this.toJSON(), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
@@ -154,70 +153,62 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			}
 		},
 		
-		/*parse: function (dbOpportunity) {
-			return this.translateOpportunityFromDB(dbOpportunity);
+		parse: function (dbOpportunity) {
+			//return this.parseOppFromDB(dbOpportunity);
 		},
 		
-		translateOpportunityFromDB: function(dbOpportunity){
+		parseOppFromDB: function(dbOpportunity){
 			var jsonOpportunity = {};
-			if(dbOpportunity.ClassID)					jsonOpportunity.classId = dbOpportunity.ClassID;
-			if(dbOpportunity.CreateDate)				jsonOpportunity.createDate = dbOpportunity.CreateDate;
-			if(dbOpportunity.Description)				jsonOpportunity.description = dbOpportunity.Description;
-			if(dbOpportunity.Donation)					jsonOpportunity.donation = dbOpportunity.Donation;
-			if(dbOpportunity.Duration)					jsonOpportunity.duration = dbOpportunity.Duration;
-			if(dbOpportunity.EndDate)					jsonOpportunity.endDate = dbOpportunity.EndDate;
-			if(dbOpportunity.IsPaid)					jsonOpportunity.isPaid = dbOpportunity.IsPaid;
-			if(dbOpportunity.Recurrent)					jsonOpportunity.recurrent = dbOpportunity.Recurrent;
-			if(dbOpportunity.IsServiceLearning)			jsonOpportunity.isServiceLearning = dbOpportunity.IsServiceLearning;
-			if(dbOpportunity.IsVirtual)					jsonOpportunity.isVirtual = dbOpportunity.IsVirtual;
-			if(dbOpportunity.Latitude)					jsonOpportunity.latitude = dbOpportunity.Latitude;
-			if(dbOpportunity.Location)					jsonOpportunity.location = dbOpportunity.Location;
-			if(dbOpportunity.Longitude)					jsonOpportunity.longitude = dbOpportunity.Longitude;
-			if(dbOpportunity.Notes)						jsonOpportunity.notes = dbOpportunity.Notes;
-			if(dbOpportunity.OwnerID)					jsonOpportunity.ownerId = dbOpportunity.OwnerID;
-			if(dbOpportunity.OpportunityID)				jsonOpportunity.opportunityId = dbOpportunity.OpportunityID;
-			if(dbOpportunity.Pay)						jsonOpportunity.pay = dbOpportunity.Pay;
-			if(dbOpportunity.StartDateTime)				jsonOpportunity.startDateTime = dbOpportunity.StartDateTime;
-			if(dbOpportunity.StatusID)					jsonOpportunity.statusId = dbOpportunity.StatusID;
-			if(dbOpportunity.TimePeriodEndDate)			jsonOpportunity.timePeriodEndDate = dbOpportunity.TimePeriodEnDate;
-			if(dbOpportunity.TimePeriodStartDate)		jsonOpportunity.timePeriodStartDate = dbOpportunity.TimePeriodStartDate;
-			if(dbOpportunity.Title)						jsonOpportunity.title = dbOpportunity.Title;
-			if(dbOpportunity.TotalSeats)				jsonOpportunity.totalSeats = dbOpportunity.TotalSeats;
-			
+			/*jsonOpportunity.agencyCommitment = dbOpportunity.,
+			jsonOpportunity.applicationDueDate = dbOpportunity.,
+			jsonOpportunity.availableSeats = dbOpportunity.,
+			jsonOpportunity.classId = dbOpportunity.,
+			jsonOpportunity.className = dbOpportunity.,
+			jsonOpportunity.classType = dbOpportunity.,
+			jsonOpportunity.classYear = dbOpportunity.,
+			jsonOpportunity.courseSummary = dbOpportunity.,
+			jsonOpportunity.createDate = dbOpportunity.,
+			jsonOpportunity.deliverables = dbOpportunity.,
+			jsonOpportunity.description = dbOpportunity.,
+			jsonOpportunity.donation = dbOpportunity.,
+			jsonOpportunity.duration = dbOpportunity.,
+			jsonOpportunity.endDateTime = dbOpportunity.,
+			jsonOpportunity.estimatedClassSize = dbOpportunity.,
+			jsonOpportunity.examples = dbOpportunity.,
+			jsonOpportunity.hoursRequired = dbOpportunity.,
+			jsonOpportunity.isClass = dbOpportunity.,
+			jsonOpportunity.isRequredForClass = dbOpportunity.,
+			jsonOpportunity.isPaid = dbOpportunity.,
+			jsonOpportunity.isServiceLearning = dbOpportunity.,
+			jsonOpportunity.isTeams = dbOpportunity.,
+			jsonOpportunity.isVirtual = dbOpportunity.,
+			jsonOpportunity.latitude = dbOpportunity.,
+			jsonOpportunity.location = dbOpportunity.,
+			jsonOpportunity.longitude = dbOpportunity.,
+			jsonOpportunity.minimumPersonsRequired = dbOpportunity.,
+			jsonOpportunity.notAllowed = dbOpportunity.,
+			jsonOpportunity.notes = dbOpportunity.,
+			jsonOpportunity.numTeams = dbOpportunity.,
+			jsonOpportunity.onBoarding = dbOpportunity.,
+			jsonOpportunity.opportunityType = dbOpportunity.,
+			ownerId = dbOpportunity.,
+			jsonOpportunity.pay = dbOpportunity.,
+			jsonOpportunity.preferredAgencyType = dbOpportunity.,
+			jsonOpportunity.preferredServiceWorkType = dbOpportunity.,
+			jsonOpportunity.recurrence = dbOpportunity.,
+			jsonOpportunity.requirments = dbOpportunity.,
+			jsonOpportunity.startDateTime = dbOpportunity.,
+			jsonOpportunity.statusId = dbOpportunity.,
+			jsonOpportunity.supportDescription = dbOpportunity.,
+			jsonOpportunity.supportPreference = dbOpportunity.,
+			jsonOpportunity.teamSize = dbOpportunity.,
+			jsonOpportunity.term = dbOpportunity.,
+			jsonOpportunity.timePeriodEndDate = dbOpportunity.,
+			jsonOpportunity.timePeriodStartDate = dbOpportunity.,	
+			jsonOpportunity.title = dbOpportunity.,
+			jsonOpportunity.totalSeats = dbOpportunity.*/
 			return jsonOpportunity;
-		},
-		
-		translateOpportunityToDB: function(jsonOpportunity) {
-			var dbOpportunity = {};
-			//do the opposite for translate to db type language
-			if(jsonOpportunity.classId)					dbOpportunity.ClassID = jsonOpportunity.classId;
-			if(jsonOpportunity.createDate)				dbOpportunity.CreateDate = jsonOpportunity.createDate;
-			if(jsonOpportunity.description)				dbOpportunity.Description = jsonOpportunity.description;
-			if(jsonOpportunity.donation)				dbOpportunity.Donation = jsonOpportunity.donation;
-			if(jsonOpportunity.duration)				dbOpportunity.Duration = jsonOpportunity.Duration;
-			if(jsonOpportunity.endDateTime)				dbOpportunity.EndDateTime = jsonOpportunity.endDateTime;
-			if(jsonOpportunity.isPaid)					dbOpportunity.IsPaid = jsonOpportunity.isPaid ? true: false;
-			if(jsonOpportunity.isServiceLearning)		dbOpportunity.IsServiceLearning = jsonOpportunity.isServiceLearning ? true: false;
-			if(jsonOpportunity.isVirtual)				dbOpportunity.IsVirtual = jsonOpportunity.isVirtual ? true: false;
-			if(jsonOpportunity.latitude)				dbOpportunity.Latitude = jsonOpportunity.latitude;
-			if(jsonOpportunity.location)				dbOpportunity.Location = jsonOpportunity.location;
-			if(jsonOpportunity.longitude)				dbOpportunity.Longitude = jsonOpportunity.longitude;
-			if(jsonOpportunity.notes)					dbOpportunity.Note = jsonOpportunity.notes;
-			if(jsonOpportunity.ownerId)					dbOpportunity.OwnedID = jsonOpportunity.ownerId;
-			if(jsonOpportunity.opportunityId)			dbOpportunity.OpportunityID = OpportunityId;
-			if(jsonOpportunity.pay)						dbOpportunity.Pay = jsonOpportunity.pay;
-			if(jsonOpportunity.recurrent)				dbOpportunity.Recurrent = jsonOpportunity.recurrent ? true: false;
-			if(jsonOpportunity.startDateTime)			jsonOpportunity.StartDateTime = jsonOpportunity.StartDateTime;
-			if(jsonOpportunity.statusId)				dbOpportunity.StatusID = jsonOpportunity.statusId;
-			if(jsonOpportunity.timePeriodEndDate)		dbOpportunity.TimePeriodEndDate = jsonOpportunity.timePeriodEndDate;
-			if(jsonOpportunity.timePeriodStartDate)		dbOpportunity.TimePeriodStartDate = jsonOpportunity.timePeriodStartDate;
-			if(jsonOpportunity.timePeriodEnd)			dbOpportunity.TimePeriodEnd = jsonOpportunity.timePeriodEnd;
-			if(jsonOpportunity.timePeriodStart)			dbOpportunity.TimePeriodStart = jsonOpportunity.timePeriodStart;
-			if(jsonOpportunity.title)					dbOpportunity.Title = jsonOpportunity.title;
-			if(jsonOpportunity.totalSeats)				dbOpportunity.TotalSeats = jsonOpportunity.totalSeats;
-				
-			return dbOpportunity;
-		}*/
+		}
 	});
 
 	return eLeap.own.Opportunity;
