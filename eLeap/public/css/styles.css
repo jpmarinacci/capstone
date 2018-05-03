@@ -196,7 +196,6 @@ ul, ol {
 
 .bannerWrapper .headerLogo {
 	width: 245px;
-
 	text-align: center;
 	line-height: 3;
     background-color: #ffffff;
@@ -221,9 +220,10 @@ ul, ol {
 	position: absolute;
 	z-index: 1000;
 	position: fixed;
-	top: 80px;
-	left: 0;
-	right: 0;
+	width: 100%;
+	top: 100px;
+	left: 50%;
+    transform: translate(-50%, 0%);
 	text-align: center;
 }
 

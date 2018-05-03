@@ -53,7 +53,18 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 		            close: 'glyphicon glyphicon-remove'*/
                 }
 			});
+			
 			this.$(".endDateTimeInput").datetimepicker({
+				 icons: {
+                    time: "fa fa-clock",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down",
+                    previous: "glyphicon glyphicon-chevron-left",
+                    next: "glyphicon glyphicon-chevron-right"
+                }
+			});
+			this.$(".oppFormApplicationDueDate").datetimepicker({
 				 icons: {
                     time: "fa fa-clock",
                     date: "fa fa-calendar",
@@ -100,56 +111,59 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 		},
 		
 		gatherInput: function() {
-			var startDateTime = new Date(this.$(".startDateTimeInput").val());
-			var endDateTime = new Date(this.$(".endDateTimeInput").val());
+			var startDateTimeInput = this.$(".startDateTimeInput").val();
+			var startDateTime = startDateTimeInput ? new Date(startDateTimeInput): "";
+			var endDateTimeInput = this.$(".endDateTimeInput").val();
+			var endDateTime = endDateTimeInput ? new Date(endDateTimeInput): "";
+			var applicationDueDateInput = this.$(".oppFormApplicationDueDate").val();
+			var applicationDueDate = applicationDueDateInput ? new Date(applicationDueDateInput): "";
 			var opportuntityJson = {
-				agencyCommitment: "",
-				applicationDueDate: "",
-				availableSeats: "",
-				classId: "",
-				classType: "",
-				classYear: "",
-				courseSummary: "",
-				createDate: "",
-				deliverables: "",
+				agencyCommitment: this.$(".oppFormAgencyCommitment").val(),
+				applicationDueDate: applicationDueDate,
+				//classId: 1,
+				classType: this.$(".oppFormClassType").val(),
+				classYear: this.$(".oppFormYear").val(),
+				className: this.$(".oppFormClassName").val(),
+				courseSummary: this.$(".oppFormCourseSummary").val(),
+				deliverables: this.$(".oppFormDeliverables").val(),
 				description: this.$(".oppFormDescription").val(),
-				donation: "",
-				duration: "",
+				donation: this.$(".oppFormDonation").val(),
+				//duration: "test",
 				endDateTime: endDateTime,
-				estimatedClassSize: "",
-				examples: "",
-				hoursRequired: "",
-				isClass: "",
-				isRequredForClass: "",
-				isPaid: true,// this.$(".isPaid").val(),
-				isServiceLearning: "",
-				isTeams: "",
-				isVirtual: "",
-				latitude: "",
-				location: "",
-				longitude: "",
-				minimumPersonsRequired: "",
-				notAllowed: "",
-				notes: "",
-				numTeams: "",
-				onBoarding: "",
-				opportunityType: "",
+				estimatedClassSize: this.$(".oppFormClassSize").val(),
+				examples: this.$(".oppFormExamples").val(),
+				hoursRequired: this.$(".oppFormHours").val(),
+				isClass: this.$(".oppFormIsClass:checked"),
+				isRequredForClass: this.$(".oppFormIsRequredForClass:checked"),
+				isPaid: this.$(".oppFormIsPaid:checked").val(),
+				isServiceLearning: false,
+				isTeams: this.$(".oppFormIsTeams:checked").val(),
+				isVirtual: false,
+				latitude: null,
+				location: this.$(".oppFormAddress").val(),
+				longitude: null,
+				minimumPersonsRequired: this.$(".oppFormMinReqPersons").val(),
+				notAllowed: this.$(".oppFormNotAllowed").val(),
+				//notes: this.$(".oppFormNotes").val(),
+				numTeams: this.$(".oppFormNumTeams").val(),
+				onBoarding: this.$(".oppFormOnboarding").val(),
+				opportunityType: "",//this.$(".").val(),
 				ownerId: user.person.get('personId') || 1,
-				pay: "",
-				preferredServiceWorkType: "",
-				preferredAgencyType: "",
+				pay: this.$(".oppFormPayAmount").val(),
+				preferredAgencyType: this.$(".oppFormPrefAgencyType").val() || this.$(".oppFormAgencyType").val(),
+				preferredServiceWorkType: this.$(".oppFormPrefServiceWork").val(),
 				recurrence: "",
-				requirments: "",
+				requirments: this.$(".oppFormRequirements").val(),
 				startDateTime: startDateTime,
-				statusId: "",
-				supportDescription: "",
-				supportPreference: "",
-				teamSize: "",
-				term: "",
-				timePeriodEndDate: "",
-				timePeriodStartDate: "",	
+				//statusId: null,
+				supportDescription: this.$(".oppFormGivenSupport").val(),
+				supportPreference: this.$(".oppFormSupportPref").val(),
+				teamSize: this.$(".oppFormTeamSize").val(),
+				term: this.$(".oppFormTerm").val(),
+				timePeriodEndDate: null,
+				timePeriodStartDate: null,	
 				title: this.$(".oppFormTitle").val(),
-				totalSeats: Number(this.$(".totalSeats").val())
+				totalSeats: Number(this.$(".totalSeatsInput").val())
 			};
 			this.opportunity.set(opportuntityJson);
 		},
@@ -165,7 +179,7 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 					notifications.notifyUser("error -- opportunity creation failed");
 				}
 			};
-			this.opportunity.save({}, options);
+			//this.opportunity.save({}, options);
 		}
 	});
 	return eLeap.own.OpportunityForm;

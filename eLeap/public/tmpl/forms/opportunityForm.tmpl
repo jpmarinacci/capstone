@@ -27,10 +27,10 @@
     <li>
         <span class="oppFormLabel">Open slots</span>
         <span class="oppFormInputContainer">
-            <input class="totalSeats oppFormTextInput" type="text">
+            <input class="totalSeatsInput oppFormTextInput" type="text">
         </span>
     </li>
-    <li>
+    <!--li>
         <span class="oppFormLabel">Is it recurrent?</span>
         <span class="oppFormInputContainer">
             <input type="radio" name="isRecurrent" value="0" checked> No
@@ -41,7 +41,7 @@
                 <option value="3">Every month</option>
             </select>
         </span>
-    </li>
+    </li-->
     <li>
         <span class="oppFormLabel">Is this part of a class?</span>
         <span class="oppFormInputContainer">
@@ -80,7 +80,7 @@
             </span>
         </li>
         <li>
-            <span class="oppFormLabel">Class Size</span>
+            <span class="oppFormLabel">Estimated Class Size</span>
             <span class="oppFormInputContainer">
                 <input class="oppFormClassSize oppFormTextInput" type="text"/>
             </span>
@@ -129,6 +129,12 @@
                 <input class="oppFormTeamSize oppFormTextInput" type="text"/>
             </span>
         </li>
+        <li>
+            <span class="oppFormLabel">Number of Teams</span>
+            <span class="oppFormInputContainer">
+                <input class="oppFormNumTeams oppFormTextInput" type="text"/>
+            </span>
+        </li>
     </div>
     <li>
         <span class="oppFormLabel">Opportunity Type</span>
@@ -151,13 +157,13 @@
         <li>
             <span class="oppFormLabel">Preferred Service Work</span>
             <span class="oppFormInputContainer">
-                <input class="oppFormServiceWork oppFormTextInput" type="text"/>
+                <input class="oppFormPrefServiceWork oppFormTextInput" type="text"/>
             </span>
         </li>
         <li>
             <span class="oppFormLabel">Preferred Agency Type</span>
             <span class="oppFormInputContainer">
-                <input class="oppFormAgencyType oppFormTextInput" type="text"/>
+                <input class="oppFormPrefAgencyType oppFormTextInput" type="text"/>
             </span>
         </li>
     </div>
@@ -168,10 +174,16 @@
                 <textarea class="oppFormAddress oppFormTextInput"></textarea>
             </span>
         </li>
-        <li>
+        <!--li>
             <span class="oppFormLabel">Availability</span>
             <span class="oppFormInputContainer">
                 <input class="oppFormAvailability oppFormTextInput" type="text"/>
+            </span>
+        </li-->
+        <li>
+            <span class="oppFormLabel">Donation</span>
+            <span class="oppFormInputContainer">
+                <input class="oppFormDonation oppFormTextInput" type="text"/>
             </span>
         </li>
     </div>
@@ -237,9 +249,9 @@
     </div>
     <div class="oppFormOtherSection oppTypeSection formSection initialDisplayNone">
         <li>
-            <span class="oppFormLabel">Notes</span>
+            <span class="oppFormLabel">Examples</span>
             <span class="oppFormInputContainer">
-                <input class="oppFormNotes oppFormTextInput" type="text"/>
+                <input class="oppFormExamples oppFormTextInput" type="text"/>
             </span>
         </li>
     </div>
