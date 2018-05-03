@@ -11,15 +11,14 @@ var login = {
 	isUserLoggedIn: function(request, response) { 'use strict';
 		console.log("---\nisUserLoggedIn route called\n---");
 
-		var sess = request.session;
-        console.log("session :" + sess.loginUser);
+        console.log("session :" + session.loginUser + "," + session.isLoggedIn);
 
-		if(sess.isLoggedIn == true) {
-			response.send(sess.loginUser);
-            console.log("session exist, logged in :" + sess.loginUser);
+		if(session.isLoggedIn == true) {
+			response.send(session.loginUser);
+            console.log("session exist, logged in :" + session.loginUser);
 		} else {
-			response.send("session expired :" + sess);
-            console.log("session expired :" + sess.loginUser);
+			response.send("session expired :" + session);
+            console.log("session expired :" + session.loginUser);
 		}
 	},
 
@@ -27,18 +26,20 @@ var login = {
 
 		console.log("---\nlogin route called\n---");
 
-		var sess = request.session;
+		//var sess = request.session;
         var sprocName = "sprocAuth";
 
 		//From Form Post
 		//var userEmail = request.body.email ? request.body.email : null;;
         //var userPassword = request.body.password ? request.body.password : null;
 
-        var userEmail = "etsunny@gmail.com";
+        var userName = "Maricel Medina";
+        var userEmail = "maricel.medina@bellevuecollege.edu";
 		var userPassword = "bc9b5718afdffe85fb13555347969ff5";//123456abcd
 
         var params = [
-            userEmail,
+            userName,
+			userEmail,
         	userPassword
         ];
 
@@ -51,10 +52,14 @@ var login = {
         dbServer.sproc(sprocName, params, processSproc);
 
         //Save
-		sess.loginUser = userEmail;
-        sess.isLoggedIn = true;
+		//sess.loginUser = userEmail;
+        //sess.isLoggedIn = true;
 
-		console.log("logged in as:" + sess.loginUser);
+        session.loginUserName = userName;
+        session.loginUser = userEmail;
+        session.isLoggedIn = true;
+
+		console.log("logged in as:" + session.loginUser);
 	},
 	
 	logout: function(request, response) { 'use strict';

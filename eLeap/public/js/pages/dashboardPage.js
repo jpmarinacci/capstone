@@ -8,7 +8,7 @@
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'controllers/user', 'collections/opportunities',
 		'text!../../tmpl/pages/dashboardPage.tmpl', 'text!../../tmpl/items/opportunityItem.tmpl', 'text!../../tmpl/items/opportunityTableItem.tmpl'],
 function (eLeap, $, _, Backbone, router, user, Opportunities, dashboardPageTmpl, oppItemTmpl, oppTblItm) {'use strict';
-		
+
 	eLeap.own.DashboardPage = Backbone.View.extend({
 		
 		pageTmpl: _.template(dashboardPageTmpl),
@@ -31,6 +31,7 @@ function (eLeap, $, _, Backbone, router, user, Opportunities, dashboardPageTmpl,
 		renderFramework: function() {
 			this.$el.html(this.pageTmpl());
 			this.$(".welcomeName").text(user.person.get('personName'));
+            //this.$(".welcomeName").text(session.loginUserName);
 		},
 		
 		listenForEvents: function() {

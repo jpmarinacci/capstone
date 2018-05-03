@@ -33,8 +33,10 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'cont
 			this.$(".spinnerContainer").show();
 			var email = this.$(".loginEmail").val();
 			user.person.set({
-				'email': email
+				'email': email,
+                'personName': 'Maricel Medina'
 			});
+
 			setTimeout(function(){
 				router.lastRoute = '/dashboard';
 				user.login();
