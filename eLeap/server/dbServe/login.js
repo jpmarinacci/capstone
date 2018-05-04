@@ -46,10 +46,10 @@ var login = {
         console.log("Params:" + params);
 
         //Verify from DB
-		function processSproc(results) {
+		/*function processSproc(results) {
             dbServer.processSproc(results, response);
         };
-        dbServer.sproc(sprocName, params, processSproc);
+        dbServer.sproc(sprocName, params, processSproc);*/
 
         //Save
 		//sess.loginUser = userEmail;
