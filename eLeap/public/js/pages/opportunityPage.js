@@ -22,7 +22,7 @@ function (eLeap, $, _, Backbone, Opportunity, opportunityPageTmpl) { 'use strict
 				var thisPage = this;
 				require(['forms/opportunityForm'], function(OpportunityForm) {
 					thisPage.opportunityForm = new OpportunityForm({
-						el: thisPage.$(".opportunityForm")
+						el: thisPage.$(".opportunityPageCreateForm")
 					});
 				});
 			} else {

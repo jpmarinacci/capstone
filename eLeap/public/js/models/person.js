@@ -11,12 +11,12 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		idAttribute: "personId",
 
 		defaults: {
-			email:"",
+			email: "",
 			personName: "",
-			phone:"",
-			picId:"",
-			roleId: "",
-			themeId:"",
+			phone: "",
+			picId: 0,
+			roleId: 0,
+			themeId: 0,
 		},
 		
 		routes: {

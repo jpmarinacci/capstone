@@ -24,9 +24,6 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 			this.opportunity = options.opportunity || new Opportunity();
 			this.renderFramework();
 		},
-		tempFunc: function() {
-			
-		},
 		
 		renderFramework: function(){
 			this.$el.html(this.formTmpl({
@@ -117,6 +114,7 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 			var endDateTime = endDateTimeInput ? new Date(endDateTimeInput): "";
 			var applicationDueDateInput = this.$(".oppFormApplicationDueDate").val();
 			var applicationDueDate = applicationDueDateInput ? new Date(applicationDueDateInput): "";
+			var opportunityType = this.$(".oppFormOppType[name='oppFormOppType']:checked").val();
 			var opportuntityJson = {
 				agencyCommitment: this.$(".oppFormAgencyCommitment").val(),
 				applicationDueDate: applicationDueDate,
@@ -133,26 +131,26 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 				estimatedClassSize: this.$(".oppFormClassSize").val(),
 				examples: this.$(".oppFormExamples").val(),
 				hoursRequired: this.$(".oppFormHours").val(),
-				isClass: this.$(".oppFormIsClass:checked").val() ? true:false,
-				isRequredForClass: this.$(".oppFormIsRequredForClass:checked").val() ? true:false,
-				isPaid: this.$(".oppFormIsPaid:checked").val() ? true:false,
-				isServiceLearning: false,
-				isTeams: this.$(".oppFormIsTeams:checked").val() ? true:false,
-				isVirtual: false,
-				latitude: null,
+				isClass: this.$(".oppFormIsClass:checked").val() ? true: false,
+				isRequredForClass: this.$(".oppFormIsRequredForClass:checked").val() ? true: false,
+				isPaid: this.$(".oppFormIsPaid:checked").val() ? true: false,
+				isServiceLearning: opportunityType === 'service' ? true: false,
+				isTeams: this.$(".oppFormIsTeams:checked").val() ? true: false,
+				isVirtual: this.$(".oppFormIsVirtual:checked").val() ? true: false,
+				//latitude: null,
 				location: this.$(".oppFormAddress").val(),
-				longitude: null,
+				//longitude: null,
 				minimumPersonsRequired: this.$(".oppFormMinReqPersons").val(),
 				notAllowed: this.$(".oppFormNotAllowed").val(),
 				//notes: this.$(".oppFormNotes").val(),
 				numTeams: this.$(".oppFormNumTeams").val(),
 				onBoarding: this.$(".oppFormOnboarding").val(),
-				opportunityType: "",//this.$(".").val(),
-				ownerId: user.person.get('personId') || 1,
+				opportunityType: opportunityType,
+				ownerId: user.person.get('personId'),
 				pay: this.$(".oppFormPayAmount").val(),
 				preferredAgencyType: this.$(".oppFormPrefAgencyType").val() || this.$(".oppFormAgencyType").val(),
 				preferredServiceWorkType: this.$(".oppFormPrefServiceWork").val(),
-				recurrence: "",
+				//recurrence: "",
 				requirments: this.$(".oppFormRequirements").val(),
 				startDateTime: startDateTime,
 				//statusId: null,
@@ -160,20 +158,34 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 				supportPreference: this.$(".oppFormSupportPref").val(),
 				teamSize: this.$(".oppFormTeamSize").val(),
 				term: this.$(".oppFormTerm").val(),
-				timePeriodEndDate: null,
-				timePeriodStartDate: null,	
+				//timePeriodEndDate: null,
+				//timePeriodStartDate: null,
 				title: this.$(".oppFormTitle").val(),
 				totalSeats: Number(this.$(".totalSeatsInput").val())
 			};
 			this.opportunity.set(opportuntityJson);
 		},
 		
+		renderResults: function(opportunity) {
+			var thisForm = this;
+			this.$(".oppFormResults").show();
+			this.$(".oppFormResults .resultsList").empty();
+			_.each(opportunity.attributes, function(item, index, items) {
+				thisForm.$(".oppFormResults .resultsList").append("<li>"+index+": "+ item +"</li>");
+			});
+			
+			setTimeout(function() {
+				thisForm.$(".oppFormResults").fadeOut(1000);			
+			}, 10000);
+		},
+		
 		saveOpportunity: function() {
-			notifications.notifyUser("opportunity created");
 			this.gatherInput();
+			var thisForm = this;
 			var options = {
 				success: function(opportunity) {
 					notifications.notifyUser("opportunity created");
+					thisForm.renderResults(opportunity);
 				},
 				error: function(error) {
 					notifications.notifyUser("error -- opportunity creation failed: /n"+ error);

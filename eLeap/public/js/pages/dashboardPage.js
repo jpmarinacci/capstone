@@ -30,12 +30,14 @@ function (eLeap, $, _, Backbone, router, user, Opportunities, dashboardPageTmpl,
 		
 		renderFramework: function() {
 			this.$el.html(this.pageTmpl());
-			this.$(".welcomeName").text(user.person.get('personName'));
-            //this.$(".welcomeName").text(session.loginUserName);
+			if(user.person.get('personName') !== "") {
+				this.renderWelcome();
+			}
 		},
 		
 		listenForEvents: function() {
 			this.listenTo(this.opportunities, 'reset', this.render);
+			this.listenTo(user.person, 'change', this.renderWelcome);
 		},
 		
 		fetchOpportunities: function() {
@@ -43,19 +45,24 @@ function (eLeap, $, _, Backbone, router, user, Opportunities, dashboardPageTmpl,
 			this.opportunities.fetch({reset: true});
 		},
 		
+		renderWelcome: function() {
+			this.$(".welcomeName").text(user.person.get('personName'));
+		},
+		
 		render: function() {
 			if(this.opportunities) {
 				var thisPage = this;
-				this.opportunities.each(function(opportunity){
+				$("#opportunities").html("DASHBOARD PAGE UNDER CONSTRUCTION --("+ this.opportunities.length+") Opportunities");
+				/*this.opportunities.each(function(opportunity){
 					/*var itemHtml = thisPage.oppItemTmpl({
 						opportunity: opportunity.toJSON()
 					});
 					thisPage.$(".opportunitiesList").append(itemHtml);*/
-					var itemHtml = thisPage.oppTblItm({
+					/*var itemHtml = thisPage.oppTblItm({
 						opportunity: opportunity.toJSON()
 					});
 					thisPage.$(".opportunityTable tbody").append(itemHtml);
-				});
+				});*/
 			}
 		},
 		
