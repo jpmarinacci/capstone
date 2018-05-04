@@ -27,7 +27,7 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 			'dbTest': 'dbTest',
 			'home': 'home',
 			'login': 'loginPage',
-			'opportunity/:id':'opportunity',
+			'opportunity/:id': 'opportunity',
 			'sample':'sample',
 			'sample/:param': 'sample',
 			'signup':'signup',

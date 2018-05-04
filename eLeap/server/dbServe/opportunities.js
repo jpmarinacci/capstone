@@ -1,11 +1,6 @@
 var dbServer = require('../dbServer');
 var mysql = require('mysql');
 
-var session = require('express-session');
-var fileStore = require('session-file-store')(session);
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
 var opportunities = {
 	
 	createOpportunity: function(request, response) { 'use strict';
@@ -13,17 +8,19 @@ var opportunities = {
 		var params = [
 			//dbServer.isValidParam((//), "string"),
 			request.body.agencyCommitment ? request.body.agencyCommitment: null, 
-			request.body.applicationDueDate ? new Date(request.body.applicationDueDate): null,
-			request.body.availableSeats ? Number(request.body.availableSeats): null,
+			//temp --->
+			request.body.applicationDueDate ? request.body.applicationDueDate: null,
+			//--end temp-->
+			//request.body.applicationDueDate ? new Date(request.body.applicationDueDate): null,
 			request.body.classId ? Number(request.body.classId): null,
+			//request.body.className ? request.body.className: null,
 			request.body.classType ? request.body.classType: null,
 			request.body.classYear ? request.body.classYear: null,
 			request.body.courseSummary ? request.body.courseSummary: null,
-			request.body.createDate ? new Date(request.body.createDate): null,
+			new Date(),
 			request.body.deliverables ? request.body.deliverables: null,
 			request.body.description ? request.body.description: null,
 			request.body.donation ? request.body.donation: null,
-			request.body.description ? request.body.description: null,
 			request.body.duration ? request.body.duration: null,
 			request.body.endDateTime ? new Date(request.body.endDateTime): null,
 			request.body.estimatedClassSize ? Number(request.body.estimatedClassSize): null,
@@ -44,11 +41,10 @@ var opportunities = {
 			request.body.numTeams ? Number(request.body.numTeams): null,
 			request.body.onBoarding ? request.body.onBoarding: null,
 			request.body.opportunityType ? request.body.opportunityType: null,
-			request.body.notes ? request.body.notes: null,
-			request.body.ownerId ? Number(request.body.ownerId): null,
+			request.body.ownerId ? Number(request.body.ownerId): 3,
 			request.body.pay ? request.body.pay: null,
-			request.body.preferredServiceWorkType ? request.body.preferredServiceWorkType: null,
 			request.body.preferredAgencyType ? request.body.preferredAgencyType: null,
+			request.body.preferredServiceWorkType ? request.body.preferredServiceWorkType: null,
 			request.body.recurrence ? request.body.recurrence: null,
 			request.body.requirments ? request.body.requirments: null,
 			request.body.startDateTime ? new Date(request.body.startDateTime): null,
@@ -59,15 +55,15 @@ var opportunities = {
 			request.body.term ? request.body.term: null,
 			request.body.timePeriodEndDate ? new Date(request.body.timePeriodEndDate): null,
 			request.body.timePeriodStartDate ? new Date(request.body.timePeriodStartDate): null,
-			request.body.title ? request.body.title: null,
+			request.body.title ? request.body.title: "",
 			request.body.totalSeats ? Number(request.body.totalSeats): null,
 		];
-		console.log("params:");
+		console.log("params("+params.length+"):");
 		console.log(params);
 		console.log("createOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
-			//results = results[0];
+			results = results[0];
 			dbServer.processSproc(results, response);
 		};
 		
