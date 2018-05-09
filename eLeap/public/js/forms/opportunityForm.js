@@ -174,9 +174,9 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 				thisForm.$(".oppFormResults .resultsList").append("<li>"+index+": "+ item +"</li>");
 			});
 			
-			setTimeout(function() {
+			/*setTimeout(function() {
 				thisForm.$(".oppFormResults").fadeOut(1000);			
-			}, 10000);
+			}, 10000);*/
 		},
 		
 		saveOpportunity: function() {

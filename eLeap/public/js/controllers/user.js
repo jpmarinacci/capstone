@@ -9,7 +9,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 	
 	eLeap.own.User = Backbone.Model.extend({
 		
-		isLoggedIn: true,
+		isLoggedIn: false,
 		
 		initialize: function(options) {
 			options = options || {};
