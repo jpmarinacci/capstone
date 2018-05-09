@@ -51,10 +51,6 @@ var login = {
         };
         dbServer.sproc(sprocName, params, processSproc);*/
 
-        //Save
-		//sess.loginUser = userEmail;
-        //sess.isLoggedIn = true;
-
         session.loginUserName = userName;
         session.loginUser = userEmail;
         session.isLoggedIn = true;
@@ -66,6 +62,7 @@ var login = {
 		console.log("logoff route called");
 
         request.logout();
+        session.isLoggedIn = false;
         request.session.destroy(function(err) {
 	  		if(err) {
 	  			console.log(err);
