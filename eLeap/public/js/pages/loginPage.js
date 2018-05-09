@@ -37,11 +37,11 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'cont
 				'email': email,
 				'password': password
 			});
-			user.login();
-			/*setTimeout(function(){
+			//user.login();
+			setTimeout(function(){
 				router.lastRoute = '/dashboard';
 				user.login();
-			}, 800);*/
+			}, 800);
 		},
 		
 		commandSignup: function() {
