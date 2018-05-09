@@ -14,13 +14,21 @@ function (eLeap, $, _, Backbone, router, user) { 'use strict';
 		initialize: function () {
 			//start the app
 			Backbone.history.start({ pushState: true });
+			this.listenForLoginEvents();
+		},
+		
+		listenForLoginEvents: function() {
+			this.listenToOnce(user, 'isLoggedInCheck:returned', this.routeAfterLoginCheck);
 		},
 		
 		startApp: function(){
-
+			user.isLoggedInSuccess();
 			//console.log(user.isUserLoggedIn());
-
-			if(user.isUserLoggedIn()) {
+			
+		},
+		
+		routeAfterLoginCheck: function() {
+			if(user.isLoggedIn) {
 				router.successfulLogin();
 			} else {
 				router.logout();

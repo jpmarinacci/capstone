@@ -17,12 +17,14 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 		},
 		
 		login: function () {
+			//thisController = this;
 			var loginSuccess = function(response) {
 				/*if(response) {
 					
 				}*/
 				console.log(response);
 				//thisController.person.set(response.person);
+				//thisController.trigger('user:loggedIn');
 			};
 			var loginError = function(error) {
 				
@@ -57,24 +59,19 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 			this.person.fetch({}, options);
 		},
 		
-		isUserLoggedIn: function() {
-
-			console.log("user.js isUserLoggedIn BEFORE call:" + this.isLoggedIn);
-
+		isLoggedInSuccess: function() {
+			console.log("user.js isLoggedInSuccess BEFORE call:" + this.isLoggedIn);
             var thisController = this;
-			var loginSuccess = function(response) {
+			var isLoggedInSuccess = function(response) {
 				thisController.isLoggedIn = response.isLoggedIn;
-                console.log("user.js isUserLoggedIn AFTER call:" + thisController.isLoggedIn);
+				thisController.trigger('isLoggedInCheck:returned');
+                console.log("user.js isLoggedInSuccess AFTER call:" + thisController.isLoggedIn);
 			};
 			var loginError = function(error) {
 				console.log(error);
 			};
 			var options = {};
-
-			server.postRoute('/isUserLoggedIn', {}, loginSuccess, loginError, options);
-
-
-            //return this.isLoggedIn;
+			server.postRoute('/isUserLoggedIn', {}, isLoggedInSuccess, loginError, options);
 		}
 	});
 	
