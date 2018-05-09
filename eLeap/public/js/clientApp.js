@@ -14,7 +14,9 @@ function (eLeap, $, _, Backbone, router, user) { 'use strict';
 		initialize: function () {
 			//start the app
 			Backbone.history.start({ pushState: true });
-			
+		},
+		
+		startApp: function(){
 			if(user.isUserLoggedIn()) {
 				router.successfulLogin();
 			} else {
