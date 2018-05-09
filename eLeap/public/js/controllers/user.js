@@ -48,14 +48,18 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 		},
 		
 		isUserLoggedIn: function() {
+			var thisController = this;
 			var loginSuccess = function(response) {
-				//console.log(response);
+				console.log("isLoggedIn:" +response.isLoggedIn);
+				thisController.isLoggedIn = response.isLoggedIn;
 			};
-			var loginError = function(error) {};
+			var loginError = function(error) {
+				console.log(error);
+			};
 			var options = {};
 			server.postRoute('/isUserLoggedIn', {}, loginSuccess, loginError, options);
 			
-			return this.isLoggedIn;
+			//return this.isLoggedIn;
 		}
 	});
 	
