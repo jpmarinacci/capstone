@@ -8,11 +8,8 @@ var opportunities = {
 		var params = [
 			//dbServer.isValidParam((//), "string"),
 			request.body.agencyCommitment ? request.body.agencyCommitment: null, 
-			//temp --->
 			request.body.applicationDueDate ? request.body.applicationDueDate: null,
-			//--end temp-->
-			//request.body.applicationDueDate ? new Date(request.body.applicationDueDate): null,
-			request.body.classId ? Number(request.body.classId): 0,
+			request.body.classId ? Number(request.body.classId): null,
 			//request.body.className ? request.body.className: null,
 			request.body.classType ? request.body.classType: null,
 			request.body.classYear ? request.body.classYear: null,
