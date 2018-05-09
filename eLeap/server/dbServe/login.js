@@ -24,7 +24,7 @@ var login = {
 
 	login: function(request, response) { 'use strict';
 
-		console.log("---\nlogin route called\n---");
+		console.log("---login route called\n---");
 
 		//var sess = request.session;
         var sprocName = "sprocAuth";

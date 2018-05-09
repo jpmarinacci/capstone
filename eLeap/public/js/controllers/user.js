@@ -18,12 +18,22 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 		
 		login: function () {
 			var loginSuccess = function(response) {
-				//console.log(response);
+				/*if(response) {
+					
+				}*/
+				console.log(response);
+				//thisController.person.set(response.person);
 			};
-			var loginError = function(error) {};
+			var loginError = function(error) {
+				
+			};
 			var options = {};
-			server.postRoute('/login', {}, loginSuccess, loginError, options);
-			this.getPerson();
+			server.postRoute('/login', {
+				userEmail: this.person.get('email'),
+				userPassword: this.person.get('password')
+			}, loginSuccess, loginError, options);
+			
+			//this.getPerson();
 			this.clientLogin();
 		},
 		
@@ -54,9 +64,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
             var thisController = this;
 			var loginSuccess = function(response) {
 				thisController.isLoggedIn = response.isLoggedIn;
-
                 console.log("user.js isUserLoggedIn AFTER call:" + thisController.isLoggedIn);
-
 			};
 			var loginError = function(error) {
 				console.log(error);

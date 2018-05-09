@@ -32,14 +32,16 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'cont
 		commandLogin: function() {
 			this.$(".spinnerContainer").show();
 			var email = this.$(".loginEmail").val();
+			var password = this.$(".loginPassword").val();
 			user.person.set({
-				'email': email
+				'email': email,
+				'password': password
 			});
-
-			setTimeout(function(){
+			user.login();
+			/*setTimeout(function(){
 				router.lastRoute = '/dashboard';
 				user.login();
-			}, 800);
+			}, 800);*/
 		},
 		
 		commandSignup: function() {
