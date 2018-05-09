@@ -35,8 +35,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 				userPassword: this.person.get('password')
 			}, loginSuccess, loginError, options);
 			
-			//this.getPerson();
-			this.clientLogin();
+			this.getPerson();
+			//this.clientLogin();
 		},
 		
 		clientLogin: function() {
