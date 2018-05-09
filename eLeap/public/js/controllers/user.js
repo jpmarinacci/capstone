@@ -9,7 +9,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 	
 	eLeap.own.User = Backbone.Model.extend({
 		
-		isLoggedIn: true,
+		isLoggedIn: false,
 		
 		initialize: function(options) {
 			options = options || {};
@@ -48,18 +48,25 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 		},
 		
 		isUserLoggedIn: function() {
-			var thisController = this;
+
+			console.log("user.js isUserLoggedIn BEFORE call:" + this.isLoggedIn);
+
+            var thisController = this;
 			var loginSuccess = function(response) {
-				console.log("isLoggedIn:" +response.isLoggedIn);
 				thisController.isLoggedIn = response.isLoggedIn;
+
+                console.log("user.js isUserLoggedIn AFTER call:" + thisController.isLoggedIn);
+
 			};
 			var loginError = function(error) {
 				console.log(error);
 			};
 			var options = {};
+
 			server.postRoute('/isUserLoggedIn', {}, loginSuccess, loginError, options);
-			
-			//return this.isLoggedIn;
+
+
+            //return this.isLoggedIn;
 		}
 	});
 	

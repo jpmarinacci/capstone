@@ -12,14 +12,14 @@ var login = {
 		console.log("---\nisUserLoggedIn route called\n---");
 
         console.log("session :" + session.loginUser + "," + session.isLoggedIn);
-        response.send({isLoggedIn: true});
-		/*if(session.isLoggedIn == true) {
-			response.send(session.loginUser);
+
+		if(session.isLoggedIn == true) {
+            response.send({isLoggedIn: true});
             console.log("session exist, logged in :" + session.loginUser);
 		} else {
-			response.send("session expired :" + session);
+            response.send({isLoggedIn: false});
             console.log("session expired :" + session.loginUser);
-		}*/
+		}
 	},
 
 	login: function(request, response) { 'use strict';

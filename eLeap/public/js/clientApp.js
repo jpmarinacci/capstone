@@ -17,6 +17,9 @@ function (eLeap, $, _, Backbone, router, user) { 'use strict';
 		},
 		
 		startApp: function(){
+
+			//console.log(user.isUserLoggedIn());
+
 			if(user.isUserLoggedIn()) {
 				router.successfulLogin();
 			} else {
