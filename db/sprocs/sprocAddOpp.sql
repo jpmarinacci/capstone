@@ -48,7 +48,7 @@ in title_v varchar(45),
 in totalSeats_v int
 )
 BEGIN
-    DECLARE errno INT;
+	DECLARE errno INT;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
     GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
@@ -56,8 +56,8 @@ BEGIN
     ROLLBACK;
     END;
 	START TRANSACTION;
-	INSERT INTO eLeapData.opportunityTable
-	(title,
+	INSERT INTO eLeapData.opportunityTable(
+    title,
 	description,
 	startDateTime,
 	endDateTime,
@@ -151,6 +151,7 @@ BEGIN
 	requirements_v,
 	supportDescription_v
     );
-SELECT * from eLeapData.opportunityTable Where eLeapData.opportunityTable.opportunityID =LAST_INSERT_ID();
+    COMMIT;
+SELECT * from eLeapData.opportunityTable Where eLeapData.opportunityTable.opportunityId =LAST_INSERT_ID();
 END$$
 DELIMITER ;

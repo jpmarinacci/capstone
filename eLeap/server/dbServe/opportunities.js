@@ -60,10 +60,12 @@ var opportunities = {
 		console.log("createOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSprocCallback(results) {
-			results = results[0];
-			console.log("sproc successful");
-			console.log("results- oppId: " + results[0].opportunityId);
-			console.log("results- title: " + results[0].title);
+			if(results) {
+				results = results[0];
+				console.log("sproc successful");
+				console.log("results- oppId: " + results[0].opportunityId);
+				console.log("results- title: " + results[0].title);
+			}
 			dbServer.processSproc(results, response);
 		};
 		
