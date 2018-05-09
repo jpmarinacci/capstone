@@ -36,7 +36,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 			}, loginSuccess, loginError, options);
 			
 			this.getPerson();
-			//this.clientLogin();
+			this.clientLogin();
 		},
 		
 		clientLogin: function() {
