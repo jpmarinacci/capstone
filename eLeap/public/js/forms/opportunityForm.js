@@ -192,6 +192,7 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 				}
 			};
 			this.opportunity.save({}, options);
+			this.opportunity = new Opportunity();
 		}
 	});
 	return eLeap.own.OpportunityForm;
