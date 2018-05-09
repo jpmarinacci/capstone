@@ -43,6 +43,7 @@ require.config({
 require(['jquery', 'eLeap', 'clientApp'], function ($, eLeap, ClientApp) { 'use strict';
 	$(document).ready(function() {
 		eLeap.run.clientApp = new ClientApp();
+		clientApp.startApp();
 	});
 });
 
