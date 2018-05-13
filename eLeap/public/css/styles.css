@@ -310,12 +310,54 @@ ul, ol {
 	margin-bottom: 5px;
 }
 
-/* Opportunity Page */
-.opportunityItem, .roleItem, .personItem {
+/* Dashboard Page */
+.opportunityItem {
+	display: inline-block;
+	vertical-align: text-top;
+	padding: 2px;
+	margin-bottom: 10px;
+}
+.opportunitiesList .opportunityItem:hover {
+	background-color: #a7e6ff;
+	cursor: pointer;
+}
+.oppItemPicContainer {
+	width: 40px;
+	height: 40px;
+	float: left;
+}
+.oppItemPic {
+	height: auto;
+	width: auto;
+	max-height: 40px;
+	max-width: 40px;
+}
+.oppItemField {
+	display: block;
+}
+.oppItemDetails {
+	width: 300px;
+    float: right;
+}
+.oppItemLabel {
+	font-weight: 600;
+}
+/*  Opportunity Page */
+.opportunityView {
+	float: left;
+}
+.oppViewJoinBtn {
+	float: left;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+/* dbTest Page */
+.roleItem, .personItem {
 	border: solid 0.5px darkslateblue;
 	padding: 2px;
 }
-.opportunityItem > div, .roleItem > div, .personItem > div {
+.roleItem > div, .personItem > div {
 	display: inline-block;
 	border: solid 0.5px lightgrey;
 	margin-right: 5px;

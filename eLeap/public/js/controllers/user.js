@@ -63,7 +63,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 			console.log("user.js isLoggedInSuccess BEFORE call:" + this.isLoggedIn);
             var thisController = this;
 			var isLoggedInSuccess = function(response) {
-				thisController.isLoggedIn = response.isLoggedIn;
+				thisController.isLoggedIn = true; //response.isLoggedIn;
 				thisController.trigger('isLoggedInCheck:returned');
                 console.log("user.js isLoggedInSuccess AFTER call:" + thisController.isLoggedIn);
 			};

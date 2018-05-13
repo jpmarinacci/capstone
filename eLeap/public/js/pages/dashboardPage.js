@@ -5,15 +5,13 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'controllers/user', 'collections/opportunities',
-		'text!../../tmpl/pages/dashboardPage.tmpl', 'text!../../tmpl/items/opportunityItem.tmpl', 'text!../../tmpl/items/opportunityTableItem.tmpl'],
-function (eLeap, $, _, Backbone, router, user, Opportunities, dashboardPageTmpl, oppItemTmpl, oppTblItm) {'use strict';
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'controllers/router', 'controllers/user',
+		'collections/opportunities', 'items/opportunityItem', 'text!../../tmpl/pages/dashboardPage.tmpl'],
+function (eLeap, $, _, Backbone, cache, router, user, Opportunities, OpportunityItem, dashboardPageTmpl) {'use strict';
 
 	eLeap.own.DashboardPage = Backbone.View.extend({
 		
 		pageTmpl: _.template(dashboardPageTmpl),
-		oppItemTmpl: _.template(oppItemTmpl),
-		oppTblItm: _.template(oppTblItm),
 		
 		events: {
 			'click .add': 'addOpportuntiy'
@@ -23,7 +21,8 @@ function (eLeap, $, _, Backbone, router, user, Opportunities, dashboardPageTmpl,
 			this.options = _.extend({}, options);
 			this.renderFramework();
 			//this.opportunityHoursChart = new Chart();
-			this.opportunities = new Opportunities();
+			//this.opportunities = new Opportunities();
+			this.opportunities = cache.opportunities;
 			this.listenForEvents();
 			this.fetchOpportunities();
 		},
@@ -42,7 +41,8 @@ function (eLeap, $, _, Backbone, router, user, Opportunities, dashboardPageTmpl,
 		
 		fetchOpportunities: function() {
 			//based on role type we will show different opportunites
-			this.opportunities.fetch({reset: true});
+			//this.opportunities.fetch({reset: true});
+			cache.fetchOpportunites({reset: true});
 		},
 		
 		renderWelcome: function() {
@@ -53,16 +53,12 @@ function (eLeap, $, _, Backbone, router, user, Opportunities, dashboardPageTmpl,
 			if(this.opportunities) {
 				var thisPage = this;
 				$("#opportunities").html("DASHBOARD PAGE UNDER CONSTRUCTION --("+ this.opportunities.length+") Opportunities");
-				/*this.opportunities.each(function(opportunity){
-					/*var itemHtml = thisPage.oppItemTmpl({
-						opportunity: opportunity.toJSON()
+				this.opportunities.each(function(opportunity){
+					var oppItem = new OpportunityItem({
+						opportunity: opportunity
 					});
-					thisPage.$(".opportunitiesList").append(itemHtml);*/
-					/*var itemHtml = thisPage.oppTblItm({
-						opportunity: opportunity.toJSON()
-					});
-					thisPage.$(".opportunityTable tbody").append(itemHtml);
-				});*/
+					thisPage.$(".opportunitiesList").append(oppItem.render());
+				});
 			}
 		},
 		

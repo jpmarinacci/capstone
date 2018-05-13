@@ -5,8 +5,8 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/opportunity', 'text!../../tmpl/pages/opportunityPage.tmpl'],
-function (eLeap, $, _, Backbone, Opportunity, opportunityPageTmpl) { 'use strict';
+define(['eLeap', 'jquery', 'underscore', 'backbone','controllers/cache', 'items/opportunityItem', 'text!../../tmpl/pages/opportunityPage.tmpl'],
+function (eLeap, $, _, Backbone, cache, OpportunityItem, opportunityPageTmpl) { 'use strict';
 		
 	eLeap.own.OpportunityPage = Backbone.View.extend({
 		
@@ -26,26 +26,33 @@ function (eLeap, $, _, Backbone, Opportunity, opportunityPageTmpl) { 'use strict
 					});
 				});
 			} else {
+				this.$(".oppportunityEditView").hide();
 				this.$(".opportunityDetailsView").show();
-				this.opportunity = options.opportunity || new Opportunity({
-					opportunityId: Number(this.opportunityId)
-				});
+				var oppId = Number(this.opportunityId);
+				if(oppId) {
+					this.opportunity = cache.getOpportunity({
+						opportunityId: oppId
+					});
+				}
 				this.listenForEvents();
-				this.opportunity.fetch();
+				cache.fetchOpportunity(this.opportunity);
+				//this.opportunity.fetch();
 			}
 		},
 		
 		renderFramework: function(){
-			this.$el.html(this.pageTmpl({}));
+			this.$el.html(this.pageTmpl());
 		},
 		
 		listenForEvents: function() {
 			this.listenTo(this.opportunity, 'sync change', this.renderOpportunity);
 		},
 		
-		renderOpportunity: function(opportunity) {
-			//render
-			console.log(this.opportunity);
+		renderOpportunity: function() {
+			var opportunityView = new OpportunityItem({
+				opportunity: this.opportunity
+			});
+			this.$(".opportunityView").html(opportunityView.render());
 		}
 	});
 	return eLeap.own.OpportunityPage;

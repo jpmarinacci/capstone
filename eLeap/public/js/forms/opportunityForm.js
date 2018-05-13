@@ -147,7 +147,7 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 				onBoarding: this.$(".oppFormOnboarding").val(),
 				opportunityType: opportunityType,
 				ownerId: user.person.get('personId'),
-				pay: this.$(".oppFormPayAmount").val(),
+				payAmount: this.$(".oppFormPayAmount").val(),
 				preferredAgencyType: this.$(".oppFormPrefAgencyType").val() || this.$(".oppFormAgencyType").val(),
 				preferredServiceWorkType: this.$(".oppFormPrefServiceWork").val(),
 				//recurrence: "",

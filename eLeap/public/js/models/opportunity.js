@@ -29,7 +29,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			examples: "",
 			hoursRequired: 0,
 			isClass: false,
-			isRequredForClass: false,
+			isRequiredForClass: false,
 			isPaid: false,
 			isServiceLearning: false,
 			isTeams: false,
@@ -44,7 +44,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			onBoarding: "",
 			opportunityType: "",
 			ownerId: 0,
-			pay: 0,
+			ownerName: "",
+			payAmount: 0,
 			preferredAgencyType: "",
 			preferredServiceWorkType: "",
 			recurrence: "",
@@ -180,6 +181,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(jsonOpportunity.minimumPersonsRequired)	jsonOpportunity.minimumPersonsRequired = Number(jsonOpportunity.minimumPersonsRequired);
 			if(jsonOpportunity.numTeams)				jsonOpportunity.numTeams = Number(jsonOpportunity.numTeams);
 			if(jsonOpportunity.ownerId)					jsonOpportunity.ownerId = Number(jsonOpportunity.ownerId);
+			if(jsonOpportunity.ownerName)				jsonOpportunity.ownerName = jsonOpportunity.ownerName;
 			if(jsonOpportunity.pay)						jsonOpportunity.pay = Number(jsonOpportunity.pay);
 			if(jsonOpportunity.startDateTime)			jsonOpportunity.startDateTime = new Date(jsonOpportunity.startDateTime);
 			if(jsonOpportunity.statusId)				jsonOpportunity.statusId = Number(jsonOpportunity.statusId);

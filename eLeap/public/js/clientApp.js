@@ -35,3 +35,4 @@ function (eLeap, $, _, Backbone, router, user) { 'use strict';
 	});
 	return eLeap.own.ClientApp;
 });
+
