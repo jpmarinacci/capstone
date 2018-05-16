@@ -80,7 +80,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'collections/roles', 'colle
 			}
 			if(!opportunity) {
 				//opportunity = this.opportunities.add(new Opportunity());
-				opportunity = new Opportunity();
+				opportunity = new Opportunity({
+					opportunityId: options.opportunityId
+				});
 			}
 			return opportunity;
 		},

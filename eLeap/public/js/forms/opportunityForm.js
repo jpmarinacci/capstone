@@ -14,6 +14,10 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 		formTmpl: _.template(opportunityFormTmpl),
 		
 		events: {
+			'change .oppFormTitle': 'commandChangedTitle',
+			'change .oppFormDescription': 'commandChangedDescription',
+			'change .oppFormTotalSeatsInput': 'commandChangedTotalSeats',
+			
 			'click .oppFormIsClass': 'toggleClassSection',
 			'click .oppFormOppType': 'toggleTypeSection',
 			'click .saveOpportunity': 'saveOpportunity',
@@ -107,6 +111,51 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 			}
 		},
 		
+		isValidStringInput: function(stringInput) {
+			if(stringInput !== "") {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		
+		isValidIntegerInput: function(intInput) {
+			if(intInput.isInteger()) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		
+		commandChangedTitle: function(event) {
+			var inputValue = this.$(".oppFormTitle").val();
+			if(isValidStringInput(inputValue)) {
+				this.$(".oppFormTitleWarning").empty();
+				return;
+			} else {
+				this.$(".oppFormTitleWarning").html("title is required");
+				return;
+			}
+		},
+		
+		commandChangedDescription: function() {
+			
+		},
+		
+		commandChangedTotalSeats: function(event) {
+			var inputValue = this.$(".oppFormTotalSeatsInput").val();
+			if(inputValue) {
+				if(inputValue && isValidIntegerInput(inputValue)) {
+					this.$(".oppFormTotalSeatsWarning").empty();
+					return;
+				} else {
+					this.$(".oppFormTotalSeatsWarning").html("total seats must be a valid integer");
+					return;
+				}
+			}
+			return;
+		},
+		
 		gatherInput: function() {
 			var startDateTimeInput = this.$(".startDateTimeInput").val();
 			var startDateTime = startDateTimeInput ? new Date(startDateTimeInput): "";
@@ -161,7 +210,7 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 				//timePeriodEndDate: null,
 				//timePeriodStartDate: null,
 				title: this.$(".oppFormTitle").val(),
-				totalSeats: Number(this.$(".totalSeatsInput").val())
+				totalSeats: Number(this.$(".oppFormTotalSeatsInput").val())
 			};
 			this.opportunity.set(opportuntityJson);
 		},
