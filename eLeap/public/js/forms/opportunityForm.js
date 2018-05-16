@@ -14,9 +14,9 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 		formTmpl: _.template(opportunityFormTmpl),
 		
 		events: {
-			'change .oppFormTitle': 'commandChangedTitle',
-			'change .oppFormDescription': 'commandChangedDescription',
-			'change .oppFormTotalSeatsInput': 'commandChangedTotalSeats',
+			//'change .oppFormTitle': 'commandChangedTitle',
+			//'change .oppFormDescription': 'commandChangedDescription',
+			//'change .oppFormTotalSeatsInput': 'commandChangedTotalSeats',
 			
 			'click .oppFormIsClass': 'toggleClassSection',
 			'click .oppFormOppType': 'toggleTypeSection',
