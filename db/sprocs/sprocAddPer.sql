@@ -1,11 +1,10 @@
 DELIMITER $$
 CREATE DEFINER=`eLeapisit`@`%` PROCEDURE `sprocAddPer`(
-in roleId_v int,
-in personName_v varchar(45),
 in email_v varchar(45),
+in password_v varchar(45),
+in personName_v varchar(45),
 in phone_v varchar(45),
-in themeId_v int,
-in picId_v int
+in roleId_v int
 )
 BEGIN
     DECLARE errno INT;
@@ -22,17 +21,16 @@ BEGIN
 	personName,
 	email,
 	phone,
-	themeId,
-	picId)
+    `password`)
 	VALUES
 	(
 	roleId_v,
 	personName_v,
 	email_v,
 	phone_v,
-	themeId_v,
-	picId_v
+    password_v
 	);
+    COMMIT;
 SELECT * FROM eLeapData.personTable where eLeapData.personTable.personId = last_insert_id();
 
 END$$

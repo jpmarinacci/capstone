@@ -6,10 +6,10 @@ var persons = {
 		var sprocName = "sprocAddPer";
 		var params = [
 			request.body.email ? request.body.email : null,
-			request.body.roleId ? request.body.roleId : null,
-			request.body.password ? request.body.pasword: null,
+			request.body.password ? request.body.password: null,
 			request.body.personName ? request.body.personName : null,
-			request.body.phone ? request.body.phone : null
+			request.body.phone ? request.body.phone : null,
+			request.body.roleId ? request.body.roleId : null,
 			//request.body.themeId ? request.body.themeId : null,
 			//request.body.picId ? request.body.picId : null
 		];
