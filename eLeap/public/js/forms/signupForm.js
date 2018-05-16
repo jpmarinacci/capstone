@@ -53,7 +53,8 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 				email: email,
 				personName: this.$(".signupName").val(),
 				phone: this.$(".signupPhone").val(),
-				roleId: Number(this.$(".selectRoles").val())
+				roleId: Number(this.$(".selectRoles").val()),
+				password: this.$(".signupPassword").val()
 			};
 			this.person.set(personJson);
 		},
