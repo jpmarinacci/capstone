@@ -5,7 +5,8 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'controllers/cache', 'controllers/router', 'controllers/notifications',
+define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'controllers/cache', 
+		'controllers/router', 'controllers/notifications',
 		'models/person', 'text!../../tmpl/forms/signupForm.tmpl'],
 function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, signupFormTmpl) { 'use strict';
 		
@@ -60,17 +61,16 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 		},
 		
 		createNewPerson: function() {
-			notifications.notifyUser("Person created");
 			this.gatherInput();
 			var options = {
 				success: function(person) {
 					user.person.set(person);
-					notifications.notifyUser("Person created");
+					notifications.notifyUser("You successfully signed up");
 					router.lastRoute = '/dashboard';
 					user.clientLogin();
 				},
 				error: function() {
-					notifications.notifyUser("error -- Person creation failed");
+					notifications.notifyUser("error -- sign up failed :(   please try again.");
 				}
 			};
 			this.person.save({}, options);

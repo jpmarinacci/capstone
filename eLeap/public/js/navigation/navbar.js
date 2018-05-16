@@ -5,8 +5,8 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/navigation/navbar.tmpl'],
-function (eLeap, $, _, Backbone, navbarTmpl) { 'use strict';
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/user', 'text!../../tmpl/navigation/navbar.tmpl'],
+function (eLeap, $, _, Backbone, user, navbarTmpl) { 'use strict';
 		
 	eLeap.own.Navbar = Backbone.View.extend({
 		
@@ -27,8 +27,9 @@ function (eLeap, $, _, Backbone, navbarTmpl) { 'use strict';
 		
 		logout: function() {
 			this.$(".btnLogout").hide();
+			user.logout();
 			require(['controllers/router'], function(router) {
-				router.logout();
+				router.showLoggedOut();
 			});
 		},
 		

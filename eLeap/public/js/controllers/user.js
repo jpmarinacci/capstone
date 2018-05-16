@@ -2,14 +2,15 @@
  * @author: JP Marinacci
  */
 
-define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/person'],
-	function ($, _, Backbone, eLeap, server, Person) { 'use strict';
+define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications', 'controllers/restServer', 'models/person'],
+	function ($, _, Backbone, eLeap, notifications, server, Person) { 'use strict';
 	
 	var thisUser = undefined;
 	
 	eLeap.own.User = Backbone.Model.extend({
 		
 		isLoggedIn: false,
+		logInStatusChecked: false,
 		
 		initialize: function(options) {
 			options = options || {};
@@ -17,26 +18,25 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 		},
 		
 		login: function () {
-			//thisController = this;
 			var loginSuccess = function(response) {
-				/*if(response) {
-					
-				}*/
-				console.log(response);
-				//thisController.person.set(response.person);
-				//thisController.trigger('user:loggedIn');
+				response = response || {};
+				if(response.loginStatus === 'valid') {
+	    			thisUser.person.set(response.person);
+	    			thisUser.clientLogin();
+				} else {
+					thisUser.trigger('user:loginInvalid');
+					notifications.notifyUser("login credentials are invalid, did you sign up?");
+				}
 			};
 			var loginError = function(error) {
-				
+				var errorMessage = error ? error.message ? error.message : error : "unknown";
+				notifications.notifyUser("There was an error: "+ errorMessage);
 			};
 			var options = {};
 			server.postRoute('/login', {
-				userEmail: this.person.get('email'),
-				userPassword: this.person.get('password')
+				email: this.person.get('email'),
+				credential: this.person.get('password')
 			}, loginSuccess, loginError, options);
-			
-			this.getPerson();
-			this.clientLogin();
 		},
 		
 		clientLogin: function() {
@@ -44,12 +44,24 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 			this.trigger('user:loggedIn');
 		},
 		
-		logout: function() {
+		clientLogout: function() {
 			this.isLoggedIn = false;
+			this.trigger('user:loggedOut');
 		},
 		
-		getPerson: function() {
-			this.listenToOnce(this.person, 'sync', this.gotPerson);
+		logout: function() {
+			this.clientLogout();
+			var logoutSuccess = function(response) {
+				response = response || {};
+			};
+			var logoutError = function(error) {
+				var errorMessage = error ? error.message ? error.message : error : "unknown";
+				notifications.notifyUser("There was an error: "+ errorMessage);
+			};
+			server.postRoute('/logout', {}, logoutSuccess, logoutError);
+		},
+		
+		fetchPerson: function() {
 			var options = {
 				success: function(person) {
 					console.log(person);
@@ -59,13 +71,28 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer', '
 			this.person.fetch({}, options);
 		},
 		
-		isLoggedInSuccess: function() {
-			console.log("user.js isLoggedInSuccess BEFORE call:" + this.isLoggedIn);
-            var thisController = this;
+		checkLoginState: function() {
+			if(this.logInStatusChecked) {
+				return this.isLoggedIn;
+			} else {
+				return 'pending';
+			}
+		},
+		
+		getLoginStatus: function() {
 			var isLoggedInSuccess = function(response) {
-				thisController.isLoggedIn = true; //response.isLoggedIn;
-				thisController.trigger('isLoggedInCheck:returned');
-                console.log("user.js isLoggedInSuccess AFTER call:" + thisController.isLoggedIn);
+				thisUser.logInStatusChecked = true;
+				response = response || {};
+				if(response.isLoggedIn) {
+					thisUser.person.set({
+						email: response.email,
+						personId: response.personId,
+						personName: response.personName
+					});
+					thisUser.fetchPerson();
+				}
+				thisUser.isLoggedIn = response.isLoggedIn;
+				thisUser.trigger('isLoggedInCheck:returned');
 			};
 			var loginError = function(error) {
 				console.log(error);

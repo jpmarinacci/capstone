@@ -10,7 +10,13 @@ var communities = {
 		console.log("getCommunities route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
-			dbServer.processSproc(results, response);
+			if (results && results.error) {
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		var returnResults = results[0];
+	    		console.log("sprocAllCommunities successful");
+	    		response.send(returnResults);
+	    	}
 		};
 		dbServer.sproc(sprocName, params, processSproc);
     }

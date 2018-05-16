@@ -21,15 +21,18 @@ function (eLeap, $, _, Backbone, router, user) { 'use strict';
 			this.listenToOnce(user, 'isLoggedInCheck:returned', this.routeAfterLoginCheck);
 		},
 		
-		startApp: function(){
-			user.isLoggedInSuccess();
+		startApp: function() {
+			user.getLoginStatus();
 		},
 		
 		routeAfterLoginCheck: function() {
 			if(user.isLoggedIn) {
-				router.successfulLogin();
+				if(router.pageToDeploy) {
+					router.successfulLogin();
+					router.pageToDeploy.call(router);
+				}
 			} else {
-				router.logout();
+				router.showLoggedOut();
 			};
 		}
 	});

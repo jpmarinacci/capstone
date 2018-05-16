@@ -21,12 +21,22 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'cont
 		initialize: function (options) {
 			this.options = _.extend({}, options);
 			this.renderFramework();
+			this.listenForEvents();
 		},
-		
 		
 		renderFramework: function(){
 			this.$el.html(this.pageTmpl());
 			$(".logoHeader").show();
+		},
+		
+		listenForEvents: function() {
+			if(user) {
+				this.listenTo(user, 'user:loginInvalid', this.loginInvalid);
+			}
+		},
+		
+		loginInvalid: function() {
+			this.$(".spinnerContainer").hide();
 		},
 		
 		commandLogin: function() {
@@ -37,11 +47,12 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'cont
 				'email': email,
 				'password': password
 			});
-			//user.login();
-			setTimeout(function(){
+			router.lastRoute = '/dashboard';
+			user.login();
+			/*setTimeout(function(){
 				router.lastRoute = '/dashboard';
 				user.login();
-			}, 800);
+			}, 800);*/
 		},
 		
 		commandSignup: function() {

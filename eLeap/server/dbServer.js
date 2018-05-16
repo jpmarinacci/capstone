@@ -110,17 +110,13 @@ instantiateDbServer = function() {
 			};
 			this.connection.query(sql, sprocParams, processQuery);
 	    },
-	    processSproc: function(results, response) {
-	    	if (!results.error) {
-	    		results.status = "success";
-	    		response.send(results[0]);
-	    	} else {
-	    		dbServer.processSprocError(results, response);
-	    	}
-	    },
 		processSprocError: function(results, response) {
-			console.log("database error occurred: " + results);
-			response.send("database error occurred: " + results);
+			console.log("database error occurred: ");
+			if(results && results.error) {
+				console.log(results.error);
+				response.send("database error occurred: " + results.error);
+			}
+			return;
 	    }
 	};
 	

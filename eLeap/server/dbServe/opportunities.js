@@ -23,12 +23,12 @@ var opportunities = {
 			request.body.estimatedClassSize ? Number(request.body.estimatedClassSize): null,
 			request.body.examples ? request.body.examples: null,
 			request.body.hoursRequired ? Number(request.body.hoursRequired): null,
-			request.body.isClass ? request.body.isClass: null,
-			request.body.isRequiredForClass ? request.body.isRequiredForClass: null,
-			request.body.isPaid ? request.body.isPaid: null,
-			request.body.isServiceLearning ? request.body.isServiceLearning: null,
-			request.body.isTeams ? request.body.isTeams: null,
-			request.body.isVirtual ? request.body.isVirtual: null,
+			request.body.isClass ? request.body.isClass: 0,
+			request.body.isRequiredForClass ? request.body.isRequiredForClass: 0,
+			request.body.isPaid ? request.body.isPaid: 0,
+			request.body.isServiceLearning ? request.body.isServiceLearning: 0,
+			request.body.isTeams ? request.body.isTeams: 0,
+			request.body.isVirtual ? request.body.isVirtual: 0,
 			request.body.latitude ? request.body.latitude: null,
 			request.body.location ? request.body.location: null,
 			request.body.longitude ? request.body.longitude: null,
@@ -39,13 +39,13 @@ var opportunities = {
 			request.body.onBoarding ? request.body.onBoarding: null,
 			request.body.opportunityType ? request.body.opportunityType: null,
 			request.body.ownerId ? Number(request.body.ownerId): 3,
-			request.body.pay ? request.body.payAmount: null,
+			request.body.pay ? Number(request.body.payAmount): null,
 			request.body.preferredAgencyType ? request.body.preferredAgencyType: null,
 			request.body.preferredServiceWorkType ? request.body.preferredServiceWorkType: null,
 			request.body.recurrence ? request.body.recurrence: null,
 			request.body.requirments ? request.body.requirments: null,
 			request.body.startDateTime ? new Date(request.body.startDateTime): null,
-			request.body.statusId ? Number(request.body.statusId): null,
+			request.body.status ? request.body.status: null,
 			request.body.supportDescription ? request.body.supportDescription: null,
 			request.body.supportPreference ? request.body.supportPreference: null,
 			request.body.teamSize ? Number(request.body.teamSize): null,
@@ -60,15 +60,16 @@ var opportunities = {
 		console.log("createOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSprocCallback(results) {
-			if(results) {
-				results = results[0];
-				console.log("sproc successful");
-				console.log("results- oppId: " + results[0].opportunityId);
-				console.log("results- title: " + results[0].title);
-			}
-			dbServer.processSproc(results, response);
+			if (results && results.error) {
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		var returnResults = results[0];
+	    		console.log("sprocAddOpp successful");
+	    		console.log("created opp oppId: " + returnResults.opportunityId);
+				console.log("created opp title: " + returnResults.title);
+	    		response.send(returnResults);
+	    	}
 		};
-		
 		dbServer.sproc(sprocName, params, processSprocCallback);
     },
     
@@ -78,7 +79,13 @@ var opportunities = {
 		console.log("deleteOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
-			dbServer.processSproc(results, response);
+			if (results && results.error) {
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		var returnResults = results[0];
+	    		console.log("sprocDeleteOpp successful");
+	    		response.send(returnResults);
+	    	}
 		};
 		dbServer.sproc(sprocName, params, processSproc);
     },
@@ -89,19 +96,31 @@ var opportunities = {
 		console.log("getAllOpportunities route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
-			dbServer.processSproc(results, response);
+			if (results && results.error) {
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		var returnResults = results[0];
+	    		console.log("sprocAllOpp successful");
+	    		response.send(returnResults);
+	    	}
 		};
 		dbServer.sproc(sprocName, params, processSproc);
     },
     
 	getMyOpportunities: function(request, response) { 'use strict';	
-   		var sprocName = "sprocName";
+   		var sprocName = "sprocMyOpps";
 		var params = [
 		];
 		console.log("getMyOpportunities route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
-			dbServer.processSproc(results, response);
+			if (results && results.error) {
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		var returnResults = results[0];
+	    		console.log("sprocMyOpps successful");
+	    		response.send(returnResults);
+	    	}
 		};
 		dbServer.sproc(sprocName, params, processSproc);
     },
@@ -112,7 +131,12 @@ var opportunities = {
 		console.log("getOpportunities route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
-			dbServer.processSproc(results, response);
+			if (results && results.error) {
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		var returnResults = results[0];
+	    		response.send(returnResults);
+	    	}
 		};
 		dbServer.sproc(sprocName, params, processSproc);
     },
@@ -126,7 +150,12 @@ var opportunities = {
 		console.log("getOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
-			dbServer.processSproc(results, response);
+			if (results && results.error) {
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		var returnResults = results[0];
+	    		response.send(returnResults);
+	    	}
 		};
 		dbServer.sproc(sprocName, params, processSproc);
     },
@@ -137,7 +166,12 @@ var opportunities = {
 		console.log("getOpportunityHours route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
-			dbServer.processSproc(results, response);
+			if (results && results.error) {
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		var returnResults = results[0];
+	    		response.send(returnResults);
+	    	}
 		};
 		dbServer.sproc(sprocName, params, processSproc);
     },
@@ -151,7 +185,12 @@ var opportunities = {
 		console.log("joinOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
-			dbServer.processSproc(results, response);
+			if (results && results.error) {
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		var returnResults = results[0];
+	    		response.send(returnResults);
+	    	}
 		};
 		dbServer.sproc(sprocName, params, processSproc);
     },
@@ -165,7 +204,12 @@ var opportunities = {
 		console.log("leaveOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
-			dbServer.processSproc(results, response);
+			if (results && results.error) {
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		var returnResults = results[0];
+	    		response.send(returnResults);
+	    	}
 		};
 		dbServer.sproc(sprocName, params, processSproc);
     },
@@ -176,7 +220,12 @@ var opportunities = {
 		console.log("updateOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
-			dbServer.processSproc(results, response);
+			if (results && results.error) {
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		var returnResults = results[0];
+	    		response.send(returnResults);
+	    	}
 		};
 		dbServer.sproc(sprocName, params, processSproc);
    }

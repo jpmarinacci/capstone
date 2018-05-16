@@ -23,7 +23,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap'],
 		notifyUser: function(message, options) {
 			options = options || {};
 			options.isFade = options.isFade === false ? false : true;
-			options.displayTime = options.displayTime || 2000;
+			options.displayTime = options.displayTime || 8000;
 			options.fadeTime = options.fadeTime || 1000;
 			options.classes = options.classes || "";
 			

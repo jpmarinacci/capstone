@@ -2,75 +2,73 @@ var dbServer = require('../dbServer');
 var mysql = require('mysql');
 
 var session = require('express-session');
-//var fileStore = require('session-file-store')(session);
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var login = {
 	
 	isUserLoggedIn: function(request, response) { 'use strict';
-		console.log("---\nisUserLoggedIn route called\n---");
-
-        console.log("session :" + session.loginUser + "," + session.isLoggedIn);
-
+	
+		console.log("\n---isUserLoggedIn route called---\n");
 		if(session.isLoggedIn == true) {
-            response.send({isLoggedIn: true});
-            console.log("session exist, logged in :" + session.loginUser);
+            response.send({
+            	isLoggedIn: true,
+            	email: session.email,
+            	personId: session.personId,
+            	personName: session.personName
+            });
+            console.log("session exists, logged in as:" + session.personName);
 		} else {
             response.send({isLoggedIn: false});
-            console.log("session expired :" + session.loginUser);
+            console.log("session expired");
 		}
 	},
 
 	login: function(request, response) { 'use strict';
+	
+		console.log("---login route called---\n");
 
-		console.log("---login route called\n---");
-
-		//var sess = request.session;
-        //var sprocName = "sprocAuth";
-
-		//From Form Post
-		var userEmail = request.body.email ? request.body.email : null;
-        var userPassword = request.body.password ? request.body.password : null;
-
-        //var userName = "Maricel Medina";
-        //var userEmail = "maricel.medina@bellevuecollege.edu";
-		//var userPassword = "bc9b5718afdffe85fb13555347969ff5";//123456abcd
-
+		function processSproc(results) {
+	        if (results && results.error) {
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		var returnResults = {};
+	    		
+	    		if(results[0][0].LoginStatus === 'Success') {
+	    			returnResults.loginStatus = 'valid';
+	    			returnResults.person = results[1][0];
+	    			session.email = returnResults.person.email;
+		            session.personId = returnResults.person.personId;
+		            session.personName = returnResults.person.personName;
+		            session.isLoggedIn = true;
+		            console.log("logged in as:" + returnResults.person.personName);
+	    		} else {
+	    			returnResults.loginStatus = 'invalid';
+	    		}
+	    		response.send(returnResults);
+	    	}
+        };
+        
         var params = [
-			userEmail,
-        	userPassword
+			request.body.email ? request.body.email : null,
+        	request.body.credential ? request.body.credential : null
         ];
 
-        console.log("Params:" + params);
-
-        //Verify from DB
-		function processSproc(results) {
-            dbServer.processSproc(results, response);
-        };
-        dbServer.sproc(sprocName, params, processSproc);
-
-        session.loginUserName = userName;
-        session.loginUser = userEmail;
-        session.isLoggedIn = true;
-
-		console.log("logged in as:" + session.loginUser);
+        console.log("params: " + params);
+        dbServer.sproc("sprocLogin", params, processSproc);
 	},
 	
 	logout: function(request, response) { 'use strict';
-		console.log("logoff route called");
+		console.log("logout route called");
 
-        request.logout();
         session.isLoggedIn = false;
-        request.session.destroy(function(err) {
-	  		if(err) {
-	  			console.log(err);
-	  		} else {
-                response.redirect('/');
-	  			console.log("session destroyed");
-	  		}
-		});
+        session.email = null;
+        session.personId = null;
+        session.personName = null;
+		//response.redirect('/');
+		console.log("session removed");
 	}
 };
 
 module.exports = login;
+

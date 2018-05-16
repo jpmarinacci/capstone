@@ -51,7 +51,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			recurrence: "",
 			requirments: "",
 			startDateTime: undefined,
-			statusId: 0,
+			status: 'pending',
 			supportDescription: "",
 			supportPreference: "",
 			teamSize: 0,
@@ -72,7 +72,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		sync: function (method, thisModel, options) {
 			options = options || {};
 			if(method === 'create') {
-				server.postRoute(this.routes.createOpportunity, this.toJSON(), function (response) {
+				server.postRoute(this.routes.createOpportunity, this.parseOppToDB(), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
@@ -158,39 +158,54 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			return this.parseOppFromDB(dbOpportunity);
 		},
 		
+		parseOppToDB: function() {
+			var dbOpp = this.toJSON();
+			
+			dbOpp.isClass = dbOpp.isClass ? 1:0;
+			dbOpp.isRequiredForClass = dbOpp.isRequiredForClass ? 1:0;
+			dbOpp.isPaid = dbOpp.isPaid ? 1:0;
+			dbOpp.isServiceLearning = dbOpp.isServiceLearning ? 1:0;
+			dbOpp.isTeams = dbOpp.isTeams ? 1:0;
+			dbOpp.isVirtual = dbOpp.isVirtual ? 1:0;
+			
+			return dbOpp;
+		},
+		
 		parseOppFromDB: function(dbOpportunity){
-			var jsonOpportunity = dbOpportunity;
-			if(jsonOpportunity.applicationDueDate)		jsonOpportunity.applicationDueDate = new Date(jsonOpportunity.applicationDueDate);
-			if(jsonOpportunity.availableSeats)			jsonOpportunity.availableSeats = Number(jsonOpportunity.availableSeats);
-			if(jsonOpportunity.classId)					jsonOpportunity.classId = Number(jsonOpportunity.classId);
-			if(jsonOpportunity.classYear)				jsonOpportunity.classYear = Number(jsonOpportunity.classYear);
-			if(jsonOpportunity.createDate)				jsonOpportunity.createDate = new Date(jsonOpportunity.createDate);
-			if(jsonOpportunity.donation)				jsonOpportunity.donation = Number(jsonOpportunity.donation);
-			if(jsonOpportunity.duration)				jsonOpportunity.duration = Number(jsonOpportunity.duration);
-			if(jsonOpportunity.endDateTime)				jsonOpportunity.endDateTime = new Date(jsonOpportunity.endDateTime);
-			if(jsonOpportunity.estimatedClassSize)		jsonOpportunity.estimatedClassSize = Number(jsonOpportunity.estimatedClassSize);
-			if(jsonOpportunity.hoursRequired)			jsonOpportunity.hoursRequired = Number(jsonOpportunity.hoursRequired);
-			if(jsonOpportunity.isClass)					jsonOpportunity.isClass = jsonOpportunity.isClass? true: false;
-			if(jsonOpportunity.isRequredForClass)		jsonOpportunity.isRequredForClass = jsonOpportunity.isRequredForClass? true: false;
-			if(jsonOpportunity.isPaid)					jsonOpportunity.isPaid = jsonOpportunity.isPaid? true: false;
-			if(jsonOpportunity.isServiceLearning)		jsonOpportunity.isServiceLearning = jsonOpportunity.isServiceLearning? true: false;
-			if(jsonOpportunity.isTeams)					jsonOpportunity.isTeams = jsonOpportunity.isTeams? true: false;
-			if(jsonOpportunity.isVirtual)				jsonOpportunity.isVirtual = jsonOpportunity.isVirtual? true: false;
-			if(jsonOpportunity.latitude)				jsonOpportunity.latitude = Number(jsonOpportunity.latitude);
-			if(jsonOpportunity.longitude)				jsonOpportunity.longitude = Number(jsonOpportunity.longitude);
-			if(jsonOpportunity.minimumPersonsRequired)	jsonOpportunity.minimumPersonsRequired = Number(jsonOpportunity.minimumPersonsRequired);
-			if(jsonOpportunity.numTeams)				jsonOpportunity.numTeams = Number(jsonOpportunity.numTeams);
-			if(jsonOpportunity.opportunityId)			jsonOpportunity.opportunityId = Number(jsonOpportunity.opportunityId);
-			if(jsonOpportunity.ownerId)					jsonOpportunity.ownerId = Number(jsonOpportunity.ownerId);
-			if(jsonOpportunity.ownerName)				jsonOpportunity.ownerName = jsonOpportunity.ownerName;
-			if(jsonOpportunity.pay)						jsonOpportunity.pay = Number(jsonOpportunity.pay);
-			if(jsonOpportunity.startDateTime)			jsonOpportunity.startDateTime = new Date(jsonOpportunity.startDateTime);
-			if(jsonOpportunity.statusId)				jsonOpportunity.statusId = Number(jsonOpportunity.statusId);
-			if(jsonOpportunity.teamSize)				jsonOpportunity.teamSize = Number(jsonOpportunity.teamSize);
-			if(jsonOpportunity.timePeriodEndDate)		jsonOpportunity.timePeriodEndDate = new Date(jsonOpportunity.timePeriodEndDate);
-			if(jsonOpportunity.timePeriodStartDate)		jsonOpportunity.timePeriodStartDate = new Date(jsonOpportunity.timePeriodStartDate);
-			if(jsonOpportunity.totalSeats)				jsonOpportunity.totalSeats = Number(jsonOpportunity.totalSeats);
-			return jsonOpportunity;
+			var jsonOpp = dbOpportunity;
+			
+			if(jsonOpp.applicationDueDate)		jsonOpp.applicationDueDate = new Date(jsonOpp.applicationDueDate);
+			if(jsonOpp.availableSeats)			jsonOpp.availableSeats = Number(jsonOpp.availableSeats);
+			if(jsonOpp.classId)					jsonOpp.classId = Number(jsonOpp.classId);
+			if(jsonOpp.classYear)				jsonOpp.classYear = Number(jsonOpp.classYear);
+			if(jsonOpp.createDate)				jsonOpp.createDate = new Date(jsonOpp.createDate);
+			if(jsonOpp.donation)				jsonOpp.donation = Number(jsonOpp.donation);
+			if(jsonOpp.duration)				jsonOpp.duration = Number(jsonOpp.duration);
+			if(jsonOpp.endDateTime)				jsonOpp.endDateTime = new Date(jsonOpp.endDateTime);
+			if(jsonOpp.estimatedClassSize)		jsonOpp.estimatedClassSize = Number(jsonOpp.estimatedClassSize);
+			if(jsonOpp.hoursRequired)			jsonOpp.hoursRequired = Number(jsonOpp.hoursRequired);
+			if(jsonOpp.isClass)					jsonOpp.isClass = jsonOpp.isClass? true: false;
+			if(jsonOpp.isRequiredForClass)		jsonOpp.isRequiredForClass = jsonOpp.isRequiredForClass? true: false;
+			if(jsonOpp.isPaid)					jsonOpp.isPaid = jsonOpp.isPaid? true: false;
+			if(jsonOpp.isServiceLearning)		jsonOpp.isServiceLearning = jsonOpp.isServiceLearning? true: false;
+			if(jsonOpp.isTeams)					jsonOpp.isTeams = jsonOpp.isTeams? true: false;
+			if(jsonOpp.isVirtual)				jsonOpp.isVirtual = jsonOpp.isVirtual? true: false;
+			if(jsonOpp.latitude)				jsonOpp.latitude = Number(jsonOpp.latitude);
+			if(jsonOpp.longitude)				jsonOpp.longitude = Number(jsonOpp.longitude);
+			if(jsonOpp.minimumPersonsRequired)	jsonOpp.minimumPersonsRequired = Number(jsonOpp.minimumPersonsRequired);
+			if(jsonOpp.numTeams)				jsonOpp.numTeams = Number(jsonOpp.numTeams);
+			if(jsonOpp.opportunityId)			jsonOpp.opportunityId = Number(jsonOpp.opportunityId);
+			if(jsonOpp.ownerId)					jsonOpp.ownerId = Number(jsonOpp.ownerId);
+			if(jsonOpp.ownerName)				jsonOpp.ownerName = jsonOpp.ownerName;
+			if(jsonOpp.pay)						jsonOpp.pay = Number(jsonOpp.pay);
+			if(jsonOpp.startDateTime)			jsonOpp.startDateTime = new Date(jsonOpp.startDateTime);
+			if(jsonOpp.status)					jsonOpp.status = jsonOpp.status;
+			if(jsonOpp.teamSize)				jsonOpp.teamSize = Number(jsonOpp.teamSize);
+			if(jsonOpp.timePeriodEndDate)		jsonOpp.timePeriodEndDate = new Date(jsonOpp.timePeriodEndDate);
+			if(jsonOpp.timePeriodStartDate)		jsonOpp.timePeriodStartDate = new Date(jsonOpp.timePeriodStartDate);
+			if(jsonOpp.totalSeats)				jsonOpp.totalSeats = Number(jsonOpp.totalSeats);
+			
+			return jsonOpp;
 		}
 	});
 
