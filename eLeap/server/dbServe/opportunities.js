@@ -120,8 +120,8 @@ var opportunities = {
 	getOpportunity: function(request, response) { 'use strict';	
    		var sprocName = "sprocGetOppID";
 		var params = [
-			request.body.OpportunityID ? request.body.OpportunityID : null,
-			request.body.PersonID ? request.body.PersonID : null
+			request.body.opportunityId ? request.body.opportunityId : null,
+			request.body.personId ? request.body.personId : null
 		];
 		console.log("getOpportunity route called");
 		console.log("calling "+ sprocName);

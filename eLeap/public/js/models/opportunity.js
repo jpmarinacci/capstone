@@ -180,6 +180,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(jsonOpportunity.longitude)				jsonOpportunity.longitude = Number(jsonOpportunity.longitude);
 			if(jsonOpportunity.minimumPersonsRequired)	jsonOpportunity.minimumPersonsRequired = Number(jsonOpportunity.minimumPersonsRequired);
 			if(jsonOpportunity.numTeams)				jsonOpportunity.numTeams = Number(jsonOpportunity.numTeams);
+			if(jsonOpportunity.opportunityId)			jsonOpportunity.opportunityId = Number(jsonOpportunity.opportunityId);
 			if(jsonOpportunity.ownerId)					jsonOpportunity.ownerId = Number(jsonOpportunity.ownerId);
 			if(jsonOpportunity.ownerName)				jsonOpportunity.ownerName = jsonOpportunity.ownerName;
 			if(jsonOpportunity.pay)						jsonOpportunity.pay = Number(jsonOpportunity.pay);
