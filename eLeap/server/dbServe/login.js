@@ -27,18 +27,17 @@ var login = {
 		console.log("---login route called\n---");
 
 		//var sess = request.session;
-        var sprocName = "sprocAuth";
+        //var sprocName = "sprocAuth";
 
 		//From Form Post
-		//var userEmail = request.body.email ? request.body.email : null;;
-        //var userPassword = request.body.password ? request.body.password : null;
+		var userEmail = request.body.email ? request.body.email : null;
+        var userPassword = request.body.password ? request.body.password : null;
 
-        var userName = "Maricel Medina";
-        var userEmail = "maricel.medina@bellevuecollege.edu";
-		var userPassword = "bc9b5718afdffe85fb13555347969ff5";//123456abcd
+        //var userName = "Maricel Medina";
+        //var userEmail = "maricel.medina@bellevuecollege.edu";
+		//var userPassword = "bc9b5718afdffe85fb13555347969ff5";//123456abcd
 
         var params = [
-            userName,
 			userEmail,
         	userPassword
         ];
@@ -46,10 +45,10 @@ var login = {
         console.log("Params:" + params);
 
         //Verify from DB
-		/*function processSproc(results) {
+		function processSproc(results) {
             dbServer.processSproc(results, response);
         };
-        dbServer.sproc(sprocName, params, processSproc);*/
+        dbServer.sproc(sprocName, params, processSproc);
 
         session.loginUserName = userName;
         session.loginUser = userEmail;
