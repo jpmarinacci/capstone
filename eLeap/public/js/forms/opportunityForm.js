@@ -17,6 +17,11 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 			'change .oppFormTitle': 'commandChangedTitle',
 			'change .oppFormDescription': 'commandChangedDescription',
 			'change .oppFormTotalSeatsInput': 'commandChangedTotalSeats',
+			'change .oppFormClassName': 'commandChangedClassName',
+			'change .oppFormYear': 'commandChangeYear',
+			'change .oppFormClassSize': 'commandChangeoppFormClassSize',
+			'change .oppFormHours': 'commandChangeoppFormHours',
+			
 			
 			'click .oppFormIsClass': 'toggleClassSection',
 			'click .oppFormOppType': 'toggleTypeSection',
@@ -142,6 +147,17 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 		commandChangedDescription: function() {
 			
 		},
+		commandChangedClassName: function(){
+			// check is class radio
+			var inputValue = this.$(".oppFormClassName").val();
+			if(this.isRequired(inputValue)) {
+				this.$(".oppFormTitleWarning").empty();
+				return;
+			} else {
+				this.$(".oppFormClassWarning").html("Class Name is required");
+				return;
+			}
+		},
 		
 		commandChangedTotalSeats: function(event) {
 			var inputValue = this.$(".oppFormTotalSeatsInput").val();
@@ -156,6 +172,63 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 			}
 			return;
 		},
+		
+		commandChangeYear: function(event) {
+			var inputValue = this.$(".oppFormYear").val();
+			if(inputValue) {
+				if(inputValue && this.isValidIntegerInput(inputValue)) {
+					this.$(".oppFormYearWarning").empty();
+					return;
+				} else {
+					this.$(".oppFormYearWarning").html("year must be a valid integer");
+					return;
+				}
+			}
+			return;
+		},
+		
+		commandChangeoppFormClassSize: function(event){
+			var inputValue = this.$(".oppFormClassSize").val();
+			if(inputValue) {
+				if(inputValue && this.isValidIntegerInput(inputValue)) {
+					this.$(".oppFormClassSizeWarning").empty();
+					return;
+				} else {
+					this.$(".oppFormClassSizeWarning").html("class size must be a valid integer");
+					return;
+				}
+			}
+			return;
+		},
+		
+		commandChangeoppFormHours: function(event){
+			var inputValue = this.$(".oppFormHours").val();
+			if(inputValue) {
+				if(inputValue && this.isValidIntegerInput(inputValue)) {
+					this.$(".oppFormHoursWarning").empty();
+					return;
+				} else {
+					this.$(".oppFormHoursWarning").html("hours must be a valid integer");
+					return;
+				}
+			}
+			return;
+		},
+		/*
+		commandChangeoppFormNumberOfHours: function(event){
+					// same class id with 
+					var inputValue = this.$(".oppFormHours").val();
+					if(inputValue) {
+						if(inputValue && this.isValidIntegerInput(inputValue)) {
+							this.$(".oppFormNumberOFHoursWarning").empty();
+							return;
+						} else {
+							this.$(".oppFormNumberOFHoursWarning").html("number of hours must be a valid integer");
+							return;
+						}
+					}
+					return;
+				},*/
 		
 		gatherInput: function() {
 			var startDateTimeInput = this.$(".startDateTimeInput").val();
