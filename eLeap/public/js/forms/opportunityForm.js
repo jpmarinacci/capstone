@@ -308,7 +308,7 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 			var options = {
 				success: function(opportunity) {
 					notifications.notifyUser("opportunity created");
-					thisForm.renderResults(opportunity);
+					thisForm.renderResults(thisForm.opportunity);
 				},
 				error: function(error) {
 					notifications.notifyUser("error -- opportunity creation failed: /n"+ error);
