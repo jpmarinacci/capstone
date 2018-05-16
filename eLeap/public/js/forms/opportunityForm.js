@@ -111,7 +111,7 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 			}
 		},
 		
-		isValidStringInput: function(stringInput) {
+		isRequired: function(stringInput) {
 			if(stringInput !== "") {
 				return true;
 			} else {
@@ -130,7 +130,7 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 		
 		commandChangedTitle: function(event) {
 			var inputValue = this.$(".oppFormTitle").val();
-			if(this.isValidStringInput(inputValue)) {
+			if(this.isRequired(inputValue)) {
 				this.$(".oppFormTitleWarning").empty();
 				return;
 			} else {
