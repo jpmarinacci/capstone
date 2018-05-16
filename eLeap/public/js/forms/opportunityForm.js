@@ -120,7 +120,8 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 		},
 		
 		isValidIntegerInput: function(intInput) {
-			if(intInput.isInteger()) {
+			var intToCheck = Number(intInput);
+			if(Number.isInteger(intToCheck)) {
 				return true;
 			} else {
 				return false;
@@ -129,7 +130,7 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 		
 		commandChangedTitle: function(event) {
 			var inputValue = this.$(".oppFormTitle").val();
-			if(isValidStringInput(inputValue)) {
+			if(this.isValidStringInput(inputValue)) {
 				this.$(".oppFormTitleWarning").empty();
 				return;
 			} else {
@@ -145,7 +146,7 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 		commandChangedTotalSeats: function(event) {
 			var inputValue = this.$(".oppFormTotalSeatsInput").val();
 			if(inputValue) {
-				if(inputValue && isValidIntegerInput(inputValue)) {
+				if(inputValue && this.isValidIntegerInput(inputValue)) {
 					this.$(".oppFormTotalSeatsWarning").empty();
 					return;
 				} else {
