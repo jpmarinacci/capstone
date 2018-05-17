@@ -8,6 +8,9 @@
             <span><%= opp.title %></span>
         <%}%>
     </div>
+
+    <div><hr></div>
+
     <div class="oppItemField">
         <% if(opp.agencyCommitment){%>
             <span class="oppItemLabel">agency commitment:</span>
@@ -62,8 +65,6 @@
             <span><%= utils.dateTimeToDisplay(opp.createDate) %></span>
         <%}%>
     </div>
-
-    <div><hr></div>
 
     <div class="oppItemField">
         <% if(opp.deliverables){%>
@@ -245,12 +246,7 @@
             <span><%= utils.dateTimeToDisplay(opp.startDateTime) %></span>
         <%}%>
     </div>
-    <div class="oppItemField">
-        <% if(opp.status){%>
-            <span class="oppItemLabel oppItemStatus">status:</span>
-            <span class="oppItemStatus"><%= opp.status %></span>
-        <%}%>
-    </div>
+
     <div class="oppItemField">
         <% if(opp.supportDescription){%>
             <span class="oppItemLabel">support description:</span>
@@ -293,5 +289,14 @@
             <span><%= opp.totalSeats %></span>
         <%}%>
     </div>
+
+    <div class="oppItemField">
+        <% if(opp.status){%>
+        <span class="oppItemLabel oppItemStatus">status:</span>
+        <span class="oppItemStatus"><%= opp.status %></span>
+        <%}%>
+    </div>
+
+    
 </div>
 
