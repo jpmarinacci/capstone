@@ -1252,3 +1252,11 @@ table th[class*="col-"] {
 .oppFormTitleWarning {
 	color: #ff0000;
 }
+
+.oppItemTitle {
+	font-size:30px;
+}
+
+.oppItemStatus {
+	color: #ff0000;
+}

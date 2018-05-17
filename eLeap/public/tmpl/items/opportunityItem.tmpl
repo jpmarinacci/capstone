@@ -2,9 +2,9 @@
     <img class="oppItemPic" src="img/docs.ico" />
 </div>
 <div class="oppItemDetails">
-    <div class="oppItemField">
+    <div class="oppItemField oppItemTitle">
         <% if(opp.title){%>
-            <span class="oppItemLabel">title:</span>
+            <!-- <span class="oppItemLabel">title:</span> -->
             <span><%= opp.title %></span>
         <%}%>
     </div>
@@ -58,10 +58,13 @@
     </div>
     <div class="oppItemField">
         <% if(opp.createDate){%>
-            <span class="oppItemLabel">create date:</span>
+            <span class="oppItemLabel">Created on </span>
             <span><%= utils.dateTimeToDisplay(opp.createDate) %></span>
         <%}%>
     </div>
+
+    <div><hr></div>
+
     <div class="oppItemField">
         <% if(opp.deliverables){%>
             <span class="oppItemLabel">deliverables:</span>
@@ -244,8 +247,8 @@
     </div>
     <div class="oppItemField">
         <% if(opp.status){%>
-            <span class="oppItemLabel">status:</span>
-            <span><%= opp.status %></span>
+            <span class="oppItemLabel oppItemStatus">status:</span>
+            <span class="oppItemStatus"><%= opp.status %></span>
         <%}%>
     </div>
     <div class="oppItemField">
