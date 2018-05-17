@@ -204,12 +204,10 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 		signup: function() {
 			this.lastRoute = '/signup';
 			this.beginNewPage();
-			this.pageDeploy(function() {
-				$("#pages").empty().append("<div id='signupPage'></div>");
-				require(['pages/signupPage'], function(SignupPage) {
-					thisRouter.currentPage = eLeap.run.signupPage = new SignupPage({
-						el: "#signupPage"
-					});
+			$("#pages").empty().append("<div id='signupPage'></div>");
+			require(['pages/signupPage'], function(SignupPage) {
+				thisRouter.currentPage = eLeap.run.signupPage = new SignupPage({
+					el: "#signupPage"
 				});
 			});
 		},
