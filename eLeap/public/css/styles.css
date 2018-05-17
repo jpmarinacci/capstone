@@ -1229,3 +1229,26 @@ table th[class*="col-"] {
     color: #eeeeee;
 }
 
+.oppFormHoursWarning {
+	color: #ff0000;
+}
+
+.oppFormClassSizeWarning {
+	color: #ff0000;
+}
+
+.oppFormYearWarning {
+	color: #ff0000;
+}
+
+.oppFormTotalSeatsWarning {
+	color: #ff0000;
+}
+
+.oppFormClassWarning {
+	color: #ff0000;
+}
+
+.oppFormTitleWarning {
+	color: #ff0000;
+}
