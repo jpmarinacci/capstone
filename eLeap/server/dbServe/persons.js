@@ -1,40 +1,50 @@
 var dbServer = require('../dbServer');
 var mysql = require('mysql');
-
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var bcrypt = require('bcrypt');
 
 var persons = {
 	signupPerson: function(request, response) { 'use strict';
-		var sprocName = "sprocAddPer";
-		var params = [
-			request.body.email ? request.body.email : null,
-			request.body.password ? request.body.password: null,
-			request.body.personName ? request.body.personName : null,
-			request.body.phone ? request.body.phone : null,
-			request.body.roleId ? request.body.roleId : null,
-			//request.body.themeId ? request.body.themeId : null,
-			//request.body.picId ? request.body.picId : null
-		];
-		console.log("signupPerson route called");
-		console.log("calling "+ sprocName);
-		console.log("sproc params:");
-		console.log(params);
-		function processSproc(results) {
-			if (results && results.error) {
-				dbServer.processSprocError(results, response);
-	    	} else {
-	    		var person = results[0];
-    			console.log("sprocAddPer successful");
-    			session.email = person.email;
-	            session.personId = person.personId;
-	            session.isLoggedIn = true;
-	    		console.log("added person to login cookie");
-	    		response.send(person);
-	    	}
-		};
-		dbServer.sproc(sprocName, params, processSproc);
+		console.log('---signupPerson route called---\n');
+	
+		if(request.body.email && request.body.password) {
+			var hashedCredential = bcrypt.hashSync(request.body.password, 10);
+			var params = [
+				request.body.email,
+				hashedCredential,
+				request.body.personName ? request.body.personName : null,
+				request.body.phone ? request.body.phone : null,
+				request.body.roleId ? request.body.roleId : 1,
+				//request.body.themeId ? request.body.themeId : null,
+				//request.body.picId ? request.body.picId : null
+			];
+			console.log("calling "+ sprocName);
+			console.log("sproc params:");
+			console.log(params);
+			function processSproc(results) {
+				if (results && results.error) {
+					dbServer.processSprocError(results, response);
+		    	} else {
+		    		var person = results[0];
+	    			console.log("sprocAddPer successful");
+	    			session.email = person.email;
+		            session.personId = person.personId;
+		            session.isLoggedIn = true;
+		    		console.log("added person to login cookie");
+		    		response.send(person);
+		    	}
+			};
+			
+			dbServer.sproc("sprocAddPer", params, processSproc);
+			
+		} else {
+			response.send({
+				error: 'invalid paramaters',
+				errorMessage: 'no email or credential'
+			});
+		}
     },
     
     getPerson: function(request, response) { 'use strict';
