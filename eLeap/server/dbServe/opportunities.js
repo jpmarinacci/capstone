@@ -179,8 +179,8 @@ var opportunities = {
 	joinOpportunity: function(request, response) { 'use strict';	
    		var sprocName = "sprocJoinOpp";
 		var params = [
-			request.body.OpportunityID ? request.body.OpportunityID : null,
-			request.body.PersonID ? request.body.PersonID : null
+			request.body.opportunityId ? request.body.opportunityId : null,
+			request.body.personId ? request.body.personId : null
 		];
 		console.log("joinOpportunity route called");
 		console.log("calling "+ sprocName);
