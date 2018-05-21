@@ -51,8 +51,8 @@ var persons = {
     getPerson: function(request, response) { 'use strict';
 		var sprocName = "sprocFindPer";
 		var params = [
-			request.body.personId ? request.body.personId : null,
-			//request.body.email ? request.body.email : null
+			//request.body.personId ? request.body.personId : null,
+			request.body.email ? request.body.email : null
 		];
 		console.log("getPerson route called");
 		console.log("calling "+ sprocName);

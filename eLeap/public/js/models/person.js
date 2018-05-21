@@ -13,7 +13,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		defaults: {
 			email: "",
 			personName: "",
-			password: "",
+			credential: "",
 			phone: "",
 			picId: 0,
 			roleId: 0,

@@ -42,10 +42,10 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'cont
 		commandLogin: function() {
 			this.$(".spinnerContainer").show();
 			var email = this.$(".loginEmail").val();
-			var password = this.$(".loginPassword").val();
+			var credential = this.$(".loginCredential").val();
 			user.person.set({
 				'email': email,
-				'password': password
+				'credential': credential
 			});
 			router.lastRoute = '/dashboard';
 			user.login();

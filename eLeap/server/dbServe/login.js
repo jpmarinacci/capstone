@@ -27,21 +27,23 @@ var login = {
 	login: function(request, response) { 'use strict';
 		console.log("---login route called---\n");
 
-		if(request.body.email && request.body.password) {
+		if(request.body.email && request.body.credential) {
 			
 			var hashedCredential = bcrypt.hashSync(request.body.credential, 10);
 	        var sprocParams = [
-	        	request.body.email,
-	        	hashedCredential
+	        	request.body.email
+	        	//hashedCredential
 	        ];
-	        
+	        console.log("calling sprcoFindPer");
 	        console.log("params: " + sprocParams);
-	        dbServer.sproc("sprocLogin", params, function(results) {
-	        //dbServer.sproc("sprocFindPer", sprocParams, function(results) {
+	        //dbServer.sproc("sprocLogin", params, function(results) {
+	        dbServer.sproc("sprocFindPer", sprocParams, function(results) {
+	        	console.log(results);
 		        if (results && results.error) {
 					dbServer.processSprocError(results, response);
 		    	} else {
 		    		var returnResults = {};
+		    		
 		    		/*returnResults.person = results[1][0];
 		    		var hash = returnResults.person.credential;
 		    		if(bcrypt.compareSync(credential, hash)) {
@@ -49,7 +51,8 @@ var login = {
 					} else {
 					 // Passwords don't match
 					}*/
-		    		if(results[0][0].LoginStatus === 'Success') {
+					console.log(returnResults.person);
+		    		if(results[0][0].loginStatus === 'valid') {
 		    			returnResults.loginStatus = 'valid';
 		    			returnResults.person = results[1][0];
 		    			session.email = returnResults.person.email;
