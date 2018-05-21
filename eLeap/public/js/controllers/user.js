@@ -35,7 +35,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 			var options = {};
 			server.postRoute('/login', {
 				email: this.person.get('email'),
-				credential: this.person.get('password')
+				credential: this.person.get('credential')
 			}, loginSuccess, loginError, options);
 		},
 		

@@ -48,7 +48,6 @@ var login = {
 					 // Passwords match
 					} else {
 					 // Passwords don't match
-					 
 					}*/
 		    		if(results[0][0].LoginStatus === 'Success') {
 		    			returnResults.loginStatus = 'valid';

@@ -44,6 +44,9 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 					thisForm.$(".selectRoles").append("<option value='"+role.get("roleId")+"'>"+role.get("roleName")+"</option>");
 				}
 			});
+			if(cache.roles.length > 1) {
+				thisForm.$(".selectRoles").val(2);
+			}
 		},
 		
 		gatherInput: function() {
@@ -55,7 +58,7 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 				personName: this.$(".signupName").val(),
 				phone: this.$(".signupPhone").val(),
 				roleId: Number(this.$(".selectRoles").val()),
-				password: this.$(".signupPassword").val()
+				credential: this.$(".signupCredential").val()
 			};
 			this.person.set(personJson);
 		},
@@ -73,6 +76,7 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 					notifications.notifyUser("error -- sign up failed :(   please try again.");
 				}
 			};
+			if(this.person.get('email') && this.person.get('credential'))
 			this.person.save({}, options);
 		}
 	});

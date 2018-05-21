@@ -8,15 +8,6 @@ instantiateDbServer = function() {
 	    attempts: 0,
 		isConnectPending: false,
 		connect: function() {
-			//https://expressjs.com/en/guide/database-integration.html
-			//https://www.codementor.io/codeforgeek/node-js-mysql-8b5nh45r9
-			/*var connection = mysql.createConnection({
-			  host     : 'localhost',
-			  user     : 'dbuser',
-			  password : 's3kreee7',
-			  database : 'my_db'
-			});
-			connection.connect();*/
 			if(!this.isConnectPending) {
 				this.isConnectPending = true;
 				this.attempts++;
@@ -84,13 +75,6 @@ instantiateDbServer = function() {
 	        return "(" + qs + ");";
 		},
 		sproc: function(sprocName, sprocParams, callback) {
-			/*let sql = `CALL filterTodo(?)`;
-			connection.query(sql, true, (error, results, fields) => {
-				if (error) {
-					return console.error(error.message);
-				}
-				console.log(results[0]);
-			});*/
 			var sql = "call " + sprocName + this.makeQs(sprocParams.length);
 
 			console.log ("SQL: " + sql);

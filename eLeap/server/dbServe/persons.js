@@ -9,8 +9,8 @@ var persons = {
 	signupPerson: function(request, response) { 'use strict';
 		console.log('---signupPerson route called---\n');
 	
-		if(request.body.email && request.body.password) {
-			var hashedCredential = bcrypt.hashSync(request.body.password, 10);
+		if(request.body.email && request.body.credential) {
+			var hashedCredential = bcrypt.hashSync(request.body.credential, 10);
 			var params = [
 				request.body.email,
 				hashedCredential,
