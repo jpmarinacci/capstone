@@ -29,39 +29,33 @@ var login = {
 
 		if(request.body.email && request.body.credential) {
 			
-			var hashedCredential = bcrypt.hashSync(request.body.credential, 10);
-	        var sprocParams = [
-	        	request.body.email
-	        	//hashedCredential
-	        ];
-	        console.log("calling sprcoFindPer");
+			var credential = request.body.credential;
+	        var sprocParams = [request.body.email];
+	        console.log("calling sprocFindPer");
 	        console.log("params: " + sprocParams);
-	        //dbServer.sproc("sprocLogin", params, function(results) {
 	        dbServer.sproc("sprocFindPer", sprocParams, function(results) {
-	        	console.log(results);
 		        if (results && results.error) {
 					dbServer.processSprocError(results, response);
 		    	} else {
 		    		var returnResults = {};
-		    		
-		    		/*returnResults.person = results[1][0];
-		    		var hash = returnResults.person.credential;
-		    		if(bcrypt.compareSync(credential, hash)) {
-					 // Passwords match
-					} else {
-					 // Passwords don't match
-					}*/
-					console.log(returnResults.person);
 		    		if(results[0][0].loginStatus === 'valid') {
-		    			returnResults.loginStatus = 'valid';
-		    			returnResults.person = results[1][0];
-		    			session.email = returnResults.person.email;
-			            session.personId = returnResults.person.personId;
-			            session.personName = returnResults.person.personName;
-			            session.isLoggedIn = true;
-			            console.log("logged in as:" + returnResults.person.personName);
+			    		var person = results[1][0];
+			    		if(bcrypt.compareSync(credential, person.credential)) {
+			    			returnResults.loginStatus = 'valid';
+			    			returnResults.person = person;
+			    			session.email = returnResults.person.email;
+				            session.personId = returnResults.person.personId;
+				            session.personName = returnResults.person.personName;
+				            session.isLoggedIn = true;
+				            console.log("logged in as:" + returnResults.person.personName);
+						} else {
+							returnResults.loginStatus = 'invalid';
+							returnResults.message = "password credentials don't match";
+							console.log("login invalid: password credentials don't match");
+						}
 		    		} else {
 		    			returnResults.loginStatus = 'invalid';
+		    			returnResults.message = 'cannot find person with that email';
 		    		}
 		    		response.send(returnResults);
 		    	}
@@ -76,7 +70,6 @@ var login = {
 	
 	logout: function(request, response) { 'use strict';
 		console.log("logout route called");
-
         session.isLoggedIn = false;
         session.email = null;
         session.personId = null;
