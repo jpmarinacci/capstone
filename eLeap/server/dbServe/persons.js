@@ -11,6 +11,8 @@ var persons = {
 	
 		if(request.body.email && request.body.credential) {
 			var hashedCredential = bcrypt.hashSync(request.body.credential, 10);
+			console.log('hashedCredential');
+			console.log(hashedCredential);
 			var params = [
 				request.body.email,
 				hashedCredential,
