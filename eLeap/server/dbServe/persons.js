@@ -20,10 +20,11 @@ var persons = {
 				//request.body.themeId ? request.body.themeId : null,
 				//request.body.picId ? request.body.picId : null
 			];
-			console.log("calling "+ sprocName);
+			
+			console.log("calling sprocAddPer");
 			console.log("sproc params:");
 			console.log(params);
-			function processSproc(results) {
+			dbServer.sproc("sprocAddPer", params, function(results) {
 				if (results && results.error) {
 					dbServer.processSprocError(results, response);
 		    	} else {
@@ -35,9 +36,7 @@ var persons = {
 		    		console.log("added person to login cookie");
 		    		response.send(person);
 		    	}
-			};
-			
-			dbServer.sproc("sprocAddPer", params, processSproc);
+			});
 			
 		} else {
 			response.send({
