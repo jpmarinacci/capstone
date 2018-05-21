@@ -196,7 +196,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(jsonOpp.numTeams)				jsonOpp.numTeams = Number(jsonOpp.numTeams);
 			if(jsonOpp.opportunityId)			jsonOpp.opportunityId = Number(jsonOpp.opportunityId);
 			if(jsonOpp.ownerId)					jsonOpp.ownerId = Number(jsonOpp.ownerId);
-			if(jsonOpp.ownerName)				jsonOpp.ownerName = jsonOpp.ownerName;
+			if(jsonOpp.personName)				jsonOpp.ownerName = jsonOpp.personName;
 			if(jsonOpp.pay)						jsonOpp.pay = Number(jsonOpp.pay);
 			if(jsonOpp.startDateTime)			jsonOpp.startDateTime = new Date(jsonOpp.startDateTime);
 			if(jsonOpp.status)					jsonOpp.status = jsonOpp.status;
