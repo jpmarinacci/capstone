@@ -293,6 +293,9 @@ ul, ol {
 	/*color: lightslategray;*/
 }
 
+/* Signup Page */
+
+
 /* Home Page */
 
 .homePageHeaderText {
@@ -358,9 +361,6 @@ ul, ol {
 .opportunitiesList .opportunityItem {
 	border-radius: 2px;
 }
-.card {
-	/*width: 18rem;*/
-}
 /*
 .opportunitiesList .opportunityItem:hover {
 	!*background-color: #a7e6ff;*!
@@ -368,7 +368,7 @@ ul, ol {
 	cursor: pointer;
 }
 */
-.card-title{
+.card-title {
 	font-family: times, Times New Roman, times-roman, georgia, serif;
 	color: #444;
 	margin: 0;
@@ -393,24 +393,14 @@ ul, ol {
 	display: block;
 }
 .oppItemDetails {
-	/* width: 300px;
-    float: right;
-    */
+	/* width: 300px;*/
 }
 .oppItemLabel {
 	font-weight: 600;
 }
 /*  Opportunity Page */
 .opportunityView {
-	width: 90%;
 	padding: 0 0 20px 0;
-	margin-left: auto;
-	margin-right: auto;
-}
-.oppViewJoinBtn {
-	float: left;
-	margin-left: 20px;
-	margin-top: 20px;
 }
 
 /*	*/

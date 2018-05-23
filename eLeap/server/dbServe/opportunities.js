@@ -63,7 +63,7 @@ var opportunities = {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0];
+	    		var returnResults = results[0][0];
 	    		console.log("sprocAddOpp successful");
 	    		console.log("created opp oppId: " + returnResults.opportunityId);
 				console.log("created opp title: " + returnResults.title);
@@ -149,17 +149,105 @@ var opportunities = {
 		];
 		console.log("getOpportunity route called");
 		console.log("calling "+ sprocName);
-		function processSproc(results) {
-			console.log("results");
-			console.log(results);
+		dbServer.sproc(sprocName, params, function(results) {
+			console.log("---------------------get oppportunity results: -----------");
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0][0];
+	    		var returnResults;
+    			console.log('results returned:');
+    			console.log(results);
+    			returnResults = results;
+	    		if(results[0]) {
+	    			if(results[0][0]) {
+	    				returnResults = results[0][0];
+	    				console.log("results[0][0]");
+	    				if(results[0][0][0]) {
+	    					returnResults = results[0][0][0];
+	    					console.log("results[0][0][0]");
+	    				}
+		    		}
+		    		if(results[0][1]) {
+		    			returnResults = results[0][1];
+		    			console.log("results[0][1]");
+		    		}
+		    		if(results[0][2]) {
+		    			returnResults = results[0][2];
+		    			console.log("results[0][2]");
+		    		}
+		    		if(results[0][3]) {
+		    			returnResults = results[0][3];
+		    			console.log("results[0][3]");
+		    		}
+		    	}
+		    	if(results[1]) {
+		    		if(results[1][0]) {
+		    			returnResults = results[1][0];
+		    			console.log("results[1][0]");
+		    			if(results[1][0][0]) {
+	    					returnResults = results[1][0][0];
+	    					console.log("results[1][0][0]");
+	    				}
+		    		}
+		    		if(results[1][1]) {
+		    			returnResults = results[1][1];
+		    			console.log("results[1][1]");
+		    		}
+		    		if(results[1][2]) {
+		    			returnResults = results[1][2];
+		    			console.log("results[1][2]");
+		    		}
+		    		if(results[1][3]) {
+		    			returnResults = results[1][3];
+		    			console.log("results[1][3]");
+		    		}
+		    	}
+		    	if(results[2]) {
+		    		if(results[2][0]) {
+		    			returnResults = results[2][0];
+		    			console.log("results[2][0]");
+		    			if(results[2][0][0]) {
+	    					returnResults = results[2][0][0];
+	    					console.log("results[2][0][0]");
+	    				}
+		    		}
+		    		if(results[2][1]) {
+		    			returnResults = results[2][1];
+		    			console.log("results[2][1]");
+		    		}
+		    		if(results[2][2]) {
+		    			returnResults = results[2][2];
+		    			console.log("results[2][2]");
+		    		}
+		    		if(results[2][3]) {
+		    			returnResults = results[2][3];
+		    			console.log("results[2][3]");
+		    		}
+		    	}
+		    	if(results[3]) {
+		    		if(results[3][0]) {
+		    			returnResults = results[3][0];
+		    			console.log("results[3][0]");
+		    		}
+		    		if(results[3][1]) {
+		    			returnResults = results[3][1];
+		    			console.log("results[3][1]");
+		    		}
+		    		if(results[3][2]) {
+		    			returnResults = results[3][2];
+		    			console.log("results[3][2]");
+		    		}
+		    		if(results[3][3]) {
+		    			returnResults = results[3][3];
+		    			console.log("results[3][3]");
+		    		}
+		    	}
+	    		
+	    		console.log("----get oppportunity return results:----");
+	    		console.log(returnResults);
 	    		response.send(returnResults);
 	    	}
-		};
-		dbServer.sproc(sprocName, params, processSproc);
+		});
     },
     
 	getOpportunityHours: function(request, response) { 'use strict';	

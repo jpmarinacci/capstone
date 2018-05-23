@@ -12,8 +12,8 @@ var roles = {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0];
 	    		console.log("sprocAllRole successful");
+	    		var returnResults = results[0];
 	    		response.send(returnResults);
 	    	}
 		};

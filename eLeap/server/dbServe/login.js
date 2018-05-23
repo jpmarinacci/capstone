@@ -25,7 +25,7 @@ var login = {
 	},
 
 	login: function(request, response) { 'use strict';
-		console.log("---login route called---\n");
+		console.log("---login route called---");
 
 		if(request.body.email && request.body.credential) {
 			

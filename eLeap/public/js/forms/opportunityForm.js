@@ -6,8 +6,8 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controllers/cache', 'controllers/user',
-		'controllers/notifications', 'models/opportunity', 'text!../../tmpl/forms/opportunityForm.tmpl'],
-	function (eLeap, $, _, Backbone, datetimepicker, cache, user, notifications, Opportunity, opportunityFormTmpl) { 'use strict';
+		'controllers/notifications', 'controllers/router', 'models/opportunity', 'text!../../tmpl/forms/opportunityForm.tmpl'],
+	function (eLeap, $, _, Backbone, datetimepicker, cache, user, notifications, router, Opportunity, opportunityFormTmpl) { 'use strict';
 		
 	eLeap.own.OpportunityForm = Backbone.View.extend({
 		
@@ -89,15 +89,21 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 		toggleTypeSection: function(event) {
 			this.$(".oppTypeSection").hide();
 			var type = event.currentTarget.value;
+			this.$(".oppFormServiceSection .oppFormTextInput, .oppFormVolunteerSection .oppFormTextInput").val("").text("");
+			this.$(".oppFormProjectSection .oppFormTextInput, .oppFormOtherSection .oppFormTextInput").val("").text("");
+			this.$(".oppFormGigSection .oppFormTextInput, .oppFormDeliverableSection .oppFormTextInput").val("").text("");
 			switch(type) {
 				case 'service':
 					this.$(".oppFormServiceSection").show();
+					this.$(".oppFormGigDeliverableSharedSection .oppFormTextInput").val("").text("");
 					break;
 				case 'volunteer':
 					this.$(".oppFormVolunteerSection").show();
+					this.$(".oppFormGigDeliverableSharedSection .oppFormTextInput").val("").text("");
 					break;
 				case 'project':
 					this.$(".oppFormProjectSection").show();
+					this.$(".oppFormGigDeliverableSharedSection .oppFormTextInput").val("").text("");
 					break;
 				case 'gig':
 					this.$(".oppFormGigSection").show();
@@ -109,6 +115,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 					break;
 				case 'other':
 					this.$(".oppFormOtherSection").show();
+					this.$(".oppFormGigDeliverableSharedSection .oppFormTextInput").val("");
 					break;
 				default:
 					break;
@@ -288,9 +295,11 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 			var thisForm = this;
 			var options = {
 				success: function(opportunity) {
-					cache.opportunities.add(opportunity.toJSON(), {merge:true});
+					var addedOpp = cache.opportunities.add(opportunity.toJSON(), {merge:true});
+					addedOpp.isFetched = true;
 					notifications.notifyUser("opportunity created");
-					thisForm.renderResults(thisForm.opportunity);
+					router.navigate('opportunity/'+ addedOpp.get('opportunityId'), {trigger: true});
+					//thisForm.renderResults(thisForm.opportunity);
 				},
 				error: function(error) {
 					notifications.notifyUser("error -- opportunity creation failed: /n"+ error);

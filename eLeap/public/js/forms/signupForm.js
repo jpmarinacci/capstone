@@ -143,8 +143,11 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 					notifications.notifyUser("error -- sign up failed :(   please try again.");
 				}
 			};
-			if(this.person.get('email') && this.person.get('credential'))
-			this.person.save({}, options);
+			if(this.person.get('email') && this.person.get('credential')) {
+				this.person.save({}, options);
+			} else {
+				notifications.notifyUser("email, name and password are required");
+			}
 		}
 	});
 	

@@ -10,44 +10,38 @@ define(['eLeap', 'jquery', 'underscore', 'backbone'],
 function (eLeap, $, _, Backbone) { 'use strict';
 
 	var thisUtils = undefined;
-	var timeFormat;
 	
 	eLeap.own.Utils = Backbone.View.extend({
 		
-		initialize: function () {
-		},
+		initialize: function () {},
 		
 		dateTimeToDisplay: function(dateTime) {
 			var dateObj = new Date(dateTime);
-			//var dateDisplay = this.convertDateDisplay(dateObj);
-			var dateDisplay = this.formatDate(dateObj);
-			return dateDisplay;
+			var dateDisplay = this.formatDateDisplay(dateObj);
+			var timeDisplay = this.formatTimeDisplay(dateObj);
+			return dateDisplay + ', ' +  timeDisplay;
 		},
-
-        formatDate: function (date) {
+		
+		formatDateDisplay: function(dateObj) {
 			var monthNames = [
 				"January", "February", "March",
 				"April", "May", "June", "July",
 				"August", "September", "October",
 				"November", "December"
 			];
-
-			var day = date.getDate();
-			var monthIndex = date.getMonth();
-			var year = date.getFullYear();
-			var hour = date.getHours();
-			var min = date.getMinutes();
-
-			return monthNames[monthIndex] + ' ' + day + ' ' + year + ',' + hour + ':' + min;
-    	},
+			var day = dateObj.getDate();
+			var monthIndex = dateObj.getMonth();
+			var year = dateObj.getFullYear();
+			
+			return monthNames[monthIndex] + ' ' + day + ' ' + year;
+		},
 		
-		// convertDateDisplay: function(dateObj) {
-		// 	return (dateObj);
-		// },
-		//
-		// convertTimeDisplay: function(dateObj) {
-		// 	return dateObj;
-		// }
+		formatTimeDisplay: function(dateObj) {
+			var hour = dateObj.getHours();
+			var min = dateObj.getMinutes();
+			var convertTime = hour + ':' + min;
+			return convertTime;
+		}
 	});
 	
 	function singleton() {

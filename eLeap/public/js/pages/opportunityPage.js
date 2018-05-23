@@ -22,8 +22,7 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityDetailIt
 			this.renderFramework();
 			this.opportunityId = options.opportunityId;
 			if(this.opportunityId === "create") {
-				this.$(".oppportunityEditView").show();
-				this.$(".opportunityDetailsView").hide();
+				this.showCreateView();
 				var thisPage = this;
 				require(['forms/opportunityForm'], function(OpportunityForm) {
 					thisPage.opportunityForm = new OpportunityForm({
@@ -31,8 +30,7 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityDetailIt
 					});
 				});
 			} else {
-				this.$(".oppportunityEditView").hide();
-				this.$(".opportunityDetailsView").show();
+				this.showDetailView();
 				var oppId = Number(this.opportunityId);
 				if(oppId) {
 					this.opportunity = cache.getOpportunity({
@@ -47,6 +45,16 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityDetailIt
 		
 		renderFramework: function(){
 			this.$el.html(this.pageTmpl());
+		},
+		
+		showDetailView: function() {
+			this.$(".oppportunityEditView").hide();
+			this.$(".opportunityDetailsView").show();
+		},
+		
+		showCreateView: function() {
+			this.$(".oppportunityEditView").show();
+			this.$(".opportunityDetailsView").hide();
 		},
 		
 		listenForEvents: function() {
