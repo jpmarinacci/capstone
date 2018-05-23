@@ -15,7 +15,7 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 		formTmpl: _.template(signupFormTmpl),
 		
 		events: {
-			'click .signupButton': 'createNewPerson'
+			'click .signupButton': 'createNewPerson',
 		},
 		
 		initialize: function (options) {
