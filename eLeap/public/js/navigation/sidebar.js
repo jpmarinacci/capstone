@@ -16,7 +16,9 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 
 		events: {
 			'click .dashboardLink': 'commandClickDashboard',
-			'click .createNewBtn': 'commandCreateNewOpportunity'
+			'click .createNewBtn': 'commandCreateNewOpportunity',
+			'click .accountSettings': 'commandUpdateAccount',
+			
 		},
 		
 		initialize: function (options) {
@@ -34,6 +36,16 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			return this;
 		},
 		
+		commandUpdateAccount: function() {
+			require(['controllers/router',], function(router) {
+				router.navigate('/accountsettings', {trigger: true});
+			});
+		},
+		commandClickDashboard: function() {
+			require(['controllers/router',], function(router) {
+				router.navigate('/dashboard', {trigger: true});
+			});
+		},
 		commandClickDashboard: function() {
 			require(['controllers/router',], function(router) {
 				router.navigate('/dashboard', {trigger: true});
