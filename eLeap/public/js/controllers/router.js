@@ -21,8 +21,8 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 		routes: {
 			'/': 'loginPage',
 			'about': 'about',
-			'account/settings': 'accountSettings',
-			'account/profile': 'accountProfile',
+			'accountsettings': 'accountSettings',
+			'accountprofile': 'accountProfile',
 			'dashboard': 'dashboard',
 			'dbTest': 'dbTest',
 			'home': 'home',
@@ -100,7 +100,7 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 		},
 		
 		accountSettings: function() {
-			this.lastRoute = '/accountSettings';
+			this.lastRoute = '/accountsettings';
 			this.beginNewPage();
 			this.pageDeploy(function() {
 				$("#pages").empty().append("<div id='accountSettingsPage'></div>");
@@ -113,7 +113,7 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 		},
 		
 		accountProfile: function() {
-			this.lastRoute = '/accountProfile';
+			this.lastRoute = '/accountprofile';
 			this.beginNewPage();
 			this.pageDeploy(function() {
 				$("#pages").empty().append("<div id='accountProfilePage'></div>");

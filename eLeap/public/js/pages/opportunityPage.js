@@ -5,9 +5,9 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone','controllers/cache', 'items/opportunityDetailItem',
-		'text!../../tmpl/pages/opportunityPage.tmpl'],
-function (eLeap, $, _, Backbone, cache, OpportunityDetailItem, opportunityPageTmpl) { 'use strict';
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'controllers/notifications', 'controllers/user',
+		'items/opportunityDetailItem', 'text!../../tmpl/pages/opportunityPage.tmpl'],
+function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityDetailItem, opportunityPageTmpl) { 'use strict';
 		
 	eLeap.own.OpportunityPage = Backbone.View.extend({
 		
@@ -62,8 +62,23 @@ function (eLeap, $, _, Backbone, cache, OpportunityDetailItem, opportunityPageTm
 		
 		commandJoinOpportunity: function() {
 			this.$(".oppViewJoinBtn").attr('disabled', 'disabled');
-			this.opportunity.joinOpportuntiy();
+			var options = {
+				personId: user.person.get('personId'),
+				success: function() {
+					notifications.notifyUser("You joined this opportunity");
+				},
+				appError: function(error) {
+					var errorMessage = error ? error.message ? error.message : error: "couldn't join at this time";
+					notifications.notifyUser(error.message);
+				},
+				error: function(error) {
+					var errorMessage = error ? error.message ? error.message : error: "an error occurred";
+					notifications.notifyUser(error.message);
+				}
+			};
+			this.opportunity.joinOpportuntiy(options);
 		}
 	});
 	return eLeap.own.OpportunityPage;
 });
+

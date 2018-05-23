@@ -185,12 +185,21 @@ var opportunities = {
 		];
 		console.log("joinOpportunity route called");
 		console.log("calling sprocJoinOpp");
+		console.log("params");
+		console.log(params);
 		dbServer.sproc("sprocJoinOpp", params, function processSproc(results) {
 			if (results && results.error) {
 				console.log(results);
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = results[0];
+	    		if(returnResults === "invalid:1062") {
+	    			returnResults.status = "invalid";
+	    			returnResults.message = "person already joined";
+	    		} else {
+	    			returnResults.status = "success";
+	    			returnResults.message = "person joined";
+	    		}
 	    		response.send(returnResults);
 	    	}
 		});

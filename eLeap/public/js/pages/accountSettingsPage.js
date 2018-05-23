@@ -6,12 +6,11 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/accountSettingsPage.tmpl'],
-function (eLeap, $, _, Backbone, accountSettingsPageTmpl) {
-	'use strict';
+function (eLeap, $, _, Backbone, accountSettingsPageTmpl) { 'use strict';
 		
 	eLeap.own.AccountSettingsPage = Backbone.View.extend({
 		
-		pageTmpl: _.template(AccountSettingsPageTmpl),
+		pageTmpl: _.template(accountSettingsPageTmpl),
 		
 		initialize: function (options) {
 			this.options = _.extend({}, options);

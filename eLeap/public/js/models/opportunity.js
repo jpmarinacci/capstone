@@ -158,7 +158,11 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		
 		joinOpportuntiy: function(options) {
 			var options = options || {};
-			server.postRoute(this.routes.joinOpportunity, this.toJSON(), function (response) {
+			var joinInputs = {
+				opportunityId: this.get('opportunityId'),
+				personId: options.personId
+			};
+			server.postRoute(this.routes.joinOpportunity, joinInputs, function (response) {
 				if (response.status && response.status !== "success") {
 					if (options.appError) {
 						options.appError(response);

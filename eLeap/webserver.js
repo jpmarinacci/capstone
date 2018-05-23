@@ -132,8 +132,8 @@ app.get('/db', sendIndexFile);
 //our pages
 app.get('/', sendIndexFile);
 app.get('/about', sendIndexFile);
-app.get('/account/settings', sendIndexFile);
-app.get('/account/profile', sendIndexFile);
+app.get('/accountsettings', sendIndexFile);
+app.get('/accountprofile', sendIndexFile);
 app.get('/dashboard', sendIndexFile);
 app.get('/dbTest', sendIndexFile);
 app.get('/home', sendIndexFile);
