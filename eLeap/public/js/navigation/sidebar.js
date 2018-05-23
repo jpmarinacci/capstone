@@ -17,7 +17,7 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		events: {
 			'click .dashboardLink': 'commandClickDashboard',
 			'click .createNewBtn': 'commandCreateNewOpportunity',
-			'click .accountSettings': 'commandUpdateAccount',
+			'click .accountSettingsBtn': 'commandUpdateAccount',
 			
 		},
 		
