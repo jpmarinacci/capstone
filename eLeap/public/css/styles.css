@@ -334,6 +334,21 @@ ul, ol {
 }
 
 /* Dashboard Page */
+
+.welcome {
+	display: inline-block;
+	font-family: serif, Oswald, times, Times New Roman, times-roman, georgia;
+	color: #444;
+	font-size: 40px;
+	font-weight: bold;
+	letter-spacing: -2px;
+	padding: 4px;
+	border: solid 0.5px slategrey;
+	border-radius: 4px;
+	box-shadow: 7px 7px 5px #888;
+	margin-bottom: 20px;
+	color: #34495e
+}
 .opportunityItem {
 	display: inline-block;
 	vertical-align: text-top;
@@ -351,7 +366,17 @@ ul, ol {
 	cursor: pointer;
 }
 */
-
+.card-title
+{
+	font-family: times, Times New Roman, times-roman, georgia, serif;
+	color: #444;
+	margin: 0;
+	padding: 0px 0px 6px 0px;
+	font-size: 20px;
+	line-height: 44px;
+	letter-spacing: -1px;
+	font-weight: bold;
+}
 .oppItemPicContainer {
 	width: 40px;
 	height: 40px;
@@ -377,7 +402,6 @@ ul, ol {
 /*  Opportunity Page */
 .opportunityView {
 	width: 90%;
-	float: center;
 	padding: 0 0 20px 0;
 	margin-left: auto;
 	margin-right: auto;
