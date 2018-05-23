@@ -5,9 +5,9 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controllers/user', 'controllers/notifications', 
-		'models/opportunity', 'text!../../tmpl/forms/opportunityForm.tmpl'],
-function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunity, opportunityFormTmpl) { 'use strict';
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controllers/cache', 'controllers/user',
+		'controllers/notifications', 'models/opportunity', 'text!../../tmpl/forms/opportunityForm.tmpl'],
+	function (eLeap, $, _, Backbone, datetimepicker, cache, user, notifications, Opportunity, opportunityFormTmpl) { 'use strict';
 		
 	eLeap.own.OpportunityForm = Backbone.View.extend({
 		
@@ -15,7 +15,6 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 		
 		events: {
 			'change .oppFormTitle': 'commandChangedTitle',
-			'change .oppFormDescription': 'commandChangedDescription',
 			'change .oppFormTotalSeatsInput': 'commandChangedTotalSeats',
 			'change .oppFormClassName': 'commandChangedClassName',
 			'change .oppFormYear': 'commandChangeYear',
@@ -144,9 +143,6 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 			}
 		},
 		
-		commandChangedDescription: function() {
-			
-		},
 		commandChangedClassName: function(){
 			// check is class radio
 			var inputValue = this.$(".oppFormClassName").val();
@@ -214,21 +210,6 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 			}
 			return;
 		},
-		/*
-		commandChangeoppFormNumberOfHours: function(event){
-					// same class id with 
-					var inputValue = this.$(".oppFormHours").val();
-					if(inputValue) {
-						if(inputValue && this.isValidIntegerInput(inputValue)) {
-							this.$(".oppFormNumberOFHoursWarning").empty();
-							return;
-						} else {
-							this.$(".oppFormNumberOFHoursWarning").html("number of hours must be a valid integer");
-							return;
-						}
-					}
-					return;
-				},*/
 		
 		gatherInput: function() {
 			var startDateTimeInput = this.$(".startDateTimeInput").val();
@@ -307,6 +288,7 @@ function (eLeap, $, _, Backbone, datetimepicker, user, notifications, Opportunit
 			var thisForm = this;
 			var options = {
 				success: function(opportunity) {
+					cache.opportunities.add(opportunity.toJSON(), {merge:true});
 					notifications.notifyUser("opportunity created");
 					thisForm.renderResults(thisForm.opportunity);
 				},
