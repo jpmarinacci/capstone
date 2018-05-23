@@ -13,6 +13,10 @@ function (eLeap, $, _, Backbone, cache, OpportunityDetailItem, opportunityPageTm
 		
 		pageTmpl: _.template(opportunityPageTmpl),
 		
+		events: {
+			'click .oppViewJoinBtn': 'commandJoinOpportunity'
+		},
+		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
 			this.renderFramework();
@@ -54,6 +58,11 @@ function (eLeap, $, _, Backbone, cache, OpportunityDetailItem, opportunityPageTm
 				opportunity: this.opportunity
 			});
 			this.$(".opportunityView").html(opportunityView.render());
+		},
+		
+		commandJoinOpportunity: function() {
+			this.$(".oppViewJoinBtn").attr('disabled', 'disabled');
+			this.opportunity.joinOpportuntiy();
 		}
 	});
 	return eLeap.own.OpportunityPage;

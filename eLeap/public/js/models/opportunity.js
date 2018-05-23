@@ -66,7 +66,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			createOpportunity: "/createOpportunity",
 			getOpportunity: "/getOpportunity",
 			updateOpportunity: "/updateOpportunity",
-			deleteOpportunity: "deleteOpportunity"
+			deleteOpportunity: "deleteOpportunity",
+			joinOpportunity: '/joinOpportunity',
+			getOpportunityHours: '/getOpportunityHours',
 		},
 		
 		sync: function (method, thisModel, options) {
@@ -154,6 +156,29 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			}
 		},
 		
+		joinOpportuntiy: function(options) {
+			var options = options || {};
+			server.postRoute(this.routes.joinOpportunity, this.toJSON(), function (response) {
+				if (response.status && response.status !== "success") {
+					if (options.appError) {
+						options.appError(response);
+					}
+				} else {
+					if (options.success) {
+						if(options.context) {
+							options.call(options.success, context);
+						} else {
+							options.success(response);
+						}
+					}
+				}
+			}, function (error) {
+				if (options.error) {
+					options.error(error);
+				}
+			});
+		},
+		
 		parse: function (dbOpportunity) {
 			return this.parseOppFromDB(dbOpportunity);
 		},
@@ -201,7 +226,6 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(jsonOpp.startDateTime)			jsonOpp.startDateTime = new Date(jsonOpp.startDateTime);
 			if(jsonOpp.status)					jsonOpp.status = jsonOpp.status;
 			if(jsonOpp.teamSize)				jsonOpp.teamSize = Number(jsonOpp.teamSize);
-			if(jsonOpp.title)					jsonOpp.title = jsonOpp.title;
 			if(jsonOpp.timePeriodEndDate)		jsonOpp.timePeriodEndDate = new Date(jsonOpp.timePeriodEndDate);
 			if(jsonOpp.timePeriodStartDate)		jsonOpp.timePeriodStartDate = new Date(jsonOpp.timePeriodStartDate);
 			if(jsonOpp.totalSeats)				jsonOpp.totalSeats = Number(jsonOpp.totalSeats);
