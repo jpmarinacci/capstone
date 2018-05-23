@@ -11,15 +11,9 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/opp
 		model: Opportunity,
 		
 		routes: {
-			createOpportunity: '/createOpportunity',
-			deleteOpportunity: '/deleteOpportunity',
 			getAllOpportunities: '/getAllOpportunities',
 			getMyOpportunities: '/getMyOpportunities',
-			getOpportunities: '/getOpportunities',
-			getOpportunity: '/getOpportunity',
-			getOpportunityHours: '/getOpportunityHours',
-			joinOpportunity: '/joinOpportunity',
-			updateOpportunity:'/updateOpportunity'
+			getOpportunities: '/getOpportunities'
 		},
 		
 		sync: function (method, thisCollection, options) {

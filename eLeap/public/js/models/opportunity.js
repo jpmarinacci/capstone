@@ -66,7 +66,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			createOpportunity: "/createOpportunity",
 			getOpportunity: "/getOpportunity",
 			updateOpportunity: "/updateOpportunity",
-			deleteOpportunity: "deleteOpportunity"
+			deleteOpportunity: "deleteOpportunity",
+			joinOpportunity: '/joinOpportunity',
+			getOpportunityHours: '/getOpportunityHours',
 		},
 		
 		sync: function (method, thisModel, options) {
@@ -152,6 +154,29 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					}
 				});
 			}
+		},
+		
+		joinOpportuntiy: function(options) {
+			var options = options || {};
+			server.postRoute(this.routes.joinOpportunity, this.toJSON(), function (response) {
+				if (response.status && response.status !== "success") {
+					if (options.appError) {
+						options.appError(response);
+					}
+				} else {
+					if (options.success) {
+						if(options.context) {
+							options.call(options.success, context);
+						} else {
+							options.success(response);
+						}
+					}
+				}
+			}, function (error) {
+				if (options.error) {
+					options.error(error);
+				}
+			});
 		},
 		
 		parse: function (dbOpportunity) {

@@ -142,7 +142,7 @@ var opportunities = {
     },
     
 	getOpportunity: function(request, response) { 'use strict';	
-   		var sprocName = "sprocGetOppID";
+   		var sprocName = "sprocGetOppId";
 		var params = [
 			request.body.opportunityId ? request.body.opportunityId : null,
 			request.body.personId ? request.body.personId : null
@@ -150,10 +150,12 @@ var opportunities = {
 		console.log("getOpportunity route called");
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
+			console.log("results");
+			console.log(results);
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0];
+	    		var returnResults = results[0][0];
 	    		response.send(returnResults);
 	    	}
 		};
@@ -177,22 +179,20 @@ var opportunities = {
     },
     
 	joinOpportunity: function(request, response) { 'use strict';	
-   		var sprocName = "sprocJoinOpp";
 		var params = [
 			request.body.opportunityId ? request.body.opportunityId : null,
 			request.body.personId ? request.body.personId : null
 		];
 		console.log("joinOpportunity route called");
-		console.log("calling "+ sprocName);
-		function processSproc(results) {
+		console.log("calling sprocJoinOpp");
+		dbServer.sproc("sprocJoinOpp", params, function processSproc(results) {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = results[0];
 	    		response.send(returnResults);
 	    	}
-		};
-		dbServer.sproc(sprocName, params, processSproc);
+		});
     },
     
     leaveOpportunity: function(request, response) { 'use strict';	

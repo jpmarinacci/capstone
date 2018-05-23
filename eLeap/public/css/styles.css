@@ -375,6 +375,7 @@ ul, ol {
 	font-weight: 600;
 }
 /*  Opportunity Page */
+<<<<<<< HEAD
 .opportunityView {
 	width: 90%;
 	float: center;
@@ -382,6 +383,8 @@ ul, ol {
 	margin-left: auto;
 	margin-right: auto;
 }
+=======
+>>>>>>> 35f0470a82760429f6a7a3e29c0deb64eafedf29
 .oppViewJoinBtn {
 	float: left;
 	margin-left: 20px;

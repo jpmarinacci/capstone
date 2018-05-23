@@ -15,7 +15,10 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 		formTmpl: _.template(signupFormTmpl),
 		
 		events: {
-			'click .signupButton': 'createNewPerson',
+			'change .signupEmail': 'commandChangedSignupEmail',
+			'change .signupPhone': 'commandChangedSignupPhone',
+			'change .selectRoles': 'commandChangedSelectRoles',
+			'click .signupButton': 'createNewPerson'
 		},
 		
 		initialize: function (options) {
@@ -49,6 +52,70 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 			}
 		},
 		
+		isValidEmail: function (email){
+			 if (email && (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/+email)){
+			    return true;
+			 } else {
+			 	return false;
+			 }
+		},
+		
+		isValidPhone: function (phone){
+			if(phone&& (/^\d{10}$/) + phone){
+				return true;
+			} else {
+				return false;
+			}
+		},
+		
+		isRequired: function(stringInput) {
+			if(stringInput !== "") {
+				return true;
+			} else {
+				return false;
+			}
+		},
+	
+		isValidPassword: function(password){
+			if(password&&(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)+ password){
+				return true;
+			} else {
+				return false;
+			}
+		},
+	
+		commandChangedSignupEmail: function(event){
+			var inputValue = this.$(".signupEmail").val();
+			if(this.isValidEmail(inputValue)) {
+				this.$(".signupEmailWarning").empty();
+				return;
+			} else {
+				this.$(".signupEmailWarning").html("valid email address is required");
+				return;
+			}
+		},
+		
+		commandChangedSignupPhone: function(event){
+			var inputValue = this.$(".signupPhone").val();
+			if(this.isValidPhone(inputValue)) {
+				this.$(".signupPhoneWarning").empty();
+				return;
+			} else {
+				this.$(".signupPhoneWarning").html("valid phone number is required");
+				return;
+			}
+		},
+		commandChangedSelectRoles: function(event) {
+			var inputValue = this.$(".selectRoles").val();
+			if(this.isRequired(inputValue)) {
+				this.$(".selectRolesWarning").empty();
+				return;
+			} else {
+				this.$(".selectRolesWarning").html("choose your role");
+				return;
+			}
+		},
+
 		gatherInput: function() {
 			var email = this.$(".signupEmail").val();
 			//validate inputs
@@ -80,5 +147,6 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 			this.person.save({}, options);
 		}
 	});
+	
 	return eLeap.own.SignForm;
 });
