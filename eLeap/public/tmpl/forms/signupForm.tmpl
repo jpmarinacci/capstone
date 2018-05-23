@@ -1,10 +1,16 @@
 <div class="login">
     <input class="signupEmail" type="email" placeholder="Your email"/><br>
+    <span class="signupEmailWarning"></span>
     <input class="signupName" placeholder="Your name"/><br>
+    <span class="signupNameWarning"></span>
     <input class="signupPhone" placeholder="Your Phone Number"/><br>
-    <input class="signupCredential" placeholder="password"/><br>
+    <span class="signupPhoneWarning"></span>
+    <input class="signupCredential" type="password" placeholder="password"/><br>
+    <span class="signupCredentialPhoneWarning"></span>
+    <input class="signupRetypeCredential" type="password" placeholder="Retype"/><br>
     <label>Please select your role</label><br>
     <select class="selectRoles"></select>
+    <span class="selectRolesWarning"></span>
 </div>
 
 <button class="signupButton btn btn--decorated btn-warning login__btn mt50">Sign Up</button>
