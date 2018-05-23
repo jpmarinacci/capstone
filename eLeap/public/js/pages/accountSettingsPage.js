@@ -16,17 +16,22 @@ function (eLeap, $, _, Backbone, user, SignupForm) { 'use strict';
 			
 			this.person = user.person;
 			this.signupForm = new SignupForm({
-				el: this.$el
+				el: this.$el,
+				person: this.person
 			});
+			this.listenForEvents();
 			this.renderPage();
+		},
+		
+		listenForEvents: function() {
+			this.listenTo(this.person, 'sync change', this.renderPage);
 		},
 		
 		renderPage: function() {
 			this.$(".signupButton").text('Update');
-			this.$(".signupEmail").text(this.person.get('email'));
-			//do this for name and phone number
-			this.$(".signupEmail").text(this.person.get('email'));
-			this.$(".signupPhone").text(this.person.get('phone'));
+			this.$(".signupEmail").val(this.person.get('email'));
+			this.$(".signupName").val(this.person.get('personName'));
+			this.$(".signupPhone").val(this.person.get('phone'));
 		}
 		
 	});

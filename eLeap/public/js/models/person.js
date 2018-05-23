@@ -72,7 +72,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					}
 				});
 			} else if(method === 'update') {
-				server.postRoute(this.routes.updatePerson, this.translatePersonToDB(this.toJSON()), function (response) {
+				server.postRoute(this.routes.updatePerson, this.toJSON(), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
