@@ -201,6 +201,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(jsonOpp.startDateTime)			jsonOpp.startDateTime = new Date(jsonOpp.startDateTime);
 			if(jsonOpp.status)					jsonOpp.status = jsonOpp.status;
 			if(jsonOpp.teamSize)				jsonOpp.teamSize = Number(jsonOpp.teamSize);
+			if(jsonOpp.title)					jsonOpp.title = jsonOpp.title;
 			if(jsonOpp.timePeriodEndDate)		jsonOpp.timePeriodEndDate = new Date(jsonOpp.timePeriodEndDate);
 			if(jsonOpp.timePeriodStartDate)		jsonOpp.timePeriodStartDate = new Date(jsonOpp.timePeriodStartDate);
 			if(jsonOpp.totalSeats)				jsonOpp.totalSeats = Number(jsonOpp.totalSeats);
