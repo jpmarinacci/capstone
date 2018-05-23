@@ -75,11 +75,13 @@ var persons = {
     updatePerson: function(request, response) { 'use strict';
     	var sprocName = "sprocUpdatePer";
 		var params = [
-			request.body.personId ? Number(request.body.personId): null,
-			request.body.email ? request.body.email: null,
-			request.body.personName ? request.body.personName: null,
 			request.body.credential ? request.body.credential : null,
-			request.body.phone ?  request.body.phone: null
+			request.body.email ? request.body.email: null,
+			request.body.personId ? Number(request.body.personId): null,
+			request.body.personName ? request.body.personName: null,
+			request.body.phone ?  request.body.phone: null,
+			request.body.roleId ? request.body.roleId: 1,
+			request.body.themeId ? request.body.themeId: null
 		];
 		console.log("updatePerson route called");
 		console.log("calling " + sprocName);
