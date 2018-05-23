@@ -1,49 +1,11 @@
-<div class="oppItemDetails">
+<div class="oppItemPicContainer">
 
-    <div class="card border-dark mb-3" style="width: 18rem;">
-        <div class="card-header">
-            <div class="oppItemField oppItemTitle">
-                <% if(opp.title){%>
-                <h5 class="card-title"><% if(opp.status){%><small class="fontExtraSmall fontRed">[<%= opp.status %>]</small><br><%}%><%= opp.title %></h5>
-                <%}%>
-            </div>
-        </div>
-        <div class="card-body">
-
-            <div class="oppItemField">
-                <% if(opp.createDate){%>
-                <p class="card-subtitle mb-2 fontExtraSmall text-muted">Posted on: <%= utils.dateTimeToDisplay(opp.createDate) %></p>
-                <%}%>
-                <%if(opp.applicationDueDate){%>
-                <p class="card-subtitle mb-2 fontExtraSmall text-muted">Application due: <%= utils.dateTimeToDisplay(opp.applicationDueDate) %></p>
-                <%}%>
-                <% if(opp.totalSeats){%>
-                <p class="card-subtitle mb-2 fontExtraSmall text-muted">Total seats: <b><%= opp.totalSeats %></b></p>
-                <%}%>
-            </div>
-
-            <div class="oppItemField">
-                <% if(opp.description){%>
-                <h6 class="card-text mb-2"><%= opp.description %></h6>
-                <%}%>
-            </div>
-
-            <div class="oppItemField">
-                <p class="text-right mt-4 card-link">Read more&gt;&gt;</p>
-            </div>
-
-        </div>
-    </div>
-
-</div>
-
-<!--<div class="oppItemPicContainer">
-    <img class="oppItemPic" src="img/docs.ico" />
+    <h2>Hahaha</h2>
 </div>
 <div class="oppItemDetails">
     <div class="oppItemField oppItemTitle">
         <% if(opp.title){%>
-            &lt;!&ndash; <span class="oppItemLabel">title:</span> &ndash;&gt;
+            <!-- <span class="oppItemLabel">title:</span> -->
             <span><%= opp.title %></span>
         <%}%>
     </div>
@@ -337,5 +299,5 @@
     </div>
 
 
-</div>-->
+</div>
 

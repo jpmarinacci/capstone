@@ -5,8 +5,9 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone','controllers/cache', 'items/opportunityItem', 'text!../../tmpl/pages/opportunityPage.tmpl'],
-function (eLeap, $, _, Backbone, cache, OpportunityItem, opportunityPageTmpl) { 'use strict';
+define(['eLeap', 'jquery', 'underscore', 'backbone','controllers/cache', 'items/opportunityDetailItem',
+		'text!../../tmpl/pages/opportunityPage.tmpl'],
+function (eLeap, $, _, Backbone, cache, OpportunityDetailItem, opportunityPageTmpl) { 'use strict';
 		
 	eLeap.own.OpportunityPage = Backbone.View.extend({
 		
@@ -49,7 +50,7 @@ function (eLeap, $, _, Backbone, cache, OpportunityItem, opportunityPageTmpl) { 
 		},
 		
 		renderOpportunity: function() {
-			var opportunityView = new OpportunityItem({
+			var opportunityView = new OpportunityDetailItem({
 				opportunity: this.opportunity
 			});
 			this.$(".opportunityView").html(opportunityView.render());

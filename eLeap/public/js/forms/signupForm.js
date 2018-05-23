@@ -16,9 +16,7 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 		
 		events: {
 			'change .signupEmail': 'commandChangedSignupEmail',
-		
 			'change .signupPhone': 'commandChangedSignupPhone',
-			
 			'change .selectRoles': 'commandChangedSelectRoles',
 			'click .signupButton': 'createNewPerson'
 		},

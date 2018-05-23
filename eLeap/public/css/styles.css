@@ -341,13 +341,17 @@ ul, ol {
 	margin-bottom: 10px;
 }
 .opportunitiesList .opportunityItem {
-	border-radius: 4px;
+	border-radius: 2px;
 }
+
+/*
 .opportunitiesList .opportunityItem:hover {
-	/*background-color: #a7e6ff;*/
-	box-shadow: inset 0 0 20px #a7e6ff;
+	!*background-color: #a7e6ff;*!
+	box-shadow: inset 0 0 2px #444444;
 	cursor: pointer;
 }
+*/
+
 .oppItemPicContainer {
 	width: 40px;
 	height: 40px;
@@ -1257,6 +1261,16 @@ table th[class*="col-"] {
 	font-size:30px;
 }
 
-.oppItemStatus {
+.fontRed {
 	color: #ff0000;
+}
+
+.fontExtraSmall {
+	font-size:8pt;
+}
+
+.card:hover {
+	/*background-color: #a7e6ff;*/
+	box-shadow: inset 0 0 2px #34495e;
+	cursor: pointer;
 }
