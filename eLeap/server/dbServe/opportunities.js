@@ -187,6 +187,7 @@ var opportunities = {
 		console.log("calling sprocJoinOpp");
 		dbServer.sproc("sprocJoinOpp", params, function processSproc(results) {
 			if (results && results.error) {
+				console.log(results);
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = results[0];

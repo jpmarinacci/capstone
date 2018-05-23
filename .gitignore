@@ -11,3 +11,4 @@ thumbs.db
 external
 public/images
 eLeap/sessions
+package-lock.json
