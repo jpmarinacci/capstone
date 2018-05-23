@@ -5,21 +5,29 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/accountSettingsPage.tmpl'],
-function (eLeap, $, _, Backbone, accountSettingsPageTmpl) { 'use strict';
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/user', 'forms/signupForm'],
+function (eLeap, $, _, Backbone, user, SignupForm) { 'use strict';
 		
 	eLeap.own.AccountSettingsPage = Backbone.View.extend({
 		
-		pageTmpl: _.template(accountSettingsPageTmpl),
 		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
-			this.renderFramework();
+			
+			this.person = user.person;
+			this.signupForm = new SignupForm({
+				el: this.$el
+			});
+			this.renderPage();
 		},
 		
-		renderFramework: function(){
-			this.$el.html(this.pageTmpl({}));
+		renderPage: function() {
+			this.$(".signupButton").text('Update');
+			this.$(".signupEmail").text(person.get('email'));
+			//do this for name and phone number
+			this.$(".signupEmail").text(person.get('email'));
 		}
+		
 	});
 	return eLeap.own.AccountSettingsPage;
 });
