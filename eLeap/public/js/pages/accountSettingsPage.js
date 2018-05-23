@@ -23,9 +23,9 @@ function (eLeap, $, _, Backbone, user, SignupForm) { 'use strict';
 		
 		renderPage: function() {
 			this.$(".signupButton").text('Update');
-			this.$(".signupEmail").text(person.get('email'));
+			this.$(".signupEmail").text(this.person.get('email'));
 			//do this for name and phone number
-			this.$(".signupEmail").text(person.get('email'));
+			this.$(".signupEmail").text(this.person.get('email'));
 		}
 		
 	});
