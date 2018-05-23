@@ -1,151 +1,223 @@
 <div class="oppItemDetails">
     <div class="card">
         <div class="card-header text-center oppItemField">
-
             <% if(opp.title){%>
-
-            <h5 class="card-title"><%= opp.title %></h5>
+                <div class="card-title">
+                    <%= opp.title %>
+                </div>
             <%}%>
         </div>
-
-
         <div class="row mt-2 mb-2 ml-2 mr-2">
-
             <div class="col-4">
-                <div class="card" style="width: 18rem;">
+                <div class="card">
                     <ul class="list-group list-group-flush">
-
                         <div class="oppItemField">
                             <% if(opp.ownerId){%>
-                            <li class="list-group-item"><b>Owner Name:</b><br><%= opp.ownerName %></li>
+                                <li class="list-group-item">
+                                    <b>Owner Name:</b>
+                                    <br>
+                                    <%= opp.ownerName %>
+                                </li>
                             <%}%>
                         </div>
-
                         <div class="oppItemField">
                             <% if(opp.createDate){%>
-                            <li class="list-group-item"><b>Created on </b><br><%=
-                                utils.dateTimeToDisplay(opp.createDate) %>
-                            </li>
+                                <li class="list-group-item">
+                                    <b>Created on </b>
+                                    <br>
+                                    <%= utils.dateTimeToDisplay(opp.createDate) %>
+                                </li>
                             <%}%>
                         </div>
-
                         <div class="oppItemField">
                             <% if(opp.status){%>
-                            <li class="list-group-item"><b>Status: </b><%= opp.status %></li>
+                                <li class="list-group-item">
+                                    <b>Status: </b>
+                                    <%= opp.status %>
+                                 </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.totalSeats){%>
-                            <li class="list-group-item"><b>Total seats:</b><br><%= opp.totalSeats %></li>
+                                <li class="list-group-item">
+                                    <b>Total seats:</b>
+                                    <br>
+                                    <%= opp.totalSeats %>
+                                </li>
                             <%}%>
                         </div>
-
                         <div class="oppItemField">
                             <%if(opp.applicationDueDate){%>
-                            <li class="list-group-item"><b>Application due date:</b><br><%=
-                                utils.dateTimeToDisplay(opp.applicationDueDate) %>
-                            </li>
+                                <li class="list-group-item">
+                                    <b>Application due date:</b>
+                                    <br><%= utils.dateTimeToDisplay(opp.applicationDueDate) %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.availableSeats){%>
-                            <li class="list-group-item"><b>Available seats:</b><br><%= opp.availableSeats %></li>
+                                <li class="list-group-item">
+                                    <b>Available seats:</b>
+                                    <br>
+                                    <%= opp.availableSeats %>
+                                </li>
                             <%}%>
                         </div>
-
                         <div class="oppItemField">
                             <% if(opp.agencyCommitment){%>
-                            <li class="list-group-item"><b>Agency commitment:</b><br><%= opp.agencyCommitment %></li>
+                                <li class="list-group-item">
+                                    <b>Agency commitment:</b>
+                                    <br><%= opp.agencyCommitment %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.classId){%>
-                            <li class="list-group-item"><b>Class ID:</b><br><%= opp.classId %></li>
+                                <li class="list-group-item">
+                                    <b>Class ID:</b>
+                                    <br>
+                                    <%= opp.classId %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.className){%>
-                            <li class="list-group-item"><b>Class name:</b><br><%= opp.className %></li>
+                                <li class="list-group-item">
+                                    <b>Class name:</b>
+                                    <br>
+                                    <%= opp.className %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
-                            <% if(opp.classType){%>
+                            <% if(opp.classType) {%>
                             <li class="list-group-item"><b>Class type:</b><br><%= opp.classType %></li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
-                            <% if(opp.classYear){%>
-                            <li class="list-group-item"><b>Class year:</b><br><%= opp.classYear %></li>
+                            <% if(opp.classYear) {%>
+                                <li class="list-group-item">
+                                    <b>Class year:</b>
+                                    <br>
+                                    <%= opp.classYear %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
-                            <% if(opp.courseSummary){%>
-                            <li class="list-group-item"><b>Course summary:</b><br><%= opp.courseSummary %></li>
+                            <% if(opp.courseSummary) {%>
+                                <li class="list-group-item">
+                                    <b>Course summary:</b>
+                                    <br>
+                                    <%= opp.courseSummary %>
+                                </li>
                             <%}%>
                         </div>
-
                         <div class="oppItemField">
                             <% if(opp.deliverables){%>
-                            <li class="list-group-item"><b>Deliverables:</b><br><%= opp.deliverables %></li>
+                                <li class="list-group-item">
+                                    <b>Deliverables:</b>
+                                    <br>
+                                    <%= opp.deliverables %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.donation){%>
-                            <li class="list-group-item"><b>Donation:</b><br><%= opp.donation %></li>
+                                <li class="list-group-item">
+                                    <b>Donation:</b>
+                                    <br>
+                                    <%= opp.donation %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.duration){%>
-                            <li class="list-group-item"><b>Duration:</b><br><%= opp.duration %></li>
+                                <li class="list-group-item">
+                                    <b>Duration:</b>
+                                    <br>
+                                    <%= opp.duration %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.endDateTime){%>
-                            <li class="list-group-item"><b>End date:</b><br><%= utils.dateTimeToDisplay(opp.endDateTime)
-                                %>
-                            </li>
+                                <li class="list-group-item">
+                                    <b>End date:</b>
+                                    <br>
+                                    <%= utils.dateTimeToDisplay(opp.endDateTime) %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.estimatedClassSize){%>
-                            <li class="list-group-item"><b>Estimated class size:</b><br><%= opp.estimatedClassSize %>
-                            </li>
+                                <li class="list-group-item">
+                                    <b>Estimated class size:</b>
+                                    <br>
+                                    <%= opp.estimatedClassSize %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.examples){%>
-                            <li class="list-group-item"><b>Examples:</b><br><%= opp.examples %></li>
+                                <li class="list-group-item">
+                                    <b>Examples:</b>
+                                    <br>
+                                    <%= opp.examples %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.hoursRequired){%>
-                            <li class="list-group-item"><b>Hours required:</b><br><%= opp.hoursRequired %></li>
+                                <li class="list-group-item">
+                                    <b>Hours required:</b>
+                                    <br>
+                                    <%= opp.hoursRequired %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.isClass){%>
-                            <li class="list-group-item"><b>Is for class:</b><br><%= opp.isClass %></li>
+                                <li class="list-group-item">
+                                    <b>Is for class:</b>
+                                    <br>
+                                    <%= opp.isClass %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.isRequiredForClass){%>
-                            <li class="list-group-item"><b>Is required for class:</b><br><%= opp.isRequiredForClass %>
-                            </li>
+                                <li class="list-group-item">
+                                    <b>Is required for class:</b>
+                                    <br>
+                                    <%= opp.isRequiredForClass %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.isPaid){%>
-                            <li class="list-group-item"><b>Paid:</b><br><%= opp.isPaid %></li>
+                                <li class="list-group-item">
+                                    <b>Paid:</b>
+                                    <br>
+                                    <%= opp.isPaid %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.isServiceLearning){%>
-                            <li class="list-group-item"><b>Service learning:</b><br><%= opp.isServiceLearning %></li>
+                                <li class="list-group-item">
+                                    <b>Service learning:</b>
+                                    <br>
+                                    <%= opp.isServiceLearning %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
                             <% if(opp.isTeams){%>
-                            <li class="list-group-item"><b>Teams:</b><br><%= opp.isTeams %></li>
+                                <li class="list-group-item">
+                                    <b>Teams:</b>
+                                    <br>
+                                    <%= opp.isTeams %>
+                                </li>
                             <%}%>
                         </div>
                         <div class="oppItemField">
@@ -271,16 +343,10 @@
                             </li>
                             <%}%>
                         </div>
-
-
                     </ul>
-
-
                 </div>
             </div>
-
             <div class="col-8">
-
                 <div class="card-body">
                     <% if(opp.description){%>
                     <p class="card-text"><%= opp.description %></p>
