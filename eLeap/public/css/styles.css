@@ -367,15 +367,20 @@ ul, ol {
 	display: block;
 }
 .oppItemDetails {
-	width: 300px;
+	/* width: 300px;
     float: right;
+    */
 }
 .oppItemLabel {
 	font-weight: 600;
 }
 /*  Opportunity Page */
 .opportunityView {
-	float: left;
+	width: 90%;
+	float: center;
+	padding: 0 0 20px 0;
+	margin-left: auto;
+	margin-right: auto;
 }
 .oppViewJoinBtn {
 	float: left;
