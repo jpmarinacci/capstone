@@ -329,10 +329,10 @@ ul, ol {
 	width: 100%;
 }
 .formSection {
-	width: 700px;
+	width: 100%;
 	padding: 10px;
-	border: solid 0.5px slategrey;
-	border-radius: 2px;
+	border: 1px dashed grey;
+	border-radius: 5px;
 	margin-bottom: 5px;
 }
 .oppFormList .oppFormRadiosContainer {
@@ -1308,7 +1308,7 @@ table th[class*="col-"] {
 }
 
 .opportunityPageCreateForm {
-	width:70%;
+	width:80%;
 	margin: 0 auto 0 auto;
 }
 
