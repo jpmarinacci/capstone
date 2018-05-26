@@ -293,6 +293,7 @@ var opportunities = {
 		});
     },
     
+    
     leaveOpportunity: function(request, response) { 'use strict';	
    		var sprocName = "sprocLeaveOpp";
 		var params = [

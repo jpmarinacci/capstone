@@ -68,6 +68,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			updateOpportunity: "/updateOpportunity",
 			deleteOpportunity: "deleteOpportunity",
 			joinOpportunity: '/joinOpportunity',
+			leaveOpportunity: '/leaveOpportunity',
 			getOpportunityHours: '/getOpportunityHours',
 		},
 		
@@ -163,6 +164,32 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 				personId: options.personId
 			};
 			server.postRoute(this.routes.joinOpportunity, joinInputs, function (response) {
+				if (response.status && response.status !== "success") {
+					if (options.appError) {
+						options.appError(response);
+					}
+				} else {
+					if (options.success) {
+						if(options.context) {
+							options.call(options.success, context);
+						} else {
+							options.success(response);
+						}
+					}
+				}
+			}, function (error) {
+				if (options.error) {
+					options.error(error);
+				}
+			});
+		},
+		leaveOpportuntiy: function(options) {
+			var options = options || {};
+			var joinInputs = {
+				opportunityId: this.get('opportunityId'),
+				personId: options.personId
+			};
+			server.postRoute(this.routes.leaveOpportunity,leaveInputs, function (response) {
 				if (response.status && response.status !== "success") {
 					if (options.appError) {
 						options.appError(response);

@@ -14,7 +14,8 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityDetailIt
 		pageTmpl: _.template(opportunityPageTmpl),
 		
 		events: {
-			'click .oppViewJoinBtn': 'commandJoinOpportunity'
+			'click .oppViewJoinBtn': 'commandJoinOpportunity',
+			'click .oppViewLeaveBtn': 'commandLeaveOpportunity'
 		},
 		
 		initialize: function (options) {
@@ -85,6 +86,24 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityDetailIt
 				}
 			};
 			this.opportunity.joinOpportuntiy(options);
+		},
+		commandLeaveOpportunity: function() {
+			this.$(".oppViewLeaveBtn").attr('disabled', 'disabled');
+			var options = {
+				personId: user.person.get('personId'),
+				success: function() {
+					notifications.notifyUser("You Left this opportunity");
+				},
+				appError: function(error) {
+					var errorMessage = error ? error.message ? error.message : error: "couldn't leave at this time";
+					notifications.notifyUser(error.message);
+				},
+				error: function(error) {
+					var errorMessage = error ? error.message ? error.message : error: "an error occurred";
+					notifications.notifyUser(error.message);
+				}
+			};
+			this.opportunity.leaveOpportuntiy(options);
 		}
 	});
 	return eLeap.own.OpportunityPage;
