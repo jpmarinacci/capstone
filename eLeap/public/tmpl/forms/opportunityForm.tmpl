@@ -149,7 +149,7 @@
 	    </div>
 	    <li>
 	        <span class="oppFormLabel">Opportunity Type</span>
-	        <span class="oppFormInputContainer">
+	        <span class="oppFormRadiosContainer oppFormInputContainer">
 	            <input type="radio" name="oppFormOppType" class="oppFormOppType" value="service" checked> Service
 	            <input type="radio" name="oppFormOppType" class="oppFormOppType" value="volunteer"> Volunteer
 	            <input type="radio" name="oppFormOppType" class="oppFormOppType" value="project"> Project
@@ -159,13 +159,6 @@
 	        </span>
 	    </li>
 	    <div class="oppFormServiceSection oppTypeSection formSection">
-	        <li>
-	            <span class="oppFormLabel">Hours</span>
-	            <span class="oppFormInputContainer">
-	                <input class="oppFormHours oppFormTextInput" type="text"/>
-	                 <span class="oppFormHoursWarning"></span>
-	            </span>
-	        </li>
 	        <li>
 	            <span class="oppFormLabel">Preferred Service Work</span>
 	            <span class="oppFormInputContainer">
@@ -226,12 +219,6 @@
 	                <input class="oppFormIsTimeRequired" type="checkbox"/>
 	            </span>
 	        </li>
-	        <li>
-	            <span class="oppFormLabel">Number of Hours</span>
-	            <span class="oppFormInputContainer">
-	                <input class="oppFormHours oppFormTextInput" type="text"/>
-	            </span>
-	        </li>
 	    </div>
 	    <div class="oppFormDeliverableSection oppTypeSection formSection initialDisplayNone">
 	        <li>
@@ -287,6 +274,14 @@
 	            </span>
 	        </li>
 	    </div>
+	    <div class="oppFormHoursSharedSection oppTypeSection formSection">
+            <li>
+                <span class="oppFormLabel">Number of Hours</span>
+                <span class="oppFormInputContainer">
+                    <input class="oppFormHours oppFormTextInput" type="text"/>
+                </span>
+            </li>
+        </div>
 	</ul>
 </div>
 <div class="mt20 mb20 text-center"><button class="btn btn-warning btn--decorated saveOpportunity">Submit</button></div>

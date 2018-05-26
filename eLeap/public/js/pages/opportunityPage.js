@@ -15,7 +15,8 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityDetailIt
 		
 		events: {
 			'click .oppViewJoinBtn': 'commandJoinOpportunity',
-			'click .oppViewLeaveBtn': 'commandLeaveOpportunity'
+			'click .oppViewLeaveBtn': 'commandLeaveOpportunity',
+			'click .oppViewEditBtn': 'commandEditOpportunity'
 		},
 		
 		initialize: function (options) {
@@ -67,6 +68,7 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityDetailIt
 				opportunity: this.opportunity
 			});
 			this.$(".opportunityView").html(opportunityView.render());
+			//if()
 		},
 		
 		commandJoinOpportunity: function() {
@@ -87,6 +89,7 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityDetailIt
 			};
 			this.opportunity.joinOpportuntiy(options);
 		},
+		
 		commandLeaveOpportunity: function() {
 			this.$(".oppViewLeaveBtn").attr('disabled', 'disabled');
 			var options = {

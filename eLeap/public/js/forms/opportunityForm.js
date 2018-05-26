@@ -96,6 +96,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 				case 'service':
 					this.$(".oppFormServiceSection").show();
 					this.$(".oppFormGigDeliverableSharedSection .oppFormTextInput").val("").text("");
+					this.$(".oppFormHoursSharedSection").show();
 					break;
 				case 'volunteer':
 					this.$(".oppFormVolunteerSection").show();
@@ -108,6 +109,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 				case 'gig':
 					this.$(".oppFormGigSection").show();
 					this.$(".oppFormGigDeliverableSharedSection").show();
+					this.$(".oppFormHoursSharedSection").show();
 					break;
 				case 'deliverable':
 					this.$(".oppFormDeliverableSection").show();

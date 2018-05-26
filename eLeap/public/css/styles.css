@@ -262,11 +262,11 @@ ul, ol {
 }
 .dashboardLink:hover {
 	color: #00B7FF;
-	text-decoration: underline;
+	text-decoration: none;
 }
 .navLink:hover {
     color: #0056b3;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 /*  footer */
@@ -334,6 +334,9 @@ ul, ol {
 	border: solid 0.5px slategrey;
 	border-radius: 2px;
 	margin-bottom: 5px;
+}
+.oppFormList .oppFormRadiosContainer {
+	width: 500px;
 }
 
 /* Dashboard Page */
