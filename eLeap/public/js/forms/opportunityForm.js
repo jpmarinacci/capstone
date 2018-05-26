@@ -20,6 +20,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 			'change .oppFormYear': 'commandChangeYear',
 			'change .oppFormClassSize': 'commandChangeoppFormClassSize',
 			'change .oppFormHours': 'commandChangeoppFormHours',
+			'change .oppFormPayAmount': 'commandChangeoppFormPayAmount',
 			
 			
 			'click .oppFormIsClass': 'toggleClassSection',
@@ -222,6 +223,20 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 			}
 			return;
 		},
+		commandChangeoppFormPayAmount: function(event){
+			var inputValue = this.$(".oppFormHours").val();
+			if(inputValue) {
+				if(inputValue && this.isValidIntegerInput(inputValue)) {
+					this.$(".oppFormPayAmountWarning").empty();
+					return;
+				} else {
+					this.$(".oppFormPayAmountWarning").html("hours must be a valid integer");
+					return;
+				}
+			}
+			return;
+		},
+		
 		
 /*		renderOpportunityToForm: function(opportunity) {
 			this.opportunity = opportunity;
