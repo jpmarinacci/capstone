@@ -2,8 +2,362 @@
 	<span class="centerText">Opportunity Results:</span>
 	<ul class="resultsList"></ul>
 </div>
+
+<h4 class="mb-4">Create an Opportunity</h4>
 <div class="opportunityForm">
-	<h3 class="pl20 heading-helper heading-helper--sm">Create an Opportunity</h3>
+
+
+	<div class="oppFormList form-group row">
+		<label class="col-sm-3 col-form-label">Title</label>
+		<div class="col-sm-9 oppFormInputContainer">
+			<input type="email" class="form-control oppFormTextInput" placeholder="Title of the opportunity">
+			<span class="oppFormTitleWarning"></span>
+		</div>
+	</div>
+
+	<div class="oppFormList form-group row">
+		<label class="col-sm-3 col-form-label">Opportunity Start Date</label>
+		<div class="col-sm-9 oppFormInputContainer">
+			<input type="text" class="form-control startDateTimeInput oppFormTextInput" placeholder="MM/DD/YYYY">
+		</div>
+	</div>
+
+	<div class="oppFormList form-group row">
+		<label class="col-sm-3 col-form-label">Opportunity End Date</label>
+		<div class="col-sm-9 oppFormInputContainer">
+			<input type="text" class="form-control endDateTimeInput oppFormTextInput" placeholder="MM/DD/YYYY">
+		</div>
+	</div>
+
+	<div class="oppFormList form-group row">
+		<label class="col-sm-3 col-form-label">Description</label>
+		<div class="col-sm-9 oppFormInputContainer">
+			<textarea class="form-control oppFormDescription oppFormTextInput" rows="8"></textarea>
+		</div>
+	</div>
+
+	<div class="oppFormList form-group row">
+		<label class="col-sm-3 form-check-label">Open slots</label>
+		<div class="col-sm-9 oppFormInputContainer">
+			<input type="text" class="form-control oppFormTotalSeatsInput oppFormTextInput" maxlength="3">
+			<span class="oppFormTotalSeatsWarning"></span>
+		</div>
+	</div>
+
+	<div class="oppFormList form-group row createOppLine">
+		<label class="col-sm-3 col-form-label">Is this part of a class?</label>
+		<div class="col-sm-9 oppFormInputContainer checkBoxes">
+			<input type="checkbox" class="oppFormIsClass form-check-input" checked>
+		</div>
+	</div>
+
+<!-- Sub Divs -->
+
+		<div class="oppFormClassSection formSection">
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Class Name</label>
+				<div class="col-sm-9 oppFormInputContainer">
+	                <input class="form-control oppFormClassName oppFormTextInput" type="text"/>
+	                <span class="oppFormClassNameWarning"></span>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Class Type</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormClassType oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Term</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormTerm oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Year</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<select class="form-control oppFormTerm">
+						<option>2015</option>
+						<option>2016</option>
+						<option>2017</option>
+						<option selected>2018</option>
+						<option>2019</option>
+						<option>2020</option>
+						<option>2021</option>
+						<option>2022</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Course Summary</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<textarea class="form-control oppFormCourseSummary oppFormTextInput" rows="8"></textarea>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Estimated Class Size</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormClassSize oppFormTextInput" type="text"/>
+					<span class="oppFormClassSizeWarning error"></span>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row createOppLine">
+				<label class="col-sm-3 col-form-label">Required for Class?</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input type="checkbox" class="oppFormIsRequiredForClass form-check-input">
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Application Due Date</label>
+				<div class="col-sm-9 oppFormInputContainer relative">
+					<input type="text" class="form-control oppFormApplicationDueDate oppFormTextInput" placeholder="MM/DD/YYYY">
+				</div>
+			</div>
+
+		</div>
+		<div class="oppFormNonClassSection formSection initialDisplayNone">
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Support Preference</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormSupportPref oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Onboarding</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormOnboarding oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Minimum Persons Required</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormMinReqPersons oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row createOppLine">
+				<label class="col-sm-3 col-form-label">Teams?</label>
+				<div class="col-sm-9 oppFormInputContainer checkBoxes">
+					<input type="checkbox" class="oppFormIsTeams form-check-input" checked>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Team Size</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormTeamSize oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Number of Teams</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormNumTeams oppFormTextInput" type="text"/>
+				</div>
+			</div>
+		</div>
+
+	<div class="oppFormList form-group row createOppLine">
+		<label class="col-sm-3 col-form-label">Opportunity Type</label>
+		<div class="col-sm-9 oppFormInputContainer checkBoxes">
+			<div class="form-check form-check-inline">
+				<input class="form-check-input oppFormOppType" type="radio" name="oppFormOppType" value="service" checked>
+				<label class="form-check-label">Service</label>
+			</div>
+
+			<div class="form-check form-check-inline">
+				<input class="form-check-input oppFormOppType" type="radio" name="oppFormOppType" value="volunteer">
+				<label class="form-check-label">Volunteer</label>
+			</div>
+
+			<div class="form-check form-check-inline">
+				<input class="form-check-input oppFormOppType" type="radio" name="oppFormOppType" value="project">
+				<label class="form-check-label">Project</label>
+			</div>
+
+			<div class="form-check form-check-inline">
+				<input class="form-check-input oppFormOppType" type="radio" name="oppFormOppType" value="gig">
+				<label class="form-check-label">Gig</label>
+			</div>
+
+			<div class="form-check form-check-inline">
+				<input class="form-check-input oppFormOppType" type="radio" name="oppFormOppType" value="deliverable">
+				<label class="form-check-label">Deliverable</label>
+			</div>
+
+			<div class="form-check form-check-inline">
+				<input class="form-check-input oppFormOppType" type="radio" name="oppFormOppType" value="other">
+				<label class="form-check-label">Other</label>
+			</div>
+
+		</div>
+	</div>
+
+<!-- Sub Divs -->
+
+		<div class="oppFormServiceSection oppTypeSection formSection">
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Hours</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormHours oppFormTextInput" type="text"/>
+					<span class="oppFormHoursWarning"></span>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Preferred Service Work</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormPrefServiceWork oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Preferred Agency Type</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormPrefAgencyType oppFormTextInput" type="text"/>
+				</div>
+			</div>
+		</div>
+
+		<div class="oppFormVolunteerSection oppTypeSection formSection initialDisplayNone">
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Address</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormAddress oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Donation</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormDonation oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+		</div>
+		<div class="oppFormProjectSection oppTypeSection formSection initialDisplayNone">
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Preferred Agency Type</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormAgencyType oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Agency Commitment</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormAgencyCommitment oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Not Allowed</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormNotAllowed oppFormTextInput" type="text"/>
+				</div>
+			</div>
+		</div>
+
+		<div class="oppFormGigSection oppTypeSection formSection initialDisplayNone">
+
+			<div class="oppFormList form-group row createOppLine">
+				<label class="col-sm-3 col-form-label">Time Required</label>
+				<div class="col-sm-9 oppFormInputContainer checkBoxes">
+					<input type="checkbox" class="oppFormIsTimeRequired form-check-input" checked>
+				</div>
+			</div>
+
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Number of Hours</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormHours oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+		</div>
+		<div class="oppFormDeliverableSection oppTypeSection formSection initialDisplayNone">
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Product</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormProduct oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Deliverables</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormDeliverables oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row createOppLine">
+				<label class="col-sm-3 col-form-label">Online</label>
+				<div class="col-sm-9 oppFormInputContainer checkBoxes">
+					<input type="checkbox" class="oppFormIsVirtual form-check-input">
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Given Support</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormGivenSupport oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Requirements</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormRequirements oppFormTextInput" type="text"/>
+				</div>
+			</div>
+		</div>
+		<div class="oppFormOtherSection oppTypeSection formSection initialDisplayNone">
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Examples</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormExamples oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+		</div>
+		<div class="oppFormGigDeliverableSharedSection oppTypeSection formSection initialDisplayNone">
+
+			<div class="oppFormList form-group row createOppLine">
+				<label class="col-sm-3 col-form-label">Is it paid?</label>
+				<div class="col-sm-9 oppFormInputContainer checkBoxes">
+					<input type="checkbox" class="oppFormIsPaid form-check-input">
+				</div>
+			</div>
+
+			<div class="oppFormList form-group row">
+				<label class="col-sm-3 col-form-label">Amount of Pay</label>
+				<div class="col-sm-9 oppFormInputContainer">
+					<input class="form-control oppFormPayAmount oppFormTextInput" type="text"/>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!--<div class="opportunityForm">
+	<h3 class="pl20 heading-helper heading-helper&#45;&#45;sm">Create an Opportunity</h3>
 		
 	<ul class="oppFormList">
 	    <li>
@@ -16,7 +370,7 @@
 	    <li>
 	        <span class="oppFormLabel">Opportunity Start Date</span>
 	        <span class="oppFormInputContainer relative">
-	            <input class="startDateTimeInput oppFormTextInput" type="text"><!--(MM/DD/YYYY)-->
+	            <input class="startDateTimeInput oppFormTextInput" type="text">&lt;!&ndash;(MM/DD/YYYY)&ndash;&gt;
 	        </span>        
 	    </li>
 	    <li>
@@ -38,7 +392,7 @@
 	            <span class="oppFormTotalSeatsWarning"></span>
 	        </span>
 	    </li>
-	    <!--li>
+	    &lt;!&ndash;li>
 	        <span class="oppFormLabel">Is it recurrent?</span>
 	        <span class="oppFormInputContainer">
 	            <input type="radio" name="isRecurrent" value="0" checked> No
@@ -49,7 +403,7 @@
 	                <option value="3">Every month</option>
 	            </select>
 	        </span>
-	    </li-->
+	    </li&ndash;&gt;
 	    <li>
 	        <span class="oppFormLabel">Is this part of a class?</span>
 	        <span class="oppFormInputContainer">
@@ -179,12 +533,12 @@
 	                <textarea class="oppFormAddress oppFormTextInput"></textarea>
 	            </span>
 	        </li>
-	        <!--li>
+	        &lt;!&ndash;li>
 	            <span class="oppFormLabel">Availability</span>
 	            <span class="oppFormInputContainer">
 	                <input class="oppFormAvailability oppFormTextInput" type="text"/>
 	            </span>
-	        </li-->
+	        </li&ndash;&gt;
 	        <li>
 	            <span class="oppFormLabel">Donation</span>
 	            <span class="oppFormInputContainer">
@@ -283,6 +637,7 @@
             </li>
         </div>
 	</ul>
-</div>
+</div>-->
+
 <div class="mt20 mb20 text-center"><button class="btn btn-warning btn--decorated saveOpportunity">Submit</button></div>
 

@@ -396,7 +396,9 @@ ul, ol {
 	display: block;
 }
 .oppItemDetails {
-	/* width: 300px;*/
+	width:90%;
+	margin-left:auto;
+	margin-right:auto;
 }
 .oppItemLabel {
 	font-weight: 600;
@@ -1303,4 +1305,17 @@ table th[class*="col-"] {
 }
 .list-group-item:nth-child(even) {
 	background-color: #eee;
+}
+
+.opportunityPageCreateForm {
+	width:70%;
+	margin: 0 auto 0 auto;
+}
+
+.createOppLine {
+	margin-top: 20px;
+}
+
+.createOppLine .checkBoxes {
+	margin-top: 8px;
 }
