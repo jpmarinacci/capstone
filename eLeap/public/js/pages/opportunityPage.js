@@ -6,12 +6,13 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'controllers/notifications', 'controllers/user',
-		'items/opportunityDetailItem', 'text!../../tmpl/pages/opportunityPage.tmpl'],
-function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityDetailItem, opportunityPageTmpl) { 'use strict';
+		'forms/opportunityForm', 'items/opportunityDetailItem', 'text!../../tmpl/pages/opportunityPage.tmpl'],
+function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, OpportunityDetailItem, opportunityPageTmpl) { 'use strict';
 		
 	eLeap.own.OpportunityPage = Backbone.View.extend({
 		
 		pageTmpl: _.template(opportunityPageTmpl),
+		mode: "create",
 		
 		events: {
 			'click .oppViewJoinBtn': 'commandJoinOpportunity',
@@ -24,25 +25,29 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityDetailIt
 			this.renderFramework();
 			this.opportunityId = options.opportunityId;
 			if(this.opportunityId === "create") {
+				this.mode = "create",
 				this.showCreateView();
 				var thisPage = this;
-				require(['forms/opportunityForm'], function(OpportunityForm) {
-					thisPage.opportunityForm = new OpportunityForm({
-						el: thisPage.$(".opportunityPageCreateForm")
-					});
+				thisPage.opportunityForm = new OpportunityForm({
+					el: thisPage.$(".opportunityPageCreateForm")
 				});
+				
 			} else {
+				this.mode = "view";
 				this.showDetailView();
-				var oppId = Number(this.opportunityId);
-				if(oppId) {
-					this.opportunity = cache.getOpportunity({
-						opportunityId: oppId
-					});
-				}
-				this.listenForEvents();
-				cache.fetchOpportunity(this.opportunity);
-				//this.opportunity.fetch();
+				this.getCurrentOpportunity();
 			}
+		},
+		
+		getCurrentOpportunity: function() {
+			var oppId = Number(this.opportunityId);
+			if(oppId) {
+				this.opportunity = cache.getOpportunity({
+					opportunityId: oppId
+				});
+			}
+			this.listenForEvents();
+			cache.fetchOpportunity(this.opportunity);
 		},
 		
 		renderFramework: function(){
@@ -64,11 +69,17 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityDetailIt
 		},
 		
 		renderOpportunity: function() {
-			var opportunityView = new OpportunityDetailItem({
-				opportunity: this.opportunity
-			});
-			this.$(".opportunityView").html(opportunityView.render());
-			//if()
+			if(this.mode = "edit") {
+				thisPage.opportunityForm = new OpportunityForm({
+					el: thisPage.$(".opportunityPageCreateForm")
+				});
+				thisPage.opportunityForm.renderOpportunityToForm(this.opportunity);
+			} else if (this.mode === "view") {
+				var opportunityView = new OpportunityDetailItem({
+					opportunity: this.opportunity
+				});
+				this.$(".opportunityView").html(opportunityView.render());
+			}
 		},
 		
 		commandJoinOpportunity: function() {
@@ -107,6 +118,12 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityDetailIt
 				}
 			};
 			this.opportunity.leaveOpportuntiy(options);
+		},
+		
+		commandEditOpportunity: function() {
+			this.mode = "edit";
+			this.showCreateView();
+			this.getCurrentOpportunity();
 		}
 	});
 	return eLeap.own.OpportunityPage;
