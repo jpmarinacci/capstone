@@ -241,17 +241,17 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 			this.$(".oppFormApplicationDueDate").val(this.opportunity.get('applicationDueDate'));
 				//classId: 1,
 			this.$(".oppFormClassType").val(this.opportunity.get('classType'));
-				classYear: this.$(".oppFormYear").val(this.opportunity.get('')),
-				className: this.$(".oppFormClassName").val(this.opportunity.get('')),
-				courseSummary: this.$(".oppFormCourseSummary").val(this.opportunity.get('')),
-				deliverables: this.$(".oppFormDeliverables").val(this.opportunity.get('')),
-				description: this.$(".oppFormDescription").val(this.opportunity.get('')),
-				donation: this.$(".oppFormDonation").val(this.opportunity.get('')),
+			this.$(".oppFormYear").val(this.opportunity.get('classYear'));
+			this.$(".oppFormClassName").val(this.opportunity.get('className'));
+			this.$(".oppFormCourseSummary").val(this.opportunity.get('courseSummary'));
+			this.$(".oppFormDeliverables").val(this.opportunity.get('deliverables'));
+			this.$(".oppFormDescription").val(this.opportunity.get('description'));
+			this.$(".oppFormDonation").val(this.opportunity.get('donation'));
 				//duration: "test",
 				endDateTime: endDateTime,
-				estimatedClassSize: this.$(".oppFormClassSize").val(this.opportunity.get('')),
-				examples: this.$(".oppFormExamples").val(this.opportunity.get('')),
-				hoursRequired: this.$(".oppFormHours").val(this.opportunity.get('')),
+			this.$(".oppFormClassSize").val(this.opportunity.get('estimatedClassSize'));
+			this.$(".oppFormExamples").val(this.opportunity.get('examples'));
+			this.$(".oppFormHours").val(this.opportunity.get('hoursRequired'));
 /*				isClass: this.$(".oppFormIsClass:checked").val() ? true: false,
 				isRequiredForClass: this.$(".oppFormIsRequiredForClass:checked").val() ? true: false,
 				isPaid: this.$(".oppFormIsPaid:checked").val() ? true: false,
@@ -259,30 +259,30 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 				isTeams: this.$(".oppFormIsTeams:checked").val() ? true: false,
 				isVirtual: this.$(".oppFormIsVirtual:checked").val() ? true: false,*/
 				//latitude: null,
-				location: this.$(".oppFormAddress").val(this.opportunity.get('')),
+			this.$(".oppFormAddress").val(this.opportunity.get('location'));
 				//longitude: null,
-				minimumPersonsRequired: this.$(".oppFormMinReqPersons").val(this.opportunity.get('')),
-				notAllowed: this.$(".oppFormNotAllowed").val(this.opportunity.get('')),
+			this.$(".oppFormMinReqPersons").val(this.opportunity.get('minimumPersonsRequired'));
+			this.$(".oppFormNotAllowed").val(this.opportunity.get('notAllowed'));
 				//notes: this.$(".oppFormNotes").val(),
-				numTeams: this.$(".oppFormNumTeams").val(this.opportunity.get('')),
-				onBoarding: this.$(".oppFormOnboarding").val(this.opportunity.get('')),
-				opportunityType: opportunityType,
-				ownerId: user.person.get('personId'),
-				payAmount: this.$(".oppFormPayAmount").val(this.opportunity.get('')),
+			this.$(".oppFormNumTeams").val(this.opportunity.get('numTeams'));
+			this.$(".oppFormOnboarding").val(this.opportunity.get('onBoarding'));
+				opportunityType: opportunityType;
+				ownerId: user.person.get('personId');
+			this.$(".oppFormPayAmount").val(this.opportunity.get('payAmount'));
 //				preferredAgencyType: this.$(".oppFormPrefAgencyType").val() || this.$(".oppFormAgencyType").val(),
-				preferredServiceWorkType: this.$(".oppFormPrefServiceWork").val(this.opportunity.get('')),
+			this.$(".oppFormPrefServiceWork").val(this.opportunity.get('preferredServiceWorkType'));
 				//recurrence: "",
-				requirments: this.$(".oppFormRequirements").val(this.opportunity.get('')),
+			this.$(".oppFormRequirements").val(this.opportunity.get('requirments'));
 				startDateTime: startDateTime,
 				//status: null,
-				supportDescription: this.$(".oppFormGivenSupport").val(this.opportunity.get('')),
-				supportPreference: this.$(".oppFormSupportPref").val(this.opportunity.get('')),
-				teamSize: this.$(".oppFormTeamSize").val(this.opportunity.get('')),
-				term: this.$(".oppFormTerm").val(this.opportunity.get('')),
+		    this.$(".oppFormGivenSupport").val(this.opportunity.get('supportDescription'));
+			this.$(".oppFormSupportPref").val(this.opportunity.get('supportPreference'));
+			this.$(".oppFormTeamSize").val(this.opportunity.get('teamSize'));
+			this.$(".oppFormTerm").val(this.opportunity.get('term'));
 				//timePeriodEndDate: null,
 				//timePeriodStartDate: null,
-				title: this.$(".oppFormTitle").val(this.opportunity.get('')),
-				totalSeats: Number(this.$(".oppFormTotalSeatsInput").val(this.opportunity.get('')))
+			this.$(".oppFormTitle").val(this.opportunity.get('title'));
+			Number(this.$(".oppFormTotalSeatsInput").val(this.opportunity.get('totalSeats')));
 			
 		},
 		
