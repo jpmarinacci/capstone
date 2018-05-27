@@ -92,9 +92,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 		},
 		
 		toggleTypeSection: function(event) {
-			var type;
+			var type = "service";
 			if(this.mode === "edit") {
-				type = event;
+				type = event.type;
 			} else {
 				type = event.currentTarget.value;
 			}
@@ -230,7 +230,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 		},
 		
 		renderOpportunityToForm: function() {
-			this.toggleTypeSection({"type": (this.opportunity.get('type') || "service")});
+			this.toggleTypeSection({"type": (this.opportunity.get('opportunityType') || "service")});
 			this.$(".oppFormAgencyCommitment").val(this.opportunity.get('agencyCommitment'));
 			this.$(".oppFormApplicationDueDate").val(this.opportunity.get('applicationDueDate'));
 			//classId: 1,
@@ -314,7 +314,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 				courseSummary: this.$(".oppFormCourseSummary").val(),
 				deliverables: this.$(".oppFormDeliverables").val(),
 				description: this.$(".oppFormDescription").val(),
-				donation: this.$(".oppFormDonation").val(),
+				donation: Number(this.$(".oppFormDonation").val()),
 				//duration: "test",
 				endDateTime: endDateTime,
 				estimatedClassSize: this.$(".oppFormClassSize").val(),
@@ -329,14 +329,14 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 				//latitude: null,
 				location: this.$(".oppFormAddress").val(),
 				//longitude: null,
-				minimumPersonsRequired: this.$(".oppFormMinReqPersons").val(),
+				minimumPersonsRequired: Number(this.$(".oppFormMinReqPersons").val()),
 				notAllowed: this.$(".oppFormNotAllowed").val(),
 				//notes: this.$(".oppFormNotes").val(),
 				numTeams: this.$(".oppFormNumTeams").val(),
 				onBoarding: this.$(".oppFormOnboarding").val(),
 				opportunityType: opportunityType,
 				ownerId: user.person.get('personId'),
-				payAmount: this.$(".oppFormPayAmount").val(),
+				payAmount: Number(this.$(".oppFormPayAmount").val()),
 				preferredAgencyType: this.$(".oppFormPrefAgencyType").val() || this.$(".oppFormAgencyType").val(),
 				preferredServiceWorkType: this.$(".oppFormPrefServiceWork").val(),
 				//recurrence: "",

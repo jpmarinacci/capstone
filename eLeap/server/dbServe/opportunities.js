@@ -334,7 +334,7 @@ var opportunities = {
 			new Date(),
 			request.body.deliverables ? request.body.deliverables: null,
 			request.body.description ? request.body.description: null,
-			request.body.donation ? request.body.donation: null,
+			request.body.donation ? Number(request.body.donation): null,
 			request.body.duration ? request.body.duration: null,
 			request.body.endDateTime ? new Date(request.body.endDateTime): null,
 			request.body.estimatedClassSize ? Number(request.body.estimatedClassSize): null,
@@ -349,7 +349,7 @@ var opportunities = {
 			request.body.latitude ? request.body.latitude: null,
 			request.body.location ? request.body.location: null,
 			request.body.longitude ? request.body.longitude: null,
-			request.body.minimumPersonsRequired ? request.body.minimumPersonsRequired: null,
+			request.body.minimumPersonsRequired ? Number(request.body.minimumPersonsRequired): null,
 			request.body.notAllowed ? request.body.notAllowed: null,
 			request.body.notes ? request.body.notes: null,
 			request.body.numTeams ? Number(request.body.numTeams): null,
@@ -374,6 +374,7 @@ var opportunities = {
 			request.body.totalSeats ? Number(request.body.totalSeats): null,
 		];
 		console.log("calling sprocUpdateOpp");
+		console.log("total params:" + params.length);
 		dbServer.sproc("sprocUpdateOpp", params, function(results) {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
