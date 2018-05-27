@@ -94,7 +94,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 		toggleTypeSection: function(event) {
 			var type = "service";
 			if(this.mode === "edit") {
-				type = event;
+				type = event.type;
 			} else {
 				type = event.currentTarget.value;
 			}
