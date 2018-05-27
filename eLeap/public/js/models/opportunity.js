@@ -8,6 +8,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'], 
 
 	eLeap.own.Opportunity = Backbone.Model.extend({
 
+<<<<<<< HEAD
 		idAttribute : "opportunityId",
 
 		defaults : {
@@ -60,6 +61,58 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'], 
 			timePeriodStartDate : undefined,
 			title : "",
 			totalSeats : 0
+=======
+		defaults: {
+			agencyCommitment: "",
+			applicationDueDate: undefined,
+			availableSeats: 0,
+			classId: 0,
+			className: "",
+			classType: "",
+			classYear: 0,
+			courseSummary: "",
+			createDate: undefined,
+			deliverables: "",
+			description: "",
+			donation: 0,
+			duration: 0,
+			endDateTime: undefined,
+			estimatedClassSize: 0,
+			examples: "",
+			hoursRequired: 0,
+			isClass: false,
+			isRequiredForClass: false,
+			isPaid: false,
+			isServiceLearning: false,
+			isTeams: false,
+			isVirtual: false,
+			latitude: undefined,
+			location: "",
+			longitude: undefined,
+			minimumPersonsRequired: 0,
+			notAllowed: "",
+			notes: "",
+			numTeams: 0,
+			onBoarding: "",
+			opportunityType: "",
+			ownerId: 0,
+			ownerName: "",
+			payAmount: 0,
+			preferredAgencyType: "",
+			preferredServiceWorkType: "",
+			recurrence: "",
+			requirments: "",
+			startDateTime: undefined,
+			status: "pending",
+			supportDescription: "",
+			supportPreference: "",
+			teamSize: 0,
+			term: "",
+			timePeriodEndDate: undefined,
+			timePeriodStartDate: undefined,	
+			title: "",
+			totalSeats: 0
+>>>>>>> c440dbccfda4d21417b1625324c61852923d751f
 		},
 
 		routes : {//CRUD rest call route signatures
