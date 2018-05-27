@@ -354,8 +354,8 @@ var opportunities = {
 			request.body.notes ? request.body.notes: null,
 			request.body.numTeams ? Number(request.body.numTeams): null,
 			request.body.onBoarding ? request.body.onBoarding: null,
-			request.body.opportunityType ? request.body.opportunityType: null,
 			request.body.opportunityId,
+			request.body.opportunityType ? request.body.opportunityType: null,
 			request.body.ownerId ? Number(request.body.ownerId): 3,
 			request.body.pay ? Number(request.body.payAmount): null,
 			request.body.preferredAgencyType ? request.body.preferredAgencyType: null,
@@ -378,10 +378,13 @@ var opportunities = {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		console.log("success");
+	    		var returnResults = results[0] || {};
+	    		if(results.message === "success") {
+	    			returnResults.message = "success";
+	    			console.log("success");
+	    		}
 	    		console.log("results:");
-	    		console.log(results);
-	    		var returnResults = results[0];
+	    		console.log(returnResults);
 	    		response.send(returnResults);
 	    	}
 		});

@@ -35,12 +35,12 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 		},
 		
 		listenForEvents: function() {
+			this.stopListening();
 			this.listenTo(this.opportunities, 'reset', this.render);
 			this.listenTo(user.person, 'change', this.renderWelcome);
 		},
 		
 		fetchOpportunities: function() {
-			this.stopListening();
 			//based on role type we will show different opportunites
 			//this.opportunities.fetch({reset: true});
 			cache.fetchOpportunites({reset: true});
