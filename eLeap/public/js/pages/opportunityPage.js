@@ -69,11 +69,11 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, Op
 		},
 		
 		renderOpportunity: function() {
-			if(this.mode = "edit") {
-				thisPage.opportunityForm = new OpportunityForm({
-					el: thisPage.$(".opportunityPageCreateForm")
+			if(this.mode === "edit") {
+				this.opportunityForm = new OpportunityForm({
+					el: this.$(".opportunityPageCreateForm"),
+					opportunity: this.opportunity
 				});
-				thisPage.opportunityForm.renderOpportunityToForm(this.opportunity);
 			} else if (this.mode === "view") {
 				var opportunityView = new OpportunityDetailItem({
 					opportunity: this.opportunity
