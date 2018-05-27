@@ -43,7 +43,7 @@ var opportunities = {
 			request.body.preferredAgencyType ? request.body.preferredAgencyType: null,
 			request.body.preferredServiceWorkType ? request.body.preferredServiceWorkType: null,
 			request.body.recurrence ? request.body.recurrence: null,
-			request.body.requirments ? request.body.requirments: null,
+			request.body.requirements ? request.body.requirements: null,
 			request.body.startDateTime ? new Date(request.body.startDateTime): null,
 			request.body.status ? request.body.status: null,
 			request.body.supportDescription ? request.body.supportDescription: null,
@@ -361,7 +361,7 @@ var opportunities = {
 			request.body.preferredAgencyType ? request.body.preferredAgencyType: null,
 			request.body.preferredServiceWorkType ? request.body.preferredServiceWorkType: null,
 			request.body.recurrence ? request.body.recurrence: null,
-			request.body.requirments ? request.body.requirments: null,
+			request.body.requirements ? request.body.requirements: null,
 			request.body.startDateTime ? new Date(request.body.startDateTime): null,
 			request.body.status ? request.body.status: null,
 			request.body.supportDescription ? request.body.supportDescription: null,
@@ -379,7 +379,7 @@ var opportunities = {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0] || {};
+	    		var returnResults = results[0] ? results[0][0] || {} : {};
 	    		if(results.message === "success") {
 	    			returnResults.message = "success";
 	    			console.log("success");

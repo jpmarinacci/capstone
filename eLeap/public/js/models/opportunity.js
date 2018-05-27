@@ -8,58 +8,58 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 
 	eLeap.own.Opportunity = Backbone.Model.extend({
 
-		idAttribute : "opportunityId",
+		idAttribute: "opportunityId",
 
-		defaults : {
-			agencyCommitment : "",
-			applicationDueDate : undefined,
-			availableSeats : 0,
-			classId : 0,
-			className : "",
-			classType : "",
-			classYear : 0,
-			courseSummary : "",
-			createDate : undefined,
-			deliverables : "",
-			description : "",
-			donation : 0,
-			duration : 0,
-			endDateTime : undefined,
-			estimatedClassSize : 0,
-			examples : "",
-			hoursRequired : 0,
-			isClass : false,
-			isRequiredForClass : false,
-			isPaid : false,
-			isServiceLearning : false,
-			isTeams : false,
-			isVirtual : false,
-			latitude : undefined,
-			location : "",
-			longitude : undefined,
-			minimumPersonsRequired : 0,
-			notAllowed : "",
-			notes : "",
-			numTeams : 0,
-			onBoarding : "",
-			opportunityType : "",
-			ownerId : 0,
-			ownerName : "",
-			payAmount : 0,
-			preferredAgencyType : "",
-			preferredServiceWorkType : "",
-			recurrence : "",
-			requirments : "",
-			startDateTime : undefined,
-			status : 'pending',
-			supportDescription : "",
-			supportPreference : "",
-			teamSize : 0,
-			term : "",
-			timePeriodEndDate : undefined,
-			timePeriodStartDate : undefined,
-			title : "",
-			totalSeats : 0
+		defaults: {
+			agencyCommitment: "",
+			applicationDueDate: undefined,
+			availableSeats: 0,
+			classId: 0,
+			className: "",
+			classType: "",
+			classYear: 0,
+			courseSummary: "",
+			createDate: undefined,
+			deliverables: "",
+			description: "",
+			donation: 0,
+			duration: 0,
+			endDateTime: undefined,
+			estimatedClassSize: 0,
+			examples: "",
+			hoursRequired: 0,
+			isClass: false,
+			isRequiredForClass: false,
+			isPaid: false,
+			isServiceLearning: false,
+			isTeams: false,
+			isVirtual: false,
+			latitude: undefined,
+			location: "",
+			longitude: undefined,
+			minimumPersonsRequired: 0,
+			notAllowed: "",
+			notes: "",
+			numTeams: 0,
+			onBoarding: "",
+			opportunityType: "",
+			ownerId: 0,
+			ownerName: "",
+			payAmount: 0,
+			preferredAgencyType: "",
+			preferredServiceWorkType: "",
+			recurrence: "",
+			requirements: "",
+			startDateTime: undefined,
+			status: 'pending',
+			supportDescription: "",
+			supportPreference: "",
+			teamSize: 0,
+			term: "",
+			timePeriodEndDate: undefined,
+			timePeriodStartDate: undefined,
+			title: "",
+			totalSeats: 0
 		},
 		
 		routes: { //CRUD rest call route signatures
@@ -72,7 +72,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			getOpportunityHours: "/getOpportunityHours",
 		},
 
-		sync : function(method, thisModel, options) {
+		sync: function(method, thisModel, options) {
 			options = options || {};
 			if (method === 'create') {
 				server.postRoute(this.routes.createOpportunity, this.parseOppToDB(), function(response) {
@@ -157,11 +157,11 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			}
 		},
 
-		joinOpportuntiy : function(options) {
+		joinOpportuntiy: function(options) {
 			var options = options || {};
 			var joinInputs = {
-				opportunityId : this.get('opportunityId'),
-				personId : options.personId
+				opportunityId: this.get('opportunityId'),
+				personId: options.personId
 			};
 			server.postRoute(this.routes.joinOpportunity, joinInputs, function(response) {
 				if (response.status && response.status !== "success") {
@@ -183,11 +183,11 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 				}
 			});
 		},
-		leaveOpportuntiy : function(options) {
+		leaveOpportuntiy: function(options) {
 			var options = options || {};
 			var joinInputs = {
-				opportunityId : this.get('opportunityId'),
-				personId : options.personId
+				opportunityId: this.get('opportunityId'),
+				personId: options.personId
 			};
 			server.postRoute(this.routes.leaveOpportunity, leaveInputs, function(response) {
 				if (response.status && response.status !== "success") {
@@ -210,11 +210,11 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			});
 		},
 
-		parse : function(dbOpportunity) {
+		parse: function(dbOpportunity) {
 			return this.parseOppFromDB(dbOpportunity);
 		},
 
-		parseOppToDB : function() {
+		parseOppToDB: function() {
 			var dbOpp = this.toJSON();
 
 			dbOpp.isClass = dbOpp.isClass ? 1 : 0;
@@ -227,7 +227,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			return dbOpp;
 		},
 
-		parseOppFromDB : function(dbOpportunity) {
+		parseOppFromDB: function(dbOpportunity) {
 			var jsonOpp = dbOpportunity;
 
 			if (jsonOpp.applicationDueDate)		jsonOpp.applicationDueDate = new Date(jsonOpp.applicationDueDate);

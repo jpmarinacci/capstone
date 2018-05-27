@@ -23,17 +23,19 @@ function (eLeap, $, _, Backbone) { 'use strict';
 		},
 		
 		formatDateDisplay: function(dateObj) {
-			var monthNames = [
-				"January", "February", "March",
-				"April", "May", "June", "July",
-				"August", "September", "October",
-				"November", "December"
-			];
-			var day = dateObj.getDate();
-			var monthIndex = dateObj.getMonth();
-			var year = dateObj.getFullYear();
-			
-			return monthNames[monthIndex] + ' ' + day + ' ' + year;
+			if(dateObj) {
+				var monthNames = [
+					"January", "February", "March",
+					"April", "May", "June", "July",
+					"August", "September", "October",
+					"November", "December"
+				];
+				var day = dateObj.getDate();
+				var monthIndex = dateObj.getMonth();
+				var year = dateObj.getFullYear();
+				
+				return monthNames[monthIndex] + ' ' + day + ' ' + year;
+			}
 		},
 		
 		formatTimeDisplay: function(dateObj) {
