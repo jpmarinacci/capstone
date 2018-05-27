@@ -7,18 +7,23 @@
                     <i class='fas fa-spinner fa-pulse'></i>
                 </div>
             </div>
-            <input class="loginEmail" type="email" placeholder="email" value="newb@eLeap.com">
-            <input class="loginCredential" type="password" placeholder="password" value="newb3">
+
+            <label class="sr-only">Email address</label>
+            <input type="email" class="form-control loginEmail" placeholder="Email address" value="newb@eLeap.com" required autofocus>
+            <label class="sr-only">Password</label>
+            <input type="password" class="form-control loginCredential" placeholder="Password" value="newb3" required>
+
             <!--div class="checkbox">
                 <input id="check1" type="checkbox" name="check" value="check1" checked="checked">  
                 <label for="check1">remember me</label>    
             </div-->
             <!--a >Forgot password?</a-->
-            <div class="row">
-                <div class="col-sm-6"><button class="loginButton btn btn--decorated btn-warning login__btn">Log In</button></div>
-                <div class="col-sm-6"><button class="btn btn--decorated btn-warning login__btn signupLink" tabindex="0">Sign Up</button></div>
+
+            <div class="row mt-5">
+                <div class="col-sm-6"><button class="loginButton btn btn-lg btn-warning btn-block">Sign In</button></div>
+                <div class="col-sm-6"><button class="signupLink btn btn-lg btn-warning btn-block" tabindex="0">Sign Up</button></div>
             </div>
-            <div class="textCenter">eLeap helps you manage service opportunities at your college.</div>
+            <div class="textCenter mt-5">eLeap helps you manage service opportunities at your college.</div>
         </div>
     <div class="divider-color bottom-space--small"></div>
 </div>
