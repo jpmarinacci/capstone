@@ -65,6 +65,7 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, Op
 		},
 		
 		listenForEvents: function() {
+			this.stopListening();
 			this.listenTo(this.opportunity, 'sync change', this.renderOpportunity);
 		},
 		
