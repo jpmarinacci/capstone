@@ -33,10 +33,20 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, Op
 				});
 				
 			} else {
-				this.mode = "view";
-				this.showDetailView();
-				this.getCurrentOpportunity();
+				this.openViewMode();
 			}
+		},
+				
+		openViewMode: function() {
+			this.mode = "view";
+			this.showDetailView();
+			this.getCurrentOpportunity();
+		},
+		
+		openEditMode: function() {
+			this.mode = "edit";
+			this.showCreateView();
+			this.getCurrentOpportunity();
 		},
 		
 		getCurrentOpportunity: function() {
@@ -66,7 +76,8 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, Op
 		
 		listenForEvents: function() {
 			this.stopListening();
-			this.listenTo(this.opportunity, 'sync change', this.renderOpportunity);
+			this.listenTo(this.opportunity, 'sync', this.renderOpportunity);
+			this.listenTo(this.opportunity, 'change', this.openViewMode);
 		},
 		
 		renderOpportunity: function() {
@@ -122,9 +133,7 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, Op
 		},
 		
 		commandEditOpportunity: function() {
-			this.mode = "edit";
-			this.showCreateView();
-			this.getCurrentOpportunity();
+			this.openEditMode();
 		}
 	});
 	return eLeap.own.OpportunityPage;

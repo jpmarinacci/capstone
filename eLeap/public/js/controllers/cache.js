@@ -90,7 +90,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'collections/roles', 'colle
 		fetchOpportunity: function(opportunity, options) {
 			options = options || {};
 			if(opportunity.isFetched) {
-				opportunity.trigger('change');
+				opportunity.trigger('sync');
 			} else if(!opportunity.isFetchPending) {
 				opportunity.isFetchPending = true;
 				options.chainedSuccess = options.success;

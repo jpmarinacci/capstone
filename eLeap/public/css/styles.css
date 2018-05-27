@@ -7,6 +7,24 @@
 body {
 	font: 14px "Lucida Grande", Oswald, Consolas, Georgia, Helvetica, Arial, sans-serif;
 	height: 100%;
+	min-height: 100%;
+	position: relative;
+}
+
+footer {
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	clear: both;
+	width: 100%;
+    background-color: #34495e;
+    text-align: center;
+    color: #eeeeee;
+}
+
+.content {
+	/*  size of the footer */
+	margin-bottom: 56px;
 }
 
 a {
@@ -159,7 +177,14 @@ ul, ol {
 /* app ui /navbar specific css */
 
 #pages {
-	background: #eaeaea url("https://www.planwallpaper.com/static/images/Alien_Ink_2560X1600_Abstract_Background_1.jpg") no-repeat;
+	background-color: #51cee2;
+	background: url("/img/Alien_Ink_2560X1600_Abstract_Background_1.jpg");
+	background-repeat: no-repeat;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	min-height: calc(100vh);
 }
 
 #pages > div {
@@ -169,6 +194,7 @@ ul, ol {
 #pages, .sidebar {
 	/* corresponds with .bannerWrapper*/
 	margin-top: 80px;
+	
 }
 .btnLogout {
 	color: white;
@@ -201,7 +227,6 @@ ul, ol {
 	width: 245px;
 	text-align: center;
 	line-height: 3;
-    background-color: #ffffff;
 }
 
 .bannerWrapper .headerLogo img {
@@ -279,6 +304,7 @@ ul, ol {
 /* Login Page */
 
 .login input {
+	background-color: transparent;
 	border-radius: 4px;
     border: solid black 0.5px;
     padding-left: 7px;
@@ -293,7 +319,10 @@ ul, ol {
 }
 
 /* Signup Page */
-
+.selectRoles {
+	background-color: transparent;
+	border: solid black 0.5px;
+} 
 
 /* Home Page */
 
@@ -343,16 +372,17 @@ ul, ol {
 .welcome {
 	display: inline-block;
 	font-family: serif, Oswald, times, Times New Roman, times-roman, georgia;
-	color: #444;
 	font-size: 40px;
 	font-weight: bold;
 	letter-spacing: -2px;
-	padding: 4px;
+	padding: 4px 10px;
 	border: solid 0.5px slategrey;
 	border-radius: 4px;
-	box-shadow: 7px 7px 5px #888;
+	/*box-shadow: 7px 7px 5px #888;*/
+	box-shadow: 7px 7px 5px white;
 	margin-bottom: 20px;
-	color: #34495e
+	/*color: #34495e;*/
+	color: white;
 }
 .opportunityItem {
 	display: inline-block;
@@ -391,13 +421,13 @@ ul, ol {
 	max-height: 40px;
 	max-width: 40px;
 }
-.oppItemField {
-	display: block;
-}
 .oppItemDetails {
 	width:90%;
 	margin-left:auto;
 	margin-right:auto;
+}
+.oppItemDetails .card.border-dark.mb-3 {
+	width: 18rem;
 }
 .oppItemLabel {
 	font-weight: 600;
@@ -1084,7 +1114,7 @@ table th[class*="col-"] {
   color: #34495e;
   border-bottom: 1px solid #dfe6e7;
 }
-.block-title:before {
+/*.block-title:before {
   content: "";
   position: absolute;
   bottom: -1px;
@@ -1093,7 +1123,7 @@ table th[class*="col-"] {
   height: 3px;
   margin-left: -40px;
   background-color: #85d6de;
-}
+}*/
 .block-title--bottom {
   margin-bottom: 60px;
 	color:white;
@@ -1119,6 +1149,73 @@ table th[class*="col-"] {
   margin-bottom: 65px;
   display: block;
   width: 100%;
+}
+
+
+.full-row {
+	padding-left: 20px;
+}
+
+.oppFormHoursWarning {
+	color: #ff0000;
+}
+
+.oppFormClassSizeWarning {
+	color: #ff0000;
+}
+
+.oppFormYearWarning {
+	color: #ff0000;
+}
+
+.oppFormTotalSeatsWarning {
+	color: #ff0000;
+}
+
+.oppFormClassWarning {
+	color: #ff0000;
+}
+
+.oppFormTitleWarning {
+	color: #ff0000;
+}
+
+.oppItemTitle {
+	font-size:30px;
+}
+
+.fontRed {
+	color: #ff0000;
+}
+
+.fontExtraSmall {
+	font-size:8pt;
+}
+
+.card:hover {
+	/*background-color: #a7e6ff;*/
+	box-shadow: inset 0 0 2px #34495e;
+	cursor: pointer;
+}
+
+.list-group-item:nth-child(odd) {
+	background-color: #fff;
+}
+.list-group-item:nth-child(even) {
+	background-color: #eee;
+}
+
+.opportunityPageCreateForm {
+	width:80%;
+	margin: 0 auto 0 auto;
+}
+
+.createOppLine {
+	margin-top: 20px;
+}
+
+.createOppLine .checkBoxes {
+	margin-top: 8px;
 }
 
 /**************** Media Queries *********************/
@@ -1248,77 +1345,4 @@ table th[class*="col-"] {
 @media only screen and (max-width : 320px) {
 	/* STYLES GO HERE */
 }
-
-.full-row {
-	padding-left: 20px;
-}
-
-.footer {
-    width: 100%;
-    padding-top:20px;
-    background-color: #34495e;
-    text-align: center;
-    color: #eeeeee;
-}
-
-.oppFormHoursWarning {
-	color: #ff0000;
-}
-
-.oppFormClassSizeWarning {
-	color: #ff0000;
-}
-
-.oppFormYearWarning {
-	color: #ff0000;
-}
-
-.oppFormTotalSeatsWarning {
-	color: #ff0000;
-}
-
-.oppFormClassWarning {
-	color: #ff0000;
-}
-
-.oppFormTitleWarning {
-	color: #ff0000;
-}
-
-.oppItemTitle {
-	font-size:30px;
-}
-
-.fontRed {
-	color: #ff0000;
-}
-
-.fontExtraSmall {
-	font-size:8pt;
-}
-
-.card:hover {
-	/*background-color: #a7e6ff;*/
-	box-shadow: inset 0 0 2px #34495e;
-	cursor: pointer;
-}
-
-.list-group-item:nth-child(odd) {
-	background-color: #fff;
-}
-.list-group-item:nth-child(even) {
-	background-color: #eee;
-}
-
-.opportunityPageCreateForm {
-	width:80%;
-	margin: 0 auto 0 auto;
-}
-
-.createOppLine {
-	margin-top: 20px;
-}
-
-.createOppLine .checkBoxes {
-	margin-top: 8px;
-}
+/* NOTHING BELOW THIS MEDIA QUERIES **/

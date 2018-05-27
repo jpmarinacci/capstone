@@ -39,9 +39,11 @@ function (eLeap, $, _, Backbone) { 'use strict';
 		},
 		
 		formatTimeDisplay: function(dateObj) {
-			var hour = dateObj.getHours();
+			var hours = dateObj.getHours();
+			var suffix = (hours >= 12) ? 'pm' : 'am';
+			hours = ((hours + 11) % 12 + 1);
 			var min = dateObj.getMinutes();
-			var convertTime = hour + ':' + min;
+			var convertTime = hours + ':' + min + suffix;
 			return convertTime;
 		}
 	});

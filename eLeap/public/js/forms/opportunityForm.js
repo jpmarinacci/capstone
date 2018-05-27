@@ -227,7 +227,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 		renderOpportunityToForm: function() {
 			this.toggleTypeSection({}, {"type": (this.opportunity.get('opportunityType') || "service")});
 			this.$(".oppFormAgencyCommitment").val(this.opportunity.get('agencyCommitment'));
-			this.$(".oppFormApplicationDueDate").val(utils.formatDateDisplay(this.opportunity.get('applicationDueDate')));
+			this.$(".oppFormApplicationDueDate").val(utils.dateTimeToDisplay(this.opportunity.get('applicationDueDate')));
 			//classId: 1,
 			this.$(".oppFormClassType").val(this.opportunity.get('classType'));
 			this.$(".oppFormYear").val(this.opportunity.get('classYear'));
@@ -237,7 +237,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			this.$(".oppFormDescription").val(this.opportunity.get('description'));
 			this.$(".oppFormDonation").val(this.opportunity.get('donation'));
 			//duration: "test",
-			this.$(".endDateTimeInput").val(utils.formatDateDisplay(this.opportunity.get('endDateTime')));
+			this.$(".endDateTimeInput").val(utils.dateTimeToDisplay(this.opportunity.get('endDateTime')));
 			this.$(".oppFormClassSize").val(this.opportunity.get('estimatedClassSize'));
 			this.$(".oppFormExamples").val(this.opportunity.get('examples'));
 			this.$(".oppFormHours").val(this.opportunity.get('hoursRequired'));
@@ -275,10 +275,8 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			}
 			this.$(".oppFormPrefServiceWork").val(this.opportunity.get('preferredServiceWorkType'));
 			//recurrence: "",
-			/*var requirements = this.opportunity.get('requirements');
-			this.$(".oppFormRequirements").val(requirements);*/
-			var stdTime = utils.formatDateDisplay(this.opportunity.get('startDateTimeInput'));
-			this.$(".startDateTimeInput").val(utils.formatDateDisplay(this.opportunity.get('startDateTimeInput')));
+			this.$(".oppFormRequirements").val(this.opportunity.get('requirements'));
+			this.$(".startDateTimeInput").val(utils.dateTimeToDisplay(this.opportunity.get('startDateTime')));
 			//status: pending,
 		    this.$(".oppFormGivenSupport").val(this.opportunity.get('supportDescription'));
 			this.$(".oppFormSupportPref").val(this.opportunity.get('supportPreference'));
@@ -371,8 +369,17 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 				success: function(opportunity) {
 					var addedOpp = cache.opportunities.add(opportunity.toJSON(), {merge:true});
 					addedOpp.isFetched = true;
-					notifications.notifyUser("opportunity created");
+					var message;
+					if(thisForm.options.opportunity) {
+						message = "opportunity updated";
+					} else {
+						message = "opportunity created";
+					}
+					notifications.notifyUser(message);
 					router.navigate('opportunity/'+ addedOpp.get('opportunityId'), {trigger: true});
+					if(thisForm.options.opportunity) {
+						
+					}
 					//thisForm.renderResults(thisForm.opportunity);
 				},
 				error: function(error) {
