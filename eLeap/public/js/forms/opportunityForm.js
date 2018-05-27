@@ -25,7 +25,8 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 			
 			'click .oppFormIsClass': 'toggleClassSection',
 			'click .oppFormOppType': 'toggleTypeSection',
-			'click .saveOpportunity': 'saveOpportunity',
+			'click .saveOpportunity': 'commandSaveOpportunity',
+			'click .deleteOpportunity': 'commandDeleteOpportunity'
 		},
 		
 		initialize: function (options) {
@@ -383,7 +384,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 			}, 10000);*/
 		},
 		
-		saveOpportunity: function() {
+		commandSaveOpportunity: function() {
 			this.gatherInput();
 			var thisForm = this;
 			var options = {
@@ -400,6 +401,19 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 			};
 			this.opportunity.save({}, options);
 			this.opportunity = new Opportunity();
+		},
+		
+		commandDeleteOpportunity: function() {
+			var options = {
+				success: function(opportunity) {
+					notifications.notifyUser("opportunity deleted");
+					router.navigate('/dashboard', {trigger: true});
+				},
+				error: function(error) {
+					notifications.notifyUser("error -- opportunity deletion failed: /n"+ error);
+				}
+			};
+			this.opportunity.destroy(options);
 		}
 	});
 	return eLeap.own.OpportunityForm;
