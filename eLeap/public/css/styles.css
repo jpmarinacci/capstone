@@ -253,7 +253,7 @@ ul, ol {
 }
 
 .navLink {
-	color: #00B7FF;
+	color: #85d6de;
 	cursor: pointer;
 }
 .navLink span, .dashboardLink {
@@ -265,7 +265,7 @@ ul, ol {
 	text-decoration: none;
 }
 .navLink:hover {
-    color: #0056b3;
+    color: #00B7FF;
     text-decoration: none;
 }
 
