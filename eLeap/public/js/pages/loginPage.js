@@ -30,6 +30,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'cont
 		},
 		
 		listenForEvents: function() {
+			this.stopListening();
 			if(user) {
 				this.listenTo(user, 'user:loginInvalid', this.loginInvalid);
 			}

@@ -40,6 +40,7 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 		},
 		
 		fetchOpportunities: function() {
+			this.stopListening();
 			//based on role type we will show different opportunites
 			//this.opportunities.fetch({reset: true});
 			cache.fetchOpportunites({reset: true});

@@ -34,6 +34,7 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 		},
 		
 		listenForEvents: function() {
+			this.stopListening();
 			if(cache.roles) {
 				this.listenTo(cache.roles, 'reset', this.renderRoles);
 			}
