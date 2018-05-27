@@ -16,6 +16,7 @@ function (eLeap, $, _, Backbone, wijmoDataAjax, wijmoProAll, wijmoOpenAll) {'use
 		},
 		
 		listenForEvents: function() {
+			this.stopListening();
 			//this.listenTo(window.resize, resizeChart);
 		},
 			

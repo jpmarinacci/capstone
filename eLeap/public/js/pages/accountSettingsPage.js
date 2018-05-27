@@ -24,6 +24,7 @@ function (eLeap, $, _, Backbone, user, SignupForm) { 'use strict';
 		},
 		
 		listenForEvents: function() {
+			this.stopListening();
 			this.listenTo(this.person, 'sync change', this.renderPage);
 		},
 		

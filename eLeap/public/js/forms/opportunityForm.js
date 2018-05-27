@@ -12,7 +12,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 	eLeap.own.OpportunityForm = Backbone.View.extend({
 		
 		formTmpl: _.template(opportunityFormTmpl),
-		mode: "create",
 		
 		events: {
 			'change .oppFormTitle': 'commandChangedTitle',
@@ -21,7 +20,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 			'change .oppFormYear': 'commandChangeYear',
 			'change .oppFormClassSize': 'commandChangeoppFormClassSize',
 			'change .oppFormHours': 'commandChangeoppFormHours',
-			'change .oppFormPayAmount': 'commandChangeoppFormPayAmount',
+			
 			
 			'click .oppFormIsClass': 'toggleClassSection',
 			'click .oppFormOppType': 'toggleTypeSection',
@@ -33,13 +32,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 			this.options = _.extend({}, options);
 			this.opportunity = options.opportunity || new Opportunity();
 			this.renderFramework();
-			if(options.opportunity) {
-				this.renderOpportunityToForm();
-				this.mode = "edit";
-			}
 		},
 		
-		renderFramework: function() {
+		renderFramework: function(){
 			this.$el.html(this.formTmpl({
 				opportunity: this.opportunity
 			}));
@@ -93,14 +88,8 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 		},
 		
 		toggleTypeSection: function(event) {
-			var type;
-			if(this.mode) {
-				type = event;
-			} else {
-				type = event.currentTarget.value;
-			}
-			
 			this.$(".oppTypeSection").hide();
+			var type = event.currentTarget.value;
 			this.$(".oppFormServiceSection .oppFormTextInput, .oppFormVolunteerSection .oppFormTextInput").val("").text("");
 			this.$(".oppFormProjectSection .oppFormTextInput, .oppFormOtherSection .oppFormTextInput").val("").text("");
 			this.$(".oppFormGigSection .oppFormTextInput, .oppFormDeliverableSection .oppFormTextInput").val("").text("");
@@ -108,7 +97,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 				case 'service':
 					this.$(".oppFormServiceSection").show();
 					this.$(".oppFormGigDeliverableSharedSection .oppFormTextInput").val("").text("");
-					this.$(".oppFormHoursSharedSection").show();
 					break;
 				case 'volunteer':
 					this.$(".oppFormVolunteerSection").show();
@@ -121,7 +109,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 				case 'gig':
 					this.$(".oppFormGigSection").show();
 					this.$(".oppFormGigDeliverableSharedSection").show();
-					this.$(".oppFormHoursSharedSection").show();
 					break;
 				case 'deliverable':
 					this.$(".oppFormDeliverableSection").show();
@@ -231,86 +218,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 			}
 			return;
 		},
-		commandChangeoppFormPayAmount: function(event){
-			var inputValue = this.$(".oppFormHours").val();
-			if(inputValue) {
-				if(inputValue && this.isValidIntegerInput(inputValue)) {
-					this.$(".oppFormPayAmountWarning").empty();
-					return;
-				} else {
-					this.$(".oppFormPayAmountWarning").html("hours must be a valid integer");
-					return;
-				}
-			}
-			return;
-		},
-		
-		renderOpportunityToForm: function() {
-			this.toggleTypeSection(this.opportunity.get('type'));
-			this.$(".oppFormAgencyCommitment").val(this.opportunity.get('agencyCommitment'));
-			this.$(".oppFormApplicationDueDate").val(this.opportunity.get('applicationDueDate'));
-			//classId: 1,
-			this.$(".oppFormClassType").val(this.opportunity.get('classType'));
-			this.$(".oppFormYear").val(this.opportunity.get('classYear'));
-			this.$(".oppFormClassName").val(this.opportunity.get('className'));
-			this.$(".oppFormCourseSummary").val(this.opportunity.get('courseSummary'));
-			this.$(".oppFormDeliverables").val(this.opportunity.get('deliverables'));
-			this.$(".oppFormDescription").val(this.opportunity.get('description'));
-			this.$(".oppFormDonation").val(this.opportunity.get('donation'));
-			//duration: "test",
-			this.$("endDateTimeInput").val(this.opportunity.get('endDateTime')),
-			this.$(".oppFormClassSize").val(this.opportunity.get('estimatedClassSize'));
-			this.$(".oppFormExamples").val(this.opportunity.get('examples'));
-			this.$(".oppFormHours").val(this.opportunity.get('hoursRequired'));
-			if(this.opportunity.get('isClass')) {
-				this.$(".oppFormIsClass").attr("checked", "checked");
-			}
-			if(this.opportunity.get('isRequiredForClass')) {
-				this.$(".oppFormIsRequiredForClass").attr("checked", "checked");
-			}
-			if(this.opportunity.get('isPaid')) {
-				this.$(".oppFormIsPaid").attr("checked", "checked");
-			}
-			if(this.opportunity.get('isTeams')) {
-				this.$(".oppFormIsTeams").attr("checked", "checked");
-			}
-			if(this.opportunity.get('isVirtual')) {
-				this.$(".oppFormIsVirtual").attr("checked", "checked");
-			}
-			//latitude: null,
-			this.$(".oppFormAddress").val(this.opportunity.get('location'));
-			//longitude: null,
-			this.$(".oppFormMinReqPersons").val(this.opportunity.get('minimumPersonsRequired'));
-			this.$(".oppFormNotAllowed").val(this.opportunity.get('notAllowed'));
-			//notes,
-			this.$(".oppFormNumTeams").val(this.opportunity.get('numTeams'));
-			this.$(".oppFormOnboarding").val(this.opportunity.get('onBoarding'));
-			this.$(".oppFormPayAmount").val(this.opportunity.get('payAmount'));
-			var prefAgencyType = this.opportunity.get('preferredAgencyType');
-			if(prefAgencyType) {
-				if(this.opportunity.get('type') === 'service') {
-					this.$(".oppFormPrefAgencyType").val(prefAgencyType);
-				} else if(this.opportunity.get('type') === 'project') {
-					this.$(".oppFormAgencyType").val(prefAgencyType);
-				}
-			}
-			this.$(".oppFormPrefServiceWork").val(this.opportunity.get('preferredServiceWorkType'));
-			//recurrence: "",
-			this.$(".oppFormRequirements").val(this.opportunity.get('requirments'));
-			this.$(".startDateTimeInput").val(this.opportunity.get('startDateTimeInput'));
-			//status: pending,
-		    this.$(".oppFormGivenSupport").val(this.opportunity.get('supportDescription'));
-			this.$(".oppFormSupportPref").val(this.opportunity.get('supportPreference'));
-			
-			this.$(".oppFormTeamSize").val(this.opportunity.get('teamSize'));
-			this.$(".oppFormTerm").val(this.opportunity.get('term'));
-				//timePeriodEndDate: null,
-				//timePeriodStartDate: null,
-			this.$(".oppFormTitle").val(this.opportunity.get('title'));
-			this.$(".oppFormTotalSeatsInput").val(this.opportunity.get('totalSeats'));
-			this.$(".deleteOpportunity").show();
-			this.$(".oppFormHeader").text("Edit Opportunity");
-		},
 		
 		gatherInput: function() {
 			var startDateTimeInput = this.$(".startDateTimeInput").val();
@@ -358,7 +265,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'controll
 				//recurrence: "",
 				requirments: this.$(".oppFormRequirements").val(),
 				startDateTime: startDateTime,
-				//status: "pending",
+				//status: null,
 				supportDescription: this.$(".oppFormGivenSupport").val(),
 				supportPreference: this.$(".oppFormSupportPref").val(),
 				teamSize: this.$(".oppFormTeamSize").val(),
