@@ -7,7 +7,6 @@
 body {
 	font: 14px "Lucida Grande", Oswald, Consolas, Georgia, Helvetica, Arial, sans-serif;
 	height: 100%;
-	background-color: #34495e;
 }
 
 a {
@@ -160,7 +159,7 @@ ul, ol {
 /* app ui /navbar specific css */
 
 #pages {
-	background-color: white;
+	background: #eaeaea url("https://www.planwallpaper.com/static/images/Alien_Ink_2560X1600_Abstract_Background_1.jpg") no-repeat;
 }
 
 #pages > div {
@@ -1097,6 +1096,10 @@ table th[class*="col-"] {
 }
 .block-title--bottom {
   margin-bottom: 60px;
+	color:white;
+	font-family: times, Times New Roman, times-roman, georgia, serif;
+	line-height: 44px;
+	font-weight: bold;
 }
 .login {
   max-width: 500px;
