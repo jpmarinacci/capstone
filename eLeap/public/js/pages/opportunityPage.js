@@ -5,9 +5,9 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'controllers/notifications', 'controllers/user',
-		'forms/opportunityForm', 'items/opportunityDetailItem', 'text!../../tmpl/pages/opportunityPage.tmpl'],
-function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, OpportunityDetailItem, opportunityPageTmpl) { 'use strict';
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'controllers/notifications', 'controllers/router',
+		'controllers/user', 'forms/opportunityForm', 'items/opportunityDetailItem', 'text!../../tmpl/pages/opportunityPage.tmpl'],
+function (eLeap, $, _, Backbone, cache, notifications, router, user, OpportunityForm, OpportunityDetailItem, opportunityPageTmpl) { 'use strict';
 		
 	eLeap.own.OpportunityPage = Backbone.View.extend({
 		
@@ -33,7 +33,13 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, Op
 				});
 				
 			} else {
-				this.openViewMode();
+				this.opportunityId = Number(this.opportunityId);
+				if(this.opportunityId) {
+					this.openViewMode();
+				} else {
+					notifications.notifyUser("invalid opportuity ID");
+					router.navigate('/dashboard', {trigger: true});
+				}
 			}
 		},
 				
@@ -50,12 +56,10 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, Op
 		},
 		
 		getCurrentOpportunity: function() {
-			var oppId = Number(this.opportunityId);
-			if(oppId) {
-				this.opportunity = cache.getOpportunity({
-					opportunityId: oppId
-				});
-			}
+			this.opportunity = cache.getOpportunity({
+				opportunityId: this.opportunityId
+			});
+			
 			this.listenForEvents();
 			cache.fetchOpportunity(this.opportunity);
 		},

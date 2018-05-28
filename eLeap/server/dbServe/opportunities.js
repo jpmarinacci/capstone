@@ -4,7 +4,6 @@ var mysql = require('mysql');
 var opportunities = {
 	
 	createOpportunity: function(request, response) { 'use strict';
-		var sprocName = "sprocAddOpp";
 		var params = [
 			//dbServer.isValidParam((//), "string"),
 			request.body.agencyCommitment ? request.body.agencyCommitment: null, 
@@ -58,19 +57,18 @@ var opportunities = {
 		console.log("params("+params.length+"):");
 		console.log(params);
 		console.log("createOpportunity route called");
-		console.log("calling "+ sprocName);
-		function processSprocCallback(results) {
+		console.log("calling sprocAddOpp");
+		dbServer.sproc("sprocAddOpp", params, function(results) {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0][0];
+	    		var returnResults = results[0];
 	    		console.log("sprocAddOpp successful");
 	    		console.log("created opp oppId: " + returnResults.opportunityId);
 				console.log("created opp title: " + returnResults.title);
 	    		response.send(returnResults);
 	    	}
-		};
-		dbServer.sproc(sprocName, params, processSprocCallback);
+		});
     },
     
 	deleteOpportunity: function(request, response) { 'use strict';
