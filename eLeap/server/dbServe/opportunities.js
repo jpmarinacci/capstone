@@ -5,11 +5,9 @@ var opportunities = {
 	
 	createOpportunity: function(request, response) { 'use strict';
 		var params = [
-			//dbServer.isValidParam((//), "string"),
 			request.body.agencyCommitment ? request.body.agencyCommitment: null, 
 			request.body.applicationDueDate ? request.body.applicationDueDate: null,
-			request.body.classId ? Number(request.body.classId): null,
-			//request.body.className ? request.body.className: null,
+			request.body.className ? request.body.className: null,
 			request.body.classType ? request.body.classType: null,
 			request.body.classYear ? request.body.classYear: null,
 			request.body.courseSummary ? request.body.courseSummary: null,
@@ -59,13 +57,22 @@ var opportunities = {
 		console.log("createOpportunity route called");
 		console.log("calling sprocAddOpp");
 		dbServer.sproc("sprocAddOpp", params, function(results) {
+			
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0];
-	    		console.log("sprocAddOpp successful");
-	    		console.log("created opp oppId: " + returnResults.opportunityId);
-				console.log("created opp title: " + returnResults.title);
+	    		var returnResults = {};
+	    		if(results && results[0] && results[0][0] && results[1] && results[1][0]) {
+	    			returnResults = results[1][0];
+	    			if(results[0][0].status) {
+	    				returnResults.serverStatus = results[0][0].status;
+	    			}
+	    		}
+	    		if(returnResults.message === "success") {
+	    			console.log("sprocAddOpp successful");
+	    			console.log("created opp ID: " + returnResults.opportunityId);
+	    			console.log("created opp title: " + returnResults.title);
+	    		}
 	    		response.send(returnResults);
 	    	}
 		});
@@ -160,90 +167,6 @@ var opportunities = {
     			console.log('results returned:');
     			console.log(results);
     			returnResults = results;
-	    		if(results[0]) {
-	    			if(results[0][0]) {
-	    				returnResults = results[0][0];
-	    				console.log("results[0][0]");
-	    				if(results[0][0][0]) {
-	    					returnResults = results[0][0][0];
-	    					console.log("results[0][0][0]");
-	    				}
-		    		}
-		    		if(results[0][1]) {
-		    			returnResults = results[0][1];
-		    			console.log("results[0][1]");
-		    		}
-		    		if(results[0][2]) {
-		    			returnResults = results[0][2];
-		    			console.log("results[0][2]");
-		    		}
-		    		if(results[0][3]) {
-		    			returnResults = results[0][3];
-		    			console.log("results[0][3]");
-		    		}
-		    	}
-		    	if(results[1]) {
-		    		if(results[1][0]) {
-		    			returnResults = results[1][0];
-		    			console.log("results[1][0]");
-		    			if(results[1][0][0]) {
-	    					returnResults = results[1][0][0];
-	    					console.log("results[1][0][0]");
-	    				}
-		    		}
-		    		if(results[1][1]) {
-		    			returnResults = results[1][1];
-		    			console.log("results[1][1]");
-		    		}
-		    		if(results[1][2]) {
-		    			returnResults = results[1][2];
-		    			console.log("results[1][2]");
-		    		}
-		    		if(results[1][3]) {
-		    			returnResults = results[1][3];
-		    			console.log("results[1][3]");
-		    		}
-		    	}
-		    	if(results[2]) {
-		    		if(results[2][0]) {
-		    			returnResults = results[2][0];
-		    			console.log("results[2][0]");
-		    			if(results[2][0][0]) {
-	    					returnResults = results[2][0][0];
-	    					console.log("results[2][0][0]");
-	    				}
-		    		}
-		    		if(results[2][1]) {
-		    			returnResults = results[2][1];
-		    			console.log("results[2][1]");
-		    		}
-		    		if(results[2][2]) {
-		    			returnResults = results[2][2];
-		    			console.log("results[2][2]");
-		    		}
-		    		if(results[2][3]) {
-		    			returnResults = results[2][3];
-		    			console.log("results[2][3]");
-		    		}
-		    	}
-		    	if(results[3]) {
-		    		if(results[3][0]) {
-		    			returnResults = results[3][0];
-		    			console.log("results[3][0]");
-		    		}
-		    		if(results[3][1]) {
-		    			returnResults = results[3][1];
-		    			console.log("results[3][1]");
-		    		}
-		    		if(results[3][2]) {
-		    			returnResults = results[3][2];
-		    			console.log("results[3][2]");
-		    		}
-		    		if(results[3][3]) {
-		    			returnResults = results[3][3];
-		    			console.log("results[3][3]");
-		    		}
-		    	}
 	    		
 	    		console.log("----get oppportunity return results:----");
 	    		console.log(returnResults);
@@ -324,8 +247,7 @@ var opportunities = {
 			//dbServer.isValidParam((//), "string"),
 			request.body.agencyCommitment ? request.body.agencyCommitment: null, 
 			request.body.applicationDueDate ? request.body.applicationDueDate: null,
-			request.body.classId ? Number(request.body.classId): null,
-			//request.body.className ? request.body.className: null,
+			request.body.className ? request.body.className: null,
 			request.body.classType ? request.body.classType: null,
 			request.body.classYear ? request.body.classYear: null,
 			request.body.courseSummary ? request.body.courseSummary: null,
@@ -377,10 +299,17 @@ var opportunities = {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0] ? results[0][0] || {} : {};
-	    		if(results.message === "success") {
-	    			returnResults.message = "success";
-	    			console.log("success");
+	    		var returnResults = {};
+	    		if(results && results[0] && results[0][0] && results[1] && results[1][0]) {
+	    			returnResults = results[1][0];
+	    			if(results[0][0].status) {
+	    				returnResults.serverStatus = results[0][0].status;
+	    			}
+	    		}
+	    		if(returnResults.message === "success") {
+	    			console.log("sprocUpdateOpp successful");
+	    			console.log("edited opp ID: " + returnResults.opportunityId);
+	    			console.log("edited opp title: " + returnResults.title);
 	    		}
 	    		console.log("results:");
 	    		console.log(returnResults);
