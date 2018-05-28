@@ -140,6 +140,14 @@ ul, ol {
 	position: relative;
 }
 
+.pull-right {
+	float: right;
+}
+
+.pull-left {
+	float: left;
+}
+
 .icon-big {
 	font-size: 58px;
 	padding-top: 20px;
@@ -167,6 +175,18 @@ ul, ol {
     font-size: 12px;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.checkBox {
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+}
+
+.radio {
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
 }
 
 .bigSpinner {
@@ -366,6 +386,14 @@ ul, ol {
 .oppFormList .oppFormRadiosContainer {
 	width: 500px;
 }
+.asterisk {
+	cursor: pointer;
+	font-weight: bold;
+	vertical-align: text-top;
+}
+.warn {
+	color: #ff0000;
+}
 
 /* Dashboard Page */
 
@@ -393,6 +421,11 @@ ul, ol {
 .opportunitiesList .opportunityItem {
 	border-radius: 2px;
 }
+
+.oppItemTitle {
+	font-size: 30px;
+}
+
 /*
 .opportunitiesList .opportunityItem:hover {
 	!*background-color: #a7e6ff;*!
@@ -1154,34 +1187,6 @@ table th[class*="col-"] {
 
 .full-row {
 	padding-left: 20px;
-}
-
-.oppFormHoursWarning {
-	color: #ff0000;
-}
-
-.oppFormClassSizeWarning {
-	color: #ff0000;
-}
-
-.oppFormYearWarning {
-	color: #ff0000;
-}
-
-.oppFormTotalSeatsWarning {
-	color: #ff0000;
-}
-
-.oppFormClassWarning {
-	color: #ff0000;
-}
-
-.oppFormTitleWarning {
-	color: #ff0000;
-}
-
-.oppItemTitle {
-	font-size:30px;
 }
 
 .fontRed {

@@ -15,12 +15,17 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 		
 		events: {
 			'change .oppFormTitle': 'commandChangedTitle',
-			'change .oppFormTotalSeatsInput': 'commandChangedTotalSeats',
-			'change .oppFormClassName': 'commandChangedClassName',
-			'change .oppFormYear': 'commandChangeYear',
-			'change .oppFormClassSize': 'commandChangeoppFormClassSize',
-			'change .oppFormHours': 'commandChangeoppFormHours',
-			
+			'dp.change .oppFormStartDateTime': 'commandChangeStartDateTime',
+			'dp.change .oppFormEndDateTime': 'commandChangeEndDateTime',
+			'change .oppFormYear': 'commandChangedYear',
+			'chage .oppFormDonation': 'commandChangedDonation',
+			'change .oppFormClassSize': 'commandChangedClassSize',
+			'change .oppFormHours': 'commandChangedHours',
+			'change .oppFormMinReqPersons': 'commandChangedMinReqPersons',
+			'change .oppFormNumTeams': 'commandChangedNumTeams',
+			'change .oppFormPayAmount': 'commandChangedPayAmount',
+			'change .oppFormTeamSize': 'commandChangedTeamSize',
+			'change .oppFormTotalSeats': 'commandChangedTotalSeats',
 			
 			'click .oppFormIsClass': 'toggleClassSection',
 			'click .oppFormOppType': 'toggleTypeSection',
@@ -41,7 +46,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			this.$el.html(this.formTmpl({
 				opportunity: this.opportunity
 			}));
-			this.$(".startDateTimeInput").datetimepicker({
+			this.$(".oppFormStartDateTime").datetimepicker({
 				 icons: {
                     time: "fa fa-clock",
                     date: "fa fa-calendar",
@@ -63,7 +68,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
                 }
 			});
 			
-			this.$(".endDateTimeInput").datetimepicker({
+			this.$(".oppFormEndDateTime").datetimepicker({
 				 icons: {
                     time: "fa fa-clock",
                     date: "fa fa-calendar",
@@ -156,33 +161,15 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			}
 		},
 		
-		commandChangedClassName: function(){
-			// check is class radio
-			var inputValue = this.$(".oppFormClassName").val();
-			if(this.isRequired(inputValue)) {
-				this.$(".oppFormTitleWarning").empty();
-				return;
-			} else {
-				this.$(".oppFormClassWarning").html("Class Name is required");
-				return;
-			}
+		commandChangeStartDateTime: function() {
+			this.$(".oppFormStartDateTimeWarning").empty();
 		},
 		
-		commandChangedTotalSeats: function(event) {
-			var inputValue = this.$(".oppFormTotalSeatsInput").val();
-			if(inputValue) {
-				if(inputValue && this.isValidIntegerInput(inputValue)) {
-					this.$(".oppFormTotalSeatsWarning").empty();
-					return;
-				} else {
-					this.$(".oppFormTotalSeatsWarning").html("total seats must be a valid integer");
-					return;
-				}
-			}
-			return;
+		commandChangeEndDateTime: function() {
+			this.$(".oppFormEndDateTimeWarning").empty();
 		},
 		
-		commandChangeYear: function(event) {
+		commandChangedYear: function(event) {
 			var inputValue = this.$(".oppFormYear").val();
 			if(inputValue) {
 				if(inputValue && this.isValidIntegerInput(inputValue)) {
@@ -196,7 +183,21 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			return;
 		},
 		
-		commandChangeoppFormClassSize: function(event){
+		commandChangedDonation: function() {
+			var inputValue = this.$(".oppFormDonation").val();
+			if(inputValue) {
+				if(inputValue && this.isValidIntegerInput(inputValue)) {
+					this.$(".oppFormDonationWarning").empty();
+					return;
+				} else {
+					this.$(".oppFormDonationWarning").html("donation must be a valid integer");
+					return;
+				}
+			}
+			return;
+		},
+		
+		commandChangedClassSize: function(event) {
 			var inputValue = this.$(".oppFormClassSize").val();
 			if(inputValue) {
 				if(inputValue && this.isValidIntegerInput(inputValue)) {
@@ -210,7 +211,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			return;
 		},
 		
-		commandChangeoppFormHours: function(event){
+		commandChangedHours: function(event) {
 			var inputValue = this.$(".oppFormHours").val();
 			if(inputValue) {
 				if(inputValue && this.isValidIntegerInput(inputValue)) {
@@ -223,12 +224,82 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			}
 			return;
 		},
+				
+		commandChangedMinReqPersons: function() {
+			var inputValue = this.$(".oppFormMinReqPersons").val();
+			if(inputValue) {
+				if(inputValue && this.isValidIntegerInput(inputValue)) {
+					this.$(".oppFormMinReqPersonsWarning").empty();
+					return;
+				} else {
+					this.$(".oppFormMinReqPersonsWarning").html("minimum persons required must be a valid integer");
+					return;
+				}
+			}
+			return;
+		},
+		
+		commandChangedNumTeams: function() {
+			var inputValue = this.$(".oppFormNumTeams").val();
+			if(inputValue) {
+				if(inputValue && this.isValidIntegerInput(inputValue)) {
+					this.$(".oppFormNumTeamsWarning").empty();
+					return;
+				} else {
+					this.$(".oppFormNumTeamsWarning").html("number of teams must be a valid integer");
+					return;
+				}
+			}
+			return;
+		},
+		
+		commandChangedPayAmount: function() {
+			var inputValue = this.$(".oppFormPayAmount").val();
+			if(inputValue) {
+				if(inputValue && this.isValidIntegerInput(inputValue)) {
+					this.$(".oppFormPayAmountWarning").empty();
+					return;
+				} else {
+					this.$(".oppFormPayAmountWarning").html("pay amount must be a valid integer");
+					return;
+				}
+			}
+			return;
+		},
+		
+		commandChangedTeamSize: function() {
+			var inputValue = this.$(".oppFormTeamSize").val();
+			if(inputValue) {
+				if(inputValue && this.isValidIntegerInput(inputValue)) {
+					this.$(".oppFormTeamSizeWarning").empty();
+					return;
+				} else {
+					this.$(".oppFormTeamSizeWarning").html("team size must be a valid integer");
+					return;
+				}
+			}
+			return;
+		},
+		
+		commandChangedTotalSeats: function(event) {
+			var inputValue = this.$(".oppFormTotalSeats").val();
+			if(inputValue) {
+				if(inputValue && this.isValidIntegerInput(inputValue)) {
+					this.$(".oppFormTotalSeatsWarning").empty();
+					return;
+				} else {
+					this.$(".oppFormTotalSeatsWarning").html("total seats must be a valid integer");
+					return;
+				}
+			}
+			return;
+		},
 		
 		renderOpportunityToForm: function() {
 			this.toggleTypeSection({}, {"type": (this.opportunity.get('opportunityType') || "service")});
 			this.$(".oppFormAgencyCommitment").val(this.opportunity.get('agencyCommitment'));
 			this.$(".oppFormApplicationDueDate").val(utils.dateTimeToDisplay(this.opportunity.get('applicationDueDate')));
-			//classId: 1,
+			//classId
 			this.$(".oppFormClassType").val(this.opportunity.get('classType'));
 			this.$(".oppFormYear").val(this.opportunity.get('classYear'));
 			this.$(".oppFormClassName").val(this.opportunity.get('className'));
@@ -236,8 +307,11 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			this.$(".oppFormDeliverables").val(this.opportunity.get('deliverables'));
 			this.$(".oppFormDescription").val(this.opportunity.get('description'));
 			this.$(".oppFormDonation").val(this.opportunity.get('donation'));
-			//duration: "test",
-			this.$(".endDateTimeInput").val(utils.dateTimeToDisplay(this.opportunity.get('endDateTime')));
+			//duration
+			this.$(".oppFormEndDateTime").val(utils.dateTimeToDisplay(this.opportunity.get('endDateTime')));
+			this.$(".oppFormEndDateTime").datetimepicker({
+			    date: this.opportunity.get('endDateTime')
+			});
 			this.$(".oppFormClassSize").val(this.opportunity.get('estimatedClassSize'));
 			this.$(".oppFormExamples").val(this.opportunity.get('examples'));
 			this.$(".oppFormHours").val(this.opportunity.get('hoursRequired'));
@@ -256,12 +330,12 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			if(this.opportunity.get('isVirtual')) {
 				this.$(".oppFormIsVirtual").attr("checked", "checked");
 			}
-			//latitude: null,
+			//latitude
 			this.$(".oppFormAddress").val(this.opportunity.get('location'));
-			//longitude: null,
+			//longitude
 			this.$(".oppFormMinReqPersons").val(this.opportunity.get('minimumPersonsRequired'));
 			this.$(".oppFormNotAllowed").val(this.opportunity.get('notAllowed'));
-			//notes,
+			//notes
 			this.$(".oppFormNumTeams").val(this.opportunity.get('numTeams'));
 			this.$(".oppFormOnboarding").val(this.opportunity.get('onBoarding'));
 			this.$(".oppFormPayAmount").val(this.opportunity.get('payAmount'));
@@ -274,26 +348,29 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 				}
 			}
 			this.$(".oppFormPrefServiceWork").val(this.opportunity.get('preferredServiceWorkType'));
-			//recurrence: "",
+			//recurrence
 			this.$(".oppFormRequirements").val(this.opportunity.get('requirements'));
-			this.$(".startDateTimeInput").val(utils.dateTimeToDisplay(this.opportunity.get('startDateTime')));
-			//status: pending,
+			this.$(".oppFormStartDateTime").val(utils.dateTimeToDisplay(this.opportunity.get('startDateTime')));
+			this.$(".oppFormStartDateTime").datetimepicker({
+			    date: this.opportunity.get('startDateTime')
+			});
 		    this.$(".oppFormGivenSupport").val(this.opportunity.get('supportDescription'));
 			this.$(".oppFormSupportPref").val(this.opportunity.get('supportPreference'));
 			this.$(".oppFormTeamSize").val(this.opportunity.get('teamSize'));
 			this.$(".oppFormTerm").val(this.opportunity.get('term'));
-			//timePeriodEndDate: null,
-			//timePeriodStartDate: null,
+			//timePeriodEndDate
+			//timePeriodStartDate
 			this.$(".oppFormTitle").val(this.opportunity.get('title'));
-			this.$(".oppFormTotalSeatsInput").val(this.opportunity.get('totalSeats'));
+			this.$(".oppFormTotalSeats").val(this.opportunity.get('totalSeats'));
+			
 			this.$(".deleteOpportunity").show();
 			this.$(".oppFormHeader").text("Edit Opportunity");
 		},
 		
 		gatherInput: function() {
-			var startDateTimeInput = this.$(".startDateTimeInput").val();
+			var startDateTimeInput = this.$(".oppFormStartDateTime").val();
 			var startDateTime = startDateTimeInput ? new Date(startDateTimeInput): "";
-			var endDateTimeInput = this.$(".endDateTimeInput").val();
+			var endDateTimeInput = this.$(".oppFormEndDateTime").val();
 			var endDateTime = endDateTimeInput ? new Date(endDateTimeInput): "";
 			var applicationDueDateInput = this.$(".oppFormApplicationDueDate").val();
 			var applicationDueDate = applicationDueDateInput ? new Date(applicationDueDateInput): "";
@@ -344,7 +421,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 				//timePeriodEndDate: null,
 				//timePeriodStartDate: null,
 				title: this.$(".oppFormTitle").val(),
-				totalSeats: Number(this.$(".oppFormTotalSeatsInput").val())
+				totalSeats: Number(this.$(".oppFormTotalSeats").val())
 			};
 			this.opportunity.set(opportuntityJson);
 		},
@@ -386,6 +463,21 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 					notifications.notifyUser("error -- opportunity creation failed: /n"+ error);
 				}
 			};
+			if(!this.opportunity.get('title')) {
+				this.$(".oppFormTitleWarning").html("title is required");
+				notifications.notifyUser("title is required");
+				return;
+			}
+			if(!this.opportunity.get('startDateTime')) {
+				notifications.notifyUser("start date is required");
+				this.$(".oppFormStartDateTimeWarning").html("start date is required");
+				return;
+			}
+			if(!this.opportunity.get('endDateTime')) {
+				notifications.notifyUser("end date is required");
+				this.$(".oppFormEndDateTimeWarning").html("end date is required");
+				return;
+			}
 			this.opportunity.save({}, options);
 			this.opportunity = new Opportunity();
 		},

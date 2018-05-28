@@ -36,7 +36,7 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 		
 		listenForEvents: function() {
 			this.stopListening();
-			this.listenTo(this.opportunities, 'reset', this.render);
+			this.listenTo(this.opportunities, 'reset', this.renderOpportunities);
 			this.listenTo(user.person, 'change', this.renderWelcome);
 		},
 		
@@ -50,15 +50,17 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 			this.$(".welcomeName").text(user.person.get('personName'));
 		},
 		
-		render: function() {
+		renderOpportunities: function() {
 			if(this.opportunities) {
 				var thisPage = this;
-				$("#opportunities").html("DASHBOARD PAGE UNDER CONSTRUCTION --("+ this.opportunities.length+") Opportunities");
-				this.opportunities.each(function(opportunity){
-					var oppItem = new OpportunityItem({
-						opportunity: opportunity
-					});
-					thisPage.$(".opportunitiesList").append(oppItem.render());
+				$("#opportunities").html("DASHBOARD PAGE UNDER CONSTRUCTION --(" + this.opportunities.length + ") Opportunities");
+				this.opportunities.each(function(opportunity) {
+					if(opportunity.get('endDateTime') && opportunity.get('endDateTime') > new Date()) {
+						var oppItem = new OpportunityItem({
+							opportunity: opportunity
+						});
+						thisPage.$(".opportunitiesList").append(oppItem.render());	
+					}
 				});
 			}
 		},

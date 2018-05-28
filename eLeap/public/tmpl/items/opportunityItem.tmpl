@@ -3,8 +3,8 @@
     <div class="card border-dark mb-3">
         <div class="card-header">
             <div class="oppItemField oppItemTitle">
-                <% if(opp.title){%>
-                    <h5 class="card-title"><% if(opp.status){%><small class="fontExtraSmall fontRed">[<%= opp.status %>]</small><br><%}%><%= opp.title %></h5>
+                <% if(opp.title) { %>
+                    <h5 class="card-title"><% if(opp.status) { %><small class="fontExtraSmall fontRed">[<%= opp.status %>]</small><br><%}%><%= opp.title %></h5>
                 <%}%>
             </div>
         </div>
@@ -21,22 +21,28 @@
                     <%}%>-->
                 <!--</div>
             <%}%>-->
-            <% if(opp.startDateTime){%>
+            <% if(opp.startDateTime) { %>
                 <div class="oppItemField card-subtitle mb-2 fontExtraSmall text-muted">
                     <span>start date time:</span>
                     <span><%= utils.dateTimeToDisplay(opp.startDateTime) %></span>
                 </div>
             <%}%>
-            <% if(opp.endDateTime){%>
+            <% if(opp.endDateTime) { %>
                 <div class="oppItemField card-subtitle mb-2 fontExtraSmall text-muted">
                     <span>end date:</span>
                     <span><%= utils.dateTimeToDisplay(opp.endDateTime) %></span>
                 </div>
             <%}%>
-             <% if(opp.totalSeats) {%>
+            <% if(opp.totalSeats) { %>
                 <div class="oppItemField card-subtitle mb-2 fontExtraSmall text-muted">
                     <span>total seats: </span>
                     <span><%= opp.totalSeats %></span>
+                </div>
+            <%}%>
+            <% if(opp.availableSeats) { %>
+                <div class="oppItemField">
+                    <span class="oppItemLabel">available seats:</span>
+                    <span><%= opp.availableSeats %></span>
                 </div>
             <%}%>
             <% if(opp.opportunityType) {%>
