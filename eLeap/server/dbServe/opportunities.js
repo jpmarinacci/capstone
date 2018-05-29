@@ -26,6 +26,7 @@ var opportunities = {
 			request.body.isServiceLearning ? request.body.isServiceLearning: 0,
 			request.body.isTeams ? request.body.isTeams: 0,
 			request.body.isVirtual ? request.body.isVirtual: 0,
+			new Date(),
 			request.body.latitude ? request.body.latitude: null,
 			request.body.location ? request.body.location: null,
 			request.body.longitude ? request.body.longitude: null,
@@ -106,6 +107,7 @@ var opportunities = {
 			request.body.isServiceLearning ? request.body.isServiceLearning: 0,
 			request.body.isTeams ? request.body.isTeams: 0,
 			request.body.isVirtual ? request.body.isVirtual: 0,
+			new Date(),
 			request.body.latitude ? request.body.latitude: null,
 			request.body.location ? request.body.location: null,
 			request.body.longitude ? request.body.longitude: null,
@@ -196,14 +198,15 @@ var opportunities = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("---------------------get oppportunity results: -----------");
+	    		console.log(results);
 	    		var returnResults = {};
 	    		if(results && results[0] && results[0][0] && results[1] && results[1][0]) {
 	    			returnResults = results[1][0];
-	    			/*if(results[0][0].status) {
+	    			if(results[0][0].status) {
 	    				returnResults.serverStatus = results[0][0].status;
-	    			}*/
-	    			if(returnResults) {
-	    				returnResults.serverStatus = "success";
+	    			}
+	    			if(results[2] && results[2][0]) {
+	    				returnResults.isJoined = results[2][0].personJoined;
 	    			}
 	    		}
 	    		if(returnResults.serverStatus === "success") {

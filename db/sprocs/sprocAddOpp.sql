@@ -21,6 +21,7 @@ in isPaid_v tinyint(1),
 in isServiceLearning_v tinyint(1),
 in isTeams_v tinyint(1),
 in isVirtual_v tinyint(1),
+in lastModified_v datetime(6),
 in latitude_v varchar(45),
 in location_v varchar(45),
 in longitude_v varchar(45),
@@ -49,14 +50,14 @@ in totalSeats_v int
 )
 BEGIN
 
-/*DECLARE errno INT;
+DECLARE errno INT;
 DECLARE EXIT HANDLER FOR SQLEXCEPTION
 BEGIN
 GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
 SELECT errno AS MYSQL_ERROR;
 ROLLBACK;
 END;
-START TRANSACTION;*/
+START TRANSACTION;
 
 INSERT INTO eLeapData.opportunityTable(
     title,
@@ -104,7 +105,8 @@ INSERT INTO eLeapData.opportunityTable(
 	agencyCommitment,
 	notAllowed,
 	requirements,
-	supportDescription)
+	supportDescription,
+    lastModified)
 	values
 	(title_v,
 	description_v,
@@ -151,11 +153,12 @@ INSERT INTO eLeapData.opportunityTable(
 	agencyCommitment_v,
 	notAllowed_v,
 	requirements_v,
-	supportDescription_v
+	supportDescription_v,
+    lastModified_v
     );
     SELECT 'success' AS 'status';
     SELECT totalSeats AS 'availableSeats', opportunityTable.* FROM eLeapData.opportunityTable Where eLeapData.opportunityTable.opportunityId = LAST_INSERT_ID(); 
     
-   /* COMMIT;*/
+   COMMIT;
 END$$
 DELIMITER ;

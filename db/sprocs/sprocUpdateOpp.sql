@@ -21,6 +21,7 @@ in isPaid_v tinyint(1),
 in isServiceLearning_v tinyint(1),
 in isTeams_v tinyint(1),
 in isVirtual_v tinyint(1),
+in lastModified_v datetime(6),
 in latitude_v varchar(45),
 in location_v varchar(45),
 in longitude_v varchar(45),
@@ -81,6 +82,7 @@ SET
     isServiceLearning = isServiceLearning_v,
     isTeams = isTeams_v,
     isVirtual = isVirtual_v,
+    lastModified = lastModified_v,
     latitude = latitude_v,
     location = location_v,
     longitude = longitude_v,
@@ -106,10 +108,19 @@ SET
     timePeriodStartDate = timePeriodStartDate_v,
     title = title_v,
     totalSeats = totalSeats_v
-    WHERE opportunityId = oppId_v;
+WHERE
+    opportunityId = oppId_v;
     
 SELECT 'success' AS 'status';
-SELECT * FROM eLeapData.opportunityTable WHERE eLeapData.opportunityTable.opportunityId = oppId_v;
+SELECT 
+    (totalSeats - COUNT(filledSeatTable.personId)) AS 'availableSeats',
+    opportunityTable.*
+FROM
+    eLeapData.opportunityTable
+        JOIN
+    filledSeatTable ON ((filledSeatTable.opportunityId = opportunityTable.opportunityId))
+WHERE
+    eLeapData.opportunityTable.opportunityId = oppId_v;
 
     COMMIT;
 END$$

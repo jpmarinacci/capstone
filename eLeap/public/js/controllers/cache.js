@@ -3,8 +3,9 @@
  */
 
 
-define(['jquery', 'underscore', 'backbone', 'eLeap', 'collections/roles', 'collections/opportunities', 'models/opportunity'],
-	function ($, _, Backbone, eLeap, Roles, Opportunities, Opportunity) { 'use strict';
+define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'collections/roles',
+	'collections/opportunities', 'models/opportunity'],
+	function ($, _, Backbone, eLeap, user, Roles, Opportunities, Opportunity) { 'use strict';
 	
 	var thisCache = undefined;
 	
@@ -108,6 +109,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'collections/roles', 'colle
 				options.error = function(error) {
 					//console.log(error);
 				};
+				options.personId = user.person.get('personId');
 				opportunity.fetch(options, {});
 			}
 		}

@@ -31,10 +31,12 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			hoursRequired: 0,
 			isClass: false,
 			isRequiredForClass: false,
+			isJoined: false,
 			isPaid: false,
 			isServiceLearning: false,
 			isTeams: false,
 			isVirtual: false,
+			lastModified: undefined,
 			latitude: undefined,
 			location: "",
 			longitude: undefined,
@@ -104,7 +106,11 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					}
 				});
 			} else if(method === 'read') {
-				server.postRoute(this.routes.getOpportunity, this.toJSON(), function(response) {
+				var getOppInput = {
+					opportunityId: this.get('opportunityId'),
+					personId: options.personId
+				};
+				server.postRoute(this.routes.getOpportunity, getOppInput, function(response) {
 					if(response.serverStatus && response.serverStatus !== "success") {
 						if(options.appError) {
 							options.appError(response);
@@ -261,11 +267,13 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(dbOpp.examples)					jsonOpp.examples = dbOpp.examples;
 			if(dbOpp.hoursRequired)				jsonOpp.hoursRequired = Number(dbOpp.hoursRequired);
 			if(dbOpp.isClass)					jsonOpp.isClass = Number(dbOpp.isClass) ? true : false;
-			if(dbOpp.isRequiredForClass)		jsonOpp.isRequiredForClass = Number(dbOpp.isRequiredForClass) ? true : false;
+			if(dbOpp.isJoined)					jsonOpp.isJoined = Number(dbOpp.isJoined) ? true: false;
 			if(dbOpp.isPaid)					jsonOpp.isPaid = Number(dbOpp.isPaid) ? true : false;
+			if(dbOpp.isRequiredForClass)		jsonOpp.isRequiredForClass = Number(dbOpp.isRequiredForClass) ? true : false;
 			if(dbOpp.isServiceLearning)			jsonOpp.isServiceLearning = Number(dbOpp.isServiceLearning) ? true : false;
 			if(dbOpp.isTeams)					jsonOpp.isTeams = Number(dbOpp.isTeams) ? true : false;
 			if(dbOpp.isVirtual) 				jsonOpp.isVirtual = Number(dbOpp.isVirtual) ? true : false;
+			if(dbOpp.lastModified)				jsonOpp.lastModified = new Date(dbOpp.lastModified);
 			if(dbOpp.latitude)					jsonOpp.latitude = Number(dbOpp.latitude);
 			if(dbOpp.location)					jsonOpp.location = dbOpp.location;
 			if(dbOpp.longitude)					jsonOpp.longitude = Number(dbOpp.longitude);
