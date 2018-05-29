@@ -71,6 +71,10 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 			});
 			
 			this.listenForOppEvents();
+			
+			//forcing fetch to get isJoined value (purposely not using cache correctly) 
+			this.opportunity.isFetched = false;
+			//end hack
 			cache.fetchOpportunity(this.opportunity);
 		},
 		
