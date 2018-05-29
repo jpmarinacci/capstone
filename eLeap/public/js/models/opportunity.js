@@ -197,6 +197,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 				}
 			});
 		},
+		
 		leaveOpportuntiy: function(options) {
 			var options = options || {};
 			var joinInputs = {
@@ -259,12 +260,12 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(dbOpp.estimatedClassSize)		jsonOpp.estimatedClassSize = Number(dbOpp.estimatedClassSize);
 			if(dbOpp.examples)					jsonOpp.examples = dbOpp.examples;
 			if(dbOpp.hoursRequired)				jsonOpp.hoursRequired = Number(dbOpp.hoursRequired);
-			if(dbOpp.isClass)					jsonOpp.isClass = dbOpp.isClass ? true : false;
-			if(dbOpp.isRequiredForClass)		jsonOpp.isRequiredForClass = dbOpp.isRequiredForClass ? true : false;
-			if(dbOpp.isPaid)					jsonOpp.isPaid = dbOpp.isPaid ? true : false;
-			if(dbOpp.isServiceLearning)			jsonOpp.isServiceLearning = dbOpp.isServiceLearning ? true : false;
-			if(dbOpp.isTeams)					jsonOpp.isTeams = dbOpp.isTeams ? true : false;
-			if(dbOpp.isVirtual) 				jsonOpp.isVirtual = dbOpp.isVirtual ? true : false;
+			if(dbOpp.isClass)					jsonOpp.isClass = Number(dbOpp.isClass) ? true : false;
+			if(dbOpp.isRequiredForClass)		jsonOpp.isRequiredForClass = Number(dbOpp.isRequiredForClass) ? true : false;
+			if(dbOpp.isPaid)					jsonOpp.isPaid = Number(dbOpp.isPaid) ? true : false;
+			if(dbOpp.isServiceLearning)			jsonOpp.isServiceLearning = Number(dbOpp.isServiceLearning) ? true : false;
+			if(dbOpp.isTeams)					jsonOpp.isTeams = Number(dbOpp.isTeams) ? true : false;
+			if(dbOpp.isVirtual) 				jsonOpp.isVirtual = Number(dbOpp.isVirtual) ? true : false;
 			if(dbOpp.latitude)					jsonOpp.latitude = Number(dbOpp.latitude);
 			if(dbOpp.location)					jsonOpp.location = dbOpp.location;
 			if(dbOpp.longitude)					jsonOpp.longitude = Number(dbOpp.longitude);
@@ -276,7 +277,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(dbOpp.opportunityId)				jsonOpp.opportunityId = Number(dbOpp.opportunityId);
 			if(dbOpp.opportunityType)			jsonOpp.opportunityType = dbOpp.opportunityType;
 			if(dbOpp.ownerId)					jsonOpp.ownerId = Number(dbOpp.ownerId);
-			if(dbOpp.personName)				jsonOpp.ownerName = dbOpp.personName;
+			if(dbOpp.personName)				jsonOpp.ownerName = dbOpp.ownerName;
 			if(dbOpp.pay)						jsonOpp.payAmount = Number(dbOpp.pay);
 			if(dbOpp.preferredAgencyType)		jsonOpp.preferredAgencyType = dbOpp.preferredAgencyType;
 			if(dbOpp.preferredServiceWorkType)	jsonOpp.preferredServiceWorkType = dbOpp.preferredServiceWorkType;

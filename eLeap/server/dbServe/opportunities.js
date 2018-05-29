@@ -91,7 +91,7 @@ var opportunities = {
 			request.body.classType ? request.body.classType: null,
 			request.body.classYear ? request.body.classYear: null,
 			request.body.courseSummary ? request.body.courseSummary: null,
-			new Date(),
+			request.body.createDate ? request.body.createDate: new Date(),
 			request.body.deliverables ? request.body.deliverables: null,
 			request.body.description ? request.body.description: null,
 			request.body.donation ? Number(request.body.donation): null,

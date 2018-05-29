@@ -456,7 +456,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 						message = "opportunity created";
 					}
 					notifications.notifyUser(message);
-					router.navigate('opportunity/'+ addedOpp.get('opportunityId'), {trigger: true});
+					router.navigate('opportunity/'+ opportunity.get('opportunityId'), {trigger: true});
 					if(thisForm.options.opportunity) {
 						
 					}
