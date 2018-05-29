@@ -4,6 +4,7 @@ var mysql = require('mysql');
 var opportunities = {
 	
 	createOpportunity: function(request, response) { 'use strict';
+		console.log("--- createOpportunity route called ---");
 		var params = [
 			request.body.agencyCommitment ? request.body.agencyCommitment: null, 
 			request.body.applicationDueDate ? request.body.applicationDueDate: null,
@@ -53,12 +54,11 @@ var opportunities = {
 			request.body.title ? request.body.title: "",
 			request.body.totalSeats ? Number(request.body.totalSeats): null,
 		];
+		
 		console.log("params("+params.length+"):");
 		console.log(params);
-		console.log("createOpportunity route called");
 		console.log("calling sprocAddOpp");
 		dbServer.sproc("sprocAddOpp", params, function(results) {
-			
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
@@ -80,12 +80,11 @@ var opportunities = {
     },
     
 	updateOpportunity: function(request, response) { 'use strict';
-		console.log("updateOpportunity route called");
+		console.log("--- updateOpportunity route called ---");
 		if(!request.body.opportunityId) {
-			response.send("denied: no opportunity Id");
+			response.send('inputs not valid - no oppID');
 		}
 		var params = [
-			//dbServer.isValidParam((//), "string"),
 			request.body.agencyCommitment ? request.body.agencyCommitment: null, 
 			request.body.applicationDueDate ? request.body.applicationDueDate: null,
 			request.body.className ? request.body.className: null,
@@ -137,6 +136,7 @@ var opportunities = {
 		];
 		console.log("calling sprocUpdateOpp");
 		console.log("total params:" + params.length);
+		
 		dbServer.sproc("sprocUpdateOpp", params, function(results) {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
@@ -161,22 +161,21 @@ var opportunities = {
 	},
 	
 	deleteOpportunity: function(request, response) { 'use strict';
+		console.log("--- deleteOpportunity route called ---");
 		if(!request.body.opportunityId) {
-			response.send("denied: no opportunity Id");
+			response.send('inputs not valid');
 		}
 		var params = [
 			request.body.opportunityId
 		];
-		console.log("deleteOpportunity route called");
-		console.log("calling sprocDeleteOpp");
 		
+		console.log("calling sprocDeleteOpp");
 		dbServer.sproc("sprocDeleteOpp", params, function processSproc(results) {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = {};
-	    		var returnResults = returnResults || results[0];
-	    		returnResults.message = "success";
+	    		var returnResults = results[0] || {};
+	    		returnResults.status = "success";
 	    		console.log("sprocDeleteOpp successful");
 	    		response.send(returnResults);
 	    	}
@@ -184,8 +183,7 @@ var opportunities = {
     },
     
     getOpportunity: function(request, response) { 'use strict';	
-    	console.log("getOpportunity route called");
-    	
+    	console.log("--- getOpportunity route called ---");
 		var params = [
 			request.body.opportunityId ? request.body.opportunityId : null,
 			request.body.personId ? request.body.personId : null
@@ -193,12 +191,10 @@ var opportunities = {
 		
 		console.log("calling sprocGetOppId");
 		dbServer.sproc("sprocGetOppId", params, function(results) {
-			
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("---------------------get oppportunity results: -----------");
-	    		console.log(results);
 	    		var returnResults = {};
 	    		if(results && results[0] && results[0][0] && results[1] && results[1][0]) {
 	    			returnResults = results[1][0];
@@ -213,89 +209,113 @@ var opportunities = {
 	    			console.log("opp ID: " + returnResults.opportunityId);
 	    			console.log("opp title: " + returnResults.title);
 	    		}
-	    		
+	    		console.log(returnResults);
 	    		response.send(returnResults);
 	    	}
 		});
     },
     
 	getAllOpportunities: function(request, response) { 'use strict';
-		var params = [];
-		console.log("getAllOpportunities route called");
+		console.log("--- getAllOpportunities route called ---");
 		console.log("calling sprocAllOpp");
-		dbServer.sproc("sprocAllOpp", params, function(results) {
+		dbServer.sproc("sprocAllOpp", [], function(results) {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = results[0];
 	    		console.log("sprocAllOpp successful");
+	    		console.log(returnResults.length + " opps");
 	    		response.send(returnResults);
 	    	}
 		});
     },
     
-	getMyOpportunities: function(request, response) { 'use strict';	
-   		var sprocName = "sprocMyOpps";
+	getMyOpportunities: function(request, response) { 'use strict';
+		console.log("--- getMyOpportunities route called ---");
+		if(!request.body.personId) {
+			response.send('inputs not valid - no personID');
+			return;
+		}
 		var params = [
+			request.boy.personId
 		];
-		console.log("getMyOpportunities route called");
-		console.log("calling "+ sprocName);
-		function processSproc(results) {
+	
+		console.log("calling sprocMyOpps");
+		dbServer.sproc(sprocName, params, function processSproc(results) {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = results[0];
+	    		returnResults.status = "success";
 	    		console.log("sprocMyOpps successful");
 	    		response.send(returnResults);
 	    	}
-		};
-		dbServer.sproc(sprocName, params, processSproc);
+		});
     },
     
-	joinOpportunity: function(request, response) { 'use strict';	
+	joinOpportunity: function(request, response) { 'use strict';
+		console.log("--- joinOpportunity route called ---");
+		if(!request.body.personId || !request.body.opportunityId) {
+			response.send('inputs not valid');
+			return;
+		}
 		var params = [
-			request.body.opportunityId ? request.body.opportunityId : null,
-			request.body.personId ? request.body.personId : null
+			request.body.opportunityId,
+			request.body.personId
 		];
-		console.log("joinOpportunity route called");
+		
 		console.log("calling sprocJoinOpp");
-		console.log("params");
+		console.log("params:");
 		console.log(params);
 		dbServer.sproc("sprocJoinOpp", params, function processSproc(results) {
 			if (results && results.error) {
-				console.log(results);
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0];
-	    		if(returnResults === "invalid:1062") {
+	    		console.log("sprocJoinOpp results:");
+	    		var returnResults = {};
+	    		if(results[0] && results[0] === "invalid:1062") {
+	    			returnResults = results[0];
 	    			returnResults.status = "invalid";
 	    			returnResults.message = "person already joined";
 	    		} else {
 	    			returnResults.status = "success";
 	    			returnResults.message = "person joined";
 	    		}
+	    		console.log(returnResults);
 	    		response.send(returnResults);
 	    	}
 		});
     },
     
-    leaveOpportunity: function(request, response) { 'use strict';	
-   		var sprocName = "sprocLeaveOpp";
+    leaveOpportunity: function(request, response) { 'use strict';
+    	console.log("--- leaveOpportunity route called ---");
+	    if(!request.body.personId || !request.body.opportunityId) {
+			response.send('inputs not valid');
+			return;
+		}
 		var params = [
-			request.body.OpportunityID ? request.body.OpportunityID : null,
-			request.body.PersonID ? request.body.PersonID : null
+			request.body.opportunityId,
+			request.body.personId
 		];
-		console.log("leaveOpportunity route called");
-		console.log("calling "+ sprocName);
-		function processSproc(results) {
+		
+		console.log("calling sprocLeaveOpp");
+		console.log("params:");
+		console.log(params);		
+		dbServer.sproc("leaveOpportunity", params, function(results) {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0];
+	    		console.log("sprocLeaveOpp results:");
+	    		var returnResults = {};
+	    		if(results[0]) {
+	    			returnResults = [0];
+	    			returnResults.status = "success";
+	    			returnResults.message = "person unjoined";
+	    		}
+	    		console.log(returnResults);
 	    		response.send(returnResults);
 	    	}
-		};
-		dbServer.sproc(sprocName, params, processSproc);
+		});
     }
 };
 

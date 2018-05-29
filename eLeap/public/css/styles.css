@@ -177,7 +177,6 @@ ul, ol {
 
 .icon-big {
 	font-size: 58px;
-	padding-top: 20px;
 }
 
 .largeButton {
@@ -309,6 +308,7 @@ ul, ol {
 .navLink {
 	color: #85d6de;
 	cursor: pointer;
+	padding-top: 20px;
 }
 .navLink span, .dashboardLink {
 	color: white;

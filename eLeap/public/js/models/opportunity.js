@@ -206,7 +206,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		
 		leaveOpportuntiy: function(options) {
 			var options = options || {};
-			var joinInputs = {
+			var leaveInputs = {
 				opportunityId: this.get('opportunityId'),
 				personId: options.personId
 			};
