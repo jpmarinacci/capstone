@@ -16,10 +16,12 @@ function (eLeap, $, _, Backbone) { 'use strict';
 		initialize: function () {},
 		
 		dateTimeToDisplay: function(dateTime) {
-			var dateObj = new Date(dateTime);
-			var dateDisplay = this.formatDateDisplay(dateObj);
-			var timeDisplay = this.formatTimeDisplay(dateObj);
-			return dateDisplay + ', ' +  timeDisplay;
+			if(dateTime) {
+				var dateObj = new Date(dateTime);
+				var dateDisplay = this.formatDateDisplay(dateObj);
+				var timeDisplay = this.formatTimeDisplay(dateObj);
+				return dateDisplay + ', ' +  timeDisplay;
+			}
 		},
 		
 		formatDateDisplay: function(dateObj) {
@@ -39,12 +41,14 @@ function (eLeap, $, _, Backbone) { 'use strict';
 		},
 		
 		formatTimeDisplay: function(dateObj) {
-			var hours = dateObj.getHours();
-			var suffix = (hours >= 12) ? 'pm' : 'am';
-			hours = ((hours + 11) % 12 + 1);
-			var min = dateObj.getMinutes();
-			var convertTime = hours + ':' + min + suffix;
-			return convertTime;
+			if(dateObj) {
+				var hours = dateObj.getHours();
+				var suffix = (hours >= 12) ? 'pm' : 'am';
+				hours = ((hours + 11) % 12 + 1);
+				var min = dateObj.getMinutes();
+				var convertTime = hours + ':' + min + suffix;
+				return convertTime;
+			}
 		}
 	});
 	

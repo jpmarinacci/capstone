@@ -42,6 +42,12 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 				}
 			}
 		},
+		
+		listenForEvents: function() {
+			this.stopListening();
+			this.listenTo(this.opportunity, 'sync', this.renderOpportunity);
+			this.listenTo(this.opportunity, 'change', this.opportunityChanged);
+		},
 				
 		openViewMode: function() {
 			this.mode = "view";
@@ -78,10 +84,10 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 			this.$(".opportunityDetailsView").hide();
 		},
 		
-		listenForEvents: function() {
-			this.stopListening();
-			this.listenTo(this.opportunity, 'change', this.renderOpportunity);
-			//this.listenTo(this.opportunity, 'change', this.openViewMode);
+		opportunityChanged: function() {
+			this.mode = "view";
+			this.showDetailView();
+			this.renderOpportunity();
 		},
 		
 		renderOpportunity: function() {
