@@ -447,8 +447,8 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			var thisForm = this;
 			var options = {
 				success: function(opportunity) {
-					var addedOpp = cache.opportunities.add(opportunity.toJSON(), {merge:true});
-					addedOpp.isFetched = true;
+					/*var addedOpp = cache.opportunities.add(opportunity.toJSON(), {merge:true});
+					addedOpp.isFetched = true;*/
 					var message;
 					if(thisForm.options.opportunity) {
 						message = "opportunity updated";

@@ -13,8 +13,7 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/opp
 		
 		routes: {
 			getAllOpportunities: '/getAllOpportunities',
-			getMyOpportunities: '/getMyOpportunities',
-			getOpportunities: '/getOpportunities'
+			getMyOpportunities: '/getMyOpportunities'
 		},
 		
 		sync: function (method, thisCollection, options) {

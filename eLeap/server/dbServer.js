@@ -80,6 +80,7 @@ instantiateDbServer = function() {
 			console.log ("SQL: " + sql);
 
 			function processQuery (error, results, fields) {
+				//catches database errors
 				if (error) {
 					results = results || {};
 					results.error = error;
@@ -98,7 +99,7 @@ instantiateDbServer = function() {
 			console.log("database error occurred: ");
 			if(results && results.error) {
 				console.log(results.error);
-				response.send("database error occurred: " + results.error);
+				response.send("database error: " + results.error);
 			}
 			return;
 	    }

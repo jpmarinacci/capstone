@@ -5,6 +5,8 @@
 
 define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'], 
 	function($, _, Backbone, eLeap, server) { 'use strict';
+	
+	var thisModel = undefined;
 
 	eLeap.own.Opportunity = Backbone.Model.extend({
 
@@ -67,8 +69,11 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			updateOpportunity: "/updateOpportunity",
 			deleteOpportunity: "/deleteOpportunity",
 			joinOpportunity: "/joinOpportunity",
-			leaveOpportunity: "/leaveOpportunity",
-			getOpportunityHours: "/getOpportunityHours",
+			leaveOpportunity: "/leaveOpportunity"
+		},
+		
+		initialize: function() {
+			thisModel = this;
 		},
 
 		sync: function(method, thisModel, options) {
@@ -80,13 +85,18 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 							options.appError(response);
 						}
 					} else {
-						if(options.success) {
-							if(options.context) {
-								options.call(options.success, context);
-							} else {
-								options.success(response);
+						require(['controllers/cache'], function(cache) {
+							var parsedOpp = thisModel.parseOppFromDB(response);
+							var cachedOpp = cache.opportunities.add(parsedOpp, {merge:true});
+							cachedOpp.isFetched = true;
+							if(options.success) {
+								if(options.context) {
+									options.call(options.success, context);
+								} else {
+									options.success(response);
+								}
 							}
-						}
+						});
 					}
 				}, function(error) {
 					if(options.error) {
@@ -95,18 +105,23 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 				});
 			} else if(method === 'read') {
 				server.postRoute(this.routes.getOpportunity, this.toJSON(), function(response) {
-					if(response.status && response.status !== "success") {
+					if(response.serverStatus && response.serverStatus !== "success") {
 						if(options.appError) {
 							options.appError(response);
 						}
 					} else {
-						if(options.success) {
-							if(options.context) {
-								options.call(options.success, context);
-							} else {
-								options.success(response);
+						require(['controllers/cache'], function(cache) {
+							var fetchedOpp = thisModel.parseOppFromDB(response);
+							var cachedOpp = cache.opportunities.add(fetchedOpp, {merge: true});
+							cachedOpp.isFetched = true;
+							if(options.success) {
+								if(options.context) {
+									options.call(options.success, context);
+								} else {
+									options.success(response);
+								}
 							}
-						}
+						});
 					}
 				}, function(error) {
 					if(options.error) {
@@ -284,3 +299,4 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 
 	return eLeap.own.Opportunity;
 });
+

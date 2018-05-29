@@ -88,9 +88,7 @@ app.post('/createOpportunity', opportunities.createOpportunity);
 app.post('/deleteOpportunity', opportunities.deleteOpportunity);
 app.post('/getAllOpportunities', opportunities.getAllOpportunities);
 app.post('/getMyOpportunities', opportunities.getMyOpportunities);
-app.post('/getOpportunities', opportunities.getOpportunities);
 app.post('/getOpportunity', opportunities.getOpportunity);
-app.post('/getOpportunityHours', opportunities.getOpportunityHours);
 app.post('/joinOpportunity', opportunities.joinOpportunity);
 app.post('/updateOpportunity', opportunities.updateOpportunity);
 

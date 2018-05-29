@@ -80,8 +80,8 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 		
 		listenForEvents: function() {
 			this.stopListening();
-			this.listenTo(this.opportunity, 'sync', this.renderOpportunity);
-			this.listenTo(this.opportunity, 'change', this.openViewMode);
+			this.listenTo(this.opportunity, 'change', this.renderOpportunity);
+			//this.listenTo(this.opportunity, 'change', this.openViewMode);
 		},
 		
 		renderOpportunity: function() {
