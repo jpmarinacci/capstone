@@ -1027,6 +1027,10 @@ ul, ol {
 	font-weight: 800;
 }
 
+.bg-full {
+	background-color: #eee;
+}
+
 /**************** Media Queries *********************/
 
 @media only screen and (min-width: 320px) {
