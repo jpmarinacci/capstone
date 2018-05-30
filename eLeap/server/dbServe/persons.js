@@ -32,11 +32,14 @@ var persons = {
 	    		var returnReults = JSON.stringify(results);
 	    		console.log("returnReults");
 	    		console.log(returnReults);
-	    		if(returnReults.CanNotInsert) {
+	    		if(returnReults[0] == {"CanNotInsert":1062}) {
 	    			console.log('ok we found it');
 	    		}
-	    		if(returnReults.CanNotInsert && returnReults.CanNotInsert === 1062) {
+	    		if(returnReults[0][0] == {"CanNotInsert":1062}) {
 	    			console.log('ok we really found it');
+	    		}
+	    		if(returnReults[0][0].CanNotInsert == 1062) {
+	    			console.log('ok found it now');
 	    		}
 	    		var returnResults = results || {};
 	    		var person = results[0] || {};
