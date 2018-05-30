@@ -423,7 +423,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 				title: this.$(".oppFormTitle").val(),
 				totalSeats: Number(this.$(".oppFormTotalSeats").val())
 			};
-			switch(type) {
+			switch(opportunityType) {
 				case 'service':
 					opportuntityJson.preferredAgencyType = this.$(".oppFormPrefAgencyType").val();
 					opportuntityJson.preferredServiceWorkType = this.$(".oppFormPrefServiceWork").val();
@@ -432,25 +432,25 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 					donation= Number(this.$(".oppFormDonation").val());
 					break;
 				case 'project':
-					deliverables= this.$(".oppFormProductDeliverables").val();
-					notAllowed= this.$(".oppFormNotAllowed").val();
-					agencyCommitment= this.$(".oppFormAgencyCommitment").val();
+					opportuntityJson.deliverables = this.$(".oppFormProductDeliverables").val();
+					opportuntityJson.notAllowed = this.$(".oppFormNotAllowed").val();
+					opportuntityJson.agencyCommitment = this.$(".oppFormAgencyCommitment").val();
 					opportuntityJson.preferredAgencyType = this.$(".oppFormAgencyType");
 					break;
 				case 'gig':
-					isPaid = this.$(".oppFormIsPaid:checked").val() ? true: false,
-					payAmount= Number(this.$(".oppFormPayAmount").val());
+					opportuntityJson.isPaid = this.$(".oppFormIsPaid:checked").val() ? true: false,
+					opportuntityJson.payAmount = Number(this.$(".oppFormPayAmount").val());
 					break;
 				case 'deliverable':
-					deliverables =  this.$(".oppFormDeliverables").val();
-					isVirtual = this.$(".oppFormIsVirtual:checked").val() ? true: false;
-					supportDescription = this.$(".oppFormGivenSupport").val();
-					requirements = this.$(".oppFormRequirements").val();
-					isPaid: this.$(".oppFormIsPaid:checked").val() ? true: false,
-					payAmount= Number(this.$(".oppFormPayAmount").val());
+					opportuntityJson.deliverables =  this.$(".oppFormDeliverables").val();
+					opportuntityJson.isVirtual = this.$(".oppFormIsVirtual:checked").val() ? true: false;
+					opportuntityJson.supportDescription = this.$(".oppFormGivenSupport").val();
+					opportuntityJson.requirements = this.$(".oppFormRequirements").val();
+					opportuntityJson.isPaid = this.$(".oppFormIsPaid:checked").val() ? true: false,
+					opportuntityJson.payAmount = Number(this.$(".oppFormPayAmount").val());
 					break;
 				case 'other':
-					examples= this.$(".oppFormExamples").val();
+					opportuntityJson.examples = this.$(".oppFormExamples").val();
 					break;
 				default:
 					break;
