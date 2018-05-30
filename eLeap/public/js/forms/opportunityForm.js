@@ -31,7 +31,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			'click .oppFormIsClass': 'toggleClassSection',
 			'click .oppFormOppType': 'toggleTypeSection',
 			'click .saveOpportunity': 'commandSaveOpportunity',
-			'click .deleteOpportunity': 'commandDeleteOpportunity'
+			'click .deleteOppBtn': 'commandDeleteOpportunity'
 		},
 		
 		initialize: function (options) {
@@ -380,7 +380,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			this.$(".oppFormTitle").val(this.opportunity.get('title'));
 			this.$(".oppFormTotalSeats").val(this.opportunity.get('totalSeats'));
 			
-			this.$(".deleteOpportunity").show();
+			if(this.opportunity.get('ownerId') === user.person.get('personId')) {
+				this.$(".deleteOppBtn").show();	
+			}
 			this.$(".oppFormHeader").text("Edit Opportunity");
 		},
 		

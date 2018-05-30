@@ -417,6 +417,16 @@ ul, ol {
 	color: #ff0000;
 }
 
+.deleteOppBtn {
+	margin-left: 10px;
+	background-color: red;
+} 
+.deleteOppBtn:hover {
+	background-color: orange;
+	color: white;
+	/* make whatever you want*/
+}
+
 /* Dashboard Page */
 
 .welcome {
