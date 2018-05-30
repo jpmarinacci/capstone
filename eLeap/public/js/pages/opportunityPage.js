@@ -88,6 +88,7 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 		openViewMode: function() {
 			this.mode = "view";
 			this.showDetailView();
+			this.decideDisplayApprove();
 			this.commandDispatcher.trigger('showEdit');
 			this.getCurrentOpportunity();
 		},
@@ -114,6 +115,12 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 				this.commandDispatcher.trigger('showLeave');
 			} else {
 				this.commandDispatcher.trigger('showJoin');
+			}
+		},
+		
+		decideDisplayApprove: function() {
+			if(user.person.get('roleId') === 4) {
+				this.commandDispatcher.trigger('showApprove');
 			}
 		},
 		

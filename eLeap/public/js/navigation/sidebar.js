@@ -93,9 +93,12 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			this.$(".leaveOppBtn").hide();
 		},
 		
+		hideApprove: function() {
+			this.$(".approveOppBtn").hide();
+		},
 		
 		hideOppViewBtns: function(){
-			this.$(".editOppBtn, .joinOppBtn, .leaveOppBtn").hide();
+			this.$(".editOppBtn, .joinOppBtn, .leaveOppBtn, .approveOppBtn").hide();
 			this.$(".createOppBtn").show();
 		},
 		
