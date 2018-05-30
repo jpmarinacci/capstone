@@ -35,6 +35,11 @@ var persons = {
 	    		if(returnReults[0] == {"CanNotInsert":1062}) {
 	    			console.log('ok we found it');
 	    		}
+	    		var blah =  returnReults[0][0];
+	    		console.log(blah);
+	    		if(blah == {"CanNotInsert":1062}) {
+	    			console.log('mmmmmm');
+	    		}
 	    		if(returnReults[0][0] == {"CanNotInsert":1062}) {
 	    			console.log('ok we really found it');
 	    		}
