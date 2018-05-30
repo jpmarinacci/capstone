@@ -54,7 +54,7 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 			if(this.opportunities) {
 				var isShow = false;
 				var thisPage = this;
-				this.opportunties.sort();
+				this.opportunities.sort();
 				this.opportunities.each(function(opportunity) {
 					//needs to updates dateTime to 00:00 -- alsot remember to format time {0:00}
 					isShow = opportunity.get('endDateTime') && opportunity.get('endDateTime') > new Date() ? true: false;
