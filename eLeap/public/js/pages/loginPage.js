@@ -26,7 +26,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'cont
 		
 		renderFramework: function(){
 			this.$el.html(this.pageTmpl());
-			this.$(".loginButton").html("Log In");
+			this.$(".loginButton").html("Login");
 			$(".logoHeader").show();
 		},
 		
