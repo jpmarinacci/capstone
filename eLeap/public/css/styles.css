@@ -4,7 +4,9 @@
  */
 
 /* base html css */
+/*
 body {
+
 	font: 14px "Lucida Grande", Oswald, Consolas, Georgia, Helvetica, Arial, sans-serif;
 	height: 100%;
 	min-height: 100%;
@@ -27,6 +29,7 @@ footer {
 	margin-bottom: 56px;
 	display: flex;
 }
+*/
 
 a {
   color: #00B7FF;
@@ -310,9 +313,10 @@ ul, ol {
 	cursor: pointer;
 	padding-top: 20px;
 }
-.navLink span, .dashboardLink {
+.navLink span {
 	color: white;
 	cursor: pointer;
+	font-size: 11px;
 }
 .dashboardLink:hover {
 	color: #00B7FF;
@@ -430,6 +434,11 @@ ul, ol {
 .opportunityItem .oppItemField h6{
 	word-break: break-word;
 }
+
+.opportunitiesList {
+	margin: 0 0 0 0;
+}
+
 .opportunitiesList .opportunityItem {
 	border-radius: 2px;
 	text-align: left;
