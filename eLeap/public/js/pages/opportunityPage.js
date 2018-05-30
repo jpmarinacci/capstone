@@ -132,6 +132,7 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 					opportunity: this.opportunity
 				});
 				this.$(".opportunityView").html(opportunityView.render());
+				this.$(".oppBreadCrumbTitle").text(this.opportunity.get('title'));
 			}
 		},
 		

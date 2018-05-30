@@ -42,6 +42,7 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 				this.listenTo(this.commandDispatcher, 'showEdit', this.showEdit);
 				this.listenTo(this.commandDispatcher, 'showJoin', this.showJoin);
 				this.listenTo(this.commandDispatcher, 'showLeave', this.showLeave);
+				this.listenTo(this.commandDispatcher, 'showApprove', this.showApprove);
 				this.listenTo(this.commandDispatcher, 'hideCreate', this.hideCreate);
 				this.listenTo(this.commandDispatcher, 'hideEdit', this.hideEdit);
 				this.listenTo(this.commandDispatcher, 'hideJoin', this.hideJoin);
@@ -72,6 +73,10 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			this.$(".leaveOppBtn").show();
 		},
 		
+		showApprove: function() {
+			this.$(".approveOppBtn").show();
+		},
+		
 		hideCreate: function() {
 			this.$(".createOppBtn").hide();
 		},
@@ -87,6 +92,7 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		hideLeave: function(){
 			this.$(".leaveOppBtn").hide();
 		},
+		
 		
 		hideOppViewBtns: function(){
 			this.$(".editOppBtn, .joinOppBtn, .leaveOppBtn").hide();
