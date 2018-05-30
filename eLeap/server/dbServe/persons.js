@@ -29,7 +29,7 @@ var persons = {
 	    	} else {
 	    		console.log("sproc Add per returned");
 	    		console.log(results);
-	    		var returnReults = JSON.stringify(rows);
+	    		var returnReults = JSON.stringify(results);
 	    		console.log("returnReults");
 	    		console.log(returnReults);
 	    		if(returnReults.CanNotInsert) {
