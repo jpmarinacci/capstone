@@ -107,6 +107,7 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 				return;
 			}
 		},
+		
 		commandChangedSelectRoles: function(event) {
 			var inputValue = this.$(".selectRoles").val();
 			if(this.isNotEmpty(inputValue)) {

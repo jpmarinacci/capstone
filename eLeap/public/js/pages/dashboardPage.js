@@ -37,7 +37,7 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 		listenForEvents: function() {
 			this.stopListening();
 			this.listenTo(this.opportunities, 'reset', this.renderOpportunities);
-			this.listenTo(user.person, 'change', this.renderWelcome);
+			this.listenTo(user.person, 'change', this.render);
 		},
 		
 		fetchOpportunities: function() {
@@ -46,19 +46,26 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 			cache.fetchOpportunites({reset: true});
 		},
 		
-		renderWelcome: function() {
+		render: function() {
 			this.$(".welcomeName").text(user.person.get('personName'));
+			if(user.person.get('roleId') < 3){
+				if(this.commandDispatcher) {
+					this.commandDispatcher.trigger('hideCreate');
+				}
+			}
 		},
 		
 		renderOpportunities: function() {
 			if(this.opportunities) {
 				var isShow = false;
 				var thisPage = this;
+				this.opportunities.sort();
 				this.opportunities.each(function(opportunity) {
+					//needs to updates dateTime to 00:00 -- alsot remember to format time {0:00}
 					isShow = opportunity.get('endDateTime') && opportunity.get('endDateTime') > new Date() ? true: false;
 					isShow = user.person.get('roleId') === 7 ? true: isShow;
 					//temp -- case show newb old opps while developing
-					//isShow = user.person.get('personId') === 19 ? true: isShow;
+					isShow = user.person.get('personId') === 19 ? true: isShow;
 					if(isShow) {
 						var oppItem = new OpportunityItem({
 							opportunity: opportunity
