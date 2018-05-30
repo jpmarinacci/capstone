@@ -53,6 +53,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			} else if(method === 'read') {
 				//this.translatePersonToDB()
 				server.postRoute(this.routes.getPerson, this.toJSON(), function (response) {
+					//if(response = CanNotInsert:1062)
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);

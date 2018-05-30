@@ -36,7 +36,7 @@ var persons = {
 			    if(row2.protocol41){
 	    			console.log("JP found its protocol41");
 	    		};
-	    		var blah = results[0];
+	    		var blah = results[0][0];
 	    		if(blah == {CanNotInsert: 1062 }){
 	    			console.log("JP found its blah");
 	    		};

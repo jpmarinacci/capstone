@@ -171,6 +171,9 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 			var thisForm = this;
 			var options = {
 				success: function(person) {
+					if(person && person.get('personId')) {
+						
+					}
 					user.person.set(person);
 					if(thisForm.options.person){
 						notifications.notifyUser("successfully updated your account");
