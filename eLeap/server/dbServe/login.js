@@ -43,7 +43,15 @@ var login = {
 		    		var person = results[1][0];
 		    		if(bcrypt.compareSync(credential, person.credential)) {
 		    			returnResults.loginStatus = 'valid';
-		    			returnResults.person = person;
+		    			returnResults.person = {
+		    				email: person.email,
+		    				personId: person.personId,
+		    				personName: person.personName,
+		    				phone: person.phone,
+		    				roleId: person.roleId,
+		    				picURL: person.picURL,
+		    				themeId: person.themeId
+		    			};
 		    			session.email = returnResults.person.email;
 			            session.personId = returnResults.person.personId;
 			            session.personName = returnResults.person.personName;

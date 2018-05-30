@@ -43,12 +43,17 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 				this.listenTo(this.commandDispatcher, 'showJoin', this.showJoin);
 				this.listenTo(this.commandDispatcher, 'showLeave', this.showLeave);
 				this.listenTo(this.commandDispatcher, 'showApprove', this.showApprove);
+				this.listenTo(this.commandDispatcher, 'showDeny', this.showDeny);
 				this.listenTo(this.commandDispatcher, 'showJoined', this.showJoined);
+				this.listenTo(this.commandDispatcher, 'hideApprove', this.hideApprove);
+				this.listenTo(this.commandDispatcher, 'hideDeny', this.hideDeny);
 				this.listenTo(this.commandDispatcher, 'hideCreate', this.hideCreate);
 				this.listenTo(this.commandDispatcher, 'hideEdit', this.hideEdit);
 				this.listenTo(this.commandDispatcher, 'hideJoin', this.hideJoin);
 				this.listenTo(this.commandDispatcher, 'hideLeave', this.hideLeave);
 				this.listenTo(this.commandDispatcher, 'hideOppViewBtns', this.hideOppViewBtns);
+				this.listenTo(this.commandDispatcher, 'showApproveDeny', this.showApproveDeny);
+				this.listenTo(this.commandDispatcher, 'hideApproveDeny', this.hideApproveDeny);
 			}
 		},
 		
@@ -78,12 +83,26 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			this.$(".approveOppBtn").show();
 		},
 		
+		showDeny: function() {
+			this.$(".denyOppBtn").show();
+		},
+		
 		showJoined: function() {
 			this.$(".joinedOppBtn").show();
 		},
 				
 		showOwned: function() {
 			this.$(".ownedOppBtn").show();
+		},
+		
+		showApproveDeny: function() {
+			this.$(".approveOppBtn").show();
+			this.$(".denyOppBtn").show();
+		},
+		
+		hideApproveDeny: function() {
+			this.$(".approveOppBtn").hide();
+			this.$(".denyOppBtn").hide();
 		},
 		
 		hideCreate: function() {
@@ -106,6 +125,10 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			this.$(".approveOppBtn").hide();
 		},
 		
+		hideDeny: function() {
+			this.$(".denyOppBtn").show();
+		},
+		
 		hideJoined: function() {
 			this.$(".joinedOppBtn").hide();
 		},
@@ -115,7 +138,7 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		},
 		
 		hideOppViewBtns: function(){
-			this.$(".editOppBtn, .joinOppBtn, .leaveOppBtn, .approveOppBtn").hide();
+			this.$(".editOppBtn, .joinOppBtn, .leaveOppBtn, .approveOppBtn, .denyOppBtn").hide();
 			this.$(".createOppBtn").show();
 		},
 		

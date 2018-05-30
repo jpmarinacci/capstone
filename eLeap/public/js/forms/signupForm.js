@@ -48,8 +48,10 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 				this.listenToOnce(cache.roles, 'reset', this.renderPerson);
 			} else {
 				var role = cache.roles.get(roleId);
-				var roleName = role.get('roleName');
-				this.$(".signupRoleName").html(roleName);
+					if(role) {
+					var roleName = role.get('roleName');
+					this.$(".signupRoleName").html(roleName);
+				}
 			}
 		},
 		

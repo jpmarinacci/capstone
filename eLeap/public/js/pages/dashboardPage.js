@@ -52,9 +52,6 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 				if(this.commandDispatcher) {
 					this.commandDispatcher.trigger('hideCreate');
 				}
-				if(user.person.get('roleId') < 6){
-					this.$(".oppItemApproveDenyBlock").hide();
-				}
 			}
 		},
 		
@@ -76,6 +73,9 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 						thisPage.$(".opportunitiesList").append(oppItem.render());
 					}
 				});
+				if(user.person.get('roleId') > 5){
+					this.$(".oppItemApproveDenyBlock").show();
+				}
 			}
 		},
 		
