@@ -28,7 +28,7 @@ var persons = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sproc Add per returned");
-	    		consoloe.log(results);
+	    		console.log(results);
 	    		
 	    		
 	    		if(results === {CanNotInsert:1062} || results[0] === {CanNotInsert:1062}) {
