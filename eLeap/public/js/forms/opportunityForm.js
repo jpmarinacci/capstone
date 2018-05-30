@@ -424,6 +424,12 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 				totalSeats: Number(this.$(".oppFormTotalSeats").val())
 			};
 			switch(opportunityType) {
+				case 'project':
+					opportuntityJson.deliverables = this.$(".oppFormProductDeliverables").val();
+					opportuntityJson.notAllowed = this.$(".oppFormNotAllowed").val();
+					opportuntityJson.agencyCommitment = this.$(".oppFormAgencyCommitment").val();
+					opportuntityJson.preferredAgencyType = this.$(".oppFormAgencyType").val();
+					break;
 				case 'service':
 					opportuntityJson.preferredAgencyType = this.$(".oppFormPrefAgencyType").val();
 					opportuntityJson.preferredServiceWorkType = this.$(".oppFormPrefServiceWork").val();
@@ -431,12 +437,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 				case 'volunteer':
 					donation= Number(this.$(".oppFormDonation").val());
 					break;
-				case 'project':
-					opportuntityJson.deliverables = this.$(".oppFormProductDeliverables").val();
-					opportuntityJson.notAllowed = this.$(".oppFormNotAllowed").val();
-					opportuntityJson.agencyCommitment = this.$(".oppFormAgencyCommitment").val();
-					opportuntityJson.preferredAgencyType = this.$(".oppFormAgencyType");
-					break;
+
 				case 'gig':
 					opportuntityJson.isPaid = this.$(".oppFormIsPaid:checked").val() ? true: false,
 					opportuntityJson.payAmount = Number(this.$(".oppFormPayAmount").val());
