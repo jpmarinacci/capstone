@@ -29,21 +29,15 @@ var persons = {
 	    	} else {
 	    		console.log("sproc Add per returned");
 	    		console.log(results);
-	    		if(results[0] === '[ RowDataPacket { CanNotInsert: 1062 } ]'){
-	    			console.log("JP found its weird string");
-	    		};
-	    		var row2 =results[0][0]; 
-			    if(row2.protocol41){
-	    			console.log("JP found its protocol41");
-	    		};
-	    		var blah = results[0][0];
-	    		if(blah == {CanNotInsert: 1062 }){
-	    			console.log("JP found its blah");
-	    		};
-	    		if(blah == {'CanNotInsert': 1062 }){
-	    			console.log("JP found its blah with quotes");
-	    		};
-	    		
+	    		var returnReults = JSON.stringify(rows);
+	    		console.log("returnReults");
+	    		console.log(returnReults);
+	    		if(returnReults.CanNotInsert) {
+	    			console.log('ok we found it');
+	    		}
+	    		if(returnReults.CanNotInsert && returnReults.CanNotInsert === 1062) {
+	    			console.log('ok we really found it');
+	    		}
 	    		var returnResults = results || {};
 	    		var person = results[0] || {};
 	    		//person.status = "success";
