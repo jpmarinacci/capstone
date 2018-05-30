@@ -5,53 +5,97 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'controllers/notifications', 'controllers/user',
-		'forms/opportunityForm', 'items/opportunityDetailItem', 'text!../../tmpl/pages/opportunityPage.tmpl'],
-function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, OpportunityDetailItem, opportunityPageTmpl) { 'use strict';
-		
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'controllers/notifications', 'controllers/router',
+		'controllers/user', 'forms/opportunityForm', 'items/opportunityDetailItem', 'text!../../tmpl/pages/opportunityPage.tmpl'],
+function (eLeap, $, _, Backbone, cache, notifications, router, user, OpportunityForm, OpportunityDetailItem, opportunityPageTmpl) { 'use strict';
+	
 	eLeap.own.OpportunityPage = Backbone.View.extend({
 		
 		pageTmpl: _.template(opportunityPageTmpl),
 		mode: "create",
 		
 		events: {
-			'click .oppViewJoinBtn': 'commandJoinOpportunity',
+			/*'click .oppViewJoinBtn': 'commandJoinOpportunity',
 			'click .oppViewLeaveBtn': 'commandLeaveOpportunity',
-			'click .oppViewEditBtn': 'commandEditOpportunity'
+			'click .oppViewEditBtn': 'commandEditOpportunity'*/
 		},
 		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
+			this.commandDispatcher = options.commandDispatcher;
 			this.renderFramework();
+			this.listenForDispatcherEvents();
 			this.opportunityId = options.opportunityId;
 			if(this.opportunityId === "create") {
 				this.mode = "create",
 				this.showCreateView();
-				var thisPage = this;
-				thisPage.opportunityForm = new OpportunityForm({
-					el: thisPage.$(".opportunityPageCreateForm")
+				this.opportunityForm = new OpportunityForm({
+					el: this.$(".opportunityPageCreateForm")
 				});
 				
 			} else {
-				this.mode = "view";
-				this.showDetailView();
-				this.getCurrentOpportunity();
+				this.opportunityId = Number(this.opportunityId);
+				if(this.opportunityId) {
+					this.openViewMode();
+				} else {
+					notifications.notifyUser("invalid opportuity ID");
+					router.navigate('/dashboard', {trigger: true});
+				}
+			}
+		},
+				
+		renderFramework: function(){
+			this.$el.html(this.pageTmpl());
+		},
+		
+		listenForDispatcherEvents: function() {
+			if(this.commandDispatcher) {
+				this.stopListening(this.commandDispatcher);
+				this.listenTo(this.commandDispatcher, 'command:editOpp', this.commandEditOpportunity);
+				this.listenTo(this.commandDispatcher, 'command:joinOpp', this.commandJoinOpportunity);
+				this.listenTo(this.commandDispatcher, 'command:leaveOpp', this.commandLeaveOpportunity);
 			}
 		},
 		
-		getCurrentOpportunity: function() {
-			var oppId = Number(this.opportunityId);
-			if(oppId) {
-				this.opportunity = cache.getOpportunity({
-					opportunityId: oppId
-				});
+		listenForOppEvents: function() {
+			if(this.opportunity) {
+				this.stopListening(this.opportunity);
+				this.listenTo(this.opportunity, 'sync', this.renderOpportunity);
+				this.listenTo(this.opportunity, 'change', this.opportunityChanged);
 			}
-			this.listenForEvents();
+		},
+				
+		getCurrentOpportunity: function() {
+			this.opportunity = cache.getOpportunity({
+				opportunityId: this.opportunityId
+			});
+			
+			this.listenForOppEvents();
+			
+			//forcing fetch to get isJoined value (purposely not using cache correctly) 
+			this.opportunity.isFetched = false;
+			//end hack
 			cache.fetchOpportunity(this.opportunity);
 		},
 		
-		renderFramework: function(){
-			this.$el.html(this.pageTmpl());
+		opportunityChanged: function() {
+			this.mode = "view";
+			this.showDetailView();
+			this.renderOpportunity();
+		},
+				
+		openViewMode: function() {
+			this.mode = "view";
+			this.showDetailView();
+			this.commandDispatcher.trigger('showEdit');
+			this.getCurrentOpportunity();
+		},
+		
+		openEditMode: function() {
+			this.mode = "edit";
+			this.showCreateView();
+			this.commandDispatcher.trigger('hideEdit');
+			this.getCurrentOpportunity();
 		},
 		
 		showDetailView: function() {
@@ -64,13 +108,20 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, Op
 			this.$(".opportunityDetailsView").hide();
 		},
 		
-		listenForEvents: function() {
-			this.stopListening();
-			this.listenTo(this.opportunity, 'sync change', this.renderOpportunity);
+		decideDisplayJoin: function() {
+			if(this.opportunity.get('isJoined')) {
+				this.commandDispatcher.trigger('showLeave');
+			} else {
+				this.commandDispatcher.trigger('showJoin');
+			}
 		},
 		
 		renderOpportunity: function() {
+			this.decideDisplayJoin();
 			if(this.mode === "edit") {
+				if(this.opportunityForm) {
+					this.opportunityForm.remove();
+				}
 				this.opportunityForm = new OpportunityForm({
 					el: this.$(".opportunityPageCreateForm"),
 					opportunity: this.opportunity
@@ -85,10 +136,13 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, Op
 		
 		commandJoinOpportunity: function() {
 			this.$(".oppViewJoinBtn").attr('disabled', 'disabled');
+			var thisPage = this;
 			var options = {
 				personId: user.person.get('personId'),
 				success: function() {
 					notifications.notifyUser("You joined this opportunity");
+					thisPage.commandDispatcher.trigger('hideJoin');
+					thisPage.commandDispatcher.trigger('showLeave');
 				},
 				appError: function(error) {
 					var errorMessage = error ? error.message ? error.message : error: "couldn't join at this time";
@@ -108,6 +162,8 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, Op
 				personId: user.person.get('personId'),
 				success: function() {
 					notifications.notifyUser("You Left this opportunity");
+					thisPage.commandDispatcher.trigger('showJoin');
+					thisPage.commandDispatcher.trigger('hideLeave');
 				},
 				appError: function(error) {
 					var errorMessage = error ? error.message ? error.message : error: "couldn't leave at this time";
@@ -122,9 +178,19 @@ function (eLeap, $, _, Backbone, cache, notifications, user, OpportunityForm, Op
 		},
 		
 		commandEditOpportunity: function() {
-			this.mode = "edit";
-			this.showCreateView();
-			this.getCurrentOpportunity();
+			this.openEditMode();
+		},
+		
+		remove: function() {
+			if(this.opportunityForm) {
+				this.opportunityForm.remove();
+			}
+			if(this.commandDispatcher) {
+				this.commandDispatcher.trigger('hideOppViewBtns');
+			}
+			this.$el.remove();
+			this.stopListening();
+			return this;
 		}
 	});
 	return eLeap.own.OpportunityPage;

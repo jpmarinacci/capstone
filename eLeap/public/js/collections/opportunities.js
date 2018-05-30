@@ -9,11 +9,11 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/opp
 	eLeap.own.Opportunities = Backbone.Collection.extend({
 		
 		model: Opportunity,
+		comparator: 'createDate',
 		
 		routes: {
 			getAllOpportunities: '/getAllOpportunities',
-			getMyOpportunities: '/getMyOpportunities',
-			getOpportunities: '/getOpportunities'
+			getMyOpportunities: '/getMyOpportunities'
 		},
 		
 		sync: function (method, thisCollection, options) {

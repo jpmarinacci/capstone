@@ -1,37 +1,54 @@
 <div class="oppItemDetails">
 
-    <div class="card border-dark mb-3" style="width: 18rem;">
+    <div class="card border-dark mb-3">
         <div class="card-header">
+            <div class="oppItemPicContainer">
+                <img class="oppItemPic" src="img/docs.ico" />
+            </div>
             <div class="oppItemField oppItemTitle">
-                <% if(opp.title){%>
-                <h5 class="card-title"><% if(opp.status){%><small class="fontExtraSmall fontRed">[<%= opp.status %>]</small><br><%}%><%= opp.title %></h5>
-                <%}%>
+                <h5>
+                    <span class="card-title">
+                        <%= opp.title %>
+                    </span>
+                    <br>
+                    <small class="fontExtraSmall fontRed">[<%= opp.status %>]</small>
+                </h5>
             </div>
         </div>
         <div class="card-body">
-
-            <div class="oppItemField">
-                <% if(opp.createDate){%>
-                <p class="card-subtitle mb-2 fontExtraSmall text-muted">Posted on: <%= utils.dateTimeToDisplay(opp.createDate) %></p>
-                <%}%>
-                <%if(opp.applicationDueDate){%>
-                <p class="card-subtitle mb-2 fontExtraSmall text-muted">Application due: <%= utils.dateTimeToDisplay(opp.applicationDueDate) %></p>
-                <%}%>
-                <% if(opp.totalSeats){%>
-                <p class="card-subtitle mb-2 fontExtraSmall text-muted">Total seats: <b><%= opp.totalSeats %></b></p>
-                <%}%>
+            <div class="oppItemField card-subtitle mb-2 fontExtraSmall text-muted">   
+                <span>for class:</span>
+                <span><% if(opp.isClass) {%>yes<%}else{%>no<%}%></span>
+            </div>
+            <div class="oppItemField card-subtitle mb-2 fontExtraSmall text-muted">   
+                <span>type:</span>
+                <span><%= opp.opportunityType %></span>
+            </div>
+            <div class="oppItemField card-subtitle mb-2 fontExtraSmall text-muted">
+                <span>start date:</span>
+                <span><%= utils.dateTimeToDisplay(opp.startDateTime) %></span>
             </div>
 
+            <div class="oppItemField card-subtitle mb-2 fontExtraSmall text-muted">
+                <span>end date:</span>
+                <span><%= utils.dateTimeToDisplay(opp.endDateTime) %></span>
+            </div>
+            <div class="oppItemField card-subtitle mb-2 fontExtraSmall text-muted">
+                <span>total seats: </span>
+                <span><%= opp.totalSeats %></span>
+            </div>
+            <div class="oppItemField card-subtitle mb-2 fontExtraSmall text-muted">
+                <span>available seats:</span>
+                <span><%= opp.availableSeats %></span>
+            </div>
+
+
             <div class="oppItemField">
-                <% if(opp.description){%>
                 <h6 class="card-text mb-2"><%= opp.description %></h6>
-                <%}%>
             </div>
-
-            <div class="oppItemField">
-                <p class="text-right mt-4 card-link">Read more&gt;&gt;</p>
+            <div>
+                <div class="text-right mt-4 card-link">Read more&gt;&gt;</div>
             </div>
-
         </div>
     </div>
 
@@ -274,9 +291,9 @@
         <%}%>
     </div>
     <div class="oppItemField">
-        <% if(opp.requirments){%>
-            <span class="oppItemLabel">requirments:</span>
-            <span><%= opp.requirments %></span>
+        <% if(opp.requirements){%>
+            <span class="oppItemLabel">requirements:</span>
+            <span><%= opp.requirements %></span>
         <%}%>
     </div>
     <div class="oppItemField">

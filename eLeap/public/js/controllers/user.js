@@ -89,7 +89,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 						personId: response.personId,
 						personName: response.personName
 					});
-					thisUser.fetchPerson();
+					//thisUser.fetchPerson();
 				}
 				thisUser.isLoggedIn = response.isLoggedIn;
 				thisUser.trigger('isLoggedInCheck:returned');

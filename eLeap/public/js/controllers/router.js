@@ -12,6 +12,7 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 		lastRoute: '/',
 		
 		initialize: function() {
+			this.commandDispatcher = _.clone(Backbone.Events);
 			this.navbar = new Navbar({
 				el: "#navbar"
 			});
@@ -46,7 +47,8 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 			this.navbar.showLogOutBtn();
 			if(!this.sidebar) {
 				this.sidebar = new Sidebar({
-					el: "#sidebar"
+					el: "#sidebar",
+					commandDispatcher: this.commandDispatcher
 				});
 			}
 			if (window.location.pathname === "/" + this.lastRoute) {
@@ -194,6 +196,7 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 				$("#pages").empty().append("<div id='opportunityPage'></div>");
 				require(['pages/opportunityPage'], function(OpportunityPage) {
 					thisRouter.currentPage = eLeap.run.opportunityPage = new OpportunityPage({
+						commandDispatcher: thisRouter.commandDispatcher,
 						el: "#opportunityPage",
 						opportunityId: id
 					});

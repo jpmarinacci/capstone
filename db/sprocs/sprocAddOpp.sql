@@ -1,71 +1,74 @@
 DELIMITER $$
 CREATE DEFINER=`eLeapisit`@`%` PROCEDURE `sprocAddOpp`(
 in agencyCommitment_v varchar(45),
-in applicationDueDate_v varchar(45),
-in classID_v int,
+in applicationDueDate_v datetime(6),
+in className_v varchar(45),
 in classType_v varchar(45),
 in classYear_v varchar(45),
-in courseSummary_v varchar(45),
-in createDate_v datetime,
+in courseSummary_v varchar(2000),
+in createDate_v datetime(6),
 in deliverables_v varchar(45),
-in description_v varchar(45),
-in donation_v smallint, 
+in description_v varchar(2000),
+in donation_v int, 
 in duration_v int,
-in endDate_v datetime,
-in estimatedClassSize_v varchar(45),
+in endDateTime_v datetime(6),
+in estimatedClassSize_v int,
 in examples_v varchar(45),
-in hoursRequired_v varchar(45),
+in hoursRequired_v int,
 in isClass_v tinyint(1),
-in isRequiredForClass_v varchar(45),
-in isPaid_v tinyint,
-in isServiceLearning_v tinyint,
+in isRequiredForClass_v tinyint(1),
+in isPaid_v tinyint(1),
+in isServiceLearning_v tinyint(1),
 in isTeams_v tinyint(1),
-in isVirtual_v tinyint,
+in isVirtual_v tinyint(1),
+in lastModified_v datetime(6),
 in latitude_v varchar(45),
 in location_v varchar(45),
 in longitude_v varchar(45),
-in minimumPersonRequired_v varchar(45),
+in minimumPersonsRequired_v int,
 in notAllowed_v varchar(45),
 in notes_v varchar(45),
-in numberOfTeams_v varchar(45),
+in numberOfTeams_v int,
 in onBoarding_v varchar(45),
 in opportunityType_v varchar(45),
 in ownerID_v int,
-in pay_v smallint,
+in pay_v int,
 in preferedAgencyType_v varchar(45),
 in preferedServiceWorkType_v varchar(45),
 in recurrence_v varchar(45),
 in requirements_v varchar(45),
-in startDate_v datetime,
-in statusID_v int,
+in startDateTime_v datetime(6),
+in status_v varchar(45),
 in supportDescription_v varchar(45),
 in supportPreference_v varchar(45),
-in teamSize_v varchar(45),
+in teamSize_v int,
 in term_v varchar(45),
-in timePeriodEnd_v datetime,
-in timePeriodStart_v datetime,
+in timePeriodEndDate_v datetime(6),
+in timePeriodStartDate_v datetime(6),
 in title_v varchar(45),
 in totalSeats_v int
 )
 BEGIN
-	DECLARE errno INT;
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION
-    BEGIN
-    GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
-    SELECT errno AS MYSQL_ERROR;
-    ROLLBACK;
-    END;
-	START TRANSACTION;
-	INSERT INTO eLeapData.opportunityTable(
+
+DECLARE errno INT;
+DECLARE EXIT HANDLER FOR SQLEXCEPTION
+BEGIN
+GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
+SELECT errno AS MYSQL_ERROR;
+ROLLBACK;
+END;
+START TRANSACTION;
+
+INSERT INTO eLeapData.opportunityTable(
     title,
 	description,
 	startDateTime,
 	endDateTime,
 	createDate,
-	classID,
+	className,
 	totalSeats,
 	ownerID,
-	statusID,
+	`status`,
 	notes,
 	pay,
 	donation,
@@ -90,7 +93,7 @@ BEGIN
 	opportunityType,
 	supportPreference,
 	onBoarding,
-	minimumPersonRequired,
+	minimumPersonsRequired,
 	isTeams,
 	teamSize,
 	hoursRequired,
@@ -102,17 +105,18 @@ BEGIN
 	agencyCommitment,
 	notAllowed,
 	requirements,
-	supportDescription)
+	supportDescription,
+    lastModified)
 	values
 	(title_v,
 	description_v,
-	startDate_v,
-	endDate_v,
+	startDateTime_v,
+	endDateTime_v,
 	createDate_v,
-	classID_v,
+	className_v,
 	totalSeats_v,
 	ownerID_v,
-	statusID_v,
+	status_v,
 	notes_v,
 	pay_v,
 	donation_v,
@@ -121,8 +125,8 @@ BEGIN
 	recurrence_v,
 	isVirtual_v,
 	duration_v,
-	timePeriodStart_v,
-	timePeriodEnd_v,
+	timePeriodStartDate_v,
+	timePeriodEndDate_v,
 	location_v,
 	longitude_v,
 	latitude_v,
@@ -137,7 +141,7 @@ BEGIN
 	opportunityType_v,
 	supportPreference_v,
 	onBoarding_v,
-	minimumPersonRequired_v,
+	minimumPersonsRequired_v,
 	isTeams_v,
 	teamSize_v,
 	hoursRequired_v,
@@ -149,9 +153,12 @@ BEGIN
 	agencyCommitment_v,
 	notAllowed_v,
 	requirements_v,
-	supportDescription_v
+	supportDescription_v,
+    lastModified_v
     );
-    COMMIT;
-SELECT * from eLeapData.opportunityTable Where eLeapData.opportunityTable.opportunityId =LAST_INSERT_ID();
+    SELECT 'success' AS 'status';
+    SELECT totalSeats AS 'availableSeats', opportunityTable.* FROM eLeapData.opportunityTable Where eLeapData.opportunityTable.opportunityId = LAST_INSERT_ID(); 
+    
+   COMMIT;
 END$$
 DELIMITER ;

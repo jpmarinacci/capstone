@@ -7,7 +7,7 @@
         <%}%>
     </div>
     <div class="row mt-2 mb-2 ml-2 mr-2">
-        <div class="col-4">
+        <div class="col-6">
             <div class="card">
                 <div class="oppItemField">
                 <ul class="list-group list-group-flush">
@@ -316,11 +316,11 @@
                             </li>
 
                     <%}%>
-                    <% if(opp.requirments) {%>
+                    <% if(opp.requirements) {%>
 
                             <li class="list-group-item">
-                                <b>Requirments:</b><br>
-                                <%= opp.requirments %>
+                                <b>Requirements:</b><br>
+                                <%= opp.requirements %>
                             </li>
 
                     <%}%>
@@ -385,7 +385,7 @@
             </div>
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-6">
             <% if(opp.description) {%>
                 <div class="card-body">
                     <div class="card-text">

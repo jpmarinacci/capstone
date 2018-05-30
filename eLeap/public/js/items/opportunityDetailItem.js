@@ -5,7 +5,7 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'utilities/utils', 'controllers/notifications',
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notifications',
 		'controllers/router', 'text!../../tmpl/items/opportunityDetailItem.tmpl'],
 function (eLeap, $, _, Backbone, utils, notifications, router, viewTempl) { 'use strict';
 		
