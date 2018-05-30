@@ -435,7 +435,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 					opportuntityJson.preferredServiceWorkType = this.$(".oppFormPrefServiceWork").val();
 					break;
 				case 'volunteer':
-					donation= Number(this.$(".oppFormDonation").val());
+					opportuntityJson.donation = Number(this.$(".oppFormDonation").val());
 					break;
 				case 'gig':
 					opportuntityJson.isPaid = this.$(".oppFormIsPaid:checked").val() ? true: false,
