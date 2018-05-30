@@ -29,11 +29,6 @@ var persons = {
 	    	} else {
 	    		console.log("sproc Add per returned");
 	    		console.log(results);
-	    		var returnReults = JSON.stringify(results[0]);
-	    		if(returnResults == '[{"CanNotInsert":1062}]'){
-	    			console.log("it's 500 in the morning ............");
-	    		};
-	    		
 	    		var returnResults = results || {};
 	    		var person = results[0] || {};
 	    		//person.status = "success";

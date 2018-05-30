@@ -32,7 +32,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(method === 'create') {
 				//this.translatePersonToDB()
 				server.postRoute(this.routes.signupPerson, this.toJSON(), function (response) {
-					if (response.status && response.status !== "success") {
+					if(response && response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
 						}

@@ -52,7 +52,9 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 				if(this.commandDispatcher) {
 					this.commandDispatcher.trigger('hideCreate');
 				}
-				if(user.person.get('roleId'))
+				if(user.person.get('roleId') < 6){
+					this.$(".oppItemApproveDenyBlock").hide();
+				}
 			}
 		},
 		
