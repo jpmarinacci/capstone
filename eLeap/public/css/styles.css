@@ -4,7 +4,7 @@
  */
 
 /* base html css */
-/*
+
 body {
 
 	font: 14px "Lucida Grande", Oswald, Consolas, Georgia, Helvetica, Arial, sans-serif;
@@ -25,11 +25,11 @@ footer {
 }
 
 .content {
-	/*  size of the footer
+	/* size of the footer*/
 	margin-bottom: 56px;
 	display: flex;
 }
-*/
+
 
 a {
   color: #00B7FF;
