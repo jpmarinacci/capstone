@@ -27,20 +27,24 @@ var persons = {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results || {};
-	    		if(returnResults === {CanNotInsert:1062} || returnResults[0] === {CanNotInsert:1062}) {
-	    			if(returnResults === {CanNotInsert:1062}) {
+	    		console.log("sproc Add per returned");
+	    		consoloe.log(results);
+	    		
+	    		
+	    		if(results === {CanNotInsert:1062} || results[0] === {CanNotInsert:1062}) {
+	    			if(results === {CanNotInsert:1062}) {
 	    				console.log("it was results");
-	    				console.log(returnResults);
+	    				console.log(results);
 	    			}
-	    			if(returnResults[0] === {CanNotInsert:1062}) {
+	    			if(results[0] === {CanNotInsert:1062}) {
 	    				console.log("it was results[0]");
-	    				console.log(returnResults[0]);
+	    				console.log(results[0]);
 	    			}
 	    		}
 	    		if(results[0] && results[0].personId) {
 	    			console.log('this personId condition checked worked');
 	    		}
+	    		var returnResults = results || {};
 	    		var person = results[0] || {};
 	    		//person.status = "success";
     			console.log("sprocAddPer successful");
