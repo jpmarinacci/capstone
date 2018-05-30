@@ -30,7 +30,6 @@ footer {
 	display: flex;
 }
 
-
 a {
   color: #00B7FF;
 }
@@ -256,7 +255,7 @@ ul, ol {
 }
 
 .bannerWrapper .headerLogo img {
-	padding: 7px;
+	padding: 2px;
 }
 
 .bannerWrapper .headerBanner {
@@ -346,7 +345,7 @@ ul, ol {
 /* Login Page */
 
 .login input {
-	background-color: transparent;
+	background-color: white;
 	border-radius: 4px;
     border: solid black 0.5px;
     padding-left: 7px;
@@ -362,7 +361,7 @@ ul, ol {
 
 /* Signup Page */
 .selectRoles {
-	background-color: transparent;
+	background-color: white;
 	border: solid black 0.5px;
 } 
 
