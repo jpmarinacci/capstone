@@ -172,17 +172,19 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 			var options = {
 				success: function(person) {
 					if(person && person.get('personId')) {
+						user.person.set(person);
+						if(thisForm.options.person){
+							notifications.notifyUser("successfully updated your account");
+						} else {
+							notifications.notifyUser("You successfully signed up");
+						}
 						
+						router.lastRoute = '/dashboard';
+						user.clientLogin();
 					}
-					user.person.set(person);
-					if(thisForm.options.person){
-						notifications.notifyUser("successfully updated your account");
-					} else {
-						notifications.notifyUser("You successfully signed up");
-					}
-					
-					router.lastRoute = '/dashboard';
-					user.clientLogin();
+				},
+				appError: function() {
+					notifications.notifyUser("You could not be signed up using that email");;
 				},
 				error: function(error) {
 					console.log(error);
