@@ -18,6 +18,7 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 			'change .signupEmail': 'commandChangedSignupEmail',
 			'change .signupPhone': 'commandChangedSignupPhone',
 			'change .selectRoles': 'commandChangedSelectRoles',
+			
 			'click .signupButton': 'createNewPerson'
 		},
 		
@@ -69,7 +70,7 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 			}
 		},
 		
-		isRequired: function(stringInput) {
+		isNotEmpty: function(stringInput) {
 			if(stringInput !== "") {
 				return true;
 			} else {
@@ -109,7 +110,7 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 		
 		commandChangedSelectRoles: function(event) {
 			var inputValue = this.$(".selectRoles").val();
-			if(this.isRequired(inputValue)) {
+			if(this.isNotEmpty(inputValue)) {
 				this.$(".selectRolesWarning").empty();
 				return;
 			} else {
@@ -117,17 +118,35 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 				return;
 			}
 		},
-
+		commandMatchPasswords: function(event) {
+			var inputValue = this.$(".signupCredential").val();
+			var inputValue2 = this.$(".signupRetypeCredential").val();
+			if(this.isValid(inputValue)){
+				if(this.isValid(inputValue2)) {
+					if(this.inputValue2 === this.inputValue) {
+				this.$(".signupRetypeCredential").empty();
+				this.$(".signupCredential").empty();
+				return;
+			}else {
+				this.$(".signupCredentialPhoneWarning").html("Please enter password again ");
+				return;
+				} else {
+				this.$(".signupCredentialPhoneWarning").html("Please enter password");
+				return;
+			}
+		},
 		gatherInput: function() {
 			var email = this.$(".signupEmail").val();
 			//validate inputs
 			//if(validate.isValid(email));
+
 			var personJson = {
 				email: email,
 				personName: this.$(".signupName").val(),
 				phone: this.$(".signupPhone").val(),
 				roleId: Number(this.$(".selectRoles").val()),
 				credential: this.$(".signupCredential").val()
+				
 			};
 			this.person.set(personJson);
 		},
