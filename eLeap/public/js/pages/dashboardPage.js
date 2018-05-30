@@ -37,7 +37,7 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 		listenForEvents: function() {
 			this.stopListening();
 			this.listenTo(this.opportunities, 'reset', this.renderOpportunities);
-			this.listenTo(user.person, 'change', this.render);
+			this.listenTo(user.person, 'change', this.renderWelcome);
 		},
 		
 		fetchOpportunities: function() {
@@ -46,7 +46,7 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 			cache.fetchOpportunites({reset: true});
 		},
 		
-		render: function() {
+		renderWelcome: function() {
 			this.$(".welcomeName").text(user.person.get('personName'));
 			if(user.person.get('roleId') < 3){
 				if(this.commandDispatcher) {
