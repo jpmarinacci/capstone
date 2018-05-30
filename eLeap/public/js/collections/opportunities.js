@@ -9,10 +9,10 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/opp
 	eLeap.own.Opportunities = Backbone.Collection.extend({
 		
 		model: Opportunity,
-		comparator: 'createDate',
-		/*comparator : function(ab) {
-            return -ab.id;
-        },*/
+		//comparator: 'createDate',
+		comparator : function() {
+			return this.get('createDate');
+		},
 		
 		routes: {
 			getAllOpportunities: '/getAllOpportunities',

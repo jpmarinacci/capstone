@@ -17,8 +17,7 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 		events: {
 			'change .signupEmail': 'commandChangedSignupEmail',
 			'change .signupPhone': 'commandChangedSignupPhone',
-			'change .selectRoles': 'commandChangedSelectRoles',
-			
+			'change .signupRetypeCredential': 'commandMatchPasswords',
 			'click .signupButton': 'createNewPerson'
 		},
 		
@@ -70,8 +69,8 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 			}
 		},
 		
-		isNotEmpty: function(stringInput) {
-			if(stringInput !== "") {
+		isEmpty: function(stringInput) {
+			if(stringInput === "") {
 				return true;
 			} else {
 				return false;
@@ -108,50 +107,46 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 			}
 		},
 		
-		commandChangedSelectRoles: function(event) {
-			var inputValue = this.$(".selectRoles").val();
-			if(this.isNotEmpty(inputValue)) {
-				this.$(".selectRolesWarning").empty();
+		checkUserFilledInputs: function() {
+			if(this.isEmpty(this.$(".signupEmail").val())) {
+				notifications.notifyUser("please enter email");
+				this.$(".signupEmailWarning").html("");
 				return;
-			} else {
-				this.$(".selectRolesWarning").html("choose your role");
+			}
+			if(this.isEmpty(this.$(".signupCredential").val())) {
+				notifications.notifyUser("please enter a password");
+				this.$(".signupCredentialWarning").html("");
+				return;
+			}
+			if(this.isEmpty(this.$(".signupRetypeCredential").val())) {
+				notifications.notifyUser("please re-type password");
+				this.$(".signupRetypeCredentialWarning").html("");
 				return;
 			}
 		},
+		
 		commandMatchPasswords: function(event) {
-			var inputValue = this.$(".signupCredential").val();
-			var inputValue2 = this.$(".signupRetypeCredential").val();
-			if(this.isValid(inputValue)){
-				if(this.isValid(inputValue2)) {
-					if(this.inputValue2 === this.inputValue) {
-				this.$(".signupRetypeCredential").empty();
-				this.$(".signupCredential").empty();
-				return;
-			}else {
-				this.$(".signupCredentialPhoneWarning").html("Please enter password again ");
-				return;
-				} else {
-				this.$(".signupCredentialPhoneWarning").html("Please enter password");
+			if(this.$(".signupCredential").val() !== this.$(".signupRetypeCredential").val()) {
+				notifications.notifyUser("passwords don't match");
+				this.$(".signupCredentialWarning").html("passwords don't match");
 				return;
 			}
 		},
+		
 		gatherInput: function() {
 			var email = this.$(".signupEmail").val();
-			//validate inputs
-			//if(validate.isValid(email));
-
 			var personJson = {
 				email: email,
 				personName: this.$(".signupName").val(),
 				phone: this.$(".signupPhone").val(),
 				roleId: Number(this.$(".selectRoles").val()),
 				credential: this.$(".signupCredential").val()
-				
 			};
 			this.person.set(personJson);
 		},
 		
 		createNewPerson: function() {
+			this.checkUserFilledInputs();
 			this.gatherInput();
 			var options = {
 				success: function(person) {

@@ -4,7 +4,7 @@
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Email</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext signupEmail" placeholder="@">
+            <input type="text" class="signupEmail form-control-plaintext" placeholder="">
             <span class="signupEmailWarning"></span>
         </div>
     </div>
@@ -12,7 +12,7 @@
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Name</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext signupName">
+            <input type="text" class="signupName form-control-plaintext" placeholder="">
             <span class="signupNameWarning"></span>
         </div>
     </div>
@@ -20,7 +20,7 @@
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Phone Number</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control-plaintext signupPhone">
+            <input class="signupPhone form-control-plaintext" type="text" placeholder="">
             <span class="signupPhoneWarning"></span>
         </div>
     </div>
@@ -28,24 +28,23 @@
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Password</label>
         <div class="col-sm-9">
-            <input type="password" class="form-control-plaintext signupCredential">
-            <span class="signupCredentialPhoneWarning"></span>
+            <input type="password" class="signupCredential form-control-plaintext">
+            <span class="signupCredentialWarning"></span>
         </div>
     </div>
 
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Re-Type Password</label>
         <div class="col-sm-9">
-            <input type="password" class="form-control-plaintext signupRetypeCredential">
-            <span class="signupCredentialPhoneWarning"></span>
+            <input type="password" class="signupRetypeCredential form-control-plaintext">
+            <span class="signupRetypeCredentialWarning"></span>
         </div>
     </div>
 
     <div class="oppFormList form-group row">
         <label class="col-sm-3 col-form-label">Please select your role</label>
         <div class="col-sm-9 oppFormInputContainer">
-            <select class="form-control selectRoles pointer"></select>
-            <span class="selectRolesWarning"></span>
+            <select class="selectRoles form-control pointer"></select>
         </div>
     </div>
 
@@ -53,3 +52,4 @@
 <div class="centerText mt50 mb10">
     <button class="signupButton btn btn--decorated btn-warning login__btn">Sign Up</button>
 </div>
+
