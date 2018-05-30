@@ -395,7 +395,8 @@ ul, ol {
 	width: 400px;
 }
 .oppFormList .oppFormTextInput {
-	width: 100%;
+	display: inline-block;
+	width: 90%;
 }
 .formSection {
 	width: 100%;
@@ -1004,10 +1005,16 @@ ul, ol {
 .required:after {
 	content:"*";
 	padding-left: 4px;
+	color: red;
+}
+
+.oppFormHeader {
 	color: white;
-	-webkit-text-fill-color: red;
-	-webkit-text-stroke-width: 1px;
-	-webkit-text-stroke-color: white;
+	text-shadow: 2px 2px black;
+}
+
+.col-form-label {
+	font-weight: 800;
 }
 
 /**************** Media Queries *********************/
