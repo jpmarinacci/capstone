@@ -380,7 +380,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			this.$(".oppFormTitle").val(this.opportunity.get('title'));
 			this.$(".oppFormTotalSeats").val(this.opportunity.get('totalSeats'));
 			
-			if(this.opportunity.get('ownerId') === user.person.get('personId')) {
+			if(user.person.get('roleId')=== 7 || this.opportunity.get('ownerId') === user.person.get('personId')) {
 				this.$(".deleteOppBtn").show();	
 			}
 			this.$(".oppFormHeader").text("Edit Opportunity");
