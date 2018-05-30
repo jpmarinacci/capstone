@@ -152,6 +152,7 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 					notifications.notifyUser("You joined this opportunity");
 					thisPage.commandDispatcher.trigger('hideJoin');
 					thisPage.commandDispatcher.trigger('showLeave');
+					thisPage.opportunity.set({'isJoined': true});
 				},
 				appError: function(error) {
 					var errorMessage = error ? error.message ? error.message : error: "couldn't join at this time";
@@ -174,6 +175,7 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 					notifications.notifyUser("You Left this opportunity");
 					thisPage.commandDispatcher.trigger('showJoin');
 					thisPage.commandDispatcher.trigger('hideLeave');
+					thisPage.opportunity.set({'isJoined': false});
 				},
 				appError: function(error) {
 					var errorMessage = error ? error.message ? error.message : error: "couldn't leave at this time";
@@ -185,6 +187,7 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 				}
 			};
 			this.opportunity.leaveOpportuntiy(options);
+			
 		},
 		
 		commandEditOpportunity: function() {

@@ -58,7 +58,7 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 					isShow = opportunity.get('endDateTime') && opportunity.get('endDateTime') > new Date() ? true: false;
 					isShow = user.person.get('roleId') === 7 ? true: isShow;
 					//temp -- case show newb old opps while developing
-					isShow = user.person.get('personId') === 19 ? true: isShow;
+					//isShow = user.person.get('personId') === 19 ? true: isShow;
 					if(isShow) {
 						var oppItem = new OpportunityItem({
 							opportunity: opportunity
