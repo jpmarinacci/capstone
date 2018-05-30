@@ -8,7 +8,7 @@
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/navigation/sidebar.tmpl'],
 function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 
-
+	var thisView;
 
 	eLeap.own.Sidebar = Backbone.View.extend({
 
@@ -17,7 +17,6 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		events: {
 			'click .dashboardLink': 'commandNavigateToDashboard',
 			'click .accountSettingsBtn': 'commandUpdateAccount',
-			'mouseover .accountSettingsBtn': 'commandStopSpin',
 			'click .createOppBtn': 'commandCreateNewOpportunity',
 			'click .editOppBtn': 'commandEditOpportunity',
 			'click .joinOppBtn': 'commandJoinOpportunity',
@@ -26,6 +25,7 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		},
 		
 		initialize: function (options) {
+			thisView = this;
 			this.options = _.extend({}, options);
 			this.commandDispatcher = options.commandDispatcher;
 			this.renderFramework();
@@ -143,6 +143,10 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		},
 		
 		commandUpdateAccount: function() {
+			this.$(".accountSettingsBtn i").addClass('fa-spin');
+			setTimeout(function(){
+				thisView.$(".accountSettingsBtn i").removeClass('fa-spin');
+			}, 1000);
 			require(['controllers/router',], function(router) {
 				router.navigate('/accountsettings', {trigger: true});
 			});
@@ -174,10 +178,6 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		
 		commandApproveOpportunity: function() {
 			this.commandDispatcher.trigger('command:approveOpp');
-		},
-		
-		commandStopSpin: function() {
-			this.$(".accountSettingsBtn i").removeClass('fa-spin');
 		}
 	});
 	return eLeap.own.Sidebar;
