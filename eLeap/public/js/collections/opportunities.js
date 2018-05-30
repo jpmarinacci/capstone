@@ -10,8 +10,8 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/opp
 		
 		model: Opportunity,
 		//comparator: 'createDate',
-		comparator : function() {
-			return this.get('createDate');
+		comparator : function(opp) {
+			return - opp.get('createDate');
 		},
 		
 		routes: {
