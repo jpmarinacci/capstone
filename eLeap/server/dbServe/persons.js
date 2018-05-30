@@ -27,8 +27,19 @@ var persons = {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		if(results[0] === {CanNotInsert: 1062}) {
-	    			console.log("add error condition - tell JP to fix");
+	    		var returnResults = results || {};
+	    		if(returnResults === {CanNotInsert:1062} || returnResults[0] === {CanNotInsert:1062}) {
+	    			if(returnResults === {CanNotInsert:1062}) {
+	    				console.log("it was results");
+	    				console.log(returnResults);
+	    			}
+	    			if(returnResults[0] === {CanNotInsert:1062}) {
+	    				console.log("it was results[0]");
+	    				console.log(returnResults[0]);
+	    			}
+	    		}
+	    		if(results[0] && results[0].personId) {
+	    			console.log('this personId condition checked worked');
 	    		}
 	    		var person = results[0] || {};
 	    		//person.status = "success";
