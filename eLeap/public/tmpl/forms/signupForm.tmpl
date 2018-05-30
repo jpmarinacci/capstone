@@ -28,7 +28,7 @@
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Password</label>
         <div class="col-sm-9">
-            <input type="password" class="signupCredential form-control-plaintext">
+            <input class="signupCredential form-control-plaintext" type="password" placeholder="******">
             <span class="signupCredentialWarning"></span>
         </div>
     </div>
@@ -36,17 +36,21 @@
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Re-Type Password</label>
         <div class="col-sm-9">
-            <input type="password" class="signupRetypeCredential form-control-plaintext">
+            <input class="signupRetypeCredential form-control-plaintext" type="password" placeholder="******">
             <span class="signupRetypeCredentialWarning"></span>
         </div>
     </div>
 
-    <div class="oppFormList form-group row">
+    <div class="selectRolesContainer oppFormList form-group row">
         <label class="col-sm-3 col-form-label">Please select your role</label>
-        <div class="col-sm-9 oppFormInputContainer">
+        <div class="oppFormInputContainer col-sm-9">
             <select class="selectRoles form-control pointer"></select>
         </div>
+        <div class="roleInfoContainer col-sm-9 initialDisplayNone">
+        	<div class="roleInfo "></div>
+        </div>
     </div>
+    
 
 </div>
 <div class="centerText mt50 mb10">

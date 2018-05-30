@@ -31,6 +31,19 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 		
 		renderFramework: function(){
 			this.$el.html(this.formTmpl());
+			if(this.options.person){
+				this.renderPerson();
+				
+			}
+		},
+		
+		renderPerson: function() {
+			this.$(".signupEmail").val(this.person.get('email'));
+			this.$(".signupName").val(this.person.get('personName'));
+			this.$(".signupPhone").val(this.person.get('phone'));
+			this.$(".selectRolesContainer").hide();
+			this.$(".roleInfoContainer").show();
+			this.$(".roleInfo").val(cache.roles.at(this.person.get('roleId')).get('roleName'));
 		},
 		
 		listenForEvents: function() {

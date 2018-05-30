@@ -230,7 +230,33 @@ var opportunities = {
 		});
     },
     
-	getMyOpportunities: function(request, response) { 'use strict';
+	getJoinedOpportunities: function(request, response) { 'use strict';
+		console.log("--- getJoinedOpportunities route called ---");
+		if(!request.body.personId) {
+			response.send('inputs not valid - no personID');
+			return;
+		}
+		var params = [
+			request.boy.personId
+		];
+	
+		console.log("calling sprocMyJoinedOpps");
+		dbServer.sproc("sprocMyJoinedOpps", params, function processSproc(results) {
+			if (results && results.error) {
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		console.log("sprocMyJoinedOpps results:");
+	    		console.log(results);
+	    		
+	    		var returnResults = results[0];
+	    		returnResults.status = "success";
+	    		console.log("sprocMyJoinedOpps successful");
+	    		response.send(returnResults);
+	    	}
+		});
+    },
+    
+    getMyOpportunities: function(request, response) { 'use strict';
 		console.log("--- getMyOpportunities route called ---");
 		if(!request.body.personId) {
 			response.send('inputs not valid - no personID');
@@ -240,14 +266,17 @@ var opportunities = {
 			request.boy.personId
 		];
 	
-		console.log("calling sprocMyOpps");
-		dbServer.sproc(sprocName, params, function processSproc(results) {
+		console.log("calling sprocMyOwnOpps");
+		dbServer.sproc("sprocMyOwnOpps", params, function processSproc(results) {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
+	    		console.log("sprocMyOwnOpps results:");
+	    		console.log(results);
+	    		
 	    		var returnResults = results[0];
 	    		returnResults.status = "success";
-	    		console.log("sprocMyOpps successful");
+	    		console.log("sprocMyOwnOpps successful");
 	    		response.send(returnResults);
 	    	}
 		});
