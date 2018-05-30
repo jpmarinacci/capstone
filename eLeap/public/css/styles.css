@@ -321,6 +321,7 @@ ul, ol {
 .dashboardLink:hover {
 	color: #00B7FF;
 	text-decoration: none;
+	cursor: pointer;
 }
 .navLink:hover {
     color: #00B7FF;
