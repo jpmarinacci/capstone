@@ -23,7 +23,6 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 			'/': 'loginPage',
 			'about': 'about',
 			'accountsettings': 'accountSettings',
-			'accountprofile': 'accountProfile',
 			'dashboard': 'dashboard',
 			'dbTest': 'dbTest',
 			'home': 'home',
@@ -108,20 +107,8 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 				$("#pages").empty().append("<div id='accountSettingsPage'></div>");
 				require(['pages/accountSettingsPage'], function(AccountSettingsPage) {
 					thisRouter.currentPage = eLeap.run.accountSettingsPage = new AccountSettingsPage({
+						commandDispatcher: thisRouter.commandDispatcher,
 						el: "#accountSettingsPage"
-					});
-				});
-			});
-		},
-		
-		accountProfile: function() {
-			this.lastRoute = '/accountprofile';
-			this.beginNewPage();
-			this.pageDeploy(function() {
-				$("#pages").empty().append("<div id='accountProfilePage'></div>");
-				require(['pages/accountProfilePage'], function(AccountProfilePage) {
-					thisRouter.currentPage = eLeap.run.accountProfilePage = new AccountProfilePage({
-						el: "#accountProfilePage"
 					});
 				});
 			});
@@ -134,6 +121,7 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 				$("#pages").empty().append("<div id='dashboardPage'></div>");
 				require(['pages/dashboardPage'], function(DashboardPage) {
 					thisRouter.currentPage = eLeap.run.dashboardPage = new DashboardPage({
+						commandDispatcher: thisRouter.commandDispatcher,
 						el: "#dashboardPage"
 					});
 				});
@@ -147,6 +135,7 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 				$("#pages").empty().append("<div id='dbTest'> DATA: </div>");
 				require(['pages/dbTestPage'], function(DbTestPage) {
 					thisRouter.currentPage = eLeap.run.dbTestPage = new DbTestPage({
+						commandDispatcher: this.commandDispatcher,
 						el: "#dbTest"
 					});
 				});

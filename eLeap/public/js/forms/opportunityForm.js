@@ -8,7 +8,6 @@
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 'controllers/cache', 'controllers/user',
 		'controllers/notifications', 'controllers/router', 'models/opportunity', 'text!../../tmpl/forms/opportunityForm.tmpl'],
 	function (eLeap, $, _, Backbone, datetimepicker, utils, cache, user, notifications, router, Opportunity, opportunityFormTmpl) { 'use strict';
-		
 	eLeap.own.OpportunityForm = Backbone.View.extend({
 		
 		formTmpl: _.template(opportunityFormTmpl),
@@ -518,16 +517,18 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 		},
 		
 		commandDeleteOpportunity: function() {
-			var options = {
-				success: function(opportunity) {
-					notifications.notifyUser("opportunity deleted");
-					router.navigate('/dashboard', {trigger: true});
-				},
-				error: function(error) {
-					notifications.notifyUser("error -- opportunity deletion failed: /n"+ error);
-				}
-			};
-			this.opportunity.destroy(options);
+			if (confirm('Confirm delete this opportunity?')) {
+			    var options = {
+		        	success: function(opportunity) {
+						notifications.notifyUser("opportunity deleted");
+						router.navigate('/dashboard', {trigger: true});
+					},
+					error: function(error) {
+						notifications.notifyUser("error -- opportunity deletion failed: /n"+ error);
+					}
+				};
+				this.opportunity.destroy(options);
+			}
 		}
 	});
 	return eLeap.own.OpportunityForm;

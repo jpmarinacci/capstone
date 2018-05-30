@@ -7,7 +7,7 @@ require.config({
 	baseUrl: 'js',
 	paths: {
 		"backbone": "../bower_components/backbone/backbone-min",
-		"bootbox": "../bower_components/bootbox/bootbox.min",
+		"bootbox": "../bower_components/bootbox.js/bootbox.js",
 		"bootstrap": "../bower_components/bootstrap/dist/js/bootstrap.min",
 		"datetimepicker": "../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min",
 		"dropzone": "../bower_components/dropzone/dist/dropzone",

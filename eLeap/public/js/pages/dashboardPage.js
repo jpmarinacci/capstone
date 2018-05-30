@@ -19,6 +19,7 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
+			this.commandDispatcher = options.commandDispatcher;
 			this.opportunities = cache.opportunities;
 			
 			this.renderFramework();
@@ -48,9 +49,9 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 		
 		renderPerson: function() {
 			this.$(".welcomeName").text(user.person.get('personName'));
-			if(user.person.get('roleId') < 3){
+			if(user.person.get('roleId') > 2) {
 				if(this.commandDispatcher) {
-					this.commandDispatcher.trigger('hideCreate');
+					this.commandDispatcher.trigger('showCreate');
 				}
 			}
 		},

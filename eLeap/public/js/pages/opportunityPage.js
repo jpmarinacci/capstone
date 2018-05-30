@@ -28,7 +28,7 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 			this.opportunityId = options.opportunityId;
 			if(this.opportunityId === "create") {
 				this.mode = "create",
-				this.showCreateView();
+				this.showEditView();
 				this.opportunityForm = new OpportunityForm({
 					el: this.$(".opportunityPageCreateForm")
 				});
@@ -88,15 +88,12 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 		openViewMode: function() {
 			this.mode = "view";
 			this.showDetailView();
-			this.decideDisplayApprove();
-			this.commandDispatcher.trigger('showEdit');
 			this.getCurrentOpportunity();
 		},
 		
 		openEditMode: function() {
 			this.mode = "edit";
-			this.showCreateView();
-			this.commandDispatcher.trigger('hideEdit');
+			this.showEditView();
 			this.getCurrentOpportunity();
 		},
 		
@@ -105,7 +102,7 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 			this.$(".opportunityDetailsView").show();
 		},
 		
-		showCreateView: function() {
+		showEditView: function() {
 			this.$(".oppportunityEditView").show();
 			this.$(".opportunityDetailsView").hide();
 		},
@@ -119,8 +116,14 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 		},
 		
 		decideDisplayApprove: function() {
-			if(user.person.get('roleId') > 5){
+			if(user.person.get('roleId') > 5) {
 				this.commandDispatcher.trigger('showApproveDeny');
+			}
+		},
+		
+		decideDisplayEdit: function() {
+			if(this.opportunity.get('ownerId') === user.person.get('personId')) {
+				this.commandDispatcher.trigger('showEdit');
 			}
 		},
 		
@@ -134,12 +137,16 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 					el: this.$(".opportunityPageCreateForm"),
 					opportunity: this.opportunity
 				});
+				this.commandDispatcher.trigger('hideEdit');
 			} else if (this.mode === "view") {
 				var opportunityView = new OpportunityDetailItem({
 					opportunity: this.opportunity
 				});
 				this.$(".opportunityView").html(opportunityView.render());
 				this.$(".oppBreadCrumbTitle").text(this.opportunity.get('title'));
+				
+				this.decideDisplayEdit();
+				this.decideDisplayApprove();
 			}
 		},
 		
@@ -187,7 +194,6 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 				}
 			};
 			this.opportunity.leaveOpportuntiy(options);
-			
 		},
 		
 		commandEditOpportunity: function() {

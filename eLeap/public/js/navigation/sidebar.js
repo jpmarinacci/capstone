@@ -17,6 +17,7 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		events: {
 			'click .dashboardLink': 'commandNavigateToDashboard',
 			'click .accountSettingsBtn': 'commandUpdateAccount',
+			'mouseover .accountSettingsBtn': 'commandStopSpin',
 			'click .createOppBtn': 'commandCreateNewOpportunity',
 			'click .editOppBtn': 'commandEditOpportunity',
 			'click .joinOppBtn': 'commandJoinOpportunity',
@@ -139,7 +140,6 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		
 		hideOppViewBtns: function(){
 			this.$(".editOppBtn, .joinOppBtn, .leaveOppBtn, .approveOppBtn, .denyOppBtn").hide();
-			this.$(".createOppBtn").show();
 		},
 		
 		commandUpdateAccount: function() {
@@ -174,6 +174,10 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		
 		commandApproveOpportunity: function() {
 			this.commandDispatcher.trigger('command:approveOpp');
+		},
+		
+		commandStopSpin: function() {
+			this.$(".accountSettingsBtn i").removeClass('fa-spin');
 		}
 	});
 	return eLeap.own.Sidebar;
