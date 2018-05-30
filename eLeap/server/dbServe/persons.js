@@ -14,10 +14,11 @@ var persons = {
 		}
 		var hashedCredential = bcrypt.hashSync(request.body.credential, 10);
 		var params = [
-			request.body.email,
 			hashedCredential,
+			request.body.email,
 			request.body.personName ? request.body.personName : null,
 			request.body.phone ? request.body.phone : null,
+			request.body.picURL ? request.body.picURL: null,
 			request.body.roleId ? request.body.roleId : 1
 		];
 		
@@ -26,6 +27,9 @@ var persons = {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
+	    		if(results[0] === {CanNotInsert: 1062}) {
+	    			console.log("add error condition - tell JP to fix");
+	    		}
 	    		var person = results[0] || {};
 	    		person.status = "success";
     			console.log("sprocAddPer successful");
@@ -50,6 +54,7 @@ var persons = {
 			request.body.personId ? Number(request.body.personId): null,
 			request.body.personName ? request.body.personName: null,
 			request.body.phone ?  request.body.phone: null,
+			request.body.picURL ? request.body.picURL: null,
 			request.body.roleId ? request.body.roleId: 1,
 			request.body.themeId ? request.body.themeId: null
 		];
