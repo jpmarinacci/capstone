@@ -963,7 +963,8 @@ ul, ol {
 	padding-left: 20px;
 }
 
-.fontRed {
+.statusRed {
+	font-size:8pt;
 	color: #ff0000;
 }
 
