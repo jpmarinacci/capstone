@@ -55,7 +55,7 @@ var persons = {
 		];
 		
 		console.log("calling sprocUpdatePer");
-		dbServer.sproc(sprocName, params, function(results) {
+		dbServer.sproc("sprocUpdatePer", params, function(results) {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
@@ -73,7 +73,6 @@ var persons = {
 			response.send('invalid paramaters -- no email');
 			return;
 		}
-		var sprocName = "sprocFindPer";
 		var params = [
 			//request.body.personId ? request.body.personId : null,
 			request.body.email ? request.body.email : null

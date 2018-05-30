@@ -42,8 +42,15 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 			this.$(".signupName").val(this.person.get('personName'));
 			this.$(".signupPhone").val(this.person.get('phone'));
 			this.$(".selectRolesContainer").hide();
-			this.$(".roleInfoContainer").show();
-			this.$(".roleInfo").val(cache.roles.at(this.person.get('roleId')).get('roleName'));
+			this.$(".signupRoleInfoContainer").show();
+			var roleId = this.person.get('roleId');
+			if(!cache.roles.isFetched) {
+				this.listenToOnce(cache.roles, 'reset', this.renderPerson);
+			} else {
+				var role = cache.roles.get(roleId);
+				var roleName = role.get('roleName');
+				this.$(".signupRoleName").html(roleName);
+			}
 		},
 		
 		listenForEvents: function() {
@@ -181,8 +188,8 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 					} else {
 						notifications.notifyUser("error -- sign up failed :(   please try again.");
 					}
-					
-				}
+				},
+				wait: true
 			};
 			if(this.person.get('email') && this.person.get('credential')) {
 				this.person.save({}, options);

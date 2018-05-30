@@ -437,7 +437,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 				case 'volunteer':
 					donation= Number(this.$(".oppFormDonation").val());
 					break;
-
 				case 'gig':
 					opportuntityJson.isPaid = this.$(".oppFormIsPaid:checked").val() ? true: false,
 					opportuntityJson.payAmount = Number(this.$(".oppFormPayAmount").val());
