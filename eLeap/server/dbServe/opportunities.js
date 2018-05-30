@@ -301,7 +301,7 @@ var opportunities = {
 		console.log("calling sprocLeaveOpp");
 		console.log("params:");
 		console.log(params);		
-		dbServer.sproc("leaveOpportunity", params, function(results) {
+		dbServer.sproc("sprocLeaveOpp", params, function(results) {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
