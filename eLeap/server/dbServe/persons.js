@@ -29,37 +29,21 @@ var persons = {
 	    	} else {
 	    		console.log("sproc Add per returned");
 	    		console.log(results);
-	    		if(results[0] === {'CanNotInsert':'1062'}) {
-	    			console.log("JP found its [0] with double string value");
-	    		}
-	    		if(results[0] === {'CanNotInsert':1062}) {
-	    			console.log("JP found its [0] with string value");
-	    		}
-	    		if(results[0][1] === {CanNotInsert:1062}) {
-	    			console.log("JP found it! its 0-1");
-	    		}
-	    		if(results[1][0] === {CanNotInsert:1062}) {
-	    			console.log("JP found it! -1-0");
-	    		}
-	    		if(results[0][0] === {'CanNotInsert':1062}) {
-	    			console.log("JP found its [0][0] with string value");
-	    		}
-	    		if(results[0][1] === {'CanNotInsert':1062}) {
-	    			console.log("JP found its [0][1] with string value");
-	    		}
-	    		if(results === {CanNotInsert:1062} || results[0] === {CanNotInsert:1062}) {
-	    			if(results === {CanNotInsert:1062}) {
-	    				console.log("it was results");
-	    				console.log(results);
-	    			}
-	    			if(results[0] === {CanNotInsert:1062}) {
-	    				console.log("it was results[0]");
-	    				console.log(results[0]);
-	    			}
-	    		}
-	    		if(results[0] && results[0].personId) {
-	    			console.log('this personId condition checked worked');
-	    		}
+	    		if(results[0] === '[ RowDataPacket { CanNotInsert: 1062 } ]'){
+	    			console.log("JP found its weird string");
+	    		};
+	    		var row2 =results[0][0]; 
+			    if(row2.protocol41){
+	    			console.log("JP found its protocol41");
+	    		};
+	    		var blah = results[0];
+	    		if(blah == {CanNotInsert: 1062 }){
+	    			console.log("JP found its blah");
+	    		};
+	    		if(blah == {'CanNotInsert': 1062 }){
+	    			console.log("JP found its blah with quotes");
+	    		};
+	    		
 	    		var returnResults = results || {};
 	    		var person = results[0] || {};
 	    		//person.status = "success";
