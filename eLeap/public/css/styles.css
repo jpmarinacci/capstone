@@ -1013,10 +1013,15 @@ ul, ol {
 	font-size:16px;
 }
 
-.required:after {
+.required:before {
 	content:"*";
-	padding-left: 4px;
-	color: red;
+	margin-left: -20px;
+	font-size: 18px;
+    color: #ffc107;
+}
+.requiredKey {
+	font-size: 18px;
+    color: #ffc107;
 }
 
 .oppFormHeader {
