@@ -19,18 +19,18 @@
 
             <% if(opp.startDateTime){%>
 
-            <div class="oppItemField card-subtitle mb-2 fontExtraSmall text-muted">
+            <div class="oppItemField card-subtitle mb-2 fontExtraSmall">
                 <span><%= utils.dateTimeToDisplay(opp.startDateTime) %> - <%= utils.dateTimeToDisplay(opp.endDateTime) %></span>
             <hr>
             </div>
             <% } %>
 
-            <div class="oppItemField card-subtitle mb-2 fontExtraSmall text-muted">
+            <div class="oppItemField card-subtitle mb-2 fontExtraSmall">
                 <span>Opportunity type:</span>
                 <span><b><%= opp.opportunityType %></b></span>
             </div>
 
-            <div class="oppItemField card-subtitle mb-2 fontExtraSmall text-muted">
+            <div class="oppItemField card-subtitle mb-2 fontExtraSmall">
                 <span>For class?</span>
                 <span><b><% if(opp.isClass) {%>yes<%}else{%>no<%}%></b></span>
                 <hr>
@@ -38,7 +38,7 @@
 
             <% if(opp.totalSeats!=0){%>
 
-            <div class="oppItemField card-subtitle mb-2 fontExtraSmall text-muted">
+            <div class="oppItemField card-subtitle mb-2 fontExtraSmall">
                 <span>Available seats:</span>
                 <span><%= opp.availableSeats %> out of <%= opp.totalSeats %></span>
             </div>
