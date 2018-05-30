@@ -29,7 +29,7 @@ var persons = {
 	    	} else {
 	    		console.log("sproc Add per returned");
 	    		console.log(results);
-	    		var returnReults = JSON.stringify(results);
+	    		var returnReults = JSON.stringify(results[0]);
 	    		console.log("returnReults");
 	    		console.log(returnReults);
 	    		if(returnReults[0] == {"CanNotInsert":1062}) {
