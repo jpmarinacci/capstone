@@ -430,19 +430,10 @@ ul, ol {
 /* Dashboard Page */
 
 .welcome {
-	display: inline-block;
-	background-color: white;
-	color: #34495e;
-	font-family: serif, Oswald, times, Times New Roman, times-roman, georgia;
-	font-size: 40px;
-	font-weight: bold;
-	letter-spacing: -2px;
-	padding: 4px 10px;
-	border: solid 0.5px slategrey;
-	border-radius: 4px;
-	box-shadow: 7px 7px 5px #85d6de73;
-	margin-bottom: 20px;
-	
+	color: white;
+	font-size: 30px;
+	text-shadow: 2px 2px black;
+	padding-bottom: 16px;
 }
 .opportunityItem {
 	display: inline-block;
