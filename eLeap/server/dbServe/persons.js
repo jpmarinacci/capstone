@@ -29,9 +29,23 @@ var persons = {
 	    	} else {
 	    		console.log("sproc Add per returned");
 	    		console.log(results);
-	    		
-	    		if(results[0][0] === {CanNotInsert:1062}) {
-	    			console.log("JP found it!");
+	    		if(results[0] === {'CanNotInsert':'1062'}) {
+	    			console.log("JP found its [0] with double string value");
+	    		}
+	    		if(results[0] === {'CanNotInsert':1062}) {
+	    			console.log("JP found its [0] with string value");
+	    		}
+	    		if(results[0][1] === {CanNotInsert:1062}) {
+	    			console.log("JP found it! its 0-1");
+	    		}
+	    		if(results[1][0] === {CanNotInsert:1062}) {
+	    			console.log("JP found it! -1-0");
+	    		}
+	    		if(results[0][0] === {'CanNotInsert':1062}) {
+	    			console.log("JP found its [0][0] with string value");
+	    		}
+	    		if(results[0][1] === {'CanNotInsert':1062}) {
+	    			console.log("JP found its [0][1] with string value");
 	    		}
 	    		if(results === {CanNotInsert:1062} || results[0] === {CanNotInsert:1062}) {
 	    			if(results === {CanNotInsert:1062}) {
