@@ -70,6 +70,7 @@ var login = {
         session.personId = null;
         session.personName = null;
 		console.log("session removed");
+		response.send("logged out");
 	}
 };
 
