@@ -30,29 +30,10 @@ var persons = {
 	    		console.log("sproc Add per returned");
 	    		console.log(results);
 	    		var returnReults = JSON.stringify(results[0]);
-	    		console.log("returnReults");
-	    		console.log(returnReults);
-	    		if(returnReults[0] == {"CanNotInsert":1062}) {
-	    			console.log('ok we found it');
-	    		}
-	    		var blah2 =  returnReults[0];
-	    		console.log("blah2");
-	    		console.log(blah2);
-	    		var blah =  returnReults[0][0];
-	    		console.log("blah");
-	    		console.log(blah);
-	    		if(blah == {"CanNotInsert":1062}) {
-	    			console.log('mmmmmm');
-	    		}
-	    		if(returnReults[0][0] == {"CanNotInsert":1062}) {
-	    			console.log('ok we really found it');
-	    		}
-	    		var blah3 =  returnReults[0][1];
-	    		console.log("blah3");
-	    		console.log(blah3);
-	    		if(returnReults[0][0].CanNotInsert == 1062) {
-	    			console.log('ok found it now');
-	    		}
+	    		if(returnResults == '[{"CanNotInsert":1062}]'){
+	    			console.log("it's 500 in the morning ............");
+	    		};
+	    		
 	    		var returnResults = results || {};
 	    		var person = results[0] || {};
 	    		//person.status = "success";
