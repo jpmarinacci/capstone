@@ -32,6 +32,7 @@ instantiateDbServer = function() {
 			if(error) {
 				console.log("database connection error: " + error);
 				if(thisDbServer.attempts <= 20) {
+					console.log("attempts before retry" + thisDbServer.attempts);
 					thisDbServer.retry();
 				} else {
 					throw error;
