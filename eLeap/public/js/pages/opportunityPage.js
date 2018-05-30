@@ -157,6 +157,7 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 		},
 		
 		commandLeaveOpportunity: function() {
+			var thisPage = this;
 			this.$(".oppViewLeaveBtn").attr('disabled', 'disabled');
 			var options = {
 				personId: user.person.get('personId'),
