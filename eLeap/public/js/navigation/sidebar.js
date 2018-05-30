@@ -20,7 +20,8 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			'click .createOppBtn': 'commandCreateNewOpportunity',
 			'click .editOppBtn': 'commandEditOpportunity',
 			'click .joinOppBtn': 'commandJoinOpportunity',
-			'click .leaveOppBtn': 'commandLeaveOpportunity'
+			'click .leaveOppBtn': 'commandLeaveOpportunity',
+			'click .approveOppBtn': 'commandApproveOpportunity'
 		},
 		
 		initialize: function (options) {
@@ -120,6 +121,10 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		
 		commandLeaveOpportunity: function(){
 			this.commandDispatcher.trigger('command:leaveOpp');
+		},
+		
+		commandApproveOpportunity: function() {
+			this.commandDispatcher.trigger('command:approveOpp');
 		}
 	});
 	return eLeap.own.Sidebar;

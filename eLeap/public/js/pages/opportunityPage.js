@@ -54,6 +54,7 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 				this.listenTo(this.commandDispatcher, 'command:editOpp', this.commandEditOpportunity);
 				this.listenTo(this.commandDispatcher, 'command:joinOpp', this.commandJoinOpportunity);
 				this.listenTo(this.commandDispatcher, 'command:leaveOpp', this.commandLeaveOpportunity);
+				this.listenTo(this.commandDispatcher, 'command:approveOpp', this.commandApproveOpportunity);
 			}
 		},
 		
@@ -180,6 +181,10 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 		
 		commandEditOpportunity: function() {
 			this.openEditMode();
+		},
+		
+		commandApproveOpportunity: function() {
+			this.opportunity.save({'status':'approved'});
 		},
 		
 		remove: function() {
