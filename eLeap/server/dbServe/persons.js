@@ -31,7 +31,7 @@ var persons = {
 	    			console.log("add error condition - tell JP to fix");
 	    		}
 	    		var person = results[0] || {};
-	    		person.status = "success";
+	    		//person.status = "success";
     			console.log("sprocAddPer successful");
     			session.email = person.email;
 	            session.personId = person.personId;
