@@ -30,7 +30,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			
 			'click .oppFormIsClass': 'toggleClassSection',
 			'click .oppFormOppType': 'toggleTypeSection',
-			'click .saveOpportunity': 'commandSaveOpportunity',
+			'click .saveOppBtn': 'commandSaveOpportunity',
 			'click .deleteOppBtn': 'commandDeleteOpportunity'
 		},
 		
