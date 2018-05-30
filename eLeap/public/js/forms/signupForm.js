@@ -148,15 +148,27 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 		createNewPerson: function() {
 			this.checkUserFilledInputs();
 			this.gatherInput();
+			var thisForm = this;
 			var options = {
 				success: function(person) {
 					user.person.set(person);
-					notifications.notifyUser("You successfully signed up");
+					if(thisForm.options.person){
+						notifications.notifyUser("successfully updated your account");
+					} else {
+						notifications.notifyUser("You successfully signed up");
+					}
+					
 					router.lastRoute = '/dashboard';
 					user.clientLogin();
 				},
-				error: function() {
-					notifications.notifyUser("error -- sign up failed :(   please try again.");
+				error: function(error) {
+					console.log(error);
+					if(thisForm.options.person){
+						notifications.notifyUser("error -- update account failed :(   please try again.");
+					} else {
+						notifications.notifyUser("error -- sign up failed :(   please try again.");
+					}
+					
 				}
 			};
 			if(this.person.get('email') && this.person.get('credential')) {
