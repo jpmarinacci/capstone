@@ -30,7 +30,9 @@ var persons = {
 	    		console.log("sproc Add per returned");
 	    		console.log(results);
 	    		
-	    		
+	    		if(results[0][0] === {CanNotInsert:1062}) {
+	    			console.log("JP found it!");
+	    		}
 	    		if(results === {CanNotInsert:1062} || results[0] === {CanNotInsert:1062}) {
 	    			if(results === {CanNotInsert:1062}) {
 	    				console.log("it was results");
