@@ -10,12 +10,15 @@ var login = {
 	isUserLoggedIn: function(request, response) { 'use strict';
 		console.log("--- isUserLoggedIn route called ---");
 		
-		if(session.isLoggedIn == true) {
+		if(session.isLoggedIn === true) {
             response.send({
             	isLoggedIn: true,
-            	email: session.email,
-            	personId: session.personId,
-            	personName: session.personName
+            	person: {
+            		email: session.email,
+	            	personId: session.personId,
+	            	personName: session.personName,
+	            	roleId: session.roleId
+            	}
             });
             console.log("session exists, logged in as:" + session.personName);
 		} else {
@@ -43,18 +46,12 @@ var login = {
 		    		var person = results[1][0];
 		    		if(bcrypt.compareSync(credential, person.credential)) {
 		    			returnResults.loginStatus = 'valid';
-		    			returnResults.person = {
-		    				email: person.email,
-		    				personId: person.personId,
-		    				personName: person.personName,
-		    				phone: person.phone,
-		    				roleId: person.roleId,
-		    				picURL: person.picURL,
-		    				themeId: person.themeId
-		    			};
+		    			delete person.credential;
+		    			returnResults.person = person;
 		    			session.email = returnResults.person.email;
 			            session.personId = returnResults.person.personId;
 			            session.personName = returnResults.person.personName;
+			            session.roleId = returnResults.person.roleId;
 			            session.isLoggedIn = true;
 			            console.log("logged in as:" + returnResults.person.personName);
 					} else {

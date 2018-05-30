@@ -186,12 +186,6 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 					}
 				},
 				appError: function(response) {
-					if(response && response.length) {
-						if(response[0] = {'CanNotInsert':1062}) {
-							notifications.notifyUser("email exists, try again");
-							return;
-						}
-					}
 					notifications.notifyUser("you could not be signed up with that email");;
 				},
 				error: function(error) {

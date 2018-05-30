@@ -83,12 +83,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 			var isLoggedInSuccess = function(response) {
 				thisUser.logInStatusChecked = true;
 				response = response || {};
-				if(response.isLoggedIn) {
-					thisUser.person.set({
-						email: response.email,
-						personId: response.personId,
-						personName: response.personName
-					});
+				if(response.isLoggedIn && response.person) {
+					thisUser.person.set(response.person);
 					//thisUser.fetchPerson();
 				}
 				thisUser.isLoggedIn = response.isLoggedIn;

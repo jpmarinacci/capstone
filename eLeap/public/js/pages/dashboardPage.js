@@ -19,10 +19,9 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
-			this.renderFramework();
-			//this.opportunityHoursChart = new Chart();
-			//this.opportunities = new Opportunities();
 			this.opportunities = cache.opportunities;
+			
+			this.renderFramework();
 			this.listenForEvents();
 			this.fetchOpportunities();
 		},
@@ -30,14 +29,15 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 		renderFramework: function() {
 			this.$el.html(this.pageTmpl());
 			if(user.person.get('personName') !== "") {
-				this.renderWelcome();
+				this.renderPerson();
+				this.renderApprovalButtons();
 			}
 		},
 		
 		listenForEvents: function() {
 			this.stopListening();
 			this.listenTo(this.opportunities, 'reset', this.renderOpportunities);
-			this.listenTo(user.person, 'change', this.renderWelcome);
+			this.listenTo(user.person, 'change', this.renderPerson);
 		},
 		
 		fetchOpportunities: function() {
@@ -46,7 +46,7 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 			cache.fetchOpportunites({reset: true});
 		},
 		
-		renderWelcome: function() {
+		renderPerson: function() {
 			this.$(".welcomeName").text(user.person.get('personName'));
 			if(user.person.get('roleId') < 3){
 				if(this.commandDispatcher) {
@@ -73,7 +73,13 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 						thisPage.$(".opportunitiesList").append(oppItem.render());
 					}
 				});
-				if(user.person.get('roleId') > 5){
+				this.renderApprovalButtons();
+			}
+		},
+		
+		renderApprovalButtons: function() {
+			if(this.opportunities.length && user.person.get('personId')) {
+				if(user.person.get('roleId') > 5) {
 					this.$(".oppItemApproveDenyBlock").show();
 				}
 			}

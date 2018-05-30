@@ -28,15 +28,20 @@ var persons = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sproc Add per returned");
-	    		console.log(results);
-	    		var returnResults = results || {};
-	    		var person = results[0] || {};
-	    		//person.status = "success";
+	    		//console.log(results);
+	    		var person = results[0] ? results[0][0] || results[0]: {};
+	    		if(person && person.personId) {
+	    			delete person.credential;
+	    			person.status = "success";
+	    		}
     			console.log("sprocAddPer successful");
+    			//add new cookie code here -- this overwrites the session on every user login
+    			//this makes multiple user logins on the same server work incorrectly
     			session.email = person.email;
 	            session.personId = person.personId;
 	            session.isLoggedIn = true;
-	    		console.log("added person to login cookie");
+	    		console.log("added person to login session");
+	    	
 	    		response.send(person);
 	    	}
 		});
@@ -64,10 +69,18 @@ var persons = {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0] || {};
-	    		returnResults.status = "success";
-	    		console.log("sprocUpdatePer successful");
-	    		response.send(returnResults);
+	    		var person = results[0] ? results[0][0] || results[0]: {};
+	    		if(person && person.personId) {
+	    			delete person.credential;
+	    			person.status = "success";
+	    			console.log("sprocUpdatePer successful");
+	    			console.log("personId: "+ person.personID);
+	    		} else {
+	    			console.log("sprocUpdatePer error:");
+	    			console.log(results);
+	    		}
+	    		
+	    		response.send(person);
 	    	}
 		});
 	},

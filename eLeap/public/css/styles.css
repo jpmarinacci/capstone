@@ -71,6 +71,17 @@ ul, ol {
 	display: none;
 }
 
+.inlineBlock {
+	display: inline-block;
+}
+
+.pull-left {
+	float: left;
+}
+.pull-right {
+	float: right;
+}
+
 .pointer {
 	cursor: pointer;
 }
@@ -167,14 +178,6 @@ ul, ol {
 
 .relative {
 	position: relative;
-}
-
-.pull-right {
-	float: right;
-}
-
-.pull-left {
-	float: left;
 }
 
 .icon-big {
@@ -448,7 +451,7 @@ ul, ol {
 }
 
 .opportunitiesList {
-	margin: 0 0 0 0;
+	margin: 0 10px;
 }
 
 .opportunitiesList .opportunityItem {
@@ -997,7 +1000,7 @@ ul, ol {
 	display: -webkit-box;
 	word-wrap:break-word;
 	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 5;
+	/*-webkit-line-clamp: 5;*/
 	overflow: hidden;
 }
 
