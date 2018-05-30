@@ -9,8 +9,7 @@
 <div class="opportunityForm mt50">
     
 	<div class="oppFormList form-group row">
-		<label class="col-form-label col-sm-3">
-		    <span class="asterisk" title="required">*</span>
+		<label class="col-form-label col-sm-3 required">
 		    Title
 		</label>
 		<div class="oppFormInputContainer col-sm-9 ">
@@ -20,8 +19,7 @@
 	</div>
 
 	<div class="oppFormList form-group row">
-		<label class="col-form-label col-sm-3">
-		    <span class="asterisk" title="required">*</span>
+		<label class="col-form-label col-sm-3 required">
 		    Opportunity Start Date
 		</label>
 		<div class="oppFormInputContainer col-sm-9 ">
@@ -31,8 +29,7 @@
 	</div>
 
 	<div class="oppFormList form-group row">	    
-		<label class="col-form-label col-sm-3">
-		    <span class="asterisk" title="required">*</span>
+		<label class="col-form-label col-sm-3 required">
 		    Opportunity End Date
 		</label>
 		<div class="oppFormInputContainer col-sm-9">
@@ -42,14 +39,14 @@
 	</div>
 
 	<div class="oppFormList form-group row">
-		<label class="col-form-label col-sm-3">Description</label>
+		<label class="col-form-label col-sm-3 required">Description</label>
 		<div class="oppFormInputContainer col-sm-9">
 			<textarea class="oppFormDescription oppFormTextInput form-control" rows="8"></textarea>
 		</div>
 	</div>
 
 	<div class="oppFormList form-group row">
-		<label class="col-sm-3 form-check-label">Open slots</label>
+		<label class="col-sm-3 form-check-label required">Open slots</label>
 		<div class="oppFormInputContainer col-sm-9">
 			<input type="text" class="oppFormTotalSeats oppFormTextInput form-control" maxlength="3">
 			<span class="oppFormTotalSeatsWarning warn"></span>
@@ -57,7 +54,7 @@
 	</div>
 
 	<div class="oppFormList createOppLine form-group row ">
-		<label class="col-form-label col-sm-3">Is this part of a class?</label>
+		<label class="col-form-label col-sm-3 required">Is this part of a class?</label>
 		<div class="oppFormInputContainer checkBoxes col-sm-9">
 			<input class="oppFormIsClass checkBox" type="checkbox" checked>
 		</div>
@@ -366,6 +363,8 @@
     </div>
     
 </div>
+
+<div class="pull-right">* Required field</div>
 
 <div class="mt20 mb20 centerText">
     <button class="saveOpportunity btn btn-warning btn--decorated">Submit</button>
