@@ -83,9 +83,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 			var isLoggedInSuccess = function(response) {
 				thisUser.logInStatusChecked = true;
 				response = response || {};
-				if(response.isLoggedIn && response.person) {
-					thisUser.person.set(response.person);
-					//thisUser.fetchPerson();
+				if(response.isLoggedIn && response.personId) {
+					thisUser.person.set('personId', response.personId, {silent:true});
+					thisUser.fetchPerson();
 				}
 				thisUser.isLoggedIn = response.isLoggedIn;
 				thisUser.trigger('isLoggedInCheck:returned');

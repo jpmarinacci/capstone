@@ -31,14 +31,13 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 			this.$el.html(this.pageTmpl());
 			if(user.person.get('personName') !== "") {
 				this.renderPerson();
-				this.renderApprovalButtons();
 			}
 		},
 		
 		listenForEvents: function() {
 			this.stopListening();
 			this.listenTo(this.opportunities, 'reset', this.renderOpportunities);
-			this.listenTo(user.person, 'change', this.renderPerson);
+			this.listenTo(user.person, 'sync change', this.renderPerson);
 		},
 		
 		fetchOpportunities: function() {
@@ -54,6 +53,7 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 					this.commandDispatcher.trigger('showCreate');
 				}
 			}
+			this.renderApprovalButtons();
 		},
 		
 		renderOpportunities: function() {

@@ -27,8 +27,8 @@ function (eLeap, $, _, Backbone, router, user) { 'use strict';
 		
 		routeAfterLoginCheck: function() {
 			if(user.isLoggedIn) {
+				router.successfulLogin();
 				if(router.pageToDeploy) {
-					router.successfulLogin();
 					router.pageToDeploy.call(router);
 				}
 			} else {

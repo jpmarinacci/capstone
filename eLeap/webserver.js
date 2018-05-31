@@ -46,37 +46,24 @@ app.use(favicon(__dirname + '/public/img/risingDragonFolder.ico'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-//var cookieSecret = "";
-app.use(cookieParser());
+/*app.use(cookieParser());
 app.use(function(req, res, next) {
-	console.log('lookie for cookie');
-	console.log('req');
-	console.log(req);
-	console.log('next');
-	console.log(next);
+	//console.log(req);
 	var cookie = req.cookies.cookieName;
 	if(!cookie) {
 		res.cookie('cookieName', 'CisForCookie', {
 			maxAge: 900000,
 			httpOnly: true
 		});
+		
 		console.log('cookie created successfully');
+		console.log(res.cookie);
+		//console.log('no cookie');
 	} else {
 		console.log('cookie exists', cookie);
 	}
 	next();
-});
-//app.use(cookieParser(cookieSecret));
-
-/*app.use(session({
-    name: 'eleapkey',
-	secret: "dreamBig",
-    //store: new fileStore(),
-	key:"",
-	resave: false,
-    saveUninitialized: true,
-    cookie: {secure: true}
-}));*/
+});*/
 
 app.use(function(req, res, next) {
 	req.session = req.session || {};

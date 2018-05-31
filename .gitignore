@@ -12,3 +12,7 @@ external
 public/images
 eLeap/sessions
 package-lock.json
+.idea/*
+.settings/*
+.idea
+.settings

@@ -1,29 +1,30 @@
 var dbServer = require('../dbServer');
-var mysql = require('mysql');
+//var mysql = require('mysql');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
+var express = require('express');
+var app = express();
+app.use(cookieParser());
+
 
 var login = {
 	
 	isUserLoggedIn: function(request, response) { 'use strict';
 		console.log("--- isUserLoggedIn route called ---");
-		
-		if(session.isLoggedIn === true) {
-            response.send({
+		var cookie = request.headers.cookie;
+		if(cookie && cookie && cookie.slice(0, 7) == 'eLeapId') {
+			console.log('got that cookie');
+			var personId = cookie.substr(8);
+			console.log("logged in as personId: " + personId);
+			response.send({
             	isLoggedIn: true,
-            	person: {
-            		email: session.email,
-	            	personId: session.personId,
-	            	personName: session.personName,
-	            	roleId: session.roleId
-            	}
+            	personId: Number(personId)
             });
-            console.log("session exists, logged in as:" + session.personName);
 		} else {
-            response.send({isLoggedIn: false});
-            console.log("session expired");
+			console.log('not logged in');
+			response.send({isLoggedIn: false});
 		}
 	},
 
@@ -48,12 +49,15 @@ var login = {
 		    			returnResults.loginStatus = 'valid';
 		    			delete person.credential;
 		    			returnResults.person = person;
-		    			session.email = returnResults.person.email;
-			            session.personId = returnResults.person.personId;
-			            session.personName = returnResults.person.personName;
-			            session.roleId = returnResults.person.roleId;
-			            session.isLoggedIn = true;
-			            console.log("logged in as:" + returnResults.person.personName);
+		    			
+						console.log("setting new cookie");
+						response.cookie('eLeapId', person.personId,{
+							maxAge: 2592000, //1 month
+							httpOnly: true
+						});
+						console.log(response.cookie);
+			            console.log("logged in as:" + person.personName);
+			            console.log("logged in as personId: " + person.personId);
 					} else {
 						returnResults.loginStatus = 'invalid';
 						returnResults.message = "password credentials don't match";
@@ -70,15 +74,13 @@ var login = {
 	
 	logout: function(request, response) { 'use strict';
 		console.log("--- logout route called ---");
-        session.isLoggedIn = false;
-        session.email = null;
-        session.personId = null;
-        session.personName = null;
-		console.log("session removed");
+        response.clearCookie('eLeapId');
+		console.log("cookie removed");
 		response.send({
 			status: "success",
 			message: "logged out"
 		});
+		console.log("--- user is logged out ---");
 	}
 };
 

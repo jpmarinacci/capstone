@@ -98,22 +98,34 @@ var persons = {
     
     getPerson: function(request, response) { 'use strict';
     	console.log("--- getPerson route called ---");
-    	if(!request.body.email) {
+    	if(!request.body.personId) {
 			response.send('invalid paramaters -- no email');
 			return;
 		}
 		var params = [
-			//request.body.personId ? request.body.personId : null,
-			request.body.email ? request.body.email : null
+			request.body.personId
 		];
 		
-		console.log("calling sprocFindPer");
-		dbServer.sproc("sprocFindPer", params, function(results) {
+		console.log("calling sprocFindPerId");
+		dbServer.sproc("sprocFindPerId", params, function(results) {
 			if (results && results.error) {
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0];
-	    		console.log("sprocFindPer successful");
+	    		var returnResults = {};
+	    		if(Array.isArray(results) && results[0]){
+	    			if(Array.isArray(results[0])){
+	    				var person = results[1][0];
+	    				delete person.credential;
+	    				returnResults = person;
+			    		returnResults.status = "success";
+			    		console.log("sprocFindPerId successful");
+			    		console.log(returnResults);
+	    			}
+	    		} else {
+	    			returnResults = {
+		    			'status':'invalid'
+		    		};
+	    		}
 	    		response.send(returnResults);
 	    	}
 		});
