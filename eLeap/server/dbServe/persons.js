@@ -28,7 +28,17 @@ var persons = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sproc Add per returned");
-	    		//console.log(results);
+	    		console.log(results);
+	    		
+	    		//CanNotInsert:1064
+	    		if(Array.isArray(results) && results[0]){
+	    			if(Array.isArray(results[0])){
+	    				var firstElement = results[0][0];
+	    				if(firstElement.CanNotInsert) {
+	    					console.log("success --- found the thing");
+	    				}
+	    			}
+	    		}
 	    		var person = results[0] ? results[0][0] || results[0]: {};
 	    		if(person && person.personId) {
 	    			delete person.credential;

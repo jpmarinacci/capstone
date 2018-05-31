@@ -32,7 +32,12 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			if(method === 'create') {
 				//this.translatePersonToDB()
 				server.postRoute(this.routes.signupPerson, this.toJSON(), function (response) {
-					
+					if(response && response.CanNotInsert) {
+						console.log('response canot insert');
+					}
+					if(response.CanNotInsert) {
+						console.log('response canot insert');
+					}
 					if(response && !response.status || response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
