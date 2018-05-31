@@ -9,7 +9,7 @@ var persons = {
 	signupPerson: function(request, response) { 'use strict';
 		console.log('--- signupPerson route called ---');
 		if(!request.body.email || !request.body.credential) {
-			response.send('invalid paramaters -- no email or credential');
+			response.send({invalid:'invalid paramaters -- no email or credential'});
 			return;
 		}
 		var hashedCredential = bcrypt.hashSync(request.body.credential, 10);
@@ -49,12 +49,13 @@ var persons = {
         
     updatePerson: function(request, response) { 'use strict';
     	console.log("--- updatePerson route called ---");
-    	if(!request.body.personId) {
-			response.send('invalid paramaters -- no personID');
+    	if(!request.body.personId || !request.body.credential) {
+			response.send({invalid:'invalid paramaters -- no personId or credential'});
 			return;
 		}
+		var hashedCredential = bcrypt.hashSync(request.body.credential, 10);
 		var params = [
-			request.body.credential ? request.body.credential : null,
+			hashedCredential,
 			request.body.email ? request.body.email: null,
 			request.body.personId ? Number(request.body.personId): null,
 			request.body.personName ? request.body.personName: null,
