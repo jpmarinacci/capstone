@@ -44,6 +44,8 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 			//based on role type we will show different opportunites
 			//this.opportunities.fetch({reset: true});
 			cache.fetchOpportunites({reset: true});
+			cache.fetchJoinedOpportunities({reset:true});
+			cache.fetchOwnedOpportunities({reset:true});
 		},
 		
 		renderPerson: function() {

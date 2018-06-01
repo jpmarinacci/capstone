@@ -2,8 +2,8 @@
  *	@authors: JP Marinacci
  */
 
-define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'navigation/sidebar', 'navigation/navbar'], 
-function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
+define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/cache', 'controllers/user', 'navigation/sidebar', 'navigation/navbar'], 
+function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 	
 	var thisRouter;
 	
@@ -66,6 +66,7 @@ function ($, _, Backbone, eLeap, user, Sidebar, Navbar) { 'use strict';
 				this.sidebar.remove();
 				this.sidebar = undefined;
 			}
+			cache.emptyCache();
 			this.navigate('/login', { trigger: true });
 		},
 		

@@ -14,7 +14,13 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'collec
 		initialize: function(options) {
 			options = options || {};
 			this.roles = new Roles();
+			this.emptyCache();
+		},
+		
+		emptyCache: function() {
 			this.opportunities = new Opportunities();
+			this.joinedOpps = new Opportunities();
+			this.ownedOpps = new Opportunities();
 		},
 		
 		fetchRoles: function(options) {
@@ -67,6 +73,66 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'collec
 				};
 				options.reset = true;
 				this.opportunities.fetch(options, {});
+			}
+		},
+		
+		fetchJoinedOpportunities: function(options) {
+			options = options || {};
+			if(this.joinedOpps.isFetched) {
+				this.joinedOpps.trigger('reset');
+			} else if(!this.joinedOpps.isFetchPending) {
+				this.joinedOpps.isFetchPending = true;
+				options.chainedSuccess = options.success;
+				options.chainedError = options.error;
+				options.success = function(response) {
+					thisCache.joinedOpps.isFetchPending = false;
+					thisCache.joinedOpps.isFetched = true;
+					thisCache.joinedOpps.each(function(opp) {
+						opp.isFetched = true;
+					});
+					if(options.chainedSuccess) {
+						if(options.context) {
+							options.chainedSuccess.call(options.context, response);
+						}
+					}
+				};
+				options.error = function(error) {
+					//console.log(error);
+				};
+				options.reset = true;
+				options.isJoined = true;
+				options.personId = user.person.get('personId');
+				this.joinedOpps.fetch(options, {});
+			}
+		},
+		
+		fetchOwnedOpportunities: function(options) {
+			options = options || {};
+			if(this.ownedOpps.isFetched) {
+				this.ownedOpps.trigger('reset');
+			} else if(!this.ownedOpps.isFetchPending) {
+				this.ownedOpps.isFetchPending = true;
+				options.chainedSuccess = options.success;
+				options.chainedError = options.error;
+				options.success = function(response) {
+					thisCache.ownedOpps.isFetchPending = false;
+					thisCache.ownedOpps.isFetched = true;
+					thisCache.ownedOpps.each(function(opp) {
+						opp.isFetched = true;
+					});
+					if(options.chainedSuccess) {
+						if(options.context) {
+							options.chainedSuccess.call(options.context, response);
+						}
+					}
+				};
+				options.error = function(error) {
+					//console.log(error);
+				};
+				options.reset = true;
+				options.isOwned = true;
+				options.personId = user.person.get('personId');
+				this.ownedOpps.fetch(options, {});
 			}
 		},
 		

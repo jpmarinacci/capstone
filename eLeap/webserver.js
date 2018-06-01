@@ -67,7 +67,8 @@ app.use(function(req, res, next) {
 
 app.use(function(req, res, next) {
 	req.session = req.session || {};
-    if (((req.url === '/' && (!req.session.userID)) || req.url.toLowerCase() === '/home')) {
+	if(req.url === '/') {
+    	//&& (!req.session.userID)) || req.url.toLowerCase() === '/home')
         res.send(indexHTML);
         return;
     }
@@ -92,7 +93,8 @@ app.post('/updateApplicationState', applicationState.updateApplicationState);
 app.post('/createOpportunity', opportunities.createOpportunity);
 app.post('/deleteOpportunity', opportunities.deleteOpportunity);
 app.post('/getAllOpportunities', opportunities.getAllOpportunities);
-app.post('/getMyOpportunities', opportunities.getMyOpportunities);
+app.post('/getJoinedOpportunities', opportunities.getJoinedOpportunities);
+app.post('/getOwnedOpportunities', opportunities.getOwnedOpportunities);
 app.post('/getOpportunity', opportunities.getOpportunity);
 app.post('/leaveOpportunity', opportunities.leaveOpportunity);
 app.post('/joinOpportunity', opportunities.joinOpportunity);
