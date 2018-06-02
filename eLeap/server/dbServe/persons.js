@@ -79,6 +79,7 @@ var persons = {
 		console.log("calling sprocUpdatePer");
 		dbServer.sproc("sprocUpdatePer", params, function(results) {
 			if (results && results.error) {
+				
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var person = results[0] ? results[0][0] || results[0]: {};
