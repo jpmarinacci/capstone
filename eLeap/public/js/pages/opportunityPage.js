@@ -55,6 +55,7 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 				this.listenTo(this.commandDispatcher, 'command:joinOpp', this.commandJoinOpportunity);
 				this.listenTo(this.commandDispatcher, 'command:leaveOpp', this.commandLeaveOpportunity);
 				this.listenTo(this.commandDispatcher, 'command:approveOpp', this.commandApproveOpportunity);
+				this.listenTo(this.commandDispatcher, 'filter:all filter:joined filter:owned', this.commandNavigateToDashboard);
 			}
 		},
 		
@@ -109,21 +110,21 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 		
 		decideDisplayJoin: function() {
 			if(this.opportunity.get('isJoined')) {
-				this.commandDispatcher.trigger('showLeave');
+				this.commandDispatcher.trigger('show:leave');
 			} else {
-				this.commandDispatcher.trigger('showJoin');
+				this.commandDispatcher.trigger('show:join');
 			}
 		},
 		
 		decideDisplayApprove: function() {
 			if(user.person.get('roleId') > 5) {
-				this.commandDispatcher.trigger('showApproveDeny');
+				this.commandDispatcher.trigger('show:approveDeny');
 			}
 		},
 		
 		decideDisplayEdit: function() {
 			if(this.opportunity.get('ownerId') === user.person.get('personId')) {
-				this.commandDispatcher.trigger('showEdit');
+				this.commandDispatcher.trigger('show:edit');
 			}
 		},
 		
@@ -137,7 +138,7 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 					el: this.$(".opportunityPageCreateForm"),
 					opportunity: this.opportunity
 				});
-				this.commandDispatcher.trigger('hideEdit');
+				this.commandDispatcher.trigger('hide:edit');
 			} else if (this.mode === "view") {
 				var opportunityView = new OpportunityDetailItem({
 					opportunity: this.opportunity
@@ -157,8 +158,8 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 				personId: user.person.get('personId'),
 				success: function() {
 					notifications.notifyUser("You joined this opportunity");
-					thisPage.commandDispatcher.trigger('hideJoin');
-					thisPage.commandDispatcher.trigger('showLeave');
+					thisPage.commandDispatcher.trigger('hide:join');
+					thisPage.commandDispatcher.trigger('show:leave');
 					thisPage.opportunity.set({'isJoined': true});
 				},
 				appError: function(error) {
@@ -180,8 +181,8 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 				personId: user.person.get('personId'),
 				success: function() {
 					notifications.notifyUser("You Left this opportunity");
-					thisPage.commandDispatcher.trigger('showJoin');
-					thisPage.commandDispatcher.trigger('hideLeave');
+					thisPage.commandDispatcher.trigger('show:join');
+					thisPage.commandDispatcher.trigger('hide:leave');
 					thisPage.opportunity.set({'isJoined': false});
 				},
 				appError: function(error) {
@@ -204,12 +205,16 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 			this.opportunity.save({'status':'approved'});
 		},
 		
+		commandNavigateToDashboard: function() {
+			router.navigate('/dashboard', {trigger: true});
+		},
+		
 		remove: function() {
 			if(this.opportunityForm) {
 				this.opportunityForm.remove();
 			}
 			if(this.commandDispatcher) {
-				this.commandDispatcher.trigger('hideOppViewBtns');
+				this.commandDispatcher.trigger('hide:oppViewBtns');
 			}
 			this.$el.remove();
 			this.stopListening();

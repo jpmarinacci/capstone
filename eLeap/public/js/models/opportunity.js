@@ -89,7 +89,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					} else {
 						require(['controllers/cache'], function(cache) {
 							var parsedOpp = thisModel.parseOppFromDB(response);
-							var cachedOpp = cache.opportunities.add(parsedOpp, {merge:true});
+							var cachedOpp = cache.allOpps.add(parsedOpp, {merge:true});
 							cachedOpp.isFetched = true;
 							if(options.success) {
 								if(options.context) {
@@ -118,7 +118,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					} else {
 						require(['controllers/cache'], function(cache) {
 							var fetchedOpp = thisModel.parseOppFromDB(response);
-							var cachedOpp = cache.opportunities.add(fetchedOpp, {merge: true});
+							var cachedOpp = cache.allOpps.add(fetchedOpp, {merge: true});
 							cachedOpp.isFetched = true;
 							if(options.success) {
 								if(options.context) {

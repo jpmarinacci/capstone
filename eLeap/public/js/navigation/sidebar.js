@@ -21,7 +21,10 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			'click .editOppBtn': 'commandEditOpportunity',
 			'click .joinOppBtn': 'commandJoinOpportunity',
 			'click .leaveOppBtn': 'commandLeaveOpportunity',
-			'click .approveOppBtn': 'commandApproveOpportunity'
+			'click .approveOppBtn': 'commandApproveOpportunity',
+			'click .allOppsBtn': 'commandFilterAllOpps',
+			'click .joinedOppsBtn': 'commandFilterJoinedOpps',
+			'click .ownedOppsBtn': 'commandFilterOwnedOpps'
 		},
 		
 		initialize: function (options) {
@@ -39,22 +42,23 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		listenForEvents: function() {
 			this.stopListening();
 			if(this.commandDispatcher) {
-				this.listenTo(this.commandDispatcher, 'showCreate', this.showCreate);
-				this.listenTo(this.commandDispatcher, 'showEdit', this.showEdit);
-				this.listenTo(this.commandDispatcher, 'showJoin', this.showJoin);
-				this.listenTo(this.commandDispatcher, 'showLeave', this.showLeave);
-				this.listenTo(this.commandDispatcher, 'showApprove', this.showApprove);
-				this.listenTo(this.commandDispatcher, 'showDeny', this.showDeny);
-				this.listenTo(this.commandDispatcher, 'showJoined', this.showJoined);
-				this.listenTo(this.commandDispatcher, 'hideApprove', this.hideApprove);
-				this.listenTo(this.commandDispatcher, 'hideDeny', this.hideDeny);
-				this.listenTo(this.commandDispatcher, 'hideCreate', this.hideCreate);
-				this.listenTo(this.commandDispatcher, 'hideEdit', this.hideEdit);
-				this.listenTo(this.commandDispatcher, 'hideJoin', this.hideJoin);
-				this.listenTo(this.commandDispatcher, 'hideLeave', this.hideLeave);
-				this.listenTo(this.commandDispatcher, 'hideOppViewBtns', this.hideOppViewBtns);
-				this.listenTo(this.commandDispatcher, 'showApproveDeny', this.showApproveDeny);
-				this.listenTo(this.commandDispatcher, 'hideApproveDeny', this.hideApproveDeny);
+				this.listenTo(this.commandDispatcher, 'show:create', this.showCreate);
+				this.listenTo(this.commandDispatcher, 'show:edit', this.showEdit);
+				this.listenTo(this.commandDispatcher, 'show:join', this.showJoin);
+				this.listenTo(this.commandDispatcher, 'show:leave', this.showLeave);
+				this.listenTo(this.commandDispatcher, 'show:approve', this.showApprove);
+				this.listenTo(this.commandDispatcher, 'show:deny', this.showDeny);
+				this.listenTo(this.commandDispatcher, 'show:joined', this.showJoined);
+				this.listenTo(this.commandDispatcher, 'show:owned', this.showOwned);
+				this.listenTo(this.commandDispatcher, 'hide:approve', this.hideApprove);
+				this.listenTo(this.commandDispatcher, 'hide:deny', this.hideDeny);
+				this.listenTo(this.commandDispatcher, 'hide:create', this.hideCreate);
+				this.listenTo(this.commandDispatcher, 'hide:edit', this.hideEdit);
+				this.listenTo(this.commandDispatcher, 'hide:join', this.hideJoin);
+				this.listenTo(this.commandDispatcher, 'hide:leave', this.hideLeave);
+				this.listenTo(this.commandDispatcher, 'hide:oppViewBtns', this.hideOppViewBtns);
+				this.listenTo(this.commandDispatcher, 'show:approveDeny', this.showApproveDeny);
+				this.listenTo(this.commandDispatcher, 'hide:approveDeny', this.hideApproveDeny);
 			}
 		},
 		
@@ -89,11 +93,11 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		},
 		
 		showJoined: function() {
-			this.$(".joinedOppBtn").show();
+			this.$(".joinedOppsBtn").show();
 		},
 				
 		showOwned: function() {
-			this.$(".ownedOppBtn").show();
+			this.$(".ownedOppsBtn").show();
 		},
 		
 		showApproveDeny: function() {
@@ -162,6 +166,18 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			require(['controllers/router',], function(router) {
 				router.navigate('/opportunity/create', {trigger: true});
 			});
+		},
+		
+		commandFilterAllOpps: function() {
+			this.commandDispatcher.trigger('filter:all');
+		},
+		
+		commandFilterJoinedOpps: function() {
+			this.commandDispatcher.trigger('filter:joined');
+		},
+		
+		commandFilterOwnedOpps: function(){
+			this.commandDispatcher.trigger('filter:owned');
 		},
 		
 		commandEditOpportunity: function() {

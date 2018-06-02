@@ -97,7 +97,14 @@ instantiateDbServer = function() {
 			this.connection.query(sql, sprocParams, processQuery);
 	    },
 		processSprocError: function(results, response) {
+			console.log("*^*^*^*^*^**^*^*^*^*^**^^*^*^*^*^^*^*^*^*^*^*^*^*^*^**^*^*^*");
+			console.log("debugging database error (enqueue Query ater fatal error)");
+			console.log("*^*^*^*^*^**^*^*^*^*^**^^*^*^*^*^^*^*^*^*^*^*^*^*^*^**^*^*^*");
+			console.log("$$$$$---!!!!  login route --- sprocFindPer results !!!!---$$$$$");
+			console.log(results);
+			console.log("*^*^*^*^*^**^*^*^*^*^**^^*^*^*^*^^*^*^*^*^*^*^*^*^*^**^*^*^*");
 			console.log("database error occurred: ");
+			
 			if(results && results.error) {
 				console.log(results.error);
 				response.send("database error: " + results.error);

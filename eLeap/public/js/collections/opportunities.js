@@ -22,66 +22,68 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/opp
 		
 		sync: function (method, thisCollection, options) {
 			options = options || {};
-			if(options.isOwned){
-				server.postRoute(this.routes.getOwnedOpportunities, options, function (response) {
-					if (!response || response.status && response.status !== "success") {
-						if (options.appError) {
-							options.appError(response);
-						}
-					} else {
-						if (options.success) {
-							if(options.context) {
-								options.call(options.success, context);
-							} else {
-								options.success(response);
+			if(method === 'read') {
+				if(options.isOwned){
+					server.postRoute(this.routes.getOwnedOpportunities, options, function (response) {
+						if (!response || response.status && response.status !== "success") {
+							if (options.appError) {
+								options.appError(response);
+							}
+						} else {
+							if (options.success) {
+								if(options.context) {
+									options.call(options.success, context);
+								} else {
+									options.success(response);
+								}
 							}
 						}
-					}
-				}, function (error) {
-					if (options.error) {
-						options.error(error);
-					}
-				});
-			} else if(options.isJoined) {
-				server.postRoute(this.routes.getJoinedOpportunities, options, function (response) {
-					if (!response || response.status && response.status !== "success") {
-						if (options.appError) {
-							options.appError(response);
+					}, function (error) {
+						if (options.error) {
+							options.error(error);
 						}
-					} else {
-						if (options.success) {
-							if(options.context) {
-								options.call(options.success, context);
-							} else {
-								options.success(response);
+					});
+				} else if(options.isJoined) {
+					server.postRoute(this.routes.getJoinedOpportunities, options, function (response) {
+						if (!response || response.status && response.status !== "success") {
+							if (options.appError) {
+								options.appError(response);
+							}
+						} else {
+							if (options.success) {
+								if(options.context) {
+									options.call(options.success, context);
+								} else {
+									options.success(response);
+								}
 							}
 						}
-					}
-				}, function (error) {
-					if (options.error) {
-						options.error(error);
-					}
-				});
-			} else if(method === 'read') {
-				server.postRoute(this.routes.getAllOpportunities, this.toJSON(), function (response) {
-					if (!response || response.status && response.status !== "success") {
-						if (options.appError) {
-							options.appError(response);
+					}, function (error) {
+						if (options.error) {
+							options.error(error);
 						}
-					} else {
-						if (options.success) {
-							if(options.context) {
-								options.call(options.success, context);
-							} else {
-								options.success(response);
+					});
+				} else {
+					server.postRoute(this.routes.getAllOpportunities, this.toJSON(), function (response) {
+						if (!response || response.status && response.status !== "success") {
+							if (options.appError) {
+								options.appError(response);
+							}
+						} else {
+							if (options.success) {
+								if(options.context) {
+									options.call(options.success, context);
+								} else {
+									options.success(response);
+								}
 							}
 						}
-					}
-				}, function (error) {
-					if (options.error) {
-						options.error(error);
-					}
-				});
+					}, function (error) {
+						if (options.error) {
+							options.error(error);
+						}
+					});
+				}
 			}
 		}
 	});
