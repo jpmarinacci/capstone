@@ -79,7 +79,7 @@ var persons = {
 		console.log("calling sprocUpdatePer");
 		dbServer.sproc("sprocUpdatePer", params, function(results) {
 			if (results && results.error) {
-				
+				results.sprocThatErrored = "sprocUpdatePer";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var person = results[0] ? results[0][0] || results[0]: {};
@@ -111,6 +111,7 @@ var persons = {
 		console.log("calling sprocFindPerId");
 		dbServer.sproc("sprocFindPerId", params, function(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocUpdatePer";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = {};
@@ -139,6 +140,7 @@ var persons = {
 		
 		dbServer.sproc("sprocAllPer", [], function(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocAllPer";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = results[0] || {};

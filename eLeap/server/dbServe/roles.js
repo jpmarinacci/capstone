@@ -8,6 +8,7 @@ var roles = {
 		
 		dbServer.sproc("sprocAllRole", [], function processSproc(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocAllRole";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAllRole successful");

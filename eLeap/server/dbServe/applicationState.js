@@ -13,6 +13,7 @@ var applicationState = {
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocUpdateAppState";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = results[0];

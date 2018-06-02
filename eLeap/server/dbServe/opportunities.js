@@ -60,6 +60,7 @@ var opportunities = {
 		console.log("calling sprocAddOpp");
 		dbServer.sproc("sprocAddOpp", params, function(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocAddOpp";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = {};
@@ -139,6 +140,7 @@ var opportunities = {
 		
 		dbServer.sproc("sprocUpdateOpp", params, function(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocUpdateOpp";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = {};
@@ -172,6 +174,7 @@ var opportunities = {
 		console.log("calling sprocDeleteOpp");
 		dbServer.sproc("sprocDeleteOpp", params, function processSproc(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocDeleteOpp";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = results[0] || {};
@@ -192,6 +195,7 @@ var opportunities = {
 		console.log("calling sprocGetOppId");
 		dbServer.sproc("sprocGetOppId", params, function(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocGetOppId";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("---------------------get oppportunity results: -----------");
@@ -220,6 +224,7 @@ var opportunities = {
 		console.log("calling sprocAllOpp");
 		dbServer.sproc("sprocAllOpp", [], function(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocAllOpp";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = results[0];
@@ -243,6 +248,7 @@ var opportunities = {
 		console.log("calling sprocMyOwnOpps");
 		dbServer.sproc("sprocMyOwnOpps", params, function processSproc(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocMyOwnOpps";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = {};
@@ -278,6 +284,7 @@ var opportunities = {
 		console.log("calling sprocMyJoinedOpps");
 		dbServer.sproc("sprocMyJoinedOpps", params, function processSproc(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocMyJoinedOpps";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = {};
@@ -314,6 +321,7 @@ var opportunities = {
 		console.log(params);
 		dbServer.sproc("sprocJoinOpp", params, function processSproc(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocJoinOpp";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocJoinOpp results:");
@@ -348,6 +356,7 @@ var opportunities = {
 		console.log(params);		
 		dbServer.sproc("sprocLeaveOpp", params, function(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocLeaveOpp";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocLeaveOpp results:");

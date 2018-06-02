@@ -26,6 +26,7 @@ var achievements = {
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
 			if (results && results.error) {
+				
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = results[0];

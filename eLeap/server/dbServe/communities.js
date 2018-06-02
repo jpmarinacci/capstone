@@ -11,6 +11,7 @@ var communities = {
 		console.log("calling "+ sprocName);
 		function processSproc(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocAllCommunities";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = results[0];

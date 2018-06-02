@@ -68,6 +68,7 @@ var login = {
         console.log("params: " + sprocParams);
         dbServer.sproc("sprocFindPer", sprocParams, function(results) {
 	        if (results && results.error) {
+	        	results.sprocThatErrored = "sprocFindPer";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = {};
