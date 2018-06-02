@@ -59,9 +59,6 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'collec
 				options.success = function(response) {
 					thisCache.allOpps.isFetchPending = false;
 					thisCache.allOpps.isFetched = true;
-					thisCache.allOpps.each(function(opp) {
-						opp.isFetched = true;
-					});
 					if(options.chainedSuccess) {
 						if(options.context) {
 							options.chainedSuccess.call(options.context, response);
@@ -88,15 +85,14 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'collec
 				options.success = function(response) {
 					thisCache.joinedOpps.isFetchPending = false;
 					thisCache.joinedOpps.isFetched = true;
-					joinedOppsRetriever.each(function(opp) {
-						opp.isFetched = true;
-					});
-					/*thisCache.joinedOpps.each(function(opp) {
-						opp.isFetched = true;
-					});*/
 					if(joinedOppsRetriever && joinedOppsRetriever.models){
-						//TODO : cache joined opps
-						thisCache.joinedOpps.reset(joinedOppsRetriever.models);
+						var cachedJoinedOpps = new Opportunities();
+						joinedOppsRetriever.each(function(opp) {
+							var addedJoinedOpp = thisCache.allOpps.add(opp, {merge: true});
+							addedJoinedOpp.isFetched = true;
+							cachedJoinedOpps.add(addedJoinedOpp);
+						});
+						thisCache.joinedOpps.reset(cachedJoinedOpps.models);
 					} else if(response && response.status){
 						thisCache.joinedOpps.trigger('reset');
 					}
@@ -114,7 +110,6 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'collec
 				options.personId = user.person.get('personId');
 				var joinedOppsRetriever = new Opportunities();
 				joinedOppsRetriever.fetch(options);
-				//this.joinedOpps.fetch(options, {});
 			}
 		},
 		
@@ -129,12 +124,15 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'collec
 				options.success = function(response) {
 					thisCache.ownedOpps.isFetchPending = false;
 					thisCache.ownedOpps.isFetched = true;
-					
-					//TODO : cache owned opps
-					
-					thisCache.ownedOpps.each(function(opp) {
-						opp.isFetched = true;
-					});
+					if(ownedOppsRetriever && ownedOppsRetriever.models){
+						var cachedOwnedOpps = new Opportunities();
+						ownedOppsRetriever.each(function(opp) {
+							var addedOwnedOpp = thisCache.allOpps.add(opp, {merge: true});
+							addedOwnedOpp.isFetched = true;
+							cachedOwnedOpps.add(addedOwnedOpp);
+						});
+						thisCache.ownedOpps.reset(cachedOwnedOpps.models);
+					}
 					if(options.chainedSuccess) {
 						if(options.context) {
 							options.chainedSuccess.call(options.context, response);
@@ -148,6 +146,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'collec
 				options.isOwned = true;
 				options.personId = user.person.get('personId');
 				this.ownedOpps.fetch(options, {});
+				var ownedOppsRetriever = new Opportunities();
+				ownedOppsRetriever.fetch(options);
 			}
 		},
 		
