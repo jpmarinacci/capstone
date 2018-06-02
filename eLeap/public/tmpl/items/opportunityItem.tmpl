@@ -1,387 +1,76 @@
-<div class="oppItemDetails">
-
-    <div class="card border-dark mb-3">
-        <div class="card-header">
-            <div class="oppItemPicContainer">
-                <!--i class="far fa-file icon-middle"></i-->
-                <img class="oppItemPic" src="img/docs.ico" />
-            </div>
-            <div class="oppItemField oppItemTitle">
-                <h5>
-                    <span class="card-title">
-                        <%= opp.title %>
-                    </span>
-                    <br>
-                    <small class="statusRed">[<%= opp.status %>]</small>
-                </h5>
-            </div>
-        </div>
-        <div class="card-body">
-
-            <% if(opp.startDateTime){%>
-
-            <div class="oppItemField card-subtitle mb-2 fontExtraSmall">
-                <span><%= utils.dateTimeToDisplay(opp.startDateTime) %> - <%= utils.dateTimeToDisplay(opp.endDateTime) %></span>
-            <hr>
-            </div>
-            <% } %>
-
-            <div class="oppItemField card-subtitle mb-2 fontExtraSmall">
-                <span>Opportunity type:</span>
-                <span><b><%= opp.opportunityType %></b></span>
-            </div>
-
-            <div class="oppItemField card-subtitle mb-2 fontExtraSmall">
-                <span>For class?</span>
-                <span><b><% if(opp.isClass) {%>yes<%}else{%>no<%}%></b></span>
-                <hr>
-            </div>
-
-            <% if(opp.totalSeats!=0){%>
-
-            <div class="oppItemField card-subtitle mb-2 fontExtraSmall">
-                <span>Available seats:</span>
-                <span><%= opp.availableSeats %> out of <%= opp.totalSeats %></span>
-            </div>
-
-                <% if(opp.availableSeats>0){%>
-
-                <div class="oppItemField card-subtitle progress">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: <%= opp.availableSeats/opp.totalSeats*100 %>%;" aria-valuenow="<%= opp.availableSeats/opp.totalSeats*100 %>" aria-valuemin="0" aria-valuemax="100"><%= opp.availableSeats/opp.totalSeats*100 %>%</div>
-                </div>
-
-                <% } else { %>
-
-                <div class="oppItemField card-subtitle progress">
-                    <div class="progress-bar bg-full" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">FULL</div>
-                </div>
-
-                <% } %>
-            <% } %>
-
-
-            <div class="oppItemField dashDesc">
-                <p class="card-text mt-4 mb-2"><%= opp.description %></p>
-            </div>
-            <div class="oppItemApproveDenyBlock row mt-4 initialDisplayNone">
-                <div class="col-12 mb10">
-                	<div class="row">
-	                	<div class="col-6 inlineBlock centerText">
-		                	<i class="fa fa-thumbs-up color-green"></i><br>
-		                	<span class="fontExtraSmall">Approve</span>
-	                	</div>
-	                	<div class="col-6 inlineBlock centerText">
-		                	<i class="fa fa-thumbs-down color-red"></i><br>
-		                	<span class="fontExtraSmall">Deny</span>
-	                	</div>
-                	</div>
-                </div>
-                <div class="col-12 card-link centerText">More&gt;&gt;</div>
-            </div>
-        </div>
-    </div>
-
+<div class="oppItemCard">
+	<div class="cardHeader">
+	    <div class="oppItemPicContainer">
+	        <!--i class="far fa-file icon-middle"></i-->
+	        <img class="oppItemPic" src="img/docs.ico" />
+	    </div>
+	    <div class="oppItemField oppItemTitle">
+	        <h5>
+	            <span class="card-title">
+	                <%= opp.title %>
+	            </span>
+	            <br>
+	            <small class="statusRed">[<%= opp.status %>]</small>
+	        </h5>
+	    </div>
+	    <div class="oppItemApproveDenyBlock row mt-4 initialDisplayNone">
+		    <div class="col-12 mb10">
+		    	<div class="row">
+		        	<div class="col-6 inlineBlock centerText">
+		            	<i class="fa fa-thumbs-up color-green"></i><br>
+		            	<span class="fontExtraSmall">Approve</span>
+		        	</div>
+		        	<div class="col-6 inlineBlock centerText">
+		            	<i class="fa fa-thumbs-down color-red"></i><br>
+		            	<span class="fontExtraSmall">Deny</span>
+		        	</div>
+		    	</div>
+		    </div>
+		    <div class="col-12 card-link centerText">More&gt;&gt;</div>
+		</div>
+	</div>
+	
+	<div class="card-body">
+		
+		<div class="oppItemField card-subtitle mb-2">
+	        <span>For:</span>
+	        <span><b><%= opp.opportunityType %></b></span>
+	    </div>
+	
+	    <% if(opp.startDateTime){%>
+		    <div class="oppItemField card-subtitle mb-2">
+		        <span><%= utils.dateTimeToDisplay(opp.startDateTime) %> - <%= utils.dateTimeToDisplay(opp.endDateTime) %></span>
+		    <hr>
+		    </div>
+	    <% } %>
+	    
+	    <% if(opp.totalSeats){%>
+		    <div class="oppItemField card-subtitle mb-2">
+		        <span>Available seats:</span>
+		        <span><%= opp.availableSeats %> out of <%= opp.totalSeats %></span>
+		    </div>
+	        <% if(opp.availableSeats){%>
+		        <div class="oppItemField card-subtitle progress mb10">
+		            <div class="progress-bar bg-info" role="progressbar" style="width: <%= opp.availableSeats/opp.totalSeats*100 %>%;" aria-valuenow="<%= opp.availableSeats/opp.totalSeats*100 %>" aria-valuemin="0" aria-valuemax="100">
+		            	<%= opp.availableSeats/opp.totalSeats*100 %>%</div>
+		        </div>
+	        <% } else { %>
+		        <div class="oppItemField card-subtitle progress">
+		            <div class="progress-bar bg-full" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">FULL</div>
+		        </div>
+	        <% } %>
+	    <% } %>
+	
+	    <div class="oppItemField card-subtitle mb-2">
+	        <span>For class?</span>
+	        <span><b><% if(opp.isClass) {%>yes<%}else{%>no<%}%></b></span>
+	        <hr>
+	    </div>
+	
+	    <div class="oppItemField dashDesc">
+	        <div class="card-text mt-4 mb-2">
+	        	<%= opp.description %>
+	        </div>
+	    </div>
+	</div>
 </div>
-
-<!--<div class="oppItemPicContainer">
-    <img class="oppItemPic" src="img/docs.ico" />
-</div>
-<div class="oppItemDetails">
-    <div class="oppItemField oppItemTitle">
-        <% if(opp.title){%>
-            &lt;!&ndash; <span class="oppItemLabel">title:</span> &ndash;&gt;
-            <span><%= opp.title %></span>
-        <%}%>
-    </div>
-
-    <div><hr></div>
-
-    <div class="oppItemField">
-        <% if(opp.agencyCommitment){%>
-            <span class="oppItemLabel">agency commitment:</span>
-            <span><%= opp.agencyCommitment %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <%if(opp.applicationDueDate){%>
-            <span class="oppItemLabel">application due date:</span>
-            <span><%= utils.dateTimeToDisplay(opp.applicationDueDate) %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.availableSeats){%>
-            <span class="oppItemLabel">available seats:</span>
-            <span><%= opp.availableSeats %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.classId){%>
-            <span class="oppItemLabel">class ID:</span>
-            <span><%= opp.classId %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.className){%>
-            <span class="oppItemLabel">class name:</span>
-            <span><%= opp.className %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">   
-        <% if(opp.classType){%>
-            <span class="oppItemLabel">class type:</span>
-            <span><%= opp.classType %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.classYear){%>
-            <span class="oppItemLabel">class year:</span>
-            <span><%= opp.classYear %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.courseSummary){%>
-            <span class="oppItemLabel">course summary:</span>
-            <span><%= opp.courseSummary %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.createDate){%>
-            <span class="oppItemLabel">Created on </span>
-            <span><%= utils.dateTimeToDisplay(opp.createDate) %></span>
-        <%}%>
-    </div>
-
-    <div class="oppItemField">
-        <% if(opp.deliverables){%>
-            <span class="oppItemLabel">deliverables:</span>
-            <span><%= opp.deliverables %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.description){%>
-            <span class="oppItemLabel">description:</span>
-            <span><%= opp.description %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.donation){%>
-            <span class="oppItemLabel">donation:</span>
-            <span><%= opp.donation %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.duration){%>
-            <span class="oppItemLabel">duration:</span>
-            <span><%= opp.duration %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.endDateTime){%>
-            <span class="oppItemLabel">end date:</span>
-            <span><%= utils.dateTimeToDisplay(opp.endDateTime) %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.estimatedClassSize){%>
-            <span class="oppItemLabel">estimated class size:</span>
-            <span><%= opp.estimatedClassSize %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.examples){%>
-            <span class="oppItemLabel">examples:</span>
-            <span><%= opp.examples %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.hoursRequired){%>
-            <span class="oppItemLabel">hours required:</span>
-            <span><%= opp.hoursRequired %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.isClass){%>
-            <span class="oppItemLabel">is for class:</span>
-            <span><%= opp.isClass %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.isRequiredForClass){%>
-            <span class="oppItemLabel">is required for class:</span>
-            <span><%= opp.isRequiredForClass %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.isPaid){%>
-            <span class="oppItemLabel">paid:</span>
-            <span><%= opp.isPaid %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.isServiceLearning){%>
-            <span class="oppItemLabel">service learning:</span>
-            <span><%= opp.isServiceLearning %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.isTeams){%>
-            <span class="oppItemLabel">teams:</span>
-            <span><%= opp.isTeams %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.isVirtual){%>
-            <span class="oppItemLabel">virtual:</span>
-            <span><%= opp.isVirtual %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.latitude){%>
-            <span class="oppItemLabel">latitude:</span>
-            <span><%= opp.latitude %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.location){%>
-            <span class="oppItemLabel">location:</span>
-            <span><%= opp.location %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.longitude){%>
-            <span class="oppItemLabel">longitude:</span>
-            <span><%= opp.longitude %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.minimumPersonsRequired){%>
-            <span class="oppItemLabel">minimum persons required:</span>
-            <span><%= opp.minimumPersonsRequired %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.notAllowed){%>
-            <span class="oppItemLabel">not allowed:</span>
-            <span><%= opp.notAllowed %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.notes){%>
-            <span class="oppItemLabel">notes:</span>
-            <span><%= opp.notes %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.numTeams){%>
-            <span class="oppItemLabel">num teams:</span>
-            <span><%= opp.numTeams %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.onBoarding){%>
-            <span class="oppItemLabel">on boarding:</span>
-            <span><%= opp.onBoarding %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.opportunityType){%>
-            <span class="oppItemLabel">opportunity type:</span>
-            <span><%= opp.opportunityType %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.ownerId){%>
-            <span class="oppItemLabel">owner Name:</span>
-            <span><%= opp.ownerName %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.pay){%>
-            <span class="oppItemLabel">pay:</span>
-            <span><%= opp.pay %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.preferredAgencyType){%>
-            <span class="oppItemLabel">preferred agency type:</span>
-            <span><%= opp.preferredAgencyType %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.preferredServiceWorkType){%>
-            <span class="oppItemLabel">preferred service work type:</span>
-            <span><%= opp.preferredServiceWorkType %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.recurrence){%>
-            <span class="oppItemLabel">recurrence:</span>
-            <span><%= opp.recurrence %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.requirements){%>
-            <span class="oppItemLabel">requirements:</span>
-            <span><%= opp.requirements %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.startDateTime){%>
-            <span class="oppItemLabel">start date time:</span>
-            <span><%= utils.dateTimeToDisplay(opp.startDateTime) %></span>
-        <%}%>
-    </div>
-
-    <div class="oppItemField">
-        <% if(opp.supportDescription){%>
-            <span class="oppItemLabel">support description:</span>
-            <span><%= opp.supportDescription %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.supportPreference){%>
-            <span class="oppItemLabel">support preference:</span>
-            <span><%= opp.supportPreference %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.teamSize){%>
-            <span class="oppItemLabel">team size:</span>
-            <span><%= opp.teamSize %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.term){%>
-            <span class="oppItemLabel">term:</span>
-            <span><%= opp.term %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.timePeriodEndDate){%>
-            <span class="oppItemLabel">time period end date:</span>
-            <span><%= utils.dateTimeToDisplay(opp.timePeriodEndDate) %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-        <% if(opp.timePeriodStartDate){%>
-            <span class="oppItemLabel">time period start date:</span>
-            <span><%= utils.dateTimeToDisplay(opp.timePeriodStartDate) %></span>
-        <%}%>
-    </div>
-    <div class="oppItemField">
-            <% if(opp.totalSeats){%>
-            <span class="oppItemLabel">total seats:</span>
-            <span><%= opp.totalSeats %></span>
-        <%}%>
-    </div>
-
-    <div class="oppItemField">
-        <% if(opp.status){%>
-        <span class="oppItemLabel oppItemStatus">status:</span>
-        <span class="oppItemStatus"><%= opp.status %></span>
-        <%}%>
-    </div>
-
-
-</div>-->
-

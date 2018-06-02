@@ -111,7 +111,7 @@ var persons = {
 		console.log("calling sprocFindPerId");
 		dbServer.sproc("sprocFindPerId", params, function(results) {
 			if (results && results.error) {
-				results.sprocThatErrored = "sprocUpdatePer";
+				results.sprocThatErrored = "sprocFindPerId";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		var returnResults = {};

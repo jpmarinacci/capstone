@@ -33,8 +33,13 @@ function (eLeap, $, _, Backbone, user, navbarTmpl) { 'use strict';
 			});
 		},
 		
-		showLogOutBtn: function() {
+		showLoggedIn: function() {
 			this.$(".btnLogout").show();
+			this.$(".bannerWrapper .headerBanner").removeClass("fixedCenter");
+		},
+		
+		showLoggedOut: function() {
+			this.$(".bannerWrapper .headerBanner").addClass("fixedCenter");
 		}
 	});
 	return eLeap.own.Navbar;

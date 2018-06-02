@@ -6,8 +6,10 @@
 /* base html css */
 
 body {
-
-	font: 14px "Lucida Grande", Oswald, Consolas, Georgia, Helvetica, Arial, sans-serif;
+	/*font-family: "Lucida Grande", Oswald, Consolas, Georgia, Helvetica, Arial, sans-serif;*/
+	font-family: consolas, fantasy, "Lucida Console", Monaco, monospace, "Impact, Charcoal"; 
+	font-size: 16px;
+	/*letter-spacing: 1px;*/
 	height: 100%;
 	min-height: 100%;
 	position: relative;
@@ -56,8 +58,9 @@ ul, ol {
 }
 
 .backdrop {
-	background-color: #51cee2;
-	background: url("/img/Alien_Ink_2560X1600_Abstract_Background_1.jpg");
+	background-color: white;
+	/*background-color: #51cee2;*/
+	/*background: url("/img/Alien_Ink_2560X1600_Abstract_Background_1.jpg");*/
 	background-repeat: no-repeat;
     -webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -231,7 +234,6 @@ ul, ol {
 
 /* app ui /navbar specific css */
 
-
 .bannerWrapper {
     position: fixed;
     top: 0;
@@ -265,6 +267,11 @@ ul, ol {
 	text-align: center;
 	margin-left: 245px;
 	width: calc(100% - 245px);
+}
+.bannerWrapper .headerBanner.fixedCenter {
+	width: 100%;
+	margin:0 auto;
+	position: fixed;
 }
 
 .bannerWrapper .headerBanner img {
@@ -437,51 +444,59 @@ ul, ol {
 
 /* Dashboard Page */
 
+.welcomeBox {
+	display: inline-block;
+    border: 0.5px solid black;
+    box-shadow: 10px 10px 5px #888;
+    padding: 20px;
+    margin-bottom: 20px;
+    /*background-color: #34495e;*/
+	background-color: white;
+	border-radius: 10px;
+}
+
 .welcome {
-	color: white;
-	font-size: 30px;
-	text-shadow: 2px 2px black;
-	padding-bottom: 16px;
+	/*color: #000088;*/
+	/*color: white;*/
+	color: #34495e;
+	font-size: 40px;
+	font-family: fantasy, Oswald;
+	font-weight: 600;
 }
 .opportunityItem {
 	display: inline-block;
-	vertical-align: text-top;
+	width: 18rem;
+	padding-bottom: 10px;
+	border: solid 1px #343a40;
+	border-radius: 10px;
 	margin-right: 10px;
+	margin-bottom: 10px;
 }
-.opportunityItem .oppItemField h6{
+
+.opportunityItem .oppItemCard {
+	text-align: left;
+	height: 464px;
+    overflow: hidden;
+}
+
+.opportunityItem .oppItemCard .cardHeader {
+	background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    padding: 10px;
+}
+
+.opportunityItem .oppItemCard .oppItemField h6{
 	word-break: break-word;
 }
 
 .opportunitiesList {
-	margin: 0 10px;
-}
-
-.opportunitiesList .opportunityItem {
-	border-radius: 2px;
-	text-align: left;
+	margin: 0 20px;
 }
 
 .oppItemTitle {
 	font-size: 30px;
 }
 
-/*
-.opportunitiesList .opportunityItem:hover {
-	!*background-color: #a7e6ff;*!
-	box-shadow: inset 0 0 2px #444444;
-	cursor: pointer;
-}
-*/
-/*.card-title {
-	font-family: times, Times New Roman, times-roman, georgia, serif;
-	color: #444;
-	margin: 0;
-	padding: 0px 0px 6px 0px;
-	font-size: 20px;
-	line-height: 44px;
-	letter-spacing: -1px;
-	font-weight: bold;
-}*/
 .oppItemPicContainer {
 	width: 40px;
 	height: 40px;
@@ -493,12 +508,7 @@ ul, ol {
 	max-height: 40px;
 	max-width: 40px;
 }
-.oppItemDetails {
-	min-width: 250px;
-}
-.oppItemDetails .card.border-dark.mb-3 {
-	width: 18rem;
-}
+
 .oppItemLabel {
 	font-weight: 600;
 }
@@ -744,99 +754,6 @@ ul, ol {
 .present-addition {
   margin-top: -10px;
 }
-.tabs .nav-tabs {
-  border-color: #dfe6e7;
-}
-.nav {
-  margin-bottom: 0;
-  padding-left: 0;
-  list-style: none;
-}
-.nav-tabs {
-  border-bottom: 1px solid #dddddd;
-}
-.nav-tabs > li {
-  float: left;
-  margin-bottom: -1px;
-}
-.nav-tabs > li > a {
-  margin-right: 2px;
-  line-height: 1.42857143;
-  border: 1px solid transparent;
-  border-radius: 4px 4px 0 0;
-}
-.nav-tabs > li > a:hover {
-  border-color: #eeeeee #eeeeee #dddddd;
-}
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
-.nav-tabs > li.active > a:focus {
-  color: #555555;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-  border-bottom-color: transparent;
-  cursor: default;
-}
-.nav-tabs.nav-justified {
-  width: 100%;
-  border-bottom: 0;
-}
-.nav-tabs.nav-justified > li {
-  float: none;
-}
-.nav-tabs.nav-justified > li > a {
-  text-align: center;
-  margin-bottom: 5px;
-}
-.nav-tabs.nav-justified > .dropdown .dropdown-menu {
-  top: auto;
-  left: auto;
-}
-.tabs .nav-tabs .active a,
-.tabs .nav-tabs .active a:hover,
-.tabs .nav-tabs .active a:focus {
-  color: #34495e;
-  background-color: #85d6de;
-  border-color: transparent;
-}
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
-.nav-tabs > li.active > a:focus {
-  color: #555555;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-  border-bottom-color: transparent;
-  cursor: default;
-}
-.tabs .nav-tabs a {
-  padding: 13px 25px 16px;
-  font-size: 13px;
-  font-weight: bold;
-  font-style: normal;
-  text-transform: uppercase;
-  color: #737c85;
-  border-color: transparent;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-}
-.tabs .nav-tabs a:hover,
-.tabs .nav-tabs a:focus {
-  color: #34495e;
-  background-color: transparent;
-  border-color: transparent;
-}
-.tabs .nav-tabs .active a,
-.tabs .nav-tabs .active a:hover,
-.tabs .nav-tabs .active a:focus {
-  color: #34495e;
-  background-color: #85d6de;
-  border-color: transparent;
-}
-.tabs .nav-tabs a {
-	padding-left: 10px;
-	padding-right: 10px;
-}
 .nav > li {
   position: relative;
   display: block;
@@ -863,31 +780,6 @@ ul, ol {
 }
 .nav > li > a > img {
   max-width: none;
-}
-.tabs .tab-content {
-  padding: 30px 30px 7px;
-  color: #737c85;
-  border: 1px solid #dfe6e7;
-  border-top: none;
-}
-.tabs .tab-content p {
-  margin-bottom: 24px;
-  line-height: 26px;
-}
-.tabs .tab-pane {
-  opacity: 0;
-  -webkit-transition: all 300ms ease-in;
-  -o-transition: all 300ms ease-in;
-  transition: all 300ms ease-in;
-}
-.tabs .tab-pane.active {
-  opacity: 1;
-  -webkit-transition: all 300ms ease-in;
-  -o-transition: all 300ms ease-in;
-  transition: all 300ms ease-in;
-}
-.tab-content > .active {
-  display: block;
 }
 
 .heading-helper {
@@ -1007,7 +899,7 @@ ul, ol {
 .detailDesc {
 	white-space: pre-wrap;
 	word-wrap: break-word;
-	font-size:16px;
+	font-size: 16px;
 }
 
 .required:before {
@@ -1073,6 +965,9 @@ ul, ol {
 	.bannerWrapper .headerBanner {
 		width: calc(100% - 100px);
 		margin-left: 100px;
+	}
+	.bannerWrapper .headerBanner.fixedCenter {
+		margin-left: 30px;
 	}
 	.nav-sidebar {
 		width: 100px;

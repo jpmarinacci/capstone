@@ -43,7 +43,7 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 		},
 		
 		successfulLogin: function() {
-			this.navbar.showLogOutBtn();
+			this.navbar.showLoggedIn();
 			if(!this.sidebar) {
 				this.sidebar = new Sidebar({
 					el: "#sidebar",
@@ -62,6 +62,7 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 		},
 		
 		showLoggedOut: function () {
+			this.navbar.showLoggedOut();
 			if(this.sidebar) {
 				this.sidebar.remove();
 				this.sidebar = undefined;

@@ -11,7 +11,7 @@ var applicationState = {
 		];
 		console.log("updateApplicationState route called");
 		console.log("calling "+ sprocName);
-		function processSproc(results) {
+		dbServer.sproc(sprocName, params, function (results) {
 			if (results && results.error) {
 				results.sprocThatErrored = "sprocUpdateAppState";
 				dbServer.processSprocError(results, response);
@@ -20,8 +20,7 @@ var applicationState = {
 	    		console.log("sprocUpdateAppState successful");
 	    		response.send(returnResults);
 	    	}
-		};
-		dbServer.sproc(sprocName, params, processSproc);
+		});
     }
 };
 
