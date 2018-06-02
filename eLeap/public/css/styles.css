@@ -295,15 +295,17 @@ ul, ol {
 #notifications {
 	display: none;
 	width: 60%;
-	top: 20px;
+	top: 60px;
 	border-radius: 4px;
-	background-color: #C4EDFD;
-	padding: 2px 10px 2px 10px;
+	/*background-color: #C4EDFD;*/
+	background-color: white;
+	padding: 20px;
 }
 
 #notificationMessage {
+	color: #000066;
 	font-family: Oswald, Georgia;
-	font-size: 22px;
+	font-size: 40px;
 	min-height: 40px;
 	line-height: 40px;
     vertical-align: middle;

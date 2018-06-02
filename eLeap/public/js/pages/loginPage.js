@@ -5,9 +5,9 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'controllers/user',
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications', 'controllers/router', 'controllers/user',
 	'text!../../tmpl/pages/loginPage.tmpl'],
-	function (eLeap, $, _, Backbone, router, user, loginPageTmpl) { 'use strict';
+	function (eLeap, $, _, Backbone, notifications, router, user, loginPageTmpl) { 'use strict';
 		
 	eLeap.own.LoginPage = Backbone.View.extend({
 		
@@ -26,8 +26,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/router', 'cont
 		
 		renderFramework: function(){
 			this.$el.html(this.pageTmpl());
-			//this.$(".loginButton").html("Login");
-			this.$(".logoHeader").show();
+			this.$(".loginButton").html("Login");
 		},
 		
 		listenForEvents: function() {
