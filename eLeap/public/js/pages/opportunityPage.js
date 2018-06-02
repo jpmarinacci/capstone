@@ -55,7 +55,7 @@ function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunity
 				this.listenTo(this.commandDispatcher, 'command:joinOpp', this.commandJoinOpportunity);
 				this.listenTo(this.commandDispatcher, 'command:leaveOpp', this.commandLeaveOpportunity);
 				this.listenTo(this.commandDispatcher, 'command:approveOpp', this.commandApproveOpportunity);
-				this.listenTo(this.commandDispatcher, 'filter:all filter:joined filter:owned', this.commandNavigateToDashboard);
+				//this.listenTo(this.commandDispatcher, 'filter:all filter:joined filter:owned', this.commandNavigateToDashboard);
 			}
 		},
 		

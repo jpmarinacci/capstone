@@ -33,6 +33,7 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 			if(user.person.get('personName') !== "") {
 				this.renderPerson();
 			}
+			this.commandDispatcher.trigger('show:allOpps');
 		},
 		
 		listenForEvents: function() {
@@ -180,6 +181,15 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 					el: thisPage.$(".opportunityForm")
 				});
 			});
+		},
+		
+		remove: function() {
+			if(this.commandDispatcher) {
+				this.commandDispatcher.trigger('hide:oppFilterBtns');
+			}
+			this.$el.remove();
+			this.stopListening();
+			return this;
 		}
 	});
 	return eLeap.own.DashboardPage;

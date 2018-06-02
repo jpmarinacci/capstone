@@ -42,23 +42,28 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		listenForEvents: function() {
 			this.stopListening();
 			if(this.commandDispatcher) {
+				this.listenTo(this.commandDispatcher, 'show:joined', this.showJoined);
+				this.listenTo(this.commandDispatcher, 'show:owned', this.showOwned);
+				this.listenTo(this.commandDispatcher, 'show:allOpps', this.showAllOpps);
+				
 				this.listenTo(this.commandDispatcher, 'show:create', this.showCreate);
 				this.listenTo(this.commandDispatcher, 'show:edit', this.showEdit);
 				this.listenTo(this.commandDispatcher, 'show:join', this.showJoin);
 				this.listenTo(this.commandDispatcher, 'show:leave', this.showLeave);
 				this.listenTo(this.commandDispatcher, 'show:approve', this.showApprove);
 				this.listenTo(this.commandDispatcher, 'show:deny', this.showDeny);
-				this.listenTo(this.commandDispatcher, 'show:joined', this.showJoined);
-				this.listenTo(this.commandDispatcher, 'show:owned', this.showOwned);
+				this.listenTo(this.commandDispatcher, 'show:approveDeny', this.showApproveDeny);
+				
+				this.listenTo(this.commandDispatcher, 'hide:oppViewBtns', this.hideOppViewBtns);
+				this.listenTo(this.commandDispatcher, 'hide:oppFilterBtns', this.hideOppFilterBtns);
+				
 				this.listenTo(this.commandDispatcher, 'hide:approve', this.hideApprove);
 				this.listenTo(this.commandDispatcher, 'hide:deny', this.hideDeny);
+				this.listenTo(this.commandDispatcher, 'hide:approveDeny', this.hideApproveDeny);
 				this.listenTo(this.commandDispatcher, 'hide:create', this.hideCreate);
 				this.listenTo(this.commandDispatcher, 'hide:edit', this.hideEdit);
 				this.listenTo(this.commandDispatcher, 'hide:join', this.hideJoin);
 				this.listenTo(this.commandDispatcher, 'hide:leave', this.hideLeave);
-				this.listenTo(this.commandDispatcher, 'hide:oppViewBtns', this.hideOppViewBtns);
-				this.listenTo(this.commandDispatcher, 'show:approveDeny', this.showApproveDeny);
-				this.listenTo(this.commandDispatcher, 'hide:approveDeny', this.hideApproveDeny);
 			}
 		},
 		
@@ -66,6 +71,18 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			this.$el.off().empty();
 			this.stopListening();
 			return this;
+		},
+		
+		showAllOpps: function(){
+			this.$(".allOppsBtn").show();
+		},
+		
+		showJoined: function() {
+			this.$(".joinedOppsBtn").show();
+		},
+				
+		showOwned: function() {
+			this.$(".ownedOppsBtn").show();
 		},
 		
 		showCreate: function() {
@@ -92,14 +109,6 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			this.$(".denyOppBtn").show();
 		},
 		
-		showJoined: function() {
-			this.$(".joinedOppsBtn").show();
-		},
-				
-		showOwned: function() {
-			this.$(".ownedOppsBtn").show();
-		},
-		
 		showApproveDeny: function() {
 			this.$(".approveOppBtn").show();
 			this.$(".denyOppBtn").show();
@@ -108,6 +117,14 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		hideApproveDeny: function() {
 			this.$(".approveOppBtn").hide();
 			this.$(".denyOppBtn").hide();
+		},
+				
+		hideJoined: function() {
+			this.$(".joinedOppBtn").hide();
+		},
+		
+		hideOwned: function() {
+			this.$(".ownedOppBtn").hide();
 		},
 		
 		hideCreate: function() {
@@ -133,13 +150,9 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		hideDeny: function() {
 			this.$(".denyOppBtn").show();
 		},
-		
-		hideJoined: function() {
-			this.$(".joinedOppBtn").hide();
-		},
-		
-		hideOwned: function() {
-			this.$(".ownedOppBtn").hide();
+
+		hideOppFilterBtns: function(){
+			this.$(".allOppsBtn, .joinedOppsBtn, .ownedOppsBtn").hide();
 		},
 		
 		hideOppViewBtns: function(){
