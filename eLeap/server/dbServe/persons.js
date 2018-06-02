@@ -25,6 +25,7 @@ var persons = {
 		console.log("calling sprocAddPer");
 		dbServer.sproc("sprocAddPer", params, function(results) {
 			if (results && results.error) {
+				results.sprocThatErrored = "sprocAddPer";
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sproc Add per returned");
