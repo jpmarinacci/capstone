@@ -5,20 +5,16 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'controllers/cache', 'controllers/notifications', 'controllers/router',
-		'controllers/user', 'forms/opportunityForm', 'items/opportunityDetailItem', 'text!../../tmpl/pages/opportunityPage.tmpl'],
-function (eLeap, $, _, Backbone, CollegeClass, cache, notifications, router, user, OpportunityForm, OpportunityDetailItem, opportunityPageTmpl) { 'use strict';
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'controllers/cache', 'controllers/notifications', 
+		'controllers/router', 'controllers/user', 'forms/opportunityForm', 'items/opportunityDetailItem',
+		'text!../../tmpl/pages/opportunityPage.tmpl'],
+	function (eLeap, $, _, Backbone, CollegeClass, cache, notifications, router, user, OpportunityForm, OpportunityDetailItem, 
+		opportunityPageTmpl) { 'use strict';
 	
 	eLeap.own.OpportunityPage = Backbone.View.extend({
 		
 		pageTmpl: _.template(opportunityPageTmpl),
 		mode: "create",
-		
-		events: {
-			/*'click .oppViewJoinBtn': 'commandJoinOpportunity',
-			'click .oppViewLeaveBtn': 'commandLeaveOpportunity',
-			'click .oppViewEditBtn': 'commandEditOpportunity'*/
-		},
 		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
@@ -32,16 +28,28 @@ function (eLeap, $, _, Backbone, CollegeClass, cache, notifications, router, use
 				this.opportunityForm = new OpportunityForm({
 					el: this.$(".opportunityPageCreateForm")
 				});
-				
 			} else {
 				this.opportunityId = Number(this.opportunityId);
 				if(this.opportunityId) {
 					this.openViewMode();
 				} else {
 					notifications.notifyUser("invalid opportuity ID");
-					router.navigate('/dashboard', {trigger: true});
+					//router.navigate('/dashboard', {trigger: true});
 				}
 			}
+			//test code
+			/*var testClass = new CollegeClass({
+				classId: 3,
+				className: "testEditClass",
+				courseSummary: "blah edited summary",
+				estimatedClassSize: 5,
+				ownerId : 3,
+				section: "test",
+				term: "test",
+				year: 2018
+			});
+			//testClass.fetch();
+			testClass.destroy();*/
 		},
 				
 		renderFramework: function(){
@@ -55,6 +63,7 @@ function (eLeap, $, _, Backbone, CollegeClass, cache, notifications, router, use
 				this.listenTo(this.commandDispatcher, 'command:joinOpp', this.commandJoinOpportunity);
 				this.listenTo(this.commandDispatcher, 'command:leaveOpp', this.commandLeaveOpportunity);
 				this.listenTo(this.commandDispatcher, 'command:approveOpp', this.commandApproveOpportunity);
+				this.listenTo(this.commandDispatcher, 'command:denyOpp', this.commandDenyOpportunity);
 				//this.listenTo(this.commandDispatcher, 'filter:all filter:joined filter:owned', this.commandNavigateToDashboard);
 			}
 		},
@@ -71,17 +80,7 @@ function (eLeap, $, _, Backbone, CollegeClass, cache, notifications, router, use
 			this.opp = cache.getOpportunity({
 				opportunityId: this.opportunityId
 			});
-			var testClass = new CollegeClass();
-			//testClass.fetch();
-			testClass.save({
-				className: "testClass",
-				courseSummary: "blah summary",
-				estimatedClassSize: 5,
-				ownerId : 3,
-				section: "test",
-				term: "test",
-				year: 2018
-			});
+
 			this.listenForOppEvents();
 			
 			//forcing fetch to get isJoined value (purposely not using cache correctly) 
@@ -209,7 +208,7 @@ function (eLeap, $, _, Backbone, CollegeClass, cache, notifications, router, use
 			var options = {
 				personId: user.person.get('personId'),
 				success: function() {
-					notifications.notifyUser("You Left this opportunity");
+					notifications.notifyUser("You left this opportunity");
 					thisPage.commandDispatcher.trigger('show:join');
 					thisPage.commandDispatcher.trigger('hide:leave');
 					thisPage.opp.set({'isJoined': false});
@@ -231,7 +230,49 @@ function (eLeap, $, _, Backbone, CollegeClass, cache, notifications, router, use
 		},
 		
 		commandApproveOpportunity: function() {
-			this.opp.save({'status':'approved'});
+			var thisPage = this;
+			this.opp.save({'status':'approved'}, {
+				success: function(response) {
+					thisPage.commandDispatcher.trigger('hide:approve');
+				},
+				appError: function(response) {
+					var errorMessage = "update errored";
+					if(response && response.message) {
+						errorMessage = response.message;
+					}
+					notifications.notifyUser(errorMessage);
+				},
+				error: function(error){
+					var errorMessage = "update errored";
+					if(response && response.message) {
+						errorMessage = response.message;
+					}
+					notifications.notifyUser(errorMessage);
+				}
+			});
+		},
+		
+		commandDenyOpportunity: function() {
+			var thisPage = this;
+			this.opp.save({'status':'denied'},{
+				success: function(response) {
+					thisPage.commandDispatcher.trigger('hide:deny');
+				},
+				appError: function(response) {
+					var errorMessage = "update errored";
+					if(response && response.message) {
+						errorMessage = response.message;
+					}
+					notifications.notifyUser(errorMessage);
+				},
+				error: function(error){
+					var errorMessage = "update errored";
+					if(response && response.message) {
+						errorMessage = response.message;
+					}
+					notifications.notifyUser(errorMessage);
+				}
+			});
 		},
 		
 		commandNavigateToDashboard: function() {

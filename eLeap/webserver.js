@@ -43,28 +43,8 @@ var proxiedHttp = require("findhit-proxywrap").proxy(http, {strict: false});
 app.set('port', process.env.PORT || 17490);
 app.use(favicon(__dirname + '/public/img/risingDragonFolder.ico'));
 
-//Session and cookie
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
-/*app.use(cookieParser());
-app.use(function(req, res, next) {
-	//console.log(req);
-	var cookie = req.cookies.cookieName;
-	if(!cookie) {
-		res.cookie('cookieName', 'CisForCookie', {
-			maxAge: 900000,
-			httpOnly: true
-		});
-		
-		console.log('cookie created successfully');
-		console.log(res.cookie);
-		//console.log('no cookie');
-	} else {
-		console.log('cookie exists', cookie);
-	}
-	next();
-});*/
 
 app.use(function(req, res, next) {
 	req.session = req.session || {};
@@ -96,6 +76,7 @@ app.post('/createClass', classes.createClass);
 app.post('/updateClass', classes.updateClass);
 app.post('/deleteClass', classes.deleteClass);
 app.post('/getOwnedClasses', classes.getOwnedClasses);
+app.post('/getJoinedClasses', classes.getJoinedClasses);
 app.post('/addStudent', classes.addStudent);
 app.post('/addStudents', classes.addStudents);
 

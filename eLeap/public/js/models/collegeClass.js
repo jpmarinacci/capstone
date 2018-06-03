@@ -22,14 +22,37 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		
 		routes: {
 			createClass: "/createClass",
-			//getClass: "/getClassById",
-			//updateClass: "/udpateClass",
+			getOwnedClasses: "/getOwnedClasses",
+			updateClass: "/updateClass",
 			deleteClass: "/deleteClass"
 		},
 		
 		sync: function (method, thisModel, options) {
 			options = options || {};
-			if(method === 'create') {
+			if(method === 'read') {
+				var ownedClassInput = {
+					ownerId: options.ownerId
+				};
+				server.postRoute(this.routes.getOwnedClasses, this.toJSON(), function (response) {
+					if (response.status && response.status !== "success") {
+						if (options.appError) {
+							options.appError(response);
+						}
+					} else {
+						if (options.success) {
+							if(options.context) {
+								options.call(options.success, context);
+							} else {
+								options.success(response);
+							}
+						}
+					}
+				}, function (error) {
+					if (options.error) {
+						options.error(error);
+					}
+				});
+			} else if(method === 'create') {
 				server.postRoute(this.routes.createClass, this.toJSON(), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
@@ -49,28 +72,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 						options.error(error);
 					}
 				});
-			} else if(method === 'read') {
-				server.postRoute(this.routes.updatecollegeClass, this.toJSON(), function (response) {
-					if (response.status && response.status !== "success") {
-						if (options.appError) {
-							options.appError(response);
-						}
-					} else {
-						if (options.success) {
-							if(options.context) {
-								options.call(options.success, context);
-							} else {
-								options.success(response);
-							}
-						}
-					}
-				}, function (error) {
-					if (options.error) {
-						options.error(error);
-					}
-				});
 			} else if(method === 'update') {
-				server.postRoute(this.routes.readcollegeClass, this.toJSON(), function (response) {
+				server.postRoute(this.routes.updateClass, this.toJSON(), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
@@ -90,7 +93,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					}
 				});
 			} else if(method === 'delete') {
-				server.postRoute(this.routes.updateCcollegeClass, this.toJSON(), function (response) {
+				server.postRoute(this.routes.deleteClass, this.toJSON(), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);

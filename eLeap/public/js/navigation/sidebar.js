@@ -22,6 +22,7 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			'click .joinOppBtn': 'commandJoinOpportunity',
 			'click .leaveOppBtn': 'commandLeaveOpportunity',
 			'click .approveOppBtn': 'commandApproveOpportunity',
+			'click .denyOppBtn': 'commandDenyOpportunity',
 			'click .allOppsBtn': 'commandFilterAllOpps',
 			'click .joinedOppsBtn': 'commandFilterJoinedOpps',
 			'click .ownedOppsBtn': 'commandFilterOwnedOpps'
@@ -76,7 +77,6 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		
 		showOppViewBtns: function(){
 			this.$(".oppSettings").show();
-			this.$(".editOppBtn, .joinOppBtn, .leaveOppBtn, .approveOppBtn, .denyOppBtn").show();
 		},
 		
 		showAllOpps: function(){
@@ -214,6 +214,10 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		
 		commandApproveOpportunity: function() {
 			this.commandDispatcher.trigger('command:approveOpp');
+		},
+		
+		commandDenyOpportunity: function() {
+			this.commandDispatcher.trigger('command:denyOpp');
 		}
 	});
 	return eLeap.own.Sidebar;

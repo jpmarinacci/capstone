@@ -106,7 +106,7 @@ instantiateDbServer = function() {
 		processSprocError: function(results, response) {
 			if(response && !response.error) {
 				console.log("^*^*^*^*^^*^*^*^*^*^*^*^**^*^*^*^*^*^*^**^*^**^*^*^**^*");
-				consoel.log("impossible path error: check results-->");
+				console.log("impossible path error: check results --->");
 				console.log(results);
 			}
 			console.log("*^*^*^*^*^**^*^*^*^*^**^^*^*^*^*^^*^*^*^*^*^*^*^*^*^**^*^*^*");

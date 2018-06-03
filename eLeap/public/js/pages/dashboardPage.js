@@ -15,7 +15,8 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 		
 		events: {
 			'click .add': 'addOpportuntiy',
-			//'click '
+			'click .oppItemApproveBtn': 'commandApproveOpp',
+			'click .oppItemDenyBtn': 'commandDenyOpp'
 		},
 		
 		initialize: function (options) {
@@ -184,6 +185,14 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 			});
 		},
 		
+		commandApproveOpp: function() {
+			this.opp.save({'status':'approved'});
+		},
+		
+		commandDenyOpp: function() {
+			this.opp.save({'status':'denied'});
+		},
+		
 		remove: function() {
 			if(this.commandDispatcher) {
 				this.commandDispatcher.trigger('hide:oppFilterBtns');
@@ -195,3 +204,4 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 	});
 	return eLeap.own.DashboardPage;
 });
+

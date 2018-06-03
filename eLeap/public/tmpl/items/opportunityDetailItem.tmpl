@@ -3,14 +3,15 @@
         <% if(opp.title) {%>
             <div class="card-title">
                 <% if (opp.isJoined) { %>
-                <div class="row">
-                <div class="col-2">
-                    <i class="fa fa-check-square icon-middle color-green"></i><br>Joined
-                </div>
-                <div class="col-10">
-                    <h2><%= opp.title %></h2>
-                </div>
-                </div>
+	                <div class="row">
+	                <div class="col-2">
+	                    <i class="fa fa-check-square icon-middle color-green"></i>
+	                    <br>Joined
+	                </div>
+	                <div class="col-10">
+	                    <h2><%= opp.title %></h2>
+	                </div>
+	                </div>
                 <% } else { %>
                 	<h2><%= opp.title %></h2>
                 <% } %>
@@ -22,376 +23,282 @@
             <div class="card">
                 <div class="oppItemField">
                 <ul class="list-group list-group-flush">
-
                     <% if(opp.ownerName) {%>
-
-                            <li class="list-group-item">
-                                <b>Owner Name:</b><br>
-                                <%= opp.ownerName %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Owner Name:</b><br>
+                            <%= opp.ownerName %>
+                        </li>
                      <%}%>
                      <% if(opp.createDate) {%>
-
-                             <li class="list-group-item">
-                                 <b>Created on </b><br>
-                                 <%= utils.dateTimeToDisplay(opp.createDate) %>
-                            </li>
-
+                         <li class="list-group-item">
+                             <b>Created on </b><br>
+                             <%= utils.dateTimeToDisplay(opp.createDate) %>
+                        </li>
                     <%}%>
                     <% if(opp.status) {%>
-
-                            <li class="list-group-item">
-                                <b>Status: </b><br>
-                                <%= opp.status %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Status: </b><br>
+                            <%= opp.status %>
+                        </li>
                     <%}%>
                     <% if(opp.totalSeats) {%>
-
-                            <li class="list-group-item">
-                                <b>Total seats:</b><br>
-                                <%= opp.totalSeats %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Total seats:</b><br>
+                            <%= opp.totalSeats %>
+                        </li>
                     <%}%>
                     <%if(opp.applicationDueDate) {%>
-
-                            <li class="list-group-item">
-                                <b>Application due date:</b><br>
-                                <%= utils.dateTimeToDisplay(opp.applicationDueDate) %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Application due date:</b><br>
+                            <%= utils.dateTimeToDisplay(opp.applicationDueDate) %>
+                        </li>
                     <%}%>
                     <% if(opp.availableSeats) {%>
-
-                            <li class="list-group-item">
-                                <b>Available seats:</b><br>
-                                <%= opp.availableSeats %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Available seats:</b><br>
+                            <%= opp.availableSeats %>
+                        </li>
                     <%}%>
                     <% if(opp.agencyCommitment) {%>
-
-                            <li class="list-group-item">
-                                <b>Agency commitment:</b><br>
-                                <%= opp.agencyCommitment %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Agency commitment:</b><br>
+                            <%= opp.agencyCommitment %>
+                        </li>
                     <%}%>
                     <% if(opp.classId) {%>
-
-                            <li class="list-group-item">
-                                <b>Class ID:</b><br>
-                                <%= opp.classId %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Class ID:</b><br>
+                            <%= opp.classId %>
+                        </li>
                     <%}%>
                     <% if(opp.className) {%>
-
-                            <li class="list-group-item">
-                                <b>Class name:</b><br>
-                                <%= opp.className %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Class name:</b><br>
+                            <%= opp.className %>
+                        </li>
                     <%}%>
                     <% if(opp.classType) {%>
-
-                            <li class="list-group-item">
-                                <b>Class type:</b><br>
-                                <%= opp.classType %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Class type:</b><br>
+                            <%= opp.classType %>
+                        </li>
                     <%}%>
                     <% if(opp.classYear) {%>
-
-                            <li class="list-group-item">
-                                <b>Class year:</b><br>
-                                <%= opp.classYear %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Class year:</b><br>
+                            <%= opp.classYear %>
+                        </li>
                     <%}%>
                     <% if(opp.courseSummary) {%>
-
-                            <li class="list-group-item">
-                                <b>Course summary:</b><br>
-                                <%= opp.courseSummary %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Course summary:</b><br>
+                            <%= opp.courseSummary %>
+                        </li>
                     <%}%>
                     <% if(opp.deliverables) {%>
-
-                            <li class="list-group-item">
-                                <b>Deliverables:</b><br>
-                                <%= opp.deliverables %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Deliverables:</b><br>
+                            <%= opp.deliverables %>
+                        </li>
                     <%}%>
                     <% if(opp.donation) {%>
-
-                            <li class="list-group-item">
-                                <b>Donation:</b><br>
-                                <%= opp.donation %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Donation:</b><br>
+                            <%= opp.donation %>
+                        </li>
                     <%}%>
                     <% if(opp.duration) {%>
-
-                            <li class="list-group-item">
-                                <b>Duration:</b><br>
-                                <%= opp.duration %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Duration:</b><br>
+                            <%= opp.duration %>
+                        </li>
                     <%}%>
                     <% if(opp.endDateTime) {%>
-
-                            <li class="list-group-item">
-                                <b>End date:</b><br>
-                                <%= utils.dateTimeToDisplay(opp.endDateTime) %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>End date:</b><br>
+                            <%= utils.dateTimeToDisplay(opp.endDateTime) %>
+                        </li>
                     <%}%>
                     <% if(opp.estimatedClassSize) {%>
-
-                            <li class="list-group-item">
-                                <b>Estimated class size:</b><br>
-                                <%= opp.estimatedClassSize %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Estimated class size:</b><br>
+                            <%= opp.estimatedClassSize %>
+                        </li>
                     <%}%>
                     <% if(opp.examples) {%>
-
-                            <li class="list-group-item">
-                                <b>Examples:</b><br>
-                                <%= opp.examples %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Examples:</b><br>
+                            <%= opp.examples %>
+                        </li>
                     <%}%>
                     <% if(opp.hoursRequired) {%>
-
-                            <li class="list-group-item">
-                                <b>Hours required:</b><br>
-                                <%= opp.hoursRequired %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Hours required:</b><br>
+                            <%= opp.hoursRequired %>
+                        </li>
                     <%}%>
                     <% if(opp.isClass) {%>
-
-                            <li class="list-group-item">
-                                <b>Is for class:</b><br>
-                                <%= opp.isClass %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Is for class:</b><br>
+                            <%= opp.isClass %>
+                        </li>
                     <%}%>
                     <% if(opp.isRequiredForClass) {%>
-
-                            <li class="list-group-item">
-                                <b>Is required for class:</b><br>
-                                <%= opp.isRequiredForClass %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Is required for class:</b><br>
+                            <%= opp.isRequiredForClass %>
+                        </li>
                     <%}%>
                     <% if(opp.isPaid) {%>
-
-                            <li class="list-group-item">
-                                <b>Paid:</b><br>
-                                <%= opp.isPaid %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Paid:</b><br>
+                            <%= opp.isPaid %>
+                        </li>
                     <%}%>
                     <% if(opp.isServiceLearning) {%>
-
-                            <li class="list-group-item">
-                                <b>Service learning:</b><br>
-                                <%= opp.isServiceLearning %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Service learning:</b><br>
+                            <%= opp.isServiceLearning %>
+                        </li>
                     <%}%>
                     <% if(opp.isTeams) {%>
-
-                            <li class="list-group-item">
-                                <b>Teams:</b><br>
-                                <%= opp.isTeams %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Teams:</b><br>
+                            <%= opp.isTeams %>
+                        </li>
                     <%}%>
                     <% if(opp.isVirtual) {%>
-
-                            <li class="list-group-item">
-                                <b>Virtual:</b><br>
-                                <%= opp.isVirtual %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Virtual:</b><br>
+                            <%= opp.isVirtual %>
+                        </li>
                     <%}%>
                     <% if(opp.latitude) {%>
-
-                            <li class="list-group-item">
-                                <b>Latitude:</b><br>
-                                <%= opp.latitude %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Latitude:</b><br>
+                            <%= opp.latitude %>
+                        </li>
                     <%}%>
                     <% if(opp.location) {%>
-
-                            <li class="list-group-item">
-                                <b>Location:</b><br>
-                                <%= opp.location %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Location:</b><br>
+                            <%= opp.location %>
+                        </li>
                     <%}%>
                     <% if(opp.longitude) {%>
-
-                            <li class="list-group-item">
-                                <b>Longitude:</b><br>
-                                <%= opp.longitude %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Longitude:</b><br>
+                            <%= opp.longitude %>
+                        </li>
                     <%}%>
                     <% if(opp.minimumPersonsRequired) {%>
-
-                            <li class="list-group-item">
-                                <b>Minimum persons required:</b><br>
-                                <%= opp.minimumPersonsRequired %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Minimum persons required:</b><br>
+                            <%= opp.minimumPersonsRequired %>
+                        </li>
                     <%}%>
                     <% if(opp.notAllowed) {%>
-
-                            <li class="list-group-item">
-                                <b>Not allowed:</b><br>
-                                <%= opp.notAllowed %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Not allowed:</b><br>
+                            <%= opp.notAllowed %>
+                        </li>
                     <%}%>
                     <% if(opp.notes) {%>
-
-                            <li class="list-group-item">
-                                <b>Notes:</b><br>
-                                <%= opp.notes %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Notes:</b><br>
+                            <%= opp.notes %>
+                        </li>
                     <%}%>
                     <% if(opp.numTeams) {%>
-
-                            <li class="list-group-item">
-                                <b>Num teams:</b><br>
-                                <%= opp.numTeams %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Num teams:</b><br>
+                            <%= opp.numTeams %>
+                        </li>
                     <%}%>
                     <% if(opp.onBoarding) {%>
-
-                            <li class="list-group-item">
-                                <b>On boarding:</b><br>
-                                <%= opp.onBoarding %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>On boarding:</b><br>
+                            <%= opp.onBoarding %>
+                        </li>
                     <%}%>
                     <% if(opp.opportunityType) {%>
-
-                            <li class="list-group-item">
-                                <b>Opportunity type:</b><br>
-                                <%= opp.opportunityType %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Opportunity type:</b><br>
+                            <%= opp.opportunityType %>
+                        </li>
                     <%}%>
                     <% if(opp.pay) {%>
-
-                            <li class="list-group-item">
-                                <b>Pay:</b><br>
-                                <%= opp.pay %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Pay:</b><br>
+                            <%= opp.pay %>
+                        </li>
                     <%}%>
                     <% if(opp.preferredAgencyType) {%>
-
-                            <li class="list-group-item">
-                                <b>Preferred agency type:</b><br>
-                                <%= opp.preferredAgencyType %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Preferred agency type:</b><br>
+                            <%= opp.preferredAgencyType %>
+                        </li>
                     <%}%>
                     <% if(opp.preferredServiceWorkType) {%>
-
-                            <li class="list-group-item">
-                                <b>Preferred service work type:</b><br>
-                                <%= opp.preferredServiceWorkType %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Preferred service work type:</b><br>
+                            <%= opp.preferredServiceWorkType %>
+                        </li>
                     <%}%>
                     <% if(opp.recurrence) {%>
-
-                            <li class="list-group-item">
-                                <b>Recurrence:</b><br>
-                                <%= opp.recurrence %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Recurrence:</b><br>
+                            <%= opp.recurrence %>
+                        </li>
                     <%}%>
                     <% if(opp.requirements) {%>
-
-                            <li class="list-group-item">
-                                <b>Requirements:</b><br>
-                                <%= opp.requirements %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Requirements:</b><br>
+                            <%= opp.requirements %>
+                        </li>
                     <%}%>
                     <% if(opp.startDateTime) {%>
-
-                            <li class="list-group-item">
-                                <b>Start date time:</b><br>
-                                <%= utils.dateTimeToDisplay(opp.startDateTime) %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Start date time:</b><br>
+                            <%= utils.dateTimeToDisplay(opp.startDateTime) %>
+                        </li>
                     <%}%>
                     <% if(opp.supportDescription) {%>
-
-                            <li class="list-group-item">
-                                <b>Support description:</b><br>
-                                <%= opp.supportDescription %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Support description:</b><br>
+                            <%= opp.supportDescription %>
+                        </li>
                     <%}%>
                     <% if(opp.supportPreference) {%>
-
-                            <li class="list-group-item">
-                                <b>Support preference:</b><br>
-                                <%= opp.supportPreference %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Support preference:</b><br>
+                            <%= opp.supportPreference %>
+                        </li>
                     <%}%>
                     <% if(opp.teamSize) {%>
-
-                            <li class="list-group-item">
-                                <b>Team size:</b><br>
-                                <%= opp.teamSize %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Team size:</b><br>
+                            <%= opp.teamSize %>
+                        </li>
                     <%}%>
                     <% if(opp.term) {%>
-
-                            <li class="list-group-item">
-                                <b>Term:</b><br>
-                                <%= opp.term %>
-                             </li>
-
+                        <li class="list-group-item">
+                            <b>Term:</b><br>
+                            <%= opp.term %>
+                         </li>
                     <%}%>
                     <% if(opp.timePeriodEndDate) {%>
-
-                            <li class="list-group-item">
-                                <b>Time period end date:</b><br>
-                                <%= utils.dateTimeToDisplay(opp.timePeriodEndDate) %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Time period end date:</b><br>
+                            <%= utils.dateTimeToDisplay(opp.timePeriodEndDate) %>
+                        </li>
                     <%}%>
                     <% if(opp.timePeriodStartDate) {%>
-
-                            <li class="list-group-item">
-                                <b>Time period start date:</b>
-                                <br><%= utils.dateTimeToDisplay(opp.timePeriodStartDate) %>
-                            </li>
-
+                        <li class="list-group-item">
+                            <b>Time period start date:</b>
+                            <br><%= utils.dateTimeToDisplay(opp.timePeriodStartDate) %>
+                        </li>
                     <%}%>
-
                 </ul>
             </div>
             </div>

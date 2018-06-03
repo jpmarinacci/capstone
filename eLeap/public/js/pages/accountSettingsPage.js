@@ -10,7 +10,6 @@ function (eLeap, $, _, Backbone, user, SignupForm) { 'use strict';
 		
 	eLeap.own.AccountSettingsPage = Backbone.View.extend({
 		
-		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
 			
@@ -35,3 +34,4 @@ function (eLeap, $, _, Backbone, user, SignupForm) { 'use strict';
 	});
 	return eLeap.own.AccountSettingsPage;
 });
+

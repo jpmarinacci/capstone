@@ -118,7 +118,7 @@ var collegeClasses = {
 	},
 	
 	getOwnedClasses: function(request, response) { 'use strict';	
-		console.log("--- getClasses route called ---");
+		console.log("--- getOwnedClasses route called ---");
 		if(!request.body.ownerId) {
 			response.send('invalid paramaters -- no ownerId');
 			return;
@@ -126,16 +126,40 @@ var collegeClasses = {
 		var params = [
 			Number(request.body.ownerId)
 		];
-		console.log("calling sprocGetClassByOwnId");
-		dbServer.sproc("sprocGetClassByOwnId", params, function processSproc(results) {
+		console.log("calling sprocOwnedClasses");
+		dbServer.sproc("sprocOwnedClasses", params, function(results) {
 			if (results && results.error) {
-				results.sprocThatErrored = "sprocAllCommunities";
+				results.sprocThatErrored = "sprocOwnedClasses";
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		console.log("sprocGetClassByOwnId returned");
+	    		console.log("sprocOwnedClasses returned");
 	    		console.log(results);
 	    		var returnResults = results ? results[0] ? results[0]: results: {'status':'success', 'message':'no results'};
 	    		console.log("sprocAllCommunities successful");
+	    		response.send(returnResults);
+	    	}
+		});
+	},
+	
+	getJoinedClasses: function(request, response) { 'use strict';	
+		console.log("--- getJoinedClasses route called ---");
+		if(!request.body.personId) {
+			response.send('invalid paramaters -- no personId');
+			return;
+		}
+		var params = [
+			Number(request.body.personId)
+		];
+		console.log("calling sprocAllStudent");
+		dbServer.sproc("sprocAllStudent", params, function(results) {
+			if (results && results.error) {
+				results.sprocThatErrored = "sprocAllStudent";
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		console.log("sprocAllStudent returned");
+	    		console.log(results);
+	    		var returnResults = results ? results[0] ? results[0]: results: {'status':'success', 'message':'no results'};
+	    		console.log("sprocAllStudent successful");
 	    		response.send(returnResults);
 	    	}
 		});
@@ -195,3 +219,4 @@ var collegeClasses = {
 };
 
 module.exports = collegeClasses;
+

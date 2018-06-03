@@ -10,7 +10,8 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/col
 		model: CollegeClass,
 		
 		routes: {
-			getClasses: "/getAllPersons"
+			getJoinedClasses: "/getJoinedClasses",
+			getOwnedClasses: "/getOwnedClasses"
 		},
 		
 		sync: function (method, thisCollection, options) {
@@ -20,8 +21,30 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/col
 					var getClassesInput = {
 						ownerId: options.ownerId
 					};
-				}
-				server.postRoute(this.routes.getAllPersons, getClassesInput, function (response) {
+					server.postRoute(this.routes.getOwnedClasses, getClassesInput, function (response) {
+						if (!response || response.status && response.status !== "success") {
+							if (options.appError) {
+								options.appError(response);
+							}
+						} else {
+							if (options.success) {
+								if(options.context) {
+									options.call(options.success, context);
+								} else {
+									options.success(response);
+								}
+							}
+						}
+					}, function (error) {
+						if (options.error) {
+							options.error(error);
+						}
+					});
+			} else if(options && options.studentId) {
+				var getClassesInput = {
+					personId: options.studentId
+				};
+				server.postRoute(this.routes.getJoinedClasses, getClassesInput, function (response) {
 					if (!response || response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
@@ -41,8 +64,7 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/col
 					}
 				});
 			}
-		}
-	});
+		});
 
 	return eLeap.own.CollegeClasses;
 });

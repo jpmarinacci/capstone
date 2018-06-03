@@ -145,6 +145,9 @@ ul, ol {
 .mb20 {
 	margin-bottom: 20px;
 }
+.mb40 {
+	margin-bottom: 40px;
+}
 .ml5 {
 	margin-left: 5px;
 }
@@ -183,6 +186,9 @@ ul, ol {
 }
 .mt20 {
 	margin-top: 20px;
+}
+.mt40 {
+	margin-top: 40px;
 }
 .mt50 {
 	margin-top: 50px;
@@ -306,6 +312,9 @@ ul, ol {
 	padding-left: 26px;
 	padding-right: 26px;
 }
+.btnLogout:active, .loginBtn:active, .signupLinkBtn:active, .signupButton:active  {
+	transform: translateY(2px);
+}
 
 /* notifications  */
 
@@ -327,6 +336,8 @@ ul, ol {
 	border-radius: 4px;
 	/*background-color: #C4EDFD;*/
 	background-color: white;
+	border: solid 0.5px slategrey;
+	box-shadow: 10px 10px 5px #888;
 	padding: 20px;
 }
 
@@ -351,6 +362,9 @@ ul, ol {
 	cursor: pointer;
 	padding-top: 20px;
 }
+.navLink:active {
+	transform: translateY(1px);
+}
 .navLink span {
 	color: white;
 	cursor: pointer;
@@ -370,6 +384,7 @@ ul, ol {
 	color: white;
 	font-size: 12px;
 	text-align: center;
+	margin-bottom: 10px;
 }
 .nav-sidebar-container {
 	padding-left: 30px;
@@ -488,7 +503,7 @@ ul, ol {
 
 .deleteOppBtn {
 	margin-left: 10px;
-	background-color: red;
+	background-color: #ba1512;
 } 
 .deleteOppBtn:hover {
 	background-color: orange;
@@ -526,6 +541,7 @@ ul, ol {
 	border-radius: 10px;
 	margin-right: 10px;
 	margin-bottom: 10px;
+	cursor: pointer;
 }
 
 .opportunityItem .oppItemCard {
@@ -932,8 +948,8 @@ ul, ol {
 }
 
 .oppFormHeader {
-	color: white;
-	text-shadow: 2px 2px black;
+	/*color: white;
+	text-shadow: 2px 2px black;*/
 }
 
 .col-form-label {
@@ -1027,6 +1043,9 @@ ul, ol {
 @media only screen and (max-width: 575px) {
 	#pages, #sidebar {
 	  /* margin-bottom: 20px;*/
+	}
+	.saveOppBtn.topBtns, .deleteOppBtn.topBtns {
+		display: none !important;
 	}
 }
 @media only screen and (max-width: 479px) {

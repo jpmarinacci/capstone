@@ -14,8 +14,8 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 		pageTmpl: _.template(loginPageTmpl),
 		
 		events: {
-			'click .loginButton': 'commandLogin',
-			'click .signupLink': 'commandSignup'
+			'click .loginBtn': 'commandLogin',
+			'click .signupLinkBtn': 'commandSignup'
 		},
 		
 		initialize: function (options) {
@@ -26,7 +26,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 		
 		renderFramework: function(){
 			this.$el.html(this.pageTmpl());
-			this.$(".loginButton").html("Login");
+			this.$(".loginBtn").html("Login");
 		},
 		
 		listenForEvents: function() {
