@@ -91,6 +91,11 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 					this.commandDispatcher.trigger('show:create');
 				}
 			}
+			if(user.person.get('roleId') === 5) {
+				if(this.commandDispatcher) {
+					this.commandDispatcher.trigger('show:instructor');
+				}
+			}
 		},
 		
 		renderAllOpps: function() {

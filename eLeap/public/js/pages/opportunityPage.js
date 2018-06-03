@@ -23,11 +23,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 			this.listenForDispatcherEvents();
 			this.opportunityId = options.opportunityId;
 			if(this.opportunityId === "create") {
-				this.mode = "create",
-				this.showEditView();
-				this.opportunityForm = new OpportunityForm({
-					el: this.$(".opportunityPageCreateForm")
-				});
+				this.openCreateMode();
 			} else {
 				this.opportunityId = Number(this.opportunityId);
 				if(this.opportunityId) {
@@ -105,6 +101,15 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 			this.mode = "edit";
 			this.showEditView();
 			this.getCurrentOpportunity();
+		},
+		
+		openCreateMode: function() {
+			this.mode = "create",
+			this.showEditView();
+			this.$(".oppBreadCrumbTitle").text("Create");
+			this.opportunityForm = new OpportunityForm({
+				el: this.$(".opportunityPageCreateForm")
+			});
 		},
 		
 		showDetailView: function() {

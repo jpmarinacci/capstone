@@ -26,21 +26,26 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAddClass returned");
-	    		console.log(results);
 	    		
 	    		//CanNotInsert:1064
 	    		if(Array.isArray(results) && results[0]){
 	    			if(Array.isArray(results[0])){
 	    				var firstElement = results[0][0];
 	    				if(firstElement.CanNotInsert) {
-	    					console.log("success --- found the thing");
+	    					console.log("error can not insert into database");
 	    				}
 	    			}
 	    		}
 	    		var returnResults = results[0] ? results[0][0] || results[0]: {};
-	    		returnResults.status = "success";
+	    		if(returnResults.classId) {
+	    			returnResults.status = "success";
+	    			console.log("sprocAddClass successful");
+	    			console.log("created class:" + returnResults.className);
+	    		} else {
+	    			console.log("sprocAddClass invalid");
+	    			returnResults.status = "invalid";
+	    		}
 	    		
-    			console.log("sprocAddClass successful");
 	    		response.send(returnResults);
 	    	}
 		});
@@ -77,7 +82,7 @@ var collegeClasses = {
 	    			if(Array.isArray(results[0])){
 	    				var firstElement = results[0][0];
 	    				if(firstElement.CanNotInsert) {
-	    					console.log("success --- found the thing");
+	    					console.log("error can not insert into database");
 	    				}
 	    			}
 	    		}

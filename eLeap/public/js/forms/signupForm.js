@@ -132,19 +132,20 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 		checkUserFilledInputs: function() {
 			if(this.isEmpty(this.$(".signupEmail").val())) {
 				notifications.notifyUser("please enter email");
-				this.$(".signupEmailWarning").html("");
+				this.$(".signupEmailWarning").html("email is required");
 				return;
 			}
 			if(this.isEmpty(this.$(".signupCredential").val())) {
 				notifications.notifyUser("please enter a password");
-				this.$(".signupCredentialWarning").html("");
+				this.$(".signupCredentialWarning").html("password is required");
 				return;
 			}
 			if(this.isEmpty(this.$(".signupRetypeCredential").val())) {
 				notifications.notifyUser("please re-type password");
-				this.$(".signupRetypeCredentialWarning").html("");
+				this.$(".signupRetypeCredentialWarning").html("retype password is required");
 				return;
 			}
+			this.$(".signupEmailWarning, .signupCredentialWarning, .signupRetypeCredentialWarning").empty();
 		},
 		
 		commandMatchPasswords: function(event) {
@@ -156,9 +157,8 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 		},
 		
 		gatherInput: function() {
-			var email = this.$(".signupEmail").val();
 			var personJson = {
-				email: email,
+				email: this.$(".signupEmail").val(),
 				personName: this.$(".signupName").val(),
 				phone: this.$(".signupPhone").val(),
 				roleId: Number(this.$(".selectRoles").val()),

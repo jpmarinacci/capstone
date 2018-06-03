@@ -16,7 +16,8 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 
 		events: {
 			'click .dashboardLink': 'commandNavigateToDashboard',
-			'click .accountSettingsBtn': 'commandUpdateAccount',
+			'click .accountSettingsBtn': 'commandViewAccountSettings',
+			'click .instructorSettignsBtn': 'commandViewInstructorSettings',
 			'click .createOppBtn': 'commandCreateNewOpportunity',
 			'click .editOppBtn': 'commandEditOpportunity',
 			'click .joinOppBtn': 'commandJoinOpportunity',
@@ -54,6 +55,7 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 				this.listenTo(this.commandDispatcher, 'show:approve', this.showApprove);
 				this.listenTo(this.commandDispatcher, 'show:deny', this.showDeny);
 				this.listenTo(this.commandDispatcher, 'show:approveDeny', this.showApproveDeny);
+				this.listenTo(this.commandDispatcher, 'show:instructor', this.showInstructor);
 				
 				this.listenTo(this.commandDispatcher, 'hide:oppViewBtns', this.hideOppViewBtns);
 				this.listenTo(this.commandDispatcher, 'show:oppViewBtns', this.showOppViewBtns);
@@ -115,6 +117,10 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			this.$(".denyOppBtn").show();
 		},
 		
+		showInstructor: function() {
+			this.$(".instructorSettignsBtn").show();
+		},
+		
 		showApproveDeny: function() {
 			this.$(".approveOppBtn").show();
 			this.$(".denyOppBtn").show();
@@ -166,13 +172,19 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			this.$(".editOppBtn, .joinOppBtn, .leaveOppBtn, .approveOppBtn, .denyOppBtn").hide();
 		},
 		
-		commandUpdateAccount: function() {
+		commandViewAccountSettings: function() {
 			this.$(".accountSettingsBtn i").addClass('fa-spin');
 			setTimeout(function(){
 				thisView.$(".accountSettingsBtn i").removeClass('fa-spin');
 			}, 1000);
 			require(['controllers/router',], function(router) {
 				router.navigate('/accountsettings', {trigger: true});
+			});
+		},
+		
+		commandViewInstructorSettings: function() {
+			require(['controllers/router',], function(router) {
+				router.navigate('/instructorsettings', {trigger: true});
 			});
 		},
 		

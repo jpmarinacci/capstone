@@ -53,7 +53,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					}
 				});
 			} else if(method === 'create') {
-				server.postRoute(this.routes.createClass, this.toJSON(), function (response) {
+				var createClassInput = this.toJSON();
+				createClassInput.ownerId = options.ownerId;
+				server.postRoute(this.routes.createClass, createClassInput, function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);

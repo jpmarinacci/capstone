@@ -39,7 +39,7 @@ var persons = {
 	    			if(Array.isArray(results[0])){
 	    				var firstElement = results[0][0];
 	    				if(firstElement.CanNotInsert) {
-	    					console.log("success --- found the thing");
+	    					console.log("error can not insert into database");
 	    				}
 	    			}
 	    		}

@@ -26,6 +26,7 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 			'dashboard': 'dashboard',
 			//'dbTest': 'dbTest',
 			'home': 'home',
+			'instructorsettings': 'instructorSettings',
 			'login': 'loginPage',
 			'opportunity/:id': 'opportunity',
 			'signup':'signup',
@@ -155,6 +156,20 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 			require(['pages/homePage'], function(HomePage) {
 				thisRouter.currentPage = eLeap.run.homePage = new HomePage({
 					el: "#homePage"
+				});
+			});
+		},
+		
+		instructorSettings: function() {
+			this.lastRoute = '/instructorsettings';
+			this.beginNewPage();
+			this.pageDeploy(function() {
+				$("#pages").empty().append("<div id='instructorSettingsPage'></div>");
+				require(['pages/instructorSettingsPage'], function(InstructorSettingsPage) {
+					thisRouter.currentPage = eLeap.run.instructorSettingsPage = new InstructorSettingsPage({
+						commandDispatcher: thisRouter.commandDispatcher,
+						el: "#instructorSettingsPage"
+					});
 				});
 			});
 		},
