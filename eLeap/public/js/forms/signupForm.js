@@ -50,7 +50,7 @@ function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, si
 				var role = cache.roles.get(roleId);
 					if(role) {
 					var roleName = role.get('roleName');
-					this.$(".signupRoleName").html(roleName);
+					this.$(".signupRoleName").html(roleName).show();
 				}
 			}
 		},

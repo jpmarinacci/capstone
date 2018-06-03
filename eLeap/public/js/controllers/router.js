@@ -106,7 +106,7 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 			this.lastRoute = '/accountsettings';
 			this.beginNewPage();
 			this.pageDeploy(function() {
-				$("#pages").empty().append("<div id='accountSettingsPage'></div>");
+				$("#pages").empty().append("<div id='accountSettingsPage' class='mb10'></div>");
 				require(['pages/accountSettingsPage'], function(AccountSettingsPage) {
 					thisRouter.currentPage = eLeap.run.accountSettingsPage = new AccountSettingsPage({
 						commandDispatcher: thisRouter.commandDispatcher,
