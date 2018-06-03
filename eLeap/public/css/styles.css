@@ -7,7 +7,7 @@
 
 body {
 	/*font-family: "Lucida Grande", Oswald, Consolas, Georgia, Helvetica, Arial, sans-serif;*/
-	font-family: consolas, fantasy, "Lucida Console", Monaco, monospace, "Impact, Charcoal"; 
+	font-family: Helvetica, "Lucida Grande", "Lucida Console", "Consolas", "Oswald", "Charcoal", "Monaco", "monospace", "sans-serif"; 
 	font-size: 16px;
 	/*letter-spacing: 1px;*/
 	height: 100%;
@@ -123,6 +123,12 @@ ul, ol {
 	color: #eeeeee;
 }
 
+.color-crimson {
+	color: #ba1512;
+}
+.color-forest {
+	color: #4CAF50;
+}
 .color-green {
 	color: #00ff00;
 }
@@ -297,6 +303,7 @@ ul, ol {
 	width: 100%;
 	margin:0 auto;
 	position: fixed;
+	pointer-events: none;
 }
 
 .bannerWrapper .headerBanner img {
@@ -360,7 +367,7 @@ ul, ol {
 .navLink {
 	color: #85d6de;
 	cursor: pointer;
-	padding-top: 20px;
+	margin-top: 10px;
 }
 .navLink:active {
 	transform: translateY(1px);
@@ -368,7 +375,7 @@ ul, ol {
 .navLink span {
 	color: white;
 	cursor: pointer;
-	font-size: 11px;
+	font-size: 12px;
 }
 .dashboardLink:hover {
 	color: #00B7FF;
@@ -457,8 +464,10 @@ ul, ol {
 }
 
 .homePageImg {
-	width: 400px;
-	height: 300px;
+	/*height: auto;
+	width: auto;*/
+	max-width: 200px;
+	max-height: 150px;
 }
 
 /* Opportunity Form Page */
@@ -513,6 +522,18 @@ ul, ol {
 
 /* Dashboard Page */
 
+.viewMode {
+	padding: .75rem 1rem;
+    margin-bottom: 1rem;
+    background-color: #e9ecef;
+}
+.viewModeBtn {
+	cursor: pointer;
+	padding: 0px 4px;
+}
+.breadcrumb {
+	border-radius: unset;
+}
 .welcomeBox {
 	display: inline-block;
     border: 0.5px solid black;
@@ -546,7 +567,7 @@ ul, ol {
 
 .opportunityItem .oppItemCard {
 	text-align: left;
-	height: 464px;
+	height: 454px;
     overflow: hidden;
 }
 
@@ -558,6 +579,12 @@ ul, ol {
 
 .opportunityItem .oppItemCard .oppItemField h6{
 	word-break: break-word;
+}
+
+.oppItemStatus {
+	font-size: 8pt;
+	/*color: #ff0000;*/
+	color: #0000FF;
 }
 
 .opportunitiesList {
@@ -884,11 +911,6 @@ ul, ol {
 
 .full-row {
 	padding-left: 20px;
-}
-
-.statusRed {
-	font-size:8pt;
-	color: #ff0000;
 }
 
 .fontExtraSmall {

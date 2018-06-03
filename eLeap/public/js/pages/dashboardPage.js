@@ -14,7 +14,8 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 		pageTmpl: _.template(dashboardPageTmpl),
 		
 		events: {
-			'click .add': 'addOpportuntiy',
+			'click .cardModeBtn': 'commandCardView',
+			'click .listModeBtn': 'commandListView',
 			'click .oppItemApproveBtn': 'commandApproveOpp',
 			'click .oppItemDenyBtn': 'commandDenyOpp'
 		},
@@ -90,7 +91,6 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 					this.commandDispatcher.trigger('show:create');
 				}
 			}
-			this.renderApprovalButtons();
 		},
 		
 		renderAllOpps: function() {
@@ -99,20 +99,20 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 				var isShow = false;
 				var thisPage = this;
 				this.allOpps.sort();
-				this.allOpps.each(function(opportunity) {
-					//needs to updates dateTime to 00:00 -- alsot remember to format time {0:00}
-					isShow = opportunity.get('endDateTime') && opportunity.get('endDateTime') > new Date() ? true: false;
-					isShow = user.person.get('roleId') === 7 ? true: isShow;
-					//temp -- case show newb old opps while developing
-					isShow = user.person.get('personId') === 19 ? true: isShow;
-					if(isShow) {
-						var oppItem = new OpportunityItem({
-							opportunity: opportunity
-						});
-						thisPage.$(".opportunitiesList").append(oppItem.render());
+				this.allOpps.each(function(opp) {
+					if(opp.get('opportunityId')) {
+						//needs to updates dateTime to 00:00 -- also remember to format time {0:00}
+						isShow = opp.get('endDateTime') && opp.get('endDateTime') > new Date() ? true: false;
+						isShow = user.person.get('roleId') === 7 ? true: isShow;
+						if(isShow) {
+							var oppItem = new OpportunityItem({
+								opportunity: opp
+							});
+							thisPage.$(".opportunitiesList").append(oppItem.render());
+						}
+						thisPage.renderApprovalButtons(opp);
 					}
 				});
-				this.renderApprovalButtons();
 			} else {
 				this.$(".opportunitiesList").html("No Opporunities to display");
 			}
@@ -124,20 +124,19 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 				var isShow = false;
 				var thisPage = this;
 				this.joinedOpps.sort();
-				this.joinedOpps.each(function(opportunity) {
-					//needs to updates dateTime to 00:00 -- alsot remember to format time {0:00}
-					isShow = opportunity.get('endDateTime') && opportunity.get('endDateTime') > new Date() ? true: false;
-					isShow = user.person.get('roleId') === 7 ? true: isShow;
-					//temp -- case show newb old opps while developing
-					isShow = user.person.get('personId') === 19 ? true: isShow;
-					if(isShow) {
-						var oppItem = new OpportunityItem({
-							opportunity: opportunity
-						});
-						thisPage.$(".opportunitiesList").append(oppItem.render());
+				this.joinedOpps.each(function(opp) {
+					if(opp.get('opportunityId')) {
+						isShow = opp.get('endDateTime') && opp.get('endDateTime') > new Date() ? true: false;
+						isShow = user.person.get('roleId') === 7 ? true: isShow;
+						if(isShow) {
+							var oppItem = new OpportunityItem({
+								opportunity: opp
+							});
+							thisPage.$(".opportunitiesList").append(oppItem.render());
+						}
+						thisPage.renderApprovalButtons(opp);
 					}
 				});
-				this.renderApprovalButtons();
 			} else {
 				this.$(".opportunitiesList").html("No joined opporunities to display");
 			}
@@ -146,43 +145,46 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 		renderOwnedOpps: function(){
 			this.$(".opportunitiesList").empty();
 			if(this.ownedOpps) {
-				var isShow = false;
+				var isShow = true;
 				var thisPage = this;
 				this.ownedOpps.sort();
-				this.ownedOpps.each(function(opportunity) {
-					//needs to updates dateTime to 00:00 -- alsot remember to format time {0:00}
-					isShow = opportunity.get('endDateTime') && opportunity.get('endDateTime') > new Date() ? true: false;
-					isShow = user.person.get('roleId') === 7 ? true: isShow;
-					//temp -- case show newb old opps while developing
-					isShow = user.person.get('personId') === 19 ? true: isShow;
-					if(isShow) {
-						var oppItem = new OpportunityItem({
-							opportunity: opportunity
-						});
-						thisPage.$(".opportunitiesList").append(oppItem.render());
+				this.ownedOpps.each(function(opp) {
+					if(opp.get('opportunityId')) {
+						//filter out old owned opps??
+						//isShow = opp.get('endDateTime') && opp.get('endDateTime') > new Date() ? true: false;
+						isShow = user.person.get('roleId') === 7 ? true: isShow;
+						if(isShow) {
+							var oppItem = new OpportunityItem({
+								opportunity: opp
+							});
+							thisPage.$(".opportunitiesList").append(oppItem.render());
+						}
+						thisPage.renderApprovalButtons(opp);
 					}
 				});
-				this.renderApprovalButtons();
 			} else {
 				this.$(".opportunitiesList").html("No owned opporunities to display");
 			}
 		},
 		
-		renderApprovalButtons: function() {
-			if(this.allOpps.length && user.person.get('personId')) {
-				if(user.person.get('roleId') > 5) {
-					this.$(".oppItemApproveDenyBlock").show();
+		renderApprovalButtons: function(opp) {
+			if(user.person.get('roleId') > 5) {
+				this.$("[data-oppId='"+opp.get('opportunityId') +"']").show();
+				var status = opp.get('status'); 
+				if(status === 'approved') {
+					this.$(".oppItemApproveBtn[data-oppId='"+opp.get('opportunityId') +"']").hide();
+				} else if(status === 'denied') {
+					this.$(".oppItemDenyBtn[data-oppId='"+opp.get('opportunityId') +"']").hide();
 				}
 			}
 		},
+				
+		commandCardView: function() {
+			alert('viewing card view');
+		},
 		
-		createOpportunity: function() {
-			var thisPage = this;
-			require(['forms/opportunityForm'], function(OpportunityForm) {
-				thisPage.opportunityForm = new OpportunityForm({
-					el: thisPage.$(".opportunityForm")
-				});
-			});
+		commandListView: function() {
+			alert('list view not implemented yet');
 		},
 		
 		commandApproveOpp: function() {

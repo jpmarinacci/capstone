@@ -129,9 +129,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 			if(user.person.get('roleId') > 5) {
 				var status = this.opp.get('status'); 
 				if(status === 'approved') {
-					this.commandDispatcher.trigger('show:approve');
-				} else if(status === 'denied'){
 					this.commandDispatcher.trigger('show:deny');
+				} else if(status === 'denied'){
+					this.commandDispatcher.trigger('show:approve');
 				} else {
 					this.commandDispatcher.trigger('show:approveDeny');	
 				}

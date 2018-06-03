@@ -20,18 +20,18 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 		},
 		
 		routes: {
-			'/': 'loginPage',
+			'/': 'home',
 			'about': 'about',
 			'accountsettings': 'accountSettings',
 			'dashboard': 'dashboard',
-			'dbTest': 'dbTest',
+			//'dbTest': 'dbTest',
 			'home': 'home',
 			'login': 'loginPage',
 			'opportunity/:id': 'opportunity',
 			'signup':'signup',
 			'team': 'team',
 			'themesettings': 'themeSettings',
-			'*path':  'loginPage'
+			'*path':  'home'
 		},
 		
 		listenForEvents: function() {
@@ -68,7 +68,11 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 				this.sidebar = undefined;
 			}
 			cache.emptyCache();
-			this.navigate('/login', { trigger: true });
+			if(this.lastRoute !== '/home' && this.lastRoute !== '/login' && this.lastRoute !== '/signup' &&
+				this.lastRoute !== '/team' && this.lastRoute !== '/about') {
+				this.navigate('/home', { trigger: true });
+			}
+			
 		},
 		
 		pageDeploy: function(deployPage) {
@@ -147,12 +151,10 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 		home: function() {
 			this.lastRoute = '/home';
 			this.beginNewPage();
-			this.pageDeploy(function() {
-				$("#pages").empty().append("<div id='homePage'></div>");
-				require(['pages/homePage'], function(HomePage) {
-					thisRouter.currentPage = eLeap.run.homePage = new HomePage({
-						el: "#homePage"
-					});
+			$("#pages").empty().append("<div id='homePage'></div>");
+			require(['pages/homePage'], function(HomePage) {
+				thisRouter.currentPage = eLeap.run.homePage = new HomePage({
+					el: "#homePage"
 				});
 			});
 		},

@@ -76,7 +76,7 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		},
 		
 		showOppViewBtns: function(){
-			this.$(".oppSettings").show();
+			this.$(".oppSettingsTitleBlock").show();
 		},
 		
 		showAllOpps: function(){
@@ -154,7 +154,7 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		},
 		
 		hideDeny: function() {
-			this.$(".denyOppBtn").show();
+			this.$(".denyOppBtn").hide();
 		},
 
 		hideOppFilterBtns: function(){
@@ -162,7 +162,7 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		},
 		
 		hideOppViewBtns: function(){
-			this.$(".oppSettings").hide();
+			this.$(".oppSettingsTitleBlock").hide();
 			this.$(".editOppBtn, .joinOppBtn, .leaveOppBtn, .approveOppBtn, .denyOppBtn").hide();
 		},
 		

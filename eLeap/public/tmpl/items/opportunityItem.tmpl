@@ -1,4 +1,4 @@
-<div class="oppItemCard">
+<div class="oppItemCard" data-oppId="<%= opp.opportunityId %>">
 	<div class="cardHeader">
 	    <div class="oppItemPicContainer">
 	        <!--i class="far fa-file icon-middle"></i-->
@@ -9,41 +9,47 @@
                 <%= opp.title %>
             </span>
             <br>
-            <small class="statusRed">[<%= opp.status %>]</small>
+            <small class="oppItemStatus">
+            	[<%= opp.status %>]
+            </small>
 	    </div>
-	    <div class="oppItemApproveDenyBlock row mt-4 initialDisplayNone">
+	    <div class="oppItemApproveDenyBlock row initialDisplayNone" data-oppId="<%= opp.opportunityId %>">
 		    <div class="col-12 mb10">
 		    	<div class="row">
-		        	<div class="oppItemApproveBtn col-6 inlineBlock centerText pointer">
-		            	<i class="fa fa-thumbs-up color-green"></i><br>
+		        	<div class="oppItemApproveBtn col-6 inlineBlock centerText pointer" data-oppId="<%= opp.opportunityId %>">
+		            	<i class="fa fa-thumbs-up color-forest"></i><br>
 		            	<span class="fontExtraSmall">Approve</span>
 		        	</div>
-		        	<div class="oppItemDenyBtn col-6 inlineBlock centerText pointer">
-		            	<i class="fa fa-thumbs-down color-red"></i><br>
+		        	<div class="oppItemDenyBtn col-6 inlineBlock centerText pointer" data-oppId="<%= opp.opportunityId %>">
+		            	<i class="fa fa-thumbs-down color-crimson"></i><br>
 		            	<span class="fontExtraSmall">Deny</span>
 		        	</div>
 		    	</div>
 		    </div>
-		    <div class="col-12 card-link centerText">More&gt;&gt;</div>
 		</div>
 	</div>
 	
 	<div class="card-body">
-		
-		<div class="oppItemField card-subtitle mb-2">
-	        <span>Type:</span>
-	        <span><b><%= opp.opportunityType %></b></span>
-	    </div>
-	
-	    <% if(opp.startDateTime){%>
+				
+	    <% if((opp.startDateTime) && (opp.endDateTime)) {%>
 		    <div class="oppItemField card-subtitle mb-2">
-		        <span><%= utils.dateTimeToDisplay(opp.startDateTime) %> - <%= utils.dateTimeToDisplay(opp.endDateTime) %></span>
+		        <span><%= utils.dateTimeToDisplay(opp.startDateTime) %> - <br><%= utils.dateTimeToDisplay(opp.endDateTime) %></span>
 		    <hr>
 		    </div>
 	    <% } %>
 	    
+		<div class="oppItemField card-subtitle mb-2">
+	        <span>type:</span>
+	        <span><b><%= opp.opportunityType %></b></span>
+	    </div>
+			
+	    <div class="oppItemField card-subtitle mb-2">
+	        <span>class opportunity:</span>
+	        <span><b><% if(opp.isClass) {%>yes<%}else{%>no<%}%></b></span>
+	    </div>
+	    
 	    <% if(opp.totalSeats){%>
-		    <div class="oppItemField card-subtitle mb-2">
+		    <div class="oppItemField card-subtitle mt5 mb5">
 		        <span>Available seats:</span>
 		        <span><%= opp.availableSeats %> out of <%= opp.totalSeats %></span>
 		    </div>
@@ -58,17 +64,13 @@
 		        </div>
 	        <% } %>
 	    <% } %>
-	
-	    <div class="oppItemField card-subtitle mb-2">
-	        <span>For class?</span>
-	        <span><b><% if(opp.isClass) {%>yes<%}else{%>no<%}%></b></span>
-	        <hr>
-	    </div>
-	
+		
 	    <div class="oppItemField dashDesc">
+	    	<hr>
 	        <div class="card-text mt-4 mb-2">
 	        	<%= opp.description %>
 	        </div>
 	    </div>
+	    <div class="col-12 card-link centerText">More&gt;&gt;</div>
 	</div>
 </div>
