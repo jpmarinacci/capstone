@@ -48,9 +48,21 @@ var persons = {
     			console.log("sprocAddPer successful");
     			//add new cookie code here -- this overwrites the session on every user login
     			//this makes multiple user logins on the same server work incorrectly
+    			
+    			/*console.log("setting new cookie");
+				var personIdString=""+person.personId;
+				
+				var cipher = crypto.createCipher(cryptoAlgorithm, cryptoPassword);
+				var encyrptedPersonId = cipher.update(personIdString, 'utf8', 'hex');
+				encyrptedPersonId += cipher.final('hex');
+				response.cookie('eLeapId', encyrptedPersonId,{
+					maxAge: 2592000, //1 month
+					httpOnly: true
+				});
+				console.log(response.cookie);
     			session.email = person.email;
 	            session.personId = person.personId;
-	            session.isLoggedIn = true;
+	            session.isLoggedIn = true;*/
 	    		console.log("added person to login session");
 	    	
 	    		response.send(person);
@@ -101,7 +113,7 @@ var persons = {
     getPerson: function(request, response) { 'use strict';
     	console.log("--- getPerson route called ---");
     	if(!request.body.personId) {
-			response.send('invalid paramaters -- no email');
+			response.send('invalid paramaters -- no personId');
 			return;
 		}
 		var params = [

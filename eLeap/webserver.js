@@ -23,6 +23,7 @@ var session = require('express-session');
 
 var dbServer = require('./server/dbServer');
 var applicationState = require('./server/dbServe/applicationState');
+var classes = require('./server/dbServe/classes');
 var opportunities = require('./server/dbServe/opportunities');
 var login = require('./server/dbServe/login');
 var persons = require('./server/dbServe/persons');
@@ -87,18 +88,14 @@ var httpServer = proxiedHttp.createServer(app).listen(app.get('port'), function(
 *****************************************************************/
 app.post('/updateApplicationState', applicationState.updateApplicationState);
 
+
 /*****************************************************************
- * Opportunities
+ * Classes
 *****************************************************************/
-app.post('/createOpportunity', opportunities.createOpportunity);
-app.post('/deleteOpportunity', opportunities.deleteOpportunity);
-app.post('/getAllOpportunities', opportunities.getAllOpportunities);
-app.post('/getJoinedOpportunities', opportunities.getJoinedOpportunities);
-app.post('/getOwnedOpportunities', opportunities.getOwnedOpportunities);
-app.post('/getOpportunity', opportunities.getOpportunity);
-app.post('/leaveOpportunity', opportunities.leaveOpportunity);
-app.post('/joinOpportunity', opportunities.joinOpportunity);
-app.post('/updateOpportunity', opportunities.updateOpportunity);
+app.post('/createClass', classes.createClass);
+app.post('/updateClass', classes.updateClass);
+app.post('/deleteClass', classes.deleteClass);
+app.post('/getOwnedClasses', classes.getOwnedClasses);
 
 /*****************************************************************
  * Login
@@ -114,6 +111,19 @@ app.post('/signupPerson', persons.signupPerson);
 app.post('/getPerson', persons.getPerson);
 app.post('/getAllPersons', persons.getAllPersons);
 app.post('/updatePerson', persons.updatePerson);
+
+/*****************************************************************
+ * Opportunities
+*****************************************************************/
+app.post('/createOpportunity', opportunities.createOpportunity);
+app.post('/deleteOpportunity', opportunities.deleteOpportunity);
+app.post('/getAllOpportunities', opportunities.getAllOpportunities);
+app.post('/getJoinedOpportunities', opportunities.getJoinedOpportunities);
+app.post('/getOwnedOpportunities', opportunities.getOwnedOpportunities);
+app.post('/getOpportunity', opportunities.getOpportunity);
+app.post('/leaveOpportunity', opportunities.leaveOpportunity);
+app.post('/joinOpportunity', opportunities.joinOpportunity);
+app.post('/updateOpportunity', opportunities.updateOpportunity);
 
 /*****************************************************************
  * Roles

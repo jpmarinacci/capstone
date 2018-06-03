@@ -12,7 +12,7 @@ body {
 	/*letter-spacing: 1px;*/
 	height: 100%;
 	min-height: 100%;
-	position: relative;
+	/*position: relative;*/
 }
 
 footer {
@@ -28,7 +28,7 @@ footer {
 
 .content {
 	/* size of the footer*/
-	margin-bottom: 56px;
+	/*margin-bottom: 56px;*/
 	display: flex;
 }
 
@@ -45,7 +45,7 @@ ul, ol {
 /* master page layout **/
 
 #pages {
-	min-height: calc(100vh);
+	min-height: calc(89vh);
 }
 
 #pages > div {
@@ -232,7 +232,7 @@ ul, ol {
 	font-size: 60px;
 }
 
-/* app ui /navbar specific css */
+/* navbar  */
 
 .bannerWrapper {
     position: fixed;
@@ -288,6 +288,8 @@ ul, ol {
 	padding-right: 26px;
 }
 
+/* notifications  */
+
 #notificationsArea {
 	position: absolute;
 	z-index: 1000;
@@ -323,6 +325,8 @@ ul, ol {
 	cursor: pointer;
 }
 
+/*  sidebar  */
+
 .navLink {
 	color: #85d6de;
 	cursor: pointer;
@@ -343,12 +347,16 @@ ul, ol {
     text-decoration: none;
 }
 
+.oppSettingsTitle {
+	color: white;
+	font-size: 12px;
+	text-align: center;
+}
+
 /*  footer */
 
 .footer {
 	text-align: center;
-}
-.copy {
 	padding: 20px;
 }
 
@@ -364,7 +372,7 @@ ul, ol {
     padding: 2px 0px 2px 7px;
     margin: 10px 0 10px 0;
     font-size: 18px;
-    min-width: 300px; 
+    /*min-width: 300px;*/ 
 }
 .login input::placeholder {
 	color: lightblue;
@@ -513,6 +521,7 @@ ul, ol {
 .oppItemLabel {
 	font-weight: 600;
 }
+
 /*  Opportunity Page */
 .opportunityView {
 	padding: 0 0 20px 0;
@@ -537,6 +546,12 @@ ul, ol {
 	width: 300px;
 	border: solid 0.5px slategrey;
 }
+
+/* About Page */
+
+
+/* Team Page */
+
 
 /* dbTest Page */
 
@@ -1030,6 +1045,16 @@ ul, ol {
 	}
 	.hidden-xs {
 		display: none !important;
+	}
+	.opportunityItem {
+		width: 170px;
+	}
+	.welcomeBox {
+		width: 160px;
+		margin-left: -10px;
+	}
+	.welcome {
+		font-size: 16px;
 	}
 }
 @media only screen and (max-width: 320px) {

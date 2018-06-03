@@ -1,5 +1,5 @@
 /** 
- *	@authors: Belete Zegeye
+ *	@authors: JP Marinacci, Belete Zegeye
  */
 
 define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/person'],

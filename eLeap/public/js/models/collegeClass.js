@@ -11,13 +11,19 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		idAttribute: "classId",
 
 		defaults: {
-			className: ""
+			className: "",
+			courseSummary: null,
+			estimatedClassSize: null,
+			ownerId : 0,
+			section: null,
+			term: null,
+			year: 0
 		},
 		
 		routes: {
 			createClass: "/createClass",
-			getClass: "/getClass",
-			updateClass: "/udpateClass",
+			//getClass: "/getClassById",
+			//updateClass: "/udpateClass",
 			deleteClass: "/deleteClass"
 		},
 		
@@ -105,25 +111,12 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 				});
 			}
 		},
+		
 		parse: function (dbClass) {
-			return this.translateCollegeClassFromDB(dbClass);
-		},
-		
-		translateCollegeClassFromDB: function(dbClass){
-			var jsonClass = {};
-			if(dbClass.CollegeClassID)				jsonClass.collegeClassId = dbClass.CollegeClassID;
-			if(dbClass.ClassName)					jsonClass.className = dbClass.ClassName;
-			if(dbClass.CollegeClassName)			jsonClass.collegeClassName = dbClass.CollegeClassName;
-			return jsonClass;
-		},
-		
-		translateCollegeClassToDB: function(jsonClass){
-			var dbClass = {};
-			if(jsonClass.collegeClassId)			dbClass.CollegeClassID = jsonClass.collegeClassId;
-			if(jsonClass.className)					dbClass.ClassName = jsonClass.className;
-			if(jsonClass.collegeClassName)			dbClass.CollegeClassName = jsonClass.collegeClassName;
+			//optional
 			return dbClass;
 		}
+		
 	});
 
 	return eLeap.own.CollegeClass;

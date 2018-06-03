@@ -54,7 +54,8 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 		
 		renderFramework: function(){
 			this.$el.html(this.formTmpl());
-			if(user.person.get('roleId') > 4) {
+			var roleId = user.person.get('roleId'); 
+			if(roleId === 5 || roleId === 7) {
 				this.$(".oppFormClassSection").show();
 				this.$(".oppFormIsClassCheckboxSection").show();
 			} else {

@@ -14,7 +14,8 @@ function (eLeap, $, _, Backbone, cache, router, user, Opportunities, Opportunity
 		pageTmpl: _.template(dashboardPageTmpl),
 		
 		events: {
-			'click .add': 'addOpportuntiy'
+			'click .add': 'addOpportuntiy',
+			//'click '
 		},
 		
 		initialize: function (options) {

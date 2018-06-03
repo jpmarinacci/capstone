@@ -23,24 +23,34 @@
         <link href='css/styles.css' media="all" rel='stylesheet' type='text/css'/>
     </head>
     <body>
-        <div class="content backdrop">
-            <nav id="navbar"></nav>
-            <div id="sidebar"></div>
-            <div id="notificationsArea">
-                <div id="notifications" class="initialDisplayNone">
-                    <i class='closeNotifications fa fa-window-close float-right'></i>
-                    <ul id="notificationMessage"></ul>
-                </div>
-            </div>
-             <div class="container-fluid backdrop">
-                 <div id="pages" class="row"></div>
-            </div>
+    	<div class="relative">
+	        <div class="content backdrop">
+	            <nav id="navbar"></nav>
+	            <div id="sidebar"></div>
+	            <div id="notificationsArea">
+	                <div id="notifications" class="initialDisplayNone">
+	                    <i class='closeNotifications fa fa-window-close float-right'></i>
+	                    <ul id="notificationMessage"></ul>
+	                </div>
+	            </div>
+	             <div class="container-fluid backdrop">
+	                 <div id="pages" class="row"></div>
+	            </div>
+	        </div>
+	        <footer class="footer">
+	        	<div>
+		            <span class="copy">
+		                 Team Educationary Leap 2018   &copy;  version 1.0.5 
+		            </span> |
+		            <span>
+		            	<a href="/team">About</a>
+		            </span>|
+		            <span>
+		            	<a href="/team">Team</a>
+		            </span>|
+	            </div>
+	        </footer>
         </div>
-        <footer class="footer">
-            <div class="copy">
-                Version 1.0.4 &copy; Team Educationary Leap, 2018
-            </div>
-        </footer>
         <script src="bower_components/requirejs/require.js" data-main="js/clientStart" type="text/javascript"></script>
     </body>
 </html>

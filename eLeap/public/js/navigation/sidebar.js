@@ -55,6 +55,7 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 				this.listenTo(this.commandDispatcher, 'show:approveDeny', this.showApproveDeny);
 				
 				this.listenTo(this.commandDispatcher, 'hide:oppViewBtns', this.hideOppViewBtns);
+				this.listenTo(this.commandDispatcher, 'show:oppViewBtns', this.showOppViewBtns);
 				this.listenTo(this.commandDispatcher, 'hide:oppFilterBtns', this.hideOppFilterBtns);
 				
 				this.listenTo(this.commandDispatcher, 'hide:approve', this.hideApprove);
@@ -71,6 +72,11 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			this.$el.off().empty();
 			this.stopListening();
 			return this;
+		},
+		
+		showOppViewBtns: function(){
+			this.$(".oppSettings").show();
+			this.$(".editOppBtn, .joinOppBtn, .leaveOppBtn, .approveOppBtn, .denyOppBtn").show();
 		},
 		
 		showAllOpps: function(){
@@ -156,6 +162,7 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		},
 		
 		hideOppViewBtns: function(){
+			this.$(".oppSettings").hide();
 			this.$(".editOppBtn, .joinOppBtn, .leaveOppBtn, .approveOppBtn, .denyOppBtn").hide();
 		},
 		
