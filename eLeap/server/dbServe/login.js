@@ -106,7 +106,6 @@ var login = {
 	    	}
        });
 	},
-
 	
 	logout: function(request, response) { 'use strict';
 		console.log("--- logout route called ---");

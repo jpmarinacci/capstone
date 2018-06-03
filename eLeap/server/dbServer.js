@@ -1,12 +1,13 @@
-
 var mysql = require('mysql');
 var fs = require('fs');
 
 instantiateDbServer = function() {
+	
 	var dbSettings = JSON.parse(fs.readFileSync(__dirname + '/dbSettings.json'));
 	var dbServer = {
 	    attempts: 0,
 		isConnectPending: false,
+		
 		connect: function() {
 			if(!this.isConnectPending) {
 				this.isConnectPending = true;
@@ -26,15 +27,20 @@ instantiateDbServer = function() {
 				return;
 			}
 		},
+		
 		connectCallback: function(response) {
 			thisDbServer.isConnectPending = false;
 			var error = response;
 			if(error) {
 				console.log("database connection error: " + error);
-				if(thisDbServer.attempts <= 20) {
+				if(thisDbServer.attempts <= 25) {
 					console.log("attempts before retry" + thisDbServer.attempts);
 					thisDbServer.retry();
 				} else {
+					thisDbServer.attempts = 0;
+					console.log("attempts reached max tries of: " + thisDbServer.attempts);
+					console.log("---throwing error---");
+					response.send({"status": "erorr"});
 					throw error;
 					return;
 				}
@@ -42,32 +48,34 @@ instantiateDbServer = function() {
 				console.log("database connected");
 			}
 		},
+		
 		connectError: function(error) {
 			error = error || {};
 			console.log("database connection error: ");
 			console.log(error.code ? error.code : "gremlins");
 			if(!error.code) {
+				console.log("connection error: no error code -- throwing error");
 				throw error;
+			} else {
+				console.log("connection error");
+				response.send({"status": "erorr"});
 			}
 		},
+		
 		retry: function() {
 			console.log('-- retry --');
 			setTimeout(function() {
 				thisDbServer.connect();
 			}, 3000);
 		},
+		
 	    close: function() {
 	    	console.log("closing database connection");
 	    	if(this.connection) {
 	    		this.connection.end();
 	    	}
 		},
-		isValidParam: function(param, type) {
-			if(typeof param === type) {
-				
-			}
-			else return false;
-		},
+		
 	    makeQs: function(numArgs) {
 			var qs = "";
 			for(var i = 0; i < numArgs; i++) {
@@ -75,12 +83,11 @@ instantiateDbServer = function() {
 			}
 	        return "(" + qs + ");";
 		},
+		
 		sproc: function(sprocName, sprocParams, callback) {
 			var sql = "call " + sprocName + this.makeQs(sprocParams.length);
-
 			console.log ("SQL: " + sql);
-
-			function processQuery (error, results, fields) {
+			this.connection.query(sql, sprocParams, function (error, results, fields) {
 				//catches database errors
 				if (error) {
 					results = results || {};
@@ -93,9 +100,9 @@ instantiateDbServer = function() {
 					callback(results);
 				}
 				return;
-			};
-			this.connection.query(sql, sprocParams, processQuery);
+			});
 	    },
+	    
 		processSprocError: function(results, response) {
 			if(response && !response.error) {
 				console.log("^*^*^*^*^^*^*^*^*^*^*^*^**^*^*^*^*^*^*^**^*^**^*^*^**^*");
@@ -113,6 +120,7 @@ instantiateDbServer = function() {
 					response.send("database error: " + results.error+ " <br>-------<br> "+results.sprocThatErrored);
 				}
 				response.send("database error: " + results.error);
+				thisDbServer.retry();
 				return;
 			}
 			return;

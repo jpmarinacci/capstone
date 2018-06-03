@@ -4,6 +4,9 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
+var crypto = require('crypto');
+var cryptoAlgorithm = 'aes-256-ctr';
+var cryptoPassword = 'squirrelFart';
 
 var persons = {
 	signupPerson: function(request, response) { 'use strict';
@@ -44,27 +47,18 @@ var persons = {
 	    		if(person && person.personId) {
 	    			delete person.credential;
 	    			person.status = "success";
+	    			console.log("sprocAddPer successful");
+	    			console.log("setting new cookie");
+					var personIdString = "" + person.personId;
+					var cipher = crypto.createCipher(cryptoAlgorithm, cryptoPassword);
+					var encyrptedPersonId = cipher.update(personIdString, 'utf8', 'hex');
+					encyrptedPersonId += cipher.final('hex');
+					response.cookie('eLeapId', encyrptedPersonId,{
+						maxAge: 2592000, //1 month
+						httpOnly: true
+					});
+					console.log(response.cookie);
 	    		}
-    			console.log("sprocAddPer successful");
-    			//add new cookie code here -- this overwrites the session on every user login
-    			//this makes multiple user logins on the same server work incorrectly
-    			
-    			/*console.log("setting new cookie");
-				var personIdString=""+person.personId;
-				
-				var cipher = crypto.createCipher(cryptoAlgorithm, cryptoPassword);
-				var encyrptedPersonId = cipher.update(personIdString, 'utf8', 'hex');
-				encyrptedPersonId += cipher.final('hex');
-				response.cookie('eLeapId', encyrptedPersonId,{
-					maxAge: 2592000, //1 month
-					httpOnly: true
-				});
-				console.log(response.cookie);
-    			session.email = person.email;
-	            session.personId = person.personId;
-	            session.isLoggedIn = true;*/
-	    		console.log("added person to login session");
-	    	
 	    		response.send(person);
 	    	}
 		});

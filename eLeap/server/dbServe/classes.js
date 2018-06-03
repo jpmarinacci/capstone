@@ -5,10 +5,10 @@ var collegeClasses = {
 	
 	createClass: function(request, response) {'use strict';
 		console.log('--- createClass route called ---');
-		/*if(!request.body.email || !request.body.credential) {
-			response.send({invalid:'invalid paramaters -- no email or credential'});
+		if(!request.body.className) {
+			response.send({invalid:'invalid paramaters -- no className'});
 			return;
-		}*/
+		}
 		var params = [
 			request.body.className ? request.body.className : null,
 			request.body.courseSummary ? request.body.courseSummary : null,
@@ -139,7 +139,59 @@ var collegeClasses = {
 	    		response.send(returnResults);
 	    	}
 		});
+	},
+	
+	addStudent: function(request, response) { 'use strict';	
+		console.log("--- addStudent route called ---");
+		if(!request.body.classId || !request.body.email) {
+			response.send('invalid paramaters -- no classId or no email');
+			return;
+		}
+		var params = [
+			Number(request.body.classId),
+			email
+		];
+		console.log("calling sprocAddStudent");
+		dbServer.sproc("sprocAddStudent", params, function processSproc(results) {
+			if (results && results.error) {
+				results.sprocThatErrored = "sprocAddStudent";
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		console.log("sprocAddStudent returned");
+	    		console.log(results);
+	    		var returnResults = (results && results[0] ? results[0] : results) || {};
+	    		returnResults.status = "success";
+	    		console.log("sprocAddStudent successful");
+	    		response.send(returnResults);
+	    	}
+		});
+	},
+	
+	addStudents: function(request, response) { 'use strict';	
+		console.log("--- addStudents route called ---");
+		if(!request.body.ownerId) {
+			response.send('invalid paramaters -- no ownerId');
+			return;
+		}
+		var params = [
+			Number(request.body.ownerId)
+		];
+		console.log("calling sprocAddStudents");
+		dbServer.sproc("sprocAddStudents", params, function processSproc(results) {
+			if (results && results.error) {
+				results.sprocThatErrored = "sprocAddStudents";
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		console.log("sprocAddStudents returned");
+	    		console.log(results);
+	    		var returnResults = (results && results[0] ? results[0] : results) || {};
+	    		returnResults.status = "success";
+	    		console.log("sprocAddStudents successful");
+	    		response.send(returnResults);
+	    	}
+		});
 	}
+	
 };
 
 module.exports = collegeClasses;
