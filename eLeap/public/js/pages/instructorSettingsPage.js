@@ -6,9 +6,9 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications', 'controllers/user',
-		'models/collegeClass', 'collections/collegeClasses', 
+		'models/collegeClass', 'collections/collegeClasses',
 		'text!../../tmpl/pages/instructorSettingsPage.tmpl', 'text!../../tmpl/forms/classForm.tmpl'],
-	function (eLeap, $, _, Backbone, notifications, user, CollegeClass, CollegeClasses, pageTmpl, classFormTmpl) { 'use strict';
+	function (eLeap, $, _, Backbone, notifications, user, CollegeClass, CollegeClasses,  pageTmpl, classFormTmpl) { 'use strict';
 	
 	eLeap.own.InstructorSettingsPage = Backbone.View.extend({
 		
@@ -19,6 +19,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 			'click .classFormSubmitBtn': 'commandSubmitClass',
 			'change .classSelector': 'commandSelectClass',
 			'change .yearInput': 'isYearInputValid',
+			'click .addStudent': 'commandAddStudent'
 		},
 		
 		initialize: function (options) {
@@ -190,6 +191,12 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 			};
 
 			this.collegeClass.save({}, options);
+		},
+		
+		commandAddStudent: function() {
+			this.newStudent = {};
+			this.$(".studentInput").show();
+			
 		}
 	});
 	return eLeap.own.InstructorSettingsPage;
