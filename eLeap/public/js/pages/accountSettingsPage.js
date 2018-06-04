@@ -6,7 +6,7 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/user', 'forms/signupForm'],
-function (eLeap, $, _, Backbone, user, SignupForm) { 'use strict';
+	function (eLeap, $, _, Backbone, user, SignupForm) { 'use strict';
 		
 	eLeap.own.AccountSettingsPage = Backbone.View.extend({
 		

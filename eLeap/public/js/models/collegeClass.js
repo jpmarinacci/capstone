@@ -96,7 +96,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 				});
 			} else if(method === 'delete') {
 				server.postRoute(this.routes.deleteClass, this.toJSON(), function (response) {
-					if (response.status && response.status !== "success") {
+					if (!response || response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
 						}

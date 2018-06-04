@@ -8,7 +8,7 @@
 define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'controllers/cache', 
 		'controllers/router', 'controllers/notifications',
 		'models/person', 'text!../../tmpl/forms/signupForm.tmpl'],
-function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, signupFormTmpl) { 'use strict';
+	function ( $, _, Backbone, eLeap, user, cache, router, notifications, Person, signupFormTmpl) { 'use strict';
 		
 	eLeap.own.SignForm = Backbone.View.extend({
 		

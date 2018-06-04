@@ -6,7 +6,7 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/aboutPage.tmpl'],
-function (eLeap, $, _, Backbone, aboutPageTmpl) {
+	function (eLeap, $, _, Backbone, aboutPageTmpl) {
 	'use strict';
 		
 	eLeap.own.AboutPage = Backbone.View.extend({

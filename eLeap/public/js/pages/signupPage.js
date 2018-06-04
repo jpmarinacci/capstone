@@ -6,7 +6,7 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'forms/signupForm', 'text!../../tmpl/pages/signupPage.tmpl'],
-function (eLeap, $, _, Backbone, SignupForm, signupTmpl) { 'use strict';
+	function (eLeap, $, _, Backbone, SignupForm, signupTmpl) { 'use strict';
 	
 	eLeap.own.SignupPage = Backbone.View.extend({
 		

@@ -5,24 +5,26 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications', 'controllers/router', 'controllers/user',
-	'models/collegeClass', 'text!../../tmpl/pages/instructorSettingsPage.tmpl', 'text!../../tmpl/forms/classForm.tmpl'],
-function (eLeap, $, _, Backbone, notifications, router, user, CollegeClass, pageTmpl, classFormTmpl) { 'use strict';
-		
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications', 'controllers/user',
+		'models/collegeClass', 'collections/collegeClasses', 
+		'text!../../tmpl/pages/instructorSettingsPage.tmpl', 'text!../../tmpl/forms/classForm.tmpl'],
+	function (eLeap, $, _, Backbone, notifications, user, CollegeClass, CollegeClasses, pageTmpl, classFormTmpl) { 'use strict';
+	
 	eLeap.own.InstructorSettingsPage = Backbone.View.extend({
 		
 		pageTmpl: _.template(pageTmpl),
 		classFormTmpl: _.template(classFormTmpl),
 		
 		events: {
-			'click .classFormSubmitBtn': 'commandSubmitClass'
+			'click .classFormSubmitBtn': 'commandSubmitClass',
+			'change .classSelector': 'commandSelectClass'
 		},
 		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
 			this.commandDispatcher = options.commandDispatcher;
 			this.renderFramework();
-			this.listenForEvents();
+			this.listenForUserEvents();
 			if(user && user.person && user.person.get('roleId')) {
 				this.decideIsInstructor();
 			}
@@ -30,20 +32,53 @@ function (eLeap, $, _, Backbone, notifications, router, user, CollegeClass, page
 		
 		renderFramework: function(){
 			this.$el.html(this.pageTmpl());
-			this.renderClassForm();
-		},
-		
-		renderClassForm: function(options) {
-			options = options || {};
-			this.collegeClass = options.collegeClass ? options.collegeClass : new CollegeClass();
 			this.$(".instructorClassForm").html(this.classFormTmpl());
 		},
+
+		renderClassToForm: function(options) {
+			options = options || {};
+			if(options.collegeClass) {
+				this.collegeClass =	options.collegeClass;
+				this.$(".classNameInput").val(this.collegeClass.get('className'));
+				this.$(".termInput").val(this.collegeClass.get('term'));
+				this.$(".sectionInput").val(this.collegeClass.get('section'));
+				this.$(".yearInput").val(this.collegeClass.get('year'));
+				this.$(".estimatedClassSizeInput").val(this.collegeClass.get('estimatedClassSize'));
+				this.$(".courseSummaryInput").val(this.collegeClass.get('courseSummary'));
+			} else {
+				if(this.collegeClass && this.collegeClass.get('classId')) {
+					this.collegeClass =	new CollegeClass();
+				} else {
+					this.collegeClass = this.collegeClass || new CollegeClass();
+				}
+				this.$(".instructorClassForm").html(this.classFormTmpl());
+			}
+		},
 		
-		listenForEvents: function() {
-			this.stopListening();
+		listenForUserEvents: function() {
 			if(user && user.person) {
+				this.stopListening(user.person);
 				this.listenTo(user.person, 'sync change', this.decideIsInstructor);
 			}
+		},
+		
+		listenForClassesEvents: function() {
+			if(user.person.classes) {
+				this.stopListening(user.person.classes);
+				this.listenTo(user.person.classes, 'reset', this.gotOwnedClasses);
+			}
+		},
+		
+		fetchOwnedClasses: function() {
+			user.person.classes.fetch({
+				ownerId: user.person.get('personId')
+			}, {reset: true});
+		},
+		
+		getClasses: function() {
+			user.person.classes = new CollegeClasses();
+			this.listenForClassesEvents();
+			this.fetchOwnedClasses();
 		},
 		
 		decideIsInstructor: function() {
@@ -52,9 +87,39 @@ function (eLeap, $, _, Backbone, notifications, router, user, CollegeClass, page
 				if(this.commandDispatcher) {
 					this.commandDispatcher.trigger('show:instructor');
 				}
+				this.getClasses();
 			} else {
-				router.navigate('/dashboard', {trigger: true});
+				require(['controllers/router',], function(router) {
+					router.navigate('/dashboard', {trigger: true});
+				});
 			}
+		},
+			
+		gotOwnedClasses: function() {
+			if(user.person.classes.length) {
+				this.renderClasses();
+			}
+		},
+		
+		renderClasses: function() {
+			var thisPage = this;
+			user.person.classes.each(function(collegeClass) {
+				thisPage.$(".classSelector").append(
+					"<option value="+collegeClass.get('classId')+">"+
+						collegeClass.get('className')+ " - "+
+						collegeClass.get('term')+" "+
+						collegeClass.get('section')+
+					"</option>");
+			});
+		},
+			
+		commandSelectClass: function(event) {
+			var options = {};
+			var classId = Number(event.currentTarget.value);
+			if(classId) {
+				options.collegeClass = user.person.classes.get(classId);
+			}
+			this.renderClassToForm(options);
 		},
 		
 		gatherInput: function() {
@@ -68,7 +133,7 @@ function (eLeap, $, _, Backbone, notifications, router, user, CollegeClass, page
 			};
 			this.collegeClass.set(classJson);
 		},
-		
+
 		commandSubmitClass: function() {
 			if(this.$(".classNameInput").val() === "") {
 				notifications.notifyUser("class name is required");

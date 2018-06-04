@@ -6,7 +6,7 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/lockedPage.tmpl'],
-function (eLeap, $, _, Backbone, lockedPageTmpl) {
+	function (eLeap, $, _, Backbone, lockedPageTmpl) {
 	'use strict';
 		
 	eLeap.own.LockedPage = Backbone.View.extend({

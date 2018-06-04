@@ -132,6 +132,10 @@ var collegeClasses = {
 			Number(request.body.ownerId)
 		];
 		console.log("calling sprocOwnedClasses");
+		//temp code
+		response.send({'status':'success'});
+		return;
+		//end temp
 		dbServer.sproc("sprocOwnedClasses", params, function(results) {
 			if (results && results.error) {
 				results.sprocThatErrored = "sprocOwnedClasses";

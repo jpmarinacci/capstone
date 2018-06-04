@@ -6,7 +6,7 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'wijmo.data.ajax', 'wijmo-pro.all', 'wijmo-open.all'],
-function (eLeap, $, _, Backbone, wijmoDataAjax, wijmoProAll, wijmoOpenAll) {'use strict';
+	function (eLeap, $, _, Backbone, wijmoDataAjax, wijmoProAll, wijmoOpenAll) {'use strict';
 		
 	eLeap.own.ChartPanel = Backbone.View.extend({
 		

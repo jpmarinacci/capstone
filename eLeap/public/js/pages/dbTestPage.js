@@ -6,7 +6,7 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/dbTestPage.tmpl'],
-function (eLeap, $, _, Backbone, pageTmpl) {'use strict';
+	function (eLeap, $, _, Backbone, pageTmpl) {'use strict';
 		
 	eLeap.own.DBTestPage = Backbone.View.extend({
 		
