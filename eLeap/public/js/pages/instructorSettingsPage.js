@@ -5,10 +5,10 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications', 'controllers/user',
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notifications', 'controllers/user',
 		'models/collegeClass', 'collections/collegeClasses', 'collections/persons',
 		'text!../../tmpl/pages/instructorSettingsPage.tmpl', 'text!../../tmpl/forms/classForm.tmpl'],
-	function (eLeap, $, _, Backbone, notifications, user, CollegeClass, CollegeClasses, Persons, pageTmpl, classFormTmpl) { 'use strict';
+	function (eLeap, $, _, Backbone, utils, notifications, user, CollegeClass, CollegeClasses, Persons, pageTmpl, classFormTmpl) { 'use strict';
 	
 	eLeap.own.InstructorSettingsPage = Backbone.View.extend({
 		
@@ -19,7 +19,8 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 			'click .classFormSubmitBtn': 'commandSubmitClass',
 			'change .classSelector': 'commandSelectClass',
 			'change .yearInput': 'isYearInputValid',
-			'click .addStudent': 'commandAddStudent'
+			'click .addStudent': 'commandAddStudent',
+			'click .submitStudent': 'commandSubmitStudent'
 		},
 		
 		initialize: function (options) {
@@ -36,26 +37,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 			this.$el.html(this.pageTmpl());
 			this.$(".instructorClassForm").html(this.classFormTmpl());
 		},
-
-		renderClassToForm: function(options) {
-			options = options || {};
-			if(options.collegeClass) {
-				this.collegeClass =	options.collegeClass;
-				this.$(".classNameInput").val(this.collegeClass.get('className'));
-				this.$(".termInput").val(this.collegeClass.get('term'));
-				this.$(".sectionInput").val(this.collegeClass.get('section'));
-				this.$(".yearInput").val(this.collegeClass.get('year'));
-				this.$(".estimatedClassSizeInput").val(this.collegeClass.get('estimatedClassSize'));
-				this.$(".courseSummaryInput").val(this.collegeClass.get('courseSummary'));
-			} else {
-				if(this.collegeClass && this.collegeClass.get('classId')) {
-					this.collegeClass =	new CollegeClass();
-				} else {
-					this.collegeClass = this.collegeClass || new CollegeClass();
-				}
-				this.$(".instructorClassForm").html(this.classFormTmpl());
-			}
-		},
 		
 		listenForUserEvents: function() {
 			if(user && user.person) {
@@ -68,6 +49,20 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 			if(user.person.classes) {
 				this.stopListening(user.person.classes);
 				this.listenTo(user.person.classes, 'reset', this.gotOwnedClasses);
+			}
+		},
+				
+		decideIsInstructor: function() {
+			//handles refresh situation
+			if(user.person.get('roleId') === 5) {
+				if(this.commandDispatcher) {
+					this.commandDispatcher.trigger('show:instructor');
+				}
+				this.getClasses();
+			} else {
+				require(['controllers/router',], function(router) {
+					router.navigate('/dashboard', {trigger: true});
+				});
 			}
 		},
 		
@@ -84,16 +79,29 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 			this.fetchOwnedClasses();
 		},
 		
-		decideIsInstructor: function() {
-			//handles refresh situation
-			if(user.person.get('roleId') === 5) {
-				if(this.commandDispatcher) {
-					this.commandDispatcher.trigger('show:instructor');
-				}
-				this.getClasses();
-			} else {
-				require(['controllers/router',], function(router) {
-					router.navigate('/dashboard', {trigger: true});
+		getStudents: function(collegeClass) {
+			collegeClass.students = collegeClass.students || new Persons();
+			if(collegeClass.students.isFetched) {
+				this.renderStudents(collegeClass.students);
+			} else if(!collegeClass.students.isFetchPending) {
+				collegeClass.students.isFetchPending = true;
+				var thisPage = this;
+				collegeClass.students.fetch({
+					classId: collegeClass.get('classId'),
+					ownerId: user.person.get('personId'),
+					success: function(response) {
+						collegeClass.students.isFetched = true;
+						collegeClass.students.isFetchPending = false;
+						thisPage.renderStudents(collegeClass.students);
+					},
+					appError: function(response) {
+						console.log("instructor settings - fetch students invalid: ");
+						console.log(response);
+					},
+					error: function(error) {
+						console.log("instructor settings - fetch students class error");
+					},
+					reset: true
 				});
 			}
 		},
@@ -116,13 +124,63 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 					"</option>");
 			});
 		},
+		
+		renderClassToForm: function(options) {
+			options = options || {};
+			if(options.collegeClass) {
+				this.collegeClass =	options.collegeClass;
+				this.$(".classNameInput").val(this.collegeClass.get('className'));
+				this.$(".termInput").val(this.collegeClass.get('term'));
+				this.$(".sectionInput").val(this.collegeClass.get('section'));
+				this.$(".yearInput").val(this.collegeClass.get('year'));
+				this.$(".estimatedClassSizeInput").val(this.collegeClass.get('estimatedClassSize'));
+				this.$(".courseSummaryInput").val(this.collegeClass.get('courseSummary'));
+			} else {
+				if(this.collegeClass && this.collegeClass.get('classId')) {
+					this.collegeClass =	new CollegeClass();
+				} else {
+					this.collegeClass = this.collegeClass || new CollegeClass();
+				}
+				this.$(".instructorClassForm").html(this.classFormTmpl());
+			}
+		},
+		
+		renderStudents: function(students) {
+			if(students && students.length) {
+				this.$(".studentListSection").show();
+				this.$(".studentsList").empty();
+				var thisPage = this;
+				students.each(function(student) {
+					thisPage.renderStudent(student);
+				});
+			}
+		},
+		
+		renderStudent: function(student) {
+			if(student.get('personId')) {
+				this.$(".studentsList").append("<li class='studentItem'>"+
+				"<span class='studentEmail'>" + student.get('email') + "</span>" +
+				"<icon class='studentJoinedIcon fa fa-user-check pull-right'>" +
+				"</li>");
+			} else {
+				this.$(".studentsList").append("<li class='studentItem'>"+
+				"<span class='studentEmail'>" + student.get('email') + "</span></li>");
+			}
+		},
 			
 		commandSelectClass: function(event) {
 			var options = {};
-			var classId = Number(event.currentTarget.value);
-			if(classId) {
-				options.collegeClass = user.person.classes.get(classId);
+			this.$(".studentListSection").hide();
+			this.$(".studentsList").empty();
+			this.selectedClassId = Number(event.currentTarget.value);
+			if(this.selectedClassId) {
+				this.$(".studentsSection").show();
+				options.collegeClass = user.person.classes.get(this.selectedClassId);
+				this.getStudents(options.collegeClass);
+			} else {
+				this.$(".studentsSection").hide();
 			}
+			
 			this.renderClassToForm(options);
 		},
 		
@@ -197,39 +255,35 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 		commandAddStudent: function() {
 			this.newStudent = {};
 			this.$(".studentInput").show();
-			this.temp();
 		},
 		
-		temp: function(){
-			/*var studentInput = {
-				email: 'test@student.com',
-				classId: 4,
-				ownerId: user.person.get('personId')
-			};
-			eLeap.run.server.postRoute('/addStudent', studentInput, function (response) {
-				if (response.status && response.status !== "success") {
-					if (options.appError) {
-						options.appError(response);
+		commandSubmitStudent: function() {
+			var emailInput = this.$(".studentEmailInput").val();
+			if(utils.isValidEmail(emailInput)) {
+				var selectedClass = user.person.classes.get(this.selectedClassId);
+				var thisPage = this;
+				selectedClass.addStudent({
+					email: emailInput,
+					classId: this.selectedClassId,
+					ownerId: user.person.get('personId'),
+					success: function(student) {
+						selectedClass.students.add(student, {merge:true});
+						thisPage.renderStudent(student);
+					},
+					appError: function(response) {
+						response.message = response.message || response;
+						notifications.notifyUser("student couldn't be added: " + response.message);
+					},
+					error: function(error) {
+						notifications.notifyUser("an error occurred adding student");
+						console.log(error);
 					}
-				} else {
-					if (options.success) {
-						if(options.context) {
-							options.call(options.success, context);
-						} else {
-							options.success(response);
-						}
-					}
-				}
-			}, function (error) {
-				if (options.error) {
-					options.error(error);
-				}
-			});*/
-			var students = new Persons();
-			students.fetch({
-				classId: 4,
-				ownerId: user.person.get('personId')
-			});
+				});
+				this.$(".studentEmailInput").attr('color','unset').empty();
+			} else {
+				this.$(".studentEmailInput").attr('color','red');
+				notifications.notifyUser("email isn't valid");
+			}
 		}
 	});
 	return eLeap.own.InstructorSettingsPage;

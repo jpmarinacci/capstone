@@ -3,8 +3,8 @@
 * 			Belete Zegeye 
 */
 
-define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
-	function ($, _, Backbone, eLeap, server) { 'use strict';
+define(['jquery', 'underscore', 'backbone', 'eLeap', 'models/person', 'controllers/restServer'],
+	function ($, _, Backbone, eLeap, Person, server) { 'use strict';
 		
 	eLeap.own.CollegeClass = Backbone.Model.extend({
 		
@@ -118,6 +118,27 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 				});
 			}
 		},
+		
+		addStudent: function(options) {
+			var thisModel = this;
+			server.postRoute(this.routes.addStudent, options, function (response) {
+				if (response.status && response.status !== "success") {
+					if (options.appError) {
+						options.appError(response);
+					}
+				} else {
+					if (options.success && response.email) {
+						var person = new Person(response);
+						options.success(person);
+					}
+				}
+			}, function (error) {
+				if (options.error) {
+					options.error(error);
+				}
+			});
+		},
+
 		
 		parse: function (dbClass) {
 			//optional

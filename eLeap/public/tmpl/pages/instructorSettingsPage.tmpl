@@ -9,22 +9,26 @@
     		<option value="0">create new class</option>
     	</select>
     </div>
-    <div class="instructorClassForm mb20"></div>
-    <div class="studentsSection">
-    	<ul class="studentsList">
-    		
-    	</ul>
-    	<button class="btn addStudent">
-    		Add a Student
-		</button>
-		<div class="studentInput login col-12 row intialDisplayNone">
-			<div class="form-group row">
-		        <label class="col-sm-3 col-form-label">email:</label>
-		        <div class="col-sm-9">
-		            <input type="text" class="studentEmailInput form-control-plaintext" placeholder="">
-		            <span class="studentEmailWarning warn" ></span>
+	<div class="col-12 col-lg-6 pull-left">
+		<div class="instructorClassForm mb20"></div>
+	</div>
+	<div class="col-12 col-lg-6 pull-left">
+		<div class="studentsSection mt60 initialDisplayNone">
+	    	<button class="addStudent btn">Add a Student</button>
+			<div class="studentInput login form-group col-12 initialDisplayNone">
+				<div class="row">
+			        <label class="col-sm-3 col-form-label">email:</label>
+			        <div class="col-sm-9">
+			            <input type="text" class="studentEmailInput form-control-plaintext" placeholder="">
+			            <span class="studentEmailWarning warn" ></span>
+			        </div>
 		        </div>
+		        <button class="submitStudent btn">submit</button>
 		   	</div>
+		    <div class="studentListSection initialDisplayNone">
+			    Students
+			    <ul class="studentsList leftText"></ul>
+		    </div>
 	    </div>
     </div>
 </div>

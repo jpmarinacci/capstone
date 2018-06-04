@@ -186,7 +186,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'contro
 					}
 				},
 				appError: function(response) {
-					notifications.notifyUser("you could not be signed up with that email");;
+					notifications.notifyUser("you could not be signed up with that email");
 				},
 				error: function(error) {
 					console.log(error);

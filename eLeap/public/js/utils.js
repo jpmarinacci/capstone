@@ -49,6 +49,22 @@ function (eLeap, $, _, Backbone) { 'use strict';
 				var convertTime = hours + ':' + min + suffix;
 				return convertTime;
 			}
+		},
+		
+		isValidEmail: function (email) {
+			 if (email && (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/+email)){
+			    return true;
+			 } else {
+			 	return false;
+			 }
+		},
+		
+		isValidPassword: function(password){
+			if(password&&(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)+ password){
+				return true;
+			} else {
+				return false;
+			}
 		}
 	});
 	

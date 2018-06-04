@@ -199,6 +199,12 @@ ul, ol {
 .mt50 {
 	margin-top: 50px;
 }
+.mt60 {
+	margin-top: 60px;
+}
+.mt75 {
+	margin-top: 75px;
+}
 
 .pt20 {
 	padding-top: 20px;
@@ -639,6 +645,18 @@ ul, ol {
 }
 /* Instructor Settings Page */
 
+.studentsList {
+	border: solid 0.5px slategrey;
+	padding-top: 2px;
+}
+.studentsList li{
+	padding-left: 4px;
+}
+.studentJoinedIcon {
+	color: #0ef20e;
+	margin-top: 3px;
+	margin-right: 4px;
+}
 /* About Page */
 
 

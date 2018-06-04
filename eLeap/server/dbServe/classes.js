@@ -190,8 +190,13 @@ var collegeClasses = {
 	    	} else {
 	    		console.log("sprocAddStudent returned");
 	    		console.log(results);
-	    		var returnResults = (results && results[0] ? results[0] : results) || {};
-	    		returnResults.status = "success";
+	    		var returnResults = (results && results[0] && results[1] && results[1][0] ? results[1][0] : results) || {};
+	    		if(results && results[0] && results[0][0] && results[0][0].status) {
+	    			returnResults.status =  results[0][0].status;
+	    		} else {
+	    			returnResults.status = "success";
+	    		}
+	    		
 	    		console.log("sprocAddStudent successful");
 	    		response.send(returnResults);
 	    	}
