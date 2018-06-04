@@ -8,6 +8,10 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/col
 	eLeap.own.CollegeClasses = Backbone.Collection.extend({
 		
 		model: CollegeClass,
+		comparator: 'className',
+		/*comparator : function(collegeClass) {
+			return - collegeClass.get('className');
+		},*/
 		
 		routes: {
 			getJoinedClasses: "/getJoinedClasses",

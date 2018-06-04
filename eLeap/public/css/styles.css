@@ -507,6 +507,7 @@ ul, ol {
 	vertical-align: text-top;
 }
 .warn {
+	font-size: 10px;
 	color: #ff0000;
 }
 

@@ -17,7 +17,8 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 		
 		events: {
 			'click .classFormSubmitBtn': 'commandSubmitClass',
-			'change .classSelector': 'commandSelectClass'
+			'change .classSelector': 'commandSelectClass',
+			'change .yearInput': 'isYearInputValid',
 		},
 		
 		initialize: function (options) {
@@ -71,8 +72,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 		
 		fetchOwnedClasses: function() {
 			user.person.classes.fetch({
-				ownerId: user.person.get('personId')
-			}, {reset: true});
+				ownerId: user.person.get('personId'),
+				reset: true
+			});
 		},
 		
 		getClasses: function() {
@@ -103,12 +105,13 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 		
 		renderClasses: function() {
 			var thisPage = this;
+			user.person.classes.sort();
 			user.person.classes.each(function(collegeClass) {
 				thisPage.$(".classSelector").append(
-					"<option value="+collegeClass.get('classId')+">"+
-						collegeClass.get('className')+ " - "+
-						collegeClass.get('term')+" "+
-						collegeClass.get('section')+
+					"<option value=" + collegeClass.get('classId') + ">" +
+						collegeClass.get('className') + 
+						(collegeClass.get('term') ? " - " + collegeClass.get('term') : "") + " " +
+						(collegeClass.get('section') || "") +
 					"</option>");
 			});
 		},
@@ -120,6 +123,21 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 				options.collegeClass = user.person.classes.get(classId);
 			}
 			this.renderClassToForm(options);
+		},
+		
+		isYearInputValid: function(event) {
+			var yearInput = event.yearInput || event.currentTarget.value; 
+			if(yearInput) {
+				yearInput = Number(yearInput);
+				if(!Number.isInteger(yearInput)) {
+					this.$(".yearInputWarning").text("year must be a number");
+					return false;
+				} else {
+					this.$(".yearInputWarning").text("");
+					return true;
+				}
+			}
+			return true;
 		},
 		
 		gatherInput: function() {
@@ -140,14 +158,21 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 				this.$(".classNameWarning").html("class name is required");
 				return;
 			}
+			if(!this.isYearInputValid({yearInput: this.$(".yearInput").val()})) {
+				notifications.notifyUser("year must be a valid integer");
+				return;
+			}
+			if(!this.collegeClass) {
+				this.collegeClass = new CollegeClass();
+			}
 			this.gatherInput();
-			var thisPage = this;
+			var isNewClass = this.collegeClass.get('classId') ? false: true;
 			var options = {
 				success: function(response) {
-					if(thisPage.collegeClass && thisPage.collegeClass.get('classId')) {
-						notifications.notifyUser("class updated");	
-					} else {
+					if(isNewClass) {
 						notifications.notifyUser("class created");	
+					} else {
+						notifications.notifyUser("class updated");
 					}
 				},
 				appError: function(response) {
@@ -163,6 +188,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 				wait: true,
 				ownerId: user.person.get('personId')
 			};
+
 			this.collegeClass.save({}, options);
 		}
 	});

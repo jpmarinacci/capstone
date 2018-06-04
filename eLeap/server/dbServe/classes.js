@@ -131,17 +131,13 @@ var collegeClasses = {
 		var params = [
 			Number(request.body.ownerId)
 		];
-		console.log("calling sprocOwnedClasses");
-		//temp code
-		response.send({'status':'success'});
-		return;
-		//end temp
-		dbServer.sproc("sprocOwnedClasses", params, function(results) {
+		console.log("calling sprocAllOwnClass");
+		dbServer.sproc("sprocAllOwnClass", params, function(results) {
 			if (results && results.error) {
-				results.sprocThatErrored = "sprocOwnedClasses";
+				results.sprocThatErrored = "sprocAllOwnClass";
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		console.log("sprocOwnedClasses returned");
+	    		console.log("sprocAllOwnClass returned");
 	    		console.log(results);
 	    		var returnResults = results ? results[0] ? results[0]: results: {'status':'success', 'message':'no results'};
 	    		console.log("sprocAllCommunities successful");

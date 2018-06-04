@@ -12,11 +12,11 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 
 		defaults: {
 			className: "",
-			courseSummary: null,
-			estimatedClassSize: null,
+			courseSummary: "",
+			estimatedClassSize: 0,
 			ownerId : 0,
-			section: null,
-			term: null,
+			section: "",
+			term: "",
 			year: 0
 		},
 		
