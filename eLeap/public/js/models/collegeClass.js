@@ -12,6 +12,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 
 		defaults: {
 			className: "",
+			classType: "",
 			courseSummary: "",
 			estimatedClassSize: 0,
 			ownerId : 0,
@@ -24,7 +25,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 			createClass: "/createClass",
 			getOwnedClasses: "/getOwnedClasses",
 			updateClass: "/updateClass",
-			deleteClass: "/deleteClass"
+			deleteClass: "/deleteClass",
+			addStudent: "/addStudent"
 		},
 		
 		sync: function (method, thisModel, options) {

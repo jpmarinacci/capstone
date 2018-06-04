@@ -20,7 +20,7 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/per
 				if(options.classId) {
 					var getStudentsInput = {
 						classId: options.classId,
-						ownerId: options.personId
+						ownerId: options.ownerId
 					};
 					server.postRoute(this.routes.getStudentsForClass, getStudentsInput, function (response) {
 						if (!response || response.status && response.status !== "success") {

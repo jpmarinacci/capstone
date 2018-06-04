@@ -11,6 +11,7 @@ var collegeClasses = {
 		}
 		var params = [
 			request.body.className ? request.body.className : null,
+			request.boyd.classType ? request.body.classType: null,
 			request.body.courseSummary ? request.body.courseSummary : null,
 			request.body.estimatedClassSize ? request.body.estimatedClassSize: null,
 			request.body.ownerId ? request.body.ownerId : 3,
@@ -59,6 +60,7 @@ var collegeClasses = {
 		}
 		var params = [
 			request.body.classId ? request.body.classId : null,
+			request.boyd.classType ? request.body.classType: null,
 			request.body.className ? request.body.className : null,
 			request.body.courseSummary ? request.body.courseSummary : null,
 			request.body.estimatedClassSize ? request.body.estimatedClassSize: null,
@@ -155,16 +157,16 @@ var collegeClasses = {
 		var params = [
 			Number(request.body.personId)
 		];
-		console.log("calling sprocAllStudent");
-		dbServer.sproc("sprocAllStudent", params, function(results) {
+		console.log("calling sprocAllJoinClass");
+		dbServer.sproc("sprocAllJoinClass", params, function(results) {
 			if (results && results.error) {
-				results.sprocThatErrored = "sprocAllStudent";
+				results.sprocThatErrored = "sprocAllJoinClass";
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		console.log("sprocAllStudent returned");
+	    		console.log("sprocAllJoinClass returned");
 	    		console.log(results);
 	    		var returnResults = results ? results[0] ? results[0]: results: {'status':'success', 'message':'no results'};
-	    		console.log("sprocAllStudent successful");
+	    		console.log("sprocAllJoinClass successful");
 	    		response.send(returnResults);
 	    	}
 		});
@@ -178,7 +180,7 @@ var collegeClasses = {
 		}
 		var params = [
 			Number(request.body.classId),
-			email
+			request.body.email
 		];
 		console.log("calling sprocAddStudent");
 		dbServer.sproc("sprocAddStudent", params, function(results) {
@@ -228,20 +230,19 @@ var collegeClasses = {
 			return;
 		}
 		var params = [
-			Number(request.body.ownerId),
-			request.body.classId
+			Number(request.body.classId)
 		];
-		console.log("calling sprocClassStudents");
-		dbServer.sproc("sprocClassStudents", params, function(results) {
+		console.log("calling sprocAllStudentInClass");
+		dbServer.sproc("sprocAllStudentInClass", params, function(results) {
 			if (results && results.error) {
-				results.sprocThatErrored = "sprocClassStudents";
+				results.sprocThatErrored = "sprocAllStudentInClass";
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		console.log("sprocClassStudents returned");
+	    		console.log("sprocAllStudentInClass returned");
 	    		console.log(results);
-	    		var returnResults = (results && results[0] ? results[0] : results) || {};
-	    		returnResults.status = "success";
-	    		console.log("sprocClassStudents successful");
+	    		var returnResults = (results && results[0] ? results[0]: results) || {};
+	    		returnResults.status = results[0] ? results[0] :"success";
+	    		console.log("sprocAllStudentInClass successful");
 	    		response.send(returnResults);
 	    	}
 		});

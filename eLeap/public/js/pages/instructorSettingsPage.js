@@ -6,9 +6,9 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications', 'controllers/user',
-		'models/collegeClass', 'collections/collegeClasses',
+		'models/collegeClass', 'collections/collegeClasses', 'collections/persons',
 		'text!../../tmpl/pages/instructorSettingsPage.tmpl', 'text!../../tmpl/forms/classForm.tmpl'],
-	function (eLeap, $, _, Backbone, notifications, user, CollegeClass, CollegeClasses,  pageTmpl, classFormTmpl) { 'use strict';
+	function (eLeap, $, _, Backbone, notifications, user, CollegeClass, CollegeClasses, Persons, pageTmpl, classFormTmpl) { 'use strict';
 	
 	eLeap.own.InstructorSettingsPage = Backbone.View.extend({
 		
@@ -144,6 +144,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 		gatherInput: function() {
 			var classJson = {
 				className: this.$(".classNameInput").val(),
+				classType: this.$(".classTypeSelector").val(),
 				term: this.$(".termInput").val(),
 				section: this.$(".sectionInput").val(),
 				year: this.$(".yearInput").val(),
@@ -196,7 +197,39 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 		commandAddStudent: function() {
 			this.newStudent = {};
 			this.$(".studentInput").show();
-			
+			this.temp();
+		},
+		
+		temp: function(){
+			/*var studentInput = {
+				email: 'test@student.com',
+				classId: 4,
+				ownerId: user.person.get('personId')
+			};
+			eLeap.run.server.postRoute('/addStudent', studentInput, function (response) {
+				if (response.status && response.status !== "success") {
+					if (options.appError) {
+						options.appError(response);
+					}
+				} else {
+					if (options.success) {
+						if(options.context) {
+							options.call(options.success, context);
+						} else {
+							options.success(response);
+						}
+					}
+				}
+			}, function (error) {
+				if (options.error) {
+					options.error(error);
+				}
+			});*/
+			var students = new Persons();
+			students.fetch({
+				classId: 4,
+				ownerId: user.person.get('personId')
+			});
 		}
 	});
 	return eLeap.own.InstructorSettingsPage;

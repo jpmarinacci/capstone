@@ -8,17 +8,18 @@ var opportunities = {
 		var params = [
 			request.body.agencyCommitment ? request.body.agencyCommitment: null, 
 			request.body.applicationDueDate ? request.body.applicationDueDate: null,
-			request.body.className ? request.body.className: null,
+			request.body.classId ? Number(request.body.classId): null,
+			/*request.body.className ? request.body.className: null,
 			request.body.classType ? request.body.classType: null,
 			request.body.classYear ? request.body.classYear: null,
-			request.body.courseSummary ? request.body.courseSummary: null,
+			request.body.courseSummary ? request.body.courseSummary: null,*/
 			new Date(),
 			request.body.deliverables ? request.body.deliverables: null,
 			request.body.description ? request.body.description: null,
 			request.body.donation ? request.body.donation: null,
 			request.body.duration ? request.body.duration: null,
 			request.body.endDateTime ? new Date(request.body.endDateTime): null,
-			request.body.estimatedClassSize ? Number(request.body.estimatedClassSize): null,
+			//request.body.estimatedClassSize ? Number(request.body.estimatedClassSize): null,
 			request.body.examples ? request.body.examples: null,
 			request.body.hoursRequired ? Number(request.body.hoursRequired): null,
 			request.body.isClass ? request.body.isClass: 0,
@@ -48,7 +49,7 @@ var opportunities = {
 			request.body.supportDescription ? request.body.supportDescription: null,
 			request.body.supportPreference ? request.body.supportPreference: null,
 			request.body.teamSize ? Number(request.body.teamSize): null,
-			request.body.term ? request.body.term: null,
+			//request.body.term ? request.body.term: null,
 			request.body.timePeriodEndDate ? new Date(request.body.timePeriodEndDate): null,
 			request.body.timePeriodStartDate ? new Date(request.body.timePeriodStartDate): null,
 			request.body.title ? request.body.title: "",
@@ -58,7 +59,8 @@ var opportunities = {
 		console.log("params("+params.length+"):");
 		console.log(params);
 		console.log("calling sprocAddOpp");
-		dbServer.sproc("sprocAddOpp", params, function(results) {
+		dbServer.sproc("sprocAddOpp", ['', null, "2018-09-07T04:41:00.000Z", null, '', '', null, null, "2018-09-07T04:41:00.000Z", '', null, 0, 0, 0, 0, 0, 0, "2018-09-07T04:41:00.000Z", '', '', '', null, '', '', null, '', '', 3, null, '', '', '', '', "2018-09-07T04:41:00.000Z", '', '', '', null, 'null', 'null', 'test edit works', null], function(results) {
+		//dbServer.sproc("sprocAddOpp", params, function(results) {
 			if (results && results.error) {
 				results.sprocThatErrored = "sprocAddOpp";
 				dbServer.processSprocError(results, response);
@@ -88,17 +90,18 @@ var opportunities = {
 		var params = [
 			request.body.agencyCommitment ? request.body.agencyCommitment: null, 
 			request.body.applicationDueDate ? request.body.applicationDueDate: null,
-			request.body.className ? request.body.className: null,
+			request.body.classId ? Number(request.body.classId): null,
+			/*request.body.className ? request.body.className: null,
 			request.body.classType ? request.body.classType: null,
 			request.body.classYear ? request.body.classYear: null,
-			request.body.courseSummary ? request.body.courseSummary: null,
+			request.body.courseSummary ? request.body.courseSummary: null,*/
 			request.body.createDate ? request.body.createDate: new Date(),
 			request.body.deliverables ? request.body.deliverables: null,
 			request.body.description ? request.body.description: null,
 			request.body.donation ? Number(request.body.donation): null,
 			request.body.duration ? request.body.duration: null,
 			request.body.endDateTime ? new Date(request.body.endDateTime): null,
-			request.body.estimatedClassSize ? Number(request.body.estimatedClassSize): null,
+			//request.body.estimatedClassSize ? Number(request.body.estimatedClassSize): null,
 			request.body.examples ? request.body.examples: null,
 			request.body.hoursRequired ? Number(request.body.hoursRequired): null,
 			request.body.isClass ? request.body.isClass: 0,
@@ -129,7 +132,7 @@ var opportunities = {
 			request.body.supportDescription ? request.body.supportDescription: null,
 			request.body.supportPreference ? request.body.supportPreference: null,
 			request.body.teamSize ? Number(request.body.teamSize): null,
-			request.body.term ? request.body.term: null,
+			//request.body.term ? request.body.term: null,
 			request.body.timePeriodEndDate ? new Date(request.body.timePeriodEndDate): null,
 			request.body.timePeriodStartDate ? new Date(request.body.timePeriodStartDate): null,
 			request.body.title ? request.body.title: "",
@@ -137,8 +140,8 @@ var opportunities = {
 		];
 		console.log("calling sprocUpdateOpp");
 		console.log("total params:" + params.length);
-		
-		dbServer.sproc("sprocUpdateOpp", params, function(results) {
+		dbServer.sproc("sprocUpdateOpp", ['', null, "2018-09-07T04:41:00.000Z", null, '', '', null, null, "2018-09-07T04:41:00.000Z", '', null, 0, 0, 0, 0, 0, 0, "2018-09-07T04:41:00.000Z", '', '', '', null, '', '', null, '',108, '', 3, null, '', '', '', '', "2018-09-07T04:41:00.000Z", '', '', '', null, 'null', 'null', 'test edit works', null], function(results) {
+		//dbServer.sproc("sprocUpdateOpp", params, function(results) {
 			if (results && results.error) {
 				results.sprocThatErrored = "sprocUpdateOpp";
 				dbServer.processSprocError(results, response);
