@@ -154,10 +154,10 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 		},
 		
 		renderClasses: function() {
-			this.$(".classSelector").empty();
+			this.$(".oppFormClassSelector").empty();
 			var thisForm = this;
 			user.person.classes.sort().each(function(collegeClass) {
-				thisForm.$(".classSelector").append(
+				thisForm.$(".oppFormClassSelector").append(
 					"<option value=" + collegeClass.get('classId') + ">" +
 						collegeClass.get('className') + 
 						(collegeClass.get('term') ? " - " + collegeClass.get('term') : "") + " " +
@@ -474,7 +474,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 				totalSeats: Number(this.$(".oppFormTotalSeats").val())
 			};
 			if(isClass) {
-				oppJson.isClass = this.$(".oppFormClassSelector").val();
+				oppJson.classId = Number(this.$(".oppFormClassSelector").val());
 			} 
 			switch(oppType) {
 				case 'project':

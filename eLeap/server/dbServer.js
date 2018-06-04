@@ -106,7 +106,10 @@ instantiateDbServer = function() {
 		processSprocError: function(results, response) {
 			if(response && !response.error) {
 				console.log("^*^*^*^*^^*^*^*^*^*^*^*^**^*^*^*^*^*^*^**^*^**^*^*^**^*");
-				console.log("impossible path error: check results --->");
+				console.log("<------ error slipped through the error handler ------>");
+				console.log("<------ 		Is node running already? 		 ------>");
+				console.log("<-  If ECONNRESET - node is probably running already ->");
+				console.log("<------            check results                ------>");
 				console.log(results);
 			}
 			console.log("*^*^*^*^*^**^*^*^*^*^**^^*^*^*^*^^*^*^*^*^*^*^*^*^*^**^*^*^*");
@@ -118,8 +121,9 @@ instantiateDbServer = function() {
 				if(results.sprocThatErrored) {
 					console.log("sproc that errored: "+ results.sprocThatErrored);
 					response.send("database error: " + results.error+ " <br>-------<br> "+results.sprocThatErrored);
+				} else {
+					response.send("database error: " + results.error);
 				}
-				response.send("database error: " + results.error);
 				thisDbServer.retry();
 				return;
 			}
