@@ -15,11 +15,22 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/home
 		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
+			this.commandDispatcher = options.commandDispatcher;
 			this.renderFramework();
+			this.commandDispatcher.trigger('hide:sidebar');
 		},
 		
 		renderFramework: function(){
 			this.$el.html(this.pageTmpl({}));
+		},
+		
+		remove: function() {
+			if(this.commandDispatcher) {
+				this.commandDispatcher.trigger('show:sidebar');
+			}
+			this.$el.remove();
+			this.stopListening();
+			return this;
 		}
 	});
 	return eLeap.own.HomePage;

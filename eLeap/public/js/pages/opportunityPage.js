@@ -16,6 +16,10 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 		pageTmpl: _.template(opportunityPageTmpl),
 		mode: "create",
 		
+		events: {
+			'click .dashboardLink': 'commandNavigateToDashboard'
+		},
+		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
 			this.commandDispatcher = options.commandDispatcher;
@@ -194,6 +198,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 					thisPage.commandDispatcher.trigger('hide:join');
 					thisPage.commandDispatcher.trigger('show:leave');
 					thisPage.opp.set({'isJoined': true});
+					cache.joinedOpps.add(thisPage.opp, {merge:true});
 				},
 				appError: function(error) {
 					var errorMessage = error ? error.message ? error.message : error: "couldn't join at this time";
@@ -217,6 +222,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 					thisPage.commandDispatcher.trigger('show:join');
 					thisPage.commandDispatcher.trigger('hide:leave');
 					thisPage.opp.set({'isJoined': false});
+					cache.joinedOpps.remove(thisPage.opp);
 				},
 				appError: function(error) {
 					var errorMessage = error ? error.message ? error.message : error: "couldn't leave at this time";

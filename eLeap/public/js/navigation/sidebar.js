@@ -44,10 +44,14 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		listenForEvents: function() {
 			this.stopListening();
 			if(this.commandDispatcher) {
+				this.listenTo(this.commandDispatcher, 'show:sidebar', this.showSidebar);
+				this.listenTo(this.commandDispatcher, 'hide:sidebar', this.hideSidebar);
+				
 				this.listenTo(this.commandDispatcher, 'show:joined', this.showJoined);
 				this.listenTo(this.commandDispatcher, 'show:owned', this.showOwned);
 				this.listenTo(this.commandDispatcher, 'show:allOpps', this.showAllOpps);
 				
+				this.listenTo(this.commandDispatcher, 'show:oppViewBtns', this.showOppViewBtns);
 				this.listenTo(this.commandDispatcher, 'show:create', this.showCreate);
 				this.listenTo(this.commandDispatcher, 'show:edit', this.showEdit);
 				this.listenTo(this.commandDispatcher, 'show:join', this.showJoin);
@@ -58,9 +62,8 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 				this.listenTo(this.commandDispatcher, 'show:instructor', this.showInstructor);
 				
 				this.listenTo(this.commandDispatcher, 'hide:oppViewBtns', this.hideOppViewBtns);
-				this.listenTo(this.commandDispatcher, 'show:oppViewBtns', this.showOppViewBtns);
 				this.listenTo(this.commandDispatcher, 'hide:oppFilterBtns', this.hideOppFilterBtns);
-				
+		
 				this.listenTo(this.commandDispatcher, 'hide:approve', this.hideApprove);
 				this.listenTo(this.commandDispatcher, 'hide:deny', this.hideDeny);
 				this.listenTo(this.commandDispatcher, 'hide:approveDeny', this.hideApproveDeny);
@@ -70,12 +73,16 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 				this.listenTo(this.commandDispatcher, 'hide:leave', this.hideLeave);
 			}
 		},
-		
-		remove: function() {
-			this.$el.off().empty();
-			this.stopListening();
-			return this;
+			
+		hideSidebar: function() {
+			this.$el.hide();
 		},
+		
+		showSidebar: function() {
+			this.$el.show();
+		},
+		
+		/* hide/show buttons */
 		
 		showOppViewBtns: function(){
 			this.$(".oppSettingsTitleBlock").show();
@@ -172,6 +179,8 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 			this.$(".editOppBtn, .joinOppBtn, .leaveOppBtn, .approveOppBtn, .denyOppBtn").hide();
 		},
 		
+		/* user-button event commands */
+		
 		commandViewAccountSettings: function() {
 			this.$(".accountSettingsBtn i").addClass('fa-spin');
 			setTimeout(function(){
@@ -230,6 +239,12 @@ function (eLeap, $, _, Backbone, sidebarTmpl) { 'use strict';
 		
 		commandDenyOpportunity: function() {
 			this.commandDispatcher.trigger('command:denyOpp');
+		},
+				
+		remove: function() {
+			this.$el.off().empty();
+			this.stopListening();
+			return this;
 		}
 	});
 	return eLeap.own.Sidebar;

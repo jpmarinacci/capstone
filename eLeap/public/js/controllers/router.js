@@ -76,6 +76,13 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 			
 		},
 		
+		beginNewPage: function() {
+			if(this.currentPage) {
+				this.currentPage.remove();
+				this.currentPage = undefined;
+			}
+		},
+		
 		pageDeploy: function(deployPage) {
 			var loginState = user.checkLoginState();
 			if(loginState === 'pending') {
@@ -86,13 +93,6 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 				} else {
 					user.clientLogout();
 				}
-			}
-		},
-		
-		beginNewPage: function() {
-			if(this.currentPage) {
-				this.currentPage.remove();
-				this.currentPage = undefined;
 			}
 		},
 		
@@ -142,7 +142,7 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 				$("#pages").empty().append("<div id='dbTest'> DATA: </div>");
 				require(['pages/dbTestPage'], function(DbTestPage) {
 					thisRouter.currentPage = eLeap.run.dbTestPage = new DbTestPage({
-						commandDispatcher: this.commandDispatcher,
+						commandDispatcher: thisRouter.commandDispatcher,
 						el: "#dbTest"
 					});
 				});
@@ -155,6 +155,7 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 			$("#pages").empty().append("<div id='homePage'></div>");
 			require(['pages/homePage'], function(HomePage) {
 				thisRouter.currentPage = eLeap.run.homePage = new HomePage({
+					commandDispatcher: thisRouter.commandDispatcher,
 					el: "#homePage"
 				});
 			});

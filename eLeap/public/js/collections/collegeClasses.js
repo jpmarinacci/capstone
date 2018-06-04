@@ -32,9 +32,9 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/col
 								options.appError(response);
 							}
 						} else {
-							if(!response.length) {
+							/*if(!response.length) {
 								thisCollection.trigger('reset');
-							}
+							}*/
 							if (options.success) {
 								if(options.context) {
 									options.call(options.success, context);

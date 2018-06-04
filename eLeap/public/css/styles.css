@@ -35,8 +35,8 @@ footer {
 	display: flex;
 }
 
-a {
-  color: #00B7FF;
+a , a:not([href]):not([tabindex]) {
+    color: #00B7FF;
 }
 
 ul, ol {
@@ -336,7 +336,7 @@ ul, ol {
 	z-index: 1000;
 	position: fixed;
 	width: 100%;
-	top: 100px;
+	top: 125px;
 	left: 50%;
     transform: translate(-50%, 0%);
 	text-align: center;
@@ -345,7 +345,6 @@ ul, ol {
 #notifications {
 	display: none;
 	width: 60%;
-	top: 60px;
 	border-radius: 4px;
 	/*background-color: #C4EDFD;*/
 	background-color: white;
@@ -530,22 +529,26 @@ ul, ol {
 /* Dashboard Page */
 
 .viewMode {
-	padding: .75rem 1rem;
-    margin-bottom: 1rem;
-    background-color: #e9ecef;
+	padding: .75rem  1rem 0 0;
 }
 .viewModeBtn {
 	cursor: pointer;
 	padding: 0px 4px;
+	
 }
 .breadcrumb {
 	border-radius: unset;
 }
+
+.breadcrumbNav {
+	background-color: #e9ecef;
+}
+
 .welcomeBox {
 	display: inline-block;
     border: 0.5px solid black;
-    box-shadow: 10px 10px 5px #888;
-    padding: 20px;
+    box-shadow: 8px 8px 4px #888;
+    padding: 4px 20px;
     margin-bottom: 20px;
     /*background-color: #34495e;*/
 	background-color: white;
@@ -653,7 +656,9 @@ ul, ol {
 	padding-left: 4px;
 }
 .studentJoinedIcon {
+	float: right;
 	color: #0ef20e;
+	-webkit-text-stroke: 0.25px slategrey;
 	margin-top: 3px;
 	margin-right: 4px;
 }

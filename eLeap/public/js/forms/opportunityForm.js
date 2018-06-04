@@ -6,8 +6,10 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 'controllers/cache', 'controllers/user',
-		'controllers/notifications', 'controllers/router', 'models/opportunity', 'text!../../tmpl/forms/opportunityForm.tmpl'],
-	function (eLeap, $, _, Backbone, datetimepicker, utils, cache, user, notifications, router, Opportunity, opportunityFormTmpl) { 'use strict';
+		'controllers/notifications', 'controllers/router','collections/collegeClasses', 'models/opportunity',
+		'text!../../tmpl/forms/opportunityForm.tmpl'],
+	function (eLeap, $, _, Backbone, datetimepicker, utils, cache, user, notifications, router, CollegeClasses, Opportunity, 
+		 opportunityFormTmpl) { 'use strict';
 	eLeap.own.OpportunityForm = Backbone.View.extend({
 		
 		formTmpl: _.template(opportunityFormTmpl),
@@ -46,9 +48,13 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 				timePeriodEndDate: this.opportunity.get('timePeriodEndDate') ? new Date(this.opportunity.get('timePeriodEndDate')) : null,
 				timePeriodStartDate: this.opportunity.get('timePeriodEndDate') ? new Date(this.opportunity.get('timePeriodEndDate')) : null
 			});
+			
 			this.renderFramework();
 			if(options.opportunity) {
 				this.renderOpportunityToForm();
+			}
+			if(user.person.get('roleId') === 5) {
+				this.getClasses();
 			}
 		},
 		
@@ -106,6 +112,57 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
                     previous: "glyphicon glyphicon-chevron-left",
                     next: "glyphicon glyphicon-chevron-right"
                 }
+			});
+		},
+		
+		listenForClassesEvents: function() {
+			if(user.person.classes) {
+				this.stopListening(user.person.classes);
+				this.listenTo(user.person.classes, 'reset', this.gotOwnedClasses);
+			}
+		},
+		
+		fetchOwnedClasses: function() {
+			if(user.person.classes.isFetched) {
+				this.gotOwnedClasses();
+			} else {
+				user.person.classes.isFetchPending = true;
+				user.person.classes.fetch({
+					ownerId: user.person.get('personId'),
+					reset: true,
+					success: function() {
+						user.person.classes.isFetched = true;
+					},
+					error: function(error) {
+						console.log("oppForm - fetch classes error");
+						console.log(error);
+					}
+				});
+			}
+		},
+		
+		getClasses: function() {
+			user.person.classes = user.person.classes || new CollegeClasses();
+			this.listenForClassesEvents();
+			this.fetchOwnedClasses();
+		},
+				
+		gotOwnedClasses: function() {
+			if(user.person.classes.length) {
+				this.renderClasses();
+			}
+		},
+		
+		renderClasses: function() {
+			this.$(".classSelector").empty();
+			var thisForm = this;
+			user.person.classes.sort().each(function(collegeClass) {
+				thisForm.$(".classSelector").append(
+					"<option value=" + collegeClass.get('classId') + ">" +
+						collegeClass.get('className') + 
+						(collegeClass.get('term') ? " - " + collegeClass.get('term') : "") + " " +
+						(collegeClass.get('section') || "") +
+					"</option>");
 			});
 		},
 		
@@ -317,8 +374,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			this.toggleTypeSection({}, {"type": (this.opportunity.get('opportunityType') || "service")});
 			this.$(".oppFormAgencyCommitment").val(this.opportunity.get('agencyCommitment'));
 			this.$(".oppFormApplicationDueDate").val(utils.dateTimeToDisplay(this.opportunity.get('applicationDueDate')));
-			this.$(".oppFormClassType").val(this.opportunity.get('classType'));
-			this.$(".oppFormYear").val(this.opportunity.get('classYear'));
 			this.$(".oppFormClassName").val(this.opportunity.get('className'));
 			this.$(".oppFormCourseSummary").val(this.opportunity.get('courseSummary'));
 			if(this.opportunity.get('opportunityType') === 'deliverable') {
@@ -332,7 +387,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			this.$(".oppFormEndDateTime").datetimepicker({
 			    date: this.opportunity.get('endDateTime')
 			});
-			this.$(".oppFormClassSize").val(this.opportunity.get('estimatedClassSize'));
 			this.$(".oppFormExamples").val(this.opportunity.get('examples'));
 			this.$(".oppFormHours").val(this.opportunity.get('hoursRequired'));
 			if(this.opportunity.get('isClass')) {
@@ -373,7 +427,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 		    this.$(".oppFormGivenSupport").val(this.opportunity.get('supportDescription'));
 			this.$(".oppFormSupportPref").val(this.opportunity.get('supportPreference'));
 			this.$(".oppFormTeamSize").val(this.opportunity.get('teamSize'));
-			this.$(".oppFormTerm").val(this.opportunity.get('term'));
 			this.$(".oppFormTitle").val(this.opportunity.get('title'));
 			this.$(".oppFormTotalSeats").val(this.opportunity.get('totalSeats'));
 			
@@ -381,6 +434,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 				this.$(".deleteOppBtn").show();	
 			}
 			this.$(".oppFormHeader").text("Edit Opportunity");
+			//render classId to selector
 		},
 		
 		gatherInput: function() {
@@ -394,68 +448,67 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			if(this.isAppDueDatePicked) {
 				applicationDueDate = new Date(this.$(".oppFormApplicationDueDate").val());
 			}
-			var opportunityType = this.$(".oppFormOppType[name='oppFormOppType']:checked").val();
-			var opportuntityJson = {
+			var isClass = this.$(".oppFormIsClass:checked").val() ? true: false;
+			var oppType = this.$(".oppFormOppType[name='oppFormOppType']:checked").val();
+			var oppJson = {
 				applicationDueDate: applicationDueDate ? applicationDueDate : this.editingOpp.get('applicationDueDate'),
-				classType: this.$(".oppFormClassType").val(),
-				classYear: this.$(".oppFormYear").val(),
-				className: this.$(".oppFormClassName").val(),
 				courseSummary: this.$(".oppFormCourseSummary").val(),
 				deliverables: this.$(".oppFormDeliverables").val(),
 				description: this.$(".oppFormDescription").val(),
 				endDateTime: endDateTime ? endDateTime : this.editingOpp.get('endDateTime'),
-				estimatedClassSize: this.$(".oppFormClassSize").val(),
 				hoursRequired: this.$(".oppFormHours").val(),
-				isClass: this.$(".oppFormIsClass:checked").val() ? true: false,
+				isClass: isClass,
 				isRequiredForClass: this.$(".oppFormIsRequiredForClass:checked").val() ? true: false,
-				isServiceLearning: opportunityType === 'service' ? true: false,
+				isServiceLearning: oppType === 'service' ? true: false,
 				isTeams: this.$(".oppFormIsTeams:checked").val() ? true: false,
 				location: this.$(".oppFormAddress").val(),
 				minimumPersonsRequired: Number(this.$(".oppFormMinReqPersons").val()),
 				numTeams: this.$(".oppFormNumTeams").val(),
 				onBoarding: this.$(".oppFormOnboarding").val(),
-				opportunityType: opportunityType,
+				opportunityType: oppType,
 				ownerId: user.person.get('personId'),
 				startDateTime: startDateTime ? startDateTime : this.editingOpp.get('startDateTime'),
 				supportPreference: this.$(".oppFormSupportPref").val(),
 				teamSize: this.$(".oppFormTeamSize").val(),
-				term: this.$(".oppFormTerm").val(),
 				title: this.$(".oppFormTitle").val(),
 				totalSeats: Number(this.$(".oppFormTotalSeats").val())
 			};
-			switch(opportunityType) {
+			if(isClass) {
+				oppJson.isClass = this.$(".oppFormClassSelector").val();
+			} 
+			switch(oppType) {
 				case 'project':
-					opportuntityJson.deliverables = this.$(".oppFormProductDeliverables").val();
-					opportuntityJson.notAllowed = this.$(".oppFormNotAllowed").val();
-					opportuntityJson.agencyCommitment = this.$(".oppFormAgencyCommitment").val();
-					opportuntityJson.preferredAgencyType = this.$(".oppFormAgencyType").val();
+					oppJson.deliverables = this.$(".oppFormProductDeliverables").val();
+					oppJson.notAllowed = this.$(".oppFormNotAllowed").val();
+					oppJson.agencyCommitment = this.$(".oppFormAgencyCommitment").val();
+					oppJson.preferredAgencyType = this.$(".oppFormAgencyType").val();
 					break;
 				case 'service':
-					opportuntityJson.preferredAgencyType = this.$(".oppFormPrefAgencyType").val();
-					opportuntityJson.preferredServiceWorkType = this.$(".oppFormPrefServiceWork").val();
+					oppJson.preferredAgencyType = this.$(".oppFormPrefAgencyType").val();
+					oppJson.preferredServiceWorkType = this.$(".oppFormPrefServiceWork").val();
 					break;
 				case 'volunteer':
-					opportuntityJson.donation = Number(this.$(".oppFormDonation").val());
+					oppJson.donation = Number(this.$(".oppFormDonation").val());
 					break;
 				case 'gig':
-					opportuntityJson.isPaid = this.$(".oppFormIsPaid:checked").val() ? true: false,
-					opportuntityJson.payAmount = Number(this.$(".oppFormPayAmount").val());
+					oppJson.isPaid = this.$(".oppFormIsPaid:checked").val() ? true: false,
+					oppJson.payAmount = Number(this.$(".oppFormPayAmount").val());
 					break;
 				case 'deliverable':
-					opportuntityJson.deliverables =  this.$(".oppFormDeliverables").val();
-					opportuntityJson.isVirtual = this.$(".oppFormIsVirtual:checked").val() ? true: false;
-					opportuntityJson.supportDescription = this.$(".oppFormGivenSupport").val();
-					opportuntityJson.requirements = this.$(".oppFormRequirements").val();
-					opportuntityJson.isPaid = this.$(".oppFormIsPaid:checked").val() ? true: false,
-					opportuntityJson.payAmount = Number(this.$(".oppFormPayAmount").val());
+					oppJson.deliverables =  this.$(".oppFormDeliverables").val();
+					oppJson.isVirtual = this.$(".oppFormIsVirtual:checked").val() ? true: false;
+					oppJson.supportDescription = this.$(".oppFormGivenSupport").val();
+					oppJson.requirements = this.$(".oppFormRequirements").val();
+					oppJson.isPaid = this.$(".oppFormIsPaid:checked").val() ? true: false,
+					oppJson.payAmount = Number(this.$(".oppFormPayAmount").val());
 					break;
 				case 'other':
-					opportuntityJson.examples = this.$(".oppFormExamples").val();
+					oppJson.examples = this.$(".oppFormExamples").val();
 					break;
 				default:
 					break;
 			}
-			this.editingOpp.set(opportuntityJson);
+			this.editingOpp.set(oppJson);
 		},
 		
 		renderResults: function(opportunity) {

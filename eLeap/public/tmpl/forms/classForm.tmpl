@@ -10,22 +10,28 @@
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Term</label>
         <div class="col-sm-9">
-            <input class="termInput form-control-plaintext" type="text" placeholder="">
+            <input class="classTermInput form-control-plaintext" type="text" placeholder="">
+
         </div>
     </div>
     
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Year</label>
         <div class="col-sm-9">
-            <input type="text" class="yearInput form-control-plaintext" placeholder="">
-            <span class="yearInputWarning warn"></span>
+             <select class="classYearSelect form-control">
+				<option value="2018" selected>2018</option>
+				<option value="2019">2019</option>
+				<option value="2020">2020</option>
+				<option value="2021">2021</option>
+				<option value="2022">2022</option>
+			</select>
         </div>
     </div>
     
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Section</label>
         <div class="col-sm-9">
-            <input class="sectionInput form-control-plaintext" placeholder="">
+            <input class="classSectionInput form-control-plaintext" placeholder="">
         </div>
     </div>
 
@@ -39,7 +45,7 @@
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">Class Type</label>
         <div class="col-sm-9">
-            <select class="classTypeSelector">
+            <select class="classTypeSelector form-control">
             	<option value="online">online</option>
             	<option value="hybrid">hybrid</option>
             	<option value="in class">in class</option> 

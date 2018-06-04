@@ -18,7 +18,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		events: {
 			'click .classFormSubmitBtn': 'commandSubmitClass',
 			'change .classSelector': 'commandSelectClass',
-			'change .yearInput': 'isYearInputValid',
 			'click .addStudent': 'commandAddStudent',
 			'click .submitStudent': 'commandSubmitStudent'
 		},
@@ -67,14 +66,26 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		},
 		
 		fetchOwnedClasses: function() {
-			user.person.classes.fetch({
-				ownerId: user.person.get('personId'),
-				reset: true
-			});
+			if(user.person.classes.isFetched) {
+				this.gotOwnedClasses();
+			} else {
+				user.person.classes.isFetchPending = true;
+				user.person.classes.fetch({
+					ownerId: user.person.get('personId'),
+					reset: true,
+					success: function() {
+						user.person.classes.isFetched = true;
+					},
+					error: function(error) {
+						console.log("oppForm - fetch classes error");
+						console.log(error);
+					}
+				});
+			}
 		},
 		
 		getClasses: function() {
-			user.person.classes = new CollegeClasses();
+			user.person.classes = user.person.classes || new CollegeClasses();
 			this.listenForClassesEvents();
 			this.fetchOwnedClasses();
 		},
@@ -130,9 +141,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			if(options.collegeClass) {
 				this.collegeClass =	options.collegeClass;
 				this.$(".classNameInput").val(this.collegeClass.get('className'));
-				this.$(".termInput").val(this.collegeClass.get('term'));
-				this.$(".sectionInput").val(this.collegeClass.get('section'));
-				this.$(".yearInput").val(this.collegeClass.get('year'));
+				this.$(".classTermInput").val(this.collegeClass.get('term'));
+				this.$(".classSectionInput").val(this.collegeClass.get('section'));
+				this.$(".classYearSelect").val(this.collegeClass.get('year'));
 				this.$(".estimatedClassSizeInput").val(this.collegeClass.get('estimatedClassSize'));
 				this.$(".courseSummaryInput").val(this.collegeClass.get('courseSummary'));
 			} else {
@@ -160,7 +171,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			if(student.get('personId')) {
 				this.$(".studentsList").append("<li class='studentItem'>"+
 				"<span class='studentEmail'>" + student.get('email') + "</span>" +
-				"<icon class='studentJoinedIcon fa fa-user-check pull-right'>" +
+				"<span class=''><icon class='studentJoinedIcon fa fa-user-check'></span>" +
 				"</li>");
 			} else {
 				this.$(".studentsList").append("<li class='studentItem'>"+
@@ -184,28 +195,13 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			this.renderClassToForm(options);
 		},
 		
-		isYearInputValid: function(event) {
-			var yearInput = event.yearInput || event.currentTarget.value; 
-			if(yearInput) {
-				yearInput = Number(yearInput);
-				if(!Number.isInteger(yearInput)) {
-					this.$(".yearInputWarning").text("year must be a number");
-					return false;
-				} else {
-					this.$(".yearInputWarning").text("");
-					return true;
-				}
-			}
-			return true;
-		},
-		
 		gatherInput: function() {
 			var classJson = {
 				className: this.$(".classNameInput").val(),
 				classType: this.$(".classTypeSelector").val(),
-				term: this.$(".termInput").val(),
-				section: this.$(".sectionInput").val(),
-				year: this.$(".yearInput").val(),
+				term: this.$(".classTermInput").val(),
+				section: this.$(".classSectionInput").val(),
+				year: this.$(".classYearSelect").val(),
 				estimatedClassSize: this.$(".estimatedClassSizeInput").val(),
 				courseSummary: this.$(".courseSummaryInput").val()
 			};
@@ -216,10 +212,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			if(this.$(".classNameInput").val() === "") {
 				notifications.notifyUser("class name is required");
 				this.$(".classNameWarning").html("class name is required");
-				return;
-			}
-			if(!this.isYearInputValid({yearInput: this.$(".yearInput").val()})) {
-				notifications.notifyUser("year must be a valid integer");
 				return;
 			}
 			if(!this.collegeClass) {
