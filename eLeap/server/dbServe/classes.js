@@ -181,7 +181,7 @@ var collegeClasses = {
 			email
 		];
 		console.log("calling sprocAddStudent");
-		dbServer.sproc("sprocAddStudent", params, function processSproc(results) {
+		dbServer.sproc("sprocAddStudent", params, function(results) {
 			if (results && results.error) {
 				results.sprocThatErrored = "sprocAddStudent";
 				dbServer.processSprocError(results, response);
@@ -206,7 +206,7 @@ var collegeClasses = {
 			Number(request.body.ownerId)
 		];
 		console.log("calling sprocAddStudents");
-		dbServer.sproc("sprocAddStudents", params, function processSproc(results) {
+		dbServer.sproc("sprocAddStudents", params, function(results) {
 			if (results && results.error) {
 				results.sprocThatErrored = "sprocAddStudents";
 				dbServer.processSprocError(results, response);
@@ -216,6 +216,32 @@ var collegeClasses = {
 	    		var returnResults = (results && results[0] ? results[0] : results) || {};
 	    		returnResults.status = "success";
 	    		console.log("sprocAddStudents successful");
+	    		response.send(returnResults);
+	    	}
+		});
+	},
+	
+	getStudentsForClass: function(request, response) { 'use strict';
+		console.log("--- getStudentsForClass route called ---");
+		if(!request.body.ownerId && request.body.classId) {
+			response.send('invalid paramaters -- no ownerId or classId');
+			return;
+		}
+		var params = [
+			Number(request.body.ownerId),
+			request.body.classId
+		];
+		console.log("calling sprocClassStudents");
+		dbServer.sproc("sprocClassStudents", params, function(results) {
+			if (results && results.error) {
+				results.sprocThatErrored = "sprocClassStudents";
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		console.log("sprocClassStudents returned");
+	    		console.log(results);
+	    		var returnResults = (results && results[0] ? results[0] : results) || {};
+	    		returnResults.status = "success";
+	    		console.log("sprocClassStudents successful");
 	    		response.send(returnResults);
 	    	}
 		});

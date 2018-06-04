@@ -79,6 +79,7 @@ app.post('/getOwnedClasses', classes.getOwnedClasses);
 app.post('/getJoinedClasses', classes.getJoinedClasses);
 app.post('/addStudent', classes.addStudent);
 app.post('/addStudents', classes.addStudents);
+app.post('/getStudentsForClass', classes.getStudentsForClass);
 
 /*****************************************************************
  * Login
