@@ -18,11 +18,19 @@ function (eLeap, $, _, Backbone, user, navbarTmpl) { 'use strict';
 		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
+			this.commandDispatcher = options.commandDispatcher;
 			this.renderFramework();
+			this.listenForEvents();
 		},
 		
 		renderFramework: function(){
 			this.$el.html(this.navbarTmpl());
+		},
+		
+		listenForEvents: function() {
+			if(this.commandDispatcher) {
+				this.listenTo(this.commandDispatcher, 'center:nav', this.showLoggedOut);
+			}	
 		},
 		
 		logout: function() {

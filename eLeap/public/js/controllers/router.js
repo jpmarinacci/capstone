@@ -14,6 +14,7 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 		initialize: function() {
 			this.commandDispatcher = _.clone(Backbone.Events);
 			this.navbar = new Navbar({
+				commandDispatcher: this.commandDispatcher,
 				el: "#navbar"
 			});
 			this.listenForEvents();

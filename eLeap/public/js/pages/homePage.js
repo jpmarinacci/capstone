@@ -17,7 +17,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/home
 			this.options = _.extend({}, options);
 			this.commandDispatcher = options.commandDispatcher;
 			this.renderFramework();
-			this.commandDispatcher.trigger('hide:sidebar');
+			this.commandDispatcher.trigger('hide:sidebar center:nav');
 		},
 		
 		renderFramework: function(){

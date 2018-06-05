@@ -56,13 +56,12 @@ ul, ol {
 }
 
 #pages, #sidebar {
-	/* corresponds with .bannerWrapper*/
+	/* corresponds with .bannerWrapper & footer*/
 	margin-top: 80px;
 	margin-bottom: 64px;
 }
 
 .nav-sidebar {
-	/*min-height: calc(89vh);*/
 	height: 100%;
 	position: relative;
 	float: left;
@@ -138,7 +137,9 @@ ul, ol {
 .color-blue {
 	color: #0000ff;
 }
-
+.mb0 {
+	margin-bottom: 0px;
+}
 .mb5 {
 	margin-bottom: 5px;
 }
@@ -151,8 +152,26 @@ ul, ol {
 .mb20 {
 	margin-bottom: 20px;
 }
+.mb30 {
+	margin-bottom: 30px;
+}
 .mb40 {
 	margin-bottom: 40px;
+}
+.mb50 {
+	margin-bottom: 50px;
+}
+.mb60 {
+	margin-bottom: 60px;
+}
+.mb75 {
+	margin-bottom: 75px;
+}
+.mb100 {
+	margin-bottom: 100px;
+}
+.ml0 {
+	margin-left: 0px;
 }
 .ml5 {
 	margin-left: 5px;
@@ -165,6 +184,9 @@ ul, ol {
 }
 .ml20 {
 	margin-left: 20px;
+}
+.mr0 {
+	margin-right: 0px;
 }
 .mr5 {
 	margin-right: 5px;
@@ -193,6 +215,9 @@ ul, ol {
 .mt20 {
 	margin-top: 20px;
 }
+.mt30 {
+	margin-top: 30px;
+}
 .mt40 {
 	margin-top: 40px;
 }
@@ -205,7 +230,9 @@ ul, ol {
 .mt75 {
 	margin-top: 75px;
 }
-
+.mt100 {
+	margin-top: 100px;
+}
 .pt20 {
 	padding-top: 20px;
 }
@@ -227,6 +254,54 @@ ul, ol {
 .icon-middle {
 	font-size: 38px;
 }
+
+.btn {
+	font: 18px 'Varela Round', sans-serif;
+	/*line-height: 100% !important;*/
+	color: #ffffff;
+	border: none;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	border-radius: 25px;
+	-webkit-transition: all 400ms ease-in;
+	-o-transition: all 400ms ease-in;
+	transition: all 400ms ease-in;
+}
+
+.btn--decorated {
+	position: relative;
+	z-index: 20;
+	padding: 15px 37px 12px 37px;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+	color: #ffffff;
+	-webkit-transition: all 300ms ease-in;
+	-o-transition: all 300ms ease-in;
+	transition: all 300ms ease-in;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.btn--decorated:before {
+	/*content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: -1;
+	width: 100%;
+	height: 50%;
+	background-color: rgba(0, 0, 0, 0.05);
+	-webkit-border-radius: 0 0 25px 25px;
+	-moz-border-radius: 0 0 25px 25px;
+	border-radius: 0 0 25px 25px;*/
+}
+
+.btn--decorated:hover {
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
 
 .largeButton {
 	background-color: #4CAF50; /* Green */
@@ -293,7 +368,7 @@ ul, ol {
 .bannerWrapper .headerLogo {
 	width: 245px;
 	text-align: center;
-	/*line-height: 3;*/
+	/*line-height: 3;*/ /*NO*/
 }
 
 .bannerWrapper .headerLogo img {
@@ -324,6 +399,8 @@ ul, ol {
 	margin-top: 15px;
 	padding-left: 26px;
 	padding-right: 26px;
+	border-radius: 20px;
+	
 }
 .btnLogout:active, .loginBtn:active, .signupLinkBtn:active, .signupButton:active  {
 	transform: translateY(2px);
@@ -526,19 +603,20 @@ Main Video Background
 	word-spacing: 6px;
 	text-transform: uppercase;
 	display: inline-block;
-	padding: 50px 30px;
+	/*padding: 50px 30px;*/
+	padding: 40px 30px;
 }
 
 .main-video__text {
 	margin: 5% 0 10%;
-	margin: 5.5vmin 0 10vmin;
+	/*margin: 5.5vmin 0 10vmin;*/
+	margin: 0 0 10vmin;
 	font-size: 22px;
 	/*font-size: 2.3vmin;*/
-	font-size: 3.75vmin;
+	font-size: 3.5vmin;
 	color: #fff;
 	text-transform: uppercase;
 }
-
 
 /* Opportunity Form Page */
 
@@ -588,7 +666,6 @@ Main Video Background
 .deleteOppBtn:hover {
 	background-color: orange;
 	color: white;
-	/* make whatever you want*/
 }
 
 /* Dashboard Page */
@@ -749,50 +826,7 @@ Main Video Background
 	color:#fed37f;
 }
 
-/**************** Imported from Custom Styles --Sunny Wu --*******/
-.btn {
-  font: 18px 'Varela Round', sans-serif;
-  /*line-height: 100% !important;*/
-  color: #ffffff;
-  border: none;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  border-radius: 25px;
-  -webkit-transition: all 400ms ease-in;
-  -o-transition: all 400ms ease-in;
-  transition: all 400ms ease-in;
-}
-.btn--decorated {
-	position: relative;
-	z-index: 20;
-	padding: 15px 37px 12px 37px;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-	color: #ffffff;
-	-webkit-transition: all 300ms ease-in;
-	-o-transition: all 300ms ease-in;
-	transition: all 300ms ease-in;
-	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-}
-.btn--decorated:before {
-	/*content: "";
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	z-index: -1;
-	width: 100%;
-	height: 50%;
-	background-color: rgba(0, 0, 0, 0.05);
-	-webkit-border-radius: 0 0 25px 25px;
-	-moz-border-radius: 0 0 25px 25px;
-	border-radius: 0 0 25px 25px;*/
-}
-.btn--decorated:hover {
-	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-}
+/**************** Imported from Custom Styles -- Sunny Wu -- *******/
 
 .widget-timetable-large {
 	padding-bottom: 50px;
@@ -964,14 +998,14 @@ Main Video Background
 	border-bottom: 1px solid #dfe6e7;
 }
 /*.block-title:before {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 50%;
-  width: 80px;
-  height: 3px;
-  margin-left: -40px;
-  background-color: #85d6de;
+	content: "";
+	position: absolute;
+	bottom: -1px;
+	left: 50%;
+	width: 80px;
+	height: 3px;
+	margin-left: -40px;
+	background-color: #85d6de;
 }*/
 .block-title--bottom {
 	margin-bottom: 60px;
@@ -1081,7 +1115,7 @@ Main Video Background
 	/* STYLES GO HERE */
 }
 @media only screen and (min-width: 768px) {
-
+	/* STYLES GO HERE */
 }
 @media only screen and (min-width: 992px) {
 	/* STYLES GO HERE */
@@ -1180,7 +1214,11 @@ Main Video Background
 	.btnLogout {
 		padding: 2px 10px;
 		margin-right: 5px;
-		margin-top: 10px;
+		margin-top: 8px;
+		border-radius: 10px;
+	}
+	.btnLogout i {
+		vertical-align: middle;
 	}
 	.hidden-xs {
 		display: none !important;
@@ -1202,4 +1240,4 @@ Main Video Background
 @media only screen and (max-width: 320px) {
 	/* STYLES GO HERE */
 }
-/* NOTHING BELOW THIS MEDIA QUERIES **/
+/* NOTHING BELOW THESE MEDIA QUERIES PLEASE **/
