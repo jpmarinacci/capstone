@@ -293,11 +293,11 @@ ul, ol {
 .bannerWrapper .headerLogo {
 	width: 245px;
 	text-align: center;
-	line-height: 3;
+	/*line-height: 3;*/
 }
 
 .bannerWrapper .headerLogo img {
-	padding: 2px;
+	padding: 5px;
 }
 
 .bannerWrapper .headerBanner {
@@ -463,6 +463,10 @@ ul, ol {
 }
 /* Home Page */
 
+#homePage {
+	min-height: 545px;
+}
+
 .homePageHeaderText {
 	font-size: 40px;
 	font-family: "Comic Sans MS", "Felix Titling", "Impact", "Helvetica", "Georgia";
@@ -474,6 +478,66 @@ ul, ol {
 	max-width: 200px;
 	max-height: 150px;
 }
+
+/********************************
+Main Video Background
+********************************/
+.main-video {
+	text-align: center;
+	width: 100%;
+	/*background: #000;*/
+	/*opacity: 0.9;*/
+	/*z-index: -1;*/
+	/*****/
+	background-color: #34495e;
+	position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.main-video .container {
+	width: 90%;
+}
+
+.main-video__video {
+	position: absolute;
+	/*min-width: 100%;*/
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	/*******/
+	opacity: 0.9;
+    top: 80px;
+    /*left: 0;*/
+    /*width: 100%;
+    height: 100%;*/
+}
+
+.main-video__title {
+	position: relative;
+	font-size: 40px;
+	font-size: 7.3vmin;
+	color: #fff;
+	letter-spacing: 6px;
+	word-spacing: 6px;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 50px 30px;
+}
+
+.main-video__text {
+	margin: 5% 0 10%;
+	margin: 5.5vmin 0 10vmin;
+	font-size: 22px;
+	font-size: 2.3vmin;
+	color: #fff;
+	text-transform: uppercase;
+}
+
 
 /* Opportunity Form Page */
 
@@ -1007,52 +1071,6 @@ ul, ol {
 	background-color: #eee;
 }
 
-/********************************
-Main Video Background
-********************************/
-.main-video {
-	text-align: center;
-	width: 100%;
-	background: #000;
-	opacity: 0.9;
-	z-index: -1;
-}
-
-.main-video .container {
-	width: 90%;
-
-}
-
-.main-video__video {
-	position: absolute;
-	/*min-width: 100%;*/
-	-webkit-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	z-index: -1;
-}
-
-.main-video__title {
-	position: relative;
-	font-size: 40px;
-	font-size: 7.3vmin;
-	color: #fff;
-	letter-spacing: 6px;
-	word-spacing: 6px;
-	text-transform: uppercase;
-	display: inline-block;
-	padding: 50px 30px;
-}
-
-.main-video__text {
-	margin: 5% 0 10%;
-	margin: 5.5vmin 0 10vmin;
-	font-size: 22px;
-	font-size: 2.3vmin;
-	color: #fff;
-	text-transform: uppercase;
-}
-
 /**************** Media Queries *********************/
 
 @media only screen and (min-width: 320px) {
@@ -1175,6 +1193,9 @@ Main Video Background
 	}
 	.welcome {
 		font-size: 16px;
+	}
+	.main-video__video {
+		top: 40px;
 	}
 }
 @media only screen and (max-width: 320px) {
