@@ -1007,6 +1007,52 @@ ul, ol {
 	background-color: #eee;
 }
 
+/********************************
+Main Video Background
+********************************/
+.main-video {
+	text-align: center;
+	width: 100%;
+	background: #000;
+	opacity: 0.9;
+	z-index: -1;
+}
+
+.main-video .container {
+	width: 90%;
+
+}
+
+.main-video__video {
+	position: absolute;
+	/*min-width: 100%;*/
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	z-index: -1;
+}
+
+.main-video__title {
+	position: relative;
+	font-size: 40px;
+	font-size: 7.3vmin;
+	color: #fff;
+	letter-spacing: 6px;
+	word-spacing: 6px;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 50px 30px;
+}
+
+.main-video__text {
+	margin: 5% 0 10%;
+	margin: 5.5vmin 0 10vmin;
+	font-size: 22px;
+	font-size: 2.3vmin;
+	color: #fff;
+	text-transform: uppercase;
+}
+
 /**************** Media Queries *********************/
 
 @media only screen and (min-width: 320px) {
