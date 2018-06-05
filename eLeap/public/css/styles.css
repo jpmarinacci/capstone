@@ -533,7 +533,8 @@ Main Video Background
 	margin: 5% 0 10%;
 	margin: 5.5vmin 0 10vmin;
 	font-size: 22px;
-	font-size: 2.3vmin;
+	/*font-size: 2.3vmin;*/
+	font-size: 3.75vmin;
 	color: #fff;
 	text-transform: uppercase;
 }
