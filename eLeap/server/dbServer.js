@@ -58,7 +58,6 @@ instantiateDbServer = function() {
 				throw error;
 			} else {
 				console.log("connection error");
-				response.send({"status": "erorr"});
 			}
 		},
 		
