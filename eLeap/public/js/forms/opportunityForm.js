@@ -537,7 +537,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 					}
 					notifications.notifyUser(message);
 					
-					if(!thisForm.options.opportunity) {
+					if(!thisForm.options.opportunity && opportunity && opportuntiy.get('opportunityId')) {
 						router.navigate('opportunity/'+ opportunity.get('opportunityId'), {trigger: true});	
 					}
 					//thisForm.renderResults(thisForm.opportunity);
