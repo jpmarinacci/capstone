@@ -94,6 +94,7 @@ app.post('/isUserLoggedIn', login.isUserLoggedIn);
 *****************************************************************/
 app.post('/signupPerson', persons.signupPerson);
 app.post('/getPerson', persons.getPerson);
+
 app.post('/getAllPersons', persons.getAllPersons);
 app.post('/updatePerson', persons.updatePerson);
 

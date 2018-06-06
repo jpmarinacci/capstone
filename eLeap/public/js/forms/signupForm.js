@@ -173,12 +173,13 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'contro
 			var thisForm = this;
 			var options = {
 				success: function(person) {
+					delete person.attributes.credential;
 					if(person && person.get('personId')) {
-						user.person.set(person);
+						user.person.set(person.toJSON());
 						if(thisForm.options.person){
 							notifications.notifyUser("successfully updated your account");
 						} else {
-							notifications.notifyUser("You successfully signed up");
+							notifications.notifyUser("Welcome "+ user.person.get('personName'));
 						}
 						
 						router.lastRoute = '/dashboard';

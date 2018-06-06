@@ -6,9 +6,10 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'controllers/notifications',
-		'controllers/router', 'controllers/user',
+		'controllers/router', 'controllers/user', 'collections/collegeClasses',
 		'collections/opportunities', 'items/opportunityItem', 'text!../../tmpl/pages/dashboardPage.tmpl'],
-	function (eLeap, $, _, Backbone, cache, notifications, router, user, Opportunities, OpportunityItem, dashboardPageTmpl) {'use strict';
+	function (eLeap, $, _, Backbone, cache, notifications, router, user, CollegeClasses, Opportunities,
+		OpportunityItem, dashboardPageTmpl) {'use strict';
 
 	eLeap.own.DashboardPage = Backbone.View.extend({
 		
@@ -66,7 +67,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		listenForClassesEvents: function() {
 			if(user && user.person && user.person.classes) {
 				this.stopListening(user.person.classes);
-				this.listenTo(this.user.person.classes, 'reset', this.gotClasses);
+				this.listenTo(user.person.classes, 'reset', this.gotClasses);
 			}
 		},
 		

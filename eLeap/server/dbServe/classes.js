@@ -167,7 +167,6 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAllOwnClass returned");
-	    		console.log(results);
 	    		var returnResults = results ? results[0] ? results[0]: results: {'status':'success', 'message':'no results'};
 	    		console.log("sprocAllCommunities successful");
 	    		response.send(returnResults);

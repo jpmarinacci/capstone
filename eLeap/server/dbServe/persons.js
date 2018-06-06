@@ -119,17 +119,13 @@ var persons = {
 				results.sprocThatErrored = "sprocFindPerId";
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		console.log("sprocFindPerId returned");
-	    		console.log(results);
 	    		var returnResults = {};
 	    		if(Array.isArray(results) && results[0]){
 	    			if(Array.isArray(results[0])){
 	    				var person = results[1][0];
-	    				if(person && person.length) {
-	    					delete person.credential;
-	    					returnResults.status = "success";
-	    				}
+	    				delete person.credential;
 	    				returnResults = person;
+			    		returnResults.status = "success";
 			    		console.log("sprocFindPerId successful");
 			    		console.log(returnResults);
 	    			}
