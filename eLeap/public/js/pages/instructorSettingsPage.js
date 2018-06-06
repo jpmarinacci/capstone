@@ -5,11 +5,11 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notifications', 'controllers/user',
-		'models/collegeClass', 'collections/collegeClasses', 'collections/persons',
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notifications', 'controllers/router',
+		'controllers/user', 'models/collegeClass', 'collections/collegeClasses', 'collections/persons',
 		'text!../../tmpl/pages/instructorSettingsPage.tmpl', 
 		'text!../../tmpl/forms/classForm.tmpl', 'text!../../tmpl/items/student.tmpl'],
-	function (eLeap, $, _, Backbone, utils, notifications, user, CollegeClass, CollegeClasses, Persons,
+	function (eLeap, $, _, Backbone, utils, notifications, router, user, CollegeClass, CollegeClasses, Persons,
 		pageTmpl, classFormTmpl, studentTmpl) { 'use strict';
 	
 	eLeap.own.InstructorSettingsPage = Backbone.View.extend({
@@ -64,9 +64,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 				}
 				this.getClasses();
 			} else {
-				require(['controllers/router',], function(router) {
-					router.navigate('/dashboard', {trigger: true});
-				});
+				router.navigate('/dashboard', {trigger: true});
 			}
 		},
 		
@@ -230,17 +228,35 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		
 		commandDeleteClass: function() {
 			//this.selectedClassId
-			if (confirm('Delete this class?')) {
-				this.collegeClass.destroy({
-					success: function(response) {
-						notifications.notifyUser("class deleted");
-					},
-					error: function(error) {
-						notifications.notifyUser("an error occurred deleting class");
-						//console.log(error);
-					}
+			var className = this.collegeClass.get('className');
+			var thisPage = this;
+			require(['bootbox'], function(bootbox) {
+				bootbox.confirm({
+				    //title: "Remove student from class",
+				    message: "Delete "+className+"?",
+				    buttons: {
+				        cancel: {
+				            label: '<i class="fa fa-times"></i> Cancel'
+				        },
+				        confirm: {
+				            label: '<i class="fa fa-check"></i> Confirm'
+				        }
+				    },
+				    callback: function (result) {
+				    	if(result) {
+					        thisPage.collegeClass.destroy({
+								success: function(response) {
+									notifications.notifyUser("class deleted");
+								},
+								error: function(error) {
+									notifications.notifyUser("an error occurred deleting class");
+									//console.log(error);
+								}
+							});
+						}
+				    }
 				});
-			}
+			});
 		},
 		
 		commandAddStudent: function() {
@@ -282,23 +298,39 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			var selectedClass = user.person.classes.get(this.selectedClassId);
 			var student = selectedClass.students.findWhere({'email': email});
 			var thisPage = this;
-			if (confirm('Remove this student?')) {
-				selectedClass.removeStudent({
-					classId: student.get('classId'),
-					email: student.get('email'),
-					success: function(response) {
-						if(response) {
-							//console.log("student removed");
-							thisPage.$(event.currentTarget).parent().remove();
-							selectedClass.students.remove(student);
+			require(['bootbox'], function(bootbox) {
+				bootbox.confirm({
+				    //title: "Remove student from class",
+				    message: "Remove "+ email + "?",
+				    buttons: {
+				        cancel: {
+				            label: '<i class="fa fa-times"></i> Cancel'
+				        },
+				        confirm: {
+				            label: '<i class="fa fa-check"></i> Confirm'
+				        }
+				    },
+				    callback: function (result) {
+				    	if(result) {
+					        selectedClass.removeStudent({
+								classId: student.get('classId'),
+								email: student.get('email'),
+								success: function(response) {
+									if(response) {
+										//console.log("student removed");
+										thisPage.$(event.currentTarget).parent().parent().remove();
+										selectedClass.students.remove(student);
+									}
+								},
+								error: function(error) {
+									notifications.notifyUser("an error occurred removing student");
+									//console.log(error);
+								}				
+							});
 						}
-					},
-					error: function(error) {
-						notifications.notifyUser("an error occurred removing student");
-						//console.log(error);
-					}				
+				    }
 				});
-			}
+			});
 		}
 	});
 	return eLeap.own.InstructorSettingsPage;

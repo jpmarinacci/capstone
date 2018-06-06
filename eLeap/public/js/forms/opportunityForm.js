@@ -553,18 +553,36 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 		},
 		
 		commandDeleteOpportunity: function() {
-			if (confirm('Confirm delete this opportunity?')) {
-			    var options = {
-		        	success: function(opportunity) {
-						notifications.notifyUser("opportunity deleted");
-						router.navigate('/dashboard', {trigger: true});
-					},
-					error: function(error) {
-						notifications.notifyUser("error -- opportunity deletion failed: /n"+ error);
-					}
-				};
-				this.opportunity.destroy(options);
-			}
+			var thisForm = this;
+			var title = this.opportunity.get('title');
+			require(['bootbox'], function(bootbox) {
+				bootbox.confirm({
+				    //title: "Remove student from class",
+				    message: "delete "+title+"?",
+				    buttons: {
+				        cancel: {
+				            label: '<i class="fa fa-times"></i> Cancel'
+				        },
+				        confirm: {
+				            label: '<i class="fa fa-check"></i> Confirm'
+				        }
+				    },
+				    callback: function (result) {
+				    	if(result) {
+					       var options = {
+					        	success: function(opportunity) {
+									notifications.notifyUser("opportunity deleted");
+									router.navigate('/dashboard', {trigger: true});
+								},
+								error: function(error) {
+									notifications.notifyUser("error -- opportunity deletion failed: /n"+ error);
+								}
+							};
+							thisForm.opportunity.destroy(options);
+						}
+				    }
+				});
+			});
 		}
 	});
 	return eLeap.own.OpportunityForm;

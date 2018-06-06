@@ -35,21 +35,13 @@ instantiateDbServer = function() {
 			if(error) {
 				console.log("database connection-connect error:");
 				consoel.log(error);
-				if(thisDbServer.attempts <= 25) {
+				if(thisDbServer.attempts <= 20) {
 					console.log("attempts before retry" + thisDbServer.attempts);
 					thisDbServer.retry();
 				} else {
-					/*thisDbServer.attempts = 0;
 					console.log("attempts reached max tries of: " + thisDbServer.attempts);
-					console.log("---throwing error---");
-					response.send({"status": "erorr"});*/
-					if(error.code ==='PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR') {
-						//attempting to handle the error
-						this.connectError(error);
-					} else {
-						throw error;
-						return;
-					}
+					console.log("Database unavailable. closing connection");
+					throw error;
 				}
 			} else {
 				console.log("database connected");
@@ -60,18 +52,17 @@ instantiateDbServer = function() {
 			thisDbServer.isConnectPending = false;
 			error = error || {};
 			console.log("database connection-errorOnConnect error: ");
-			console.log(error);
-			if(error.code ==='PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR') {
-				this.close();
-				this.connect();
-			}
 			console.log(error.code ? error.code : "gremlins");
 			if(!error.code) {
 				console.log("connection error: no error code -- throwing error");
 				throw error;
 			} else {
-				console.log("connection error");
-				thisDbServer.retry();
+				if(error.code === 'PROTOCOL_CONNECTION_LOST' || 'ECONNREFUSED'|| 'ENOTFOUND') {
+					thisDbServer.retry();
+				} else {
+					console.log("connection idle timeout");
+					throw error;
+				}
 			}
 		},
 		
@@ -79,7 +70,7 @@ instantiateDbServer = function() {
 			console.log('-- retry --');
 			setTimeout(function() {
 				thisDbServer.connect();
-			}, 3000);
+			}, 4000);
 		},
 		
 	    close: function() {

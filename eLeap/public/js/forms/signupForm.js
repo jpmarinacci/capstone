@@ -169,6 +169,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'contro
 		
 		createNewPerson: function() {
 			this.checkUserFilledInputs();
+			
 			this.gatherInput();
 			var thisForm = this;
 			var options = {

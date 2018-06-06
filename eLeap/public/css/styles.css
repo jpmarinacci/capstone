@@ -289,7 +289,7 @@ ul, ol {
 	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-	border: solid 3px white;
+	border: solid 2px white;
 	background-color: #003d79;
 }
 
@@ -372,7 +372,7 @@ ul, ol {
 .bannerWrapper {
     position: fixed;
     top: 0;
-    z-index: 2002;
+    z-index: 1001;
     width: 100%;
     height: 80px;
     background-color: #34495e;
