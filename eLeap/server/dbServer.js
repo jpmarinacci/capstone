@@ -50,6 +50,7 @@ instantiateDbServer = function() {
 		},
 		
 		connectError: function(error) {
+			thisDbServer.isConnectPending = false;
 			error = error || {};
 			console.log("database connection error: ");
 			console.log(error.code ? error.code : "gremlins");
@@ -59,6 +60,7 @@ instantiateDbServer = function() {
 			} else {
 				console.log("connection error");
 			}
+			thisDbServer.retry();
 		},
 		
 		retry: function() {
@@ -103,28 +105,16 @@ instantiateDbServer = function() {
 	    },
 	    
 		processSprocError: function(results, response) {
-			if(response && !response.error) {
-				console.log("^*^*^*^*^^*^*^*^*^*^*^*^**^*^*^*^*^*^*^**^*^**^*^*^**^*");
-				console.log("<------ error slipped through the error handler ------>");
-				console.log("<------ 		Is node running already? 		 ------>");
-				console.log("<-  If ECONNRESET - node is probably running already ->");
-				console.log("<------            check results                ------>");
-				console.log(results);
-			}
-			console.log("*^*^*^*^*^**^*^*^*^*^**^^*^*^*^*^^*^*^*^*^*^*^*^*^*^**^*^*^*");
-			console.log("database error occurred");
-			console.log("*^*^*^*^*^**^*^*^*^*^**^^*^*^*^*^^*^*^*^*^*^*^*^*^*^**^*^*^*");	
-			if(results && results.error) {
-				console.log("*^*^*^*^*^**^*^*^*^*^**^^*^*^*^*^^*^*^*^*^*^*^*^*^*^**^*^*^*");
-				console.log(results.error);
+			if(results.error.code === "ECONNRESET" || results.error.code === "ENOTFOUND") {
+				results.errorMessage = "no database connection";
+	  			response.status(500).send(results);
+				this.connect();
+				return;
+			} else {
 				if(results.sprocThatErrored) {
 					console.log("sproc that errored: "+ results.sprocThatErrored);
-					response.send("database error: " + results.error+ " <br>-------<br> "+results.sprocThatErrored);
-				} else {
-					response.send("database error: " + results.error);
 				}
-				thisDbServer.retry();
-				return;
+				response.status(400).send("database error occurred: " + results.sql);
 			}
 			return;
 	    }
