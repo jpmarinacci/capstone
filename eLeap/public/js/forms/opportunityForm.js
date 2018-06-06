@@ -359,7 +359,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			if(this.opportunity.get('opportunityType') === 'deliverable') {
 				this.$(".oppFormDeliverables").val(this.opportunity.get('deliverables'));
 			} else {
-				this.$(".oppFormProductDeliverables").val(this.opportunity.get('deliverables'));
+				this.$(".oppFormProjectDeliverables").val(this.opportunity.get('deliverables'));
 			}
 			this.$(".oppFormDescription").val(this.opportunity.get('description'));
 			this.$(".oppFormDonation").val(this.opportunity.get('donation'));
@@ -458,7 +458,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			} 
 			switch(oppType) {
 				case 'project':
-					oppJson.deliverables = this.$(".oppFormProductDeliverables").val();
+					oppJson.deliverables = this.$(".oppFormProjectDeliverables").val();
 					oppJson.notAllowed = this.$(".oppFormNotAllowed").val();
 					oppJson.agencyCommitment = this.$(".oppFormAgencyCommitment").val();
 					oppJson.preferredAgencyType = this.$(".oppFormAgencyType").val();

@@ -24,7 +24,7 @@
 
 	<div class="oppFormList form-group row">
 		<label class="col-form-label col-sm-3">
-		    Opportunity Start Date
+		   Start Date
 		</label>
 		<div class="oppFormInputContainer col-sm-8 required">
 			<input type="text" class="oppFormStartDateTime oppFormTextInput dateTimeControl form-control" placeholder="MM/DD/YYYY">
@@ -34,7 +34,7 @@
 
 	<div class="oppFormList form-group row">	    
 		<label class="col-form-label col-sm-3">
-		    Opportunity End Date
+		    End Date
 		</label>
 		<div class="oppFormInputContainer col-sm-8 required">
 			<input type="text" class="oppFormEndDateTime oppFormTextInput dateTimeControl form-control" placeholder="MM/DD/YYYY">
@@ -52,12 +52,12 @@
 	<div class="oppFormList form-group row">
 		<label class="col-form-label col-sm-3">Location</label>
 		<div class="oppFormInputContainer col-sm-8">
-			<input class="oppFormAddress oppFormTextInput form-control" type="text"/>
+			<textarea class="oppFormAddress oppFormTextInput form-control" type="text"></textarea>
 		</div>
 	</div>
 
 	<div class="oppFormList form-group row">
-		<label class="col-form-label col-sm-3 form-check-label">Open slots</label>
+		<label class="col-form-label col-sm-3 form-check-label">Total Seats</label>
 		<div class="oppFormInputContainer col-sm-8">
 			<input type="text" class="oppFormTotalSeats oppFormTextInput form-control" maxlength="3">
 			<span class="oppFormTotalSeatsWarning warn"></span>
@@ -78,7 +78,7 @@
 		<div class="oppFormList form-group row">
 	        <label class="col-sm-3 col-form-label">Select Class:</label>
 	        <div class="oppFormInputContainer col-11 col-sm-8">
-		    	<select class="oppFormClassSelector form-control pointer">
+		    	<select class="oppFormClassSelector selector form-control pointer">
 		    		<option value="0">No Classes</option>
 		    	</select>
 		    	<div class="mt5">
@@ -137,7 +137,7 @@
 	</div>
 
 <div class="oppFormList form-group row createOppLine">
-	<label class="col-form-label col-sm-3">Opportunity Type</label>
+	<label class="col-form-label col-sm-3">Type</label>
 	<div class="col-sm-8 oppFormInputContainer checkBoxes">
 	    
         <div class="form-check form-check-inline">
@@ -205,7 +205,7 @@
 		<div class="oppFormList form-group row">
 			<label class="col-form-label col-sm-3">Deliverables</label>
 			<div class="oppFormInputContainer col-sm-8">
-				<input class="oppFormProductDeliverables oppFormTextInput form-control" type="text"/>
+				<textarea class="oppFormProjectDeliverables oppFormTextInput form-control" type="text"></textarea>
 			</div>
 		</div>
 		<div class="oppFormList form-group row">
@@ -223,7 +223,7 @@
 		<div class="oppFormList form-group row">
 			<label class="col-form-label col-sm-3">Not Allowed</label>
 			<div class="coppFormInputContainer col-sm-8">
-				<input class="oppFormNotAllowed oppFormTextInput form-control" type="text"/>
+				<textarea class="oppFormNotAllowed oppFormTextInput form-control" type="text"></textarea>
 			</div>
 		</div>
 	</div>
@@ -232,7 +232,7 @@
 		<div class="oppFormList form-group row">
 			<label class="col-form-label col-sm-3">Deliverables</label>
 			<div class="oppFormInputContainer col-sm-8">
-				<input class="oppFormDeliverables oppFormTextInput form-control" type="text"/>
+				<textarea class="oppFormDeliverables oppFormTextInput form-control" type="text"></textarea>
 			</div>
 		</div>
 		<div class="oppFormList createOppLine form-group row">
@@ -250,7 +250,7 @@
 		<div class="oppFormList form-group row">
 			<label class="col-form-label col-sm-3">Requirements</label>
 			<div class="oppFormInputContainer col-sm-8">
-				<input class="oppFormRequirements oppFormTextInput form-control" type="text"/>
+				<textarea class="oppFormRequirements oppFormTextInput form-control" type="text"></textarea>
 			</div>
 		</div>
 	</div>

@@ -367,6 +367,21 @@ ul, ol {
 	font-size: 60px;
 }
 
+.form-group input, .form-group textarea, .selector {
+	background-color: white;
+	border-radius: 4px;
+    border: solid black 0.5px;
+    padding-left: 7px;
+    padding: 2px 0px 2px 7px;
+    margin: 10px 0 10px 0;
+    font-size: 18px;
+    /*min-width: 300px;*/ 
+}
+.form-group input::placeholder {
+	color: lightblue;
+	/*color: lightslategray;*/
+}
+
 /* navbar  */
 
 .bannerWrapper {
@@ -542,21 +557,6 @@ ul, ol {
 /* page specific css */
 
 /* Login Page */
-
-.login input {
-	background-color: white;
-	border-radius: 4px;
-    border: solid black 0.5px;
-    padding-left: 7px;
-    padding: 2px 0px 2px 7px;
-    margin: 10px 0 10px 0;
-    font-size: 18px;
-    /*min-width: 300px;*/ 
-}
-.login input::placeholder {
-	color: lightblue;
-	/*color: lightslategray;*/
-}
 
 /* Signup Page */
 .selectRoles {
@@ -760,6 +760,10 @@ Main Video Background
 /*  Opportunity View Page */
 .opportunityView {
 	padding: 0;
+}
+.card-title, .oppItemTitle {
+	/*color: #3388c8;*/
+	color: #003d79;
 }
 
 .detailDesc {
