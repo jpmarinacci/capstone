@@ -454,6 +454,7 @@ ul, ol {
 	border: solid 0.5px slategrey;
 	box-shadow: 10px 10px 5px #888;
 	padding: 20px;
+	overflow-x: hidden;
 }
 
 #notificationMessage {

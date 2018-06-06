@@ -10,8 +10,7 @@ instantiateDbServer = function() {
 		
 		connect: function() {
 			if(!this.isConnectPending) {
-				this.isConnectPending = true;
-				this.attempts++;
+				console.log("starging database server connection");
 				this.connection = mysql.createConnection({
 					charset: "utf8mb4",
 					connectTimeout: 20000,
@@ -21,6 +20,8 @@ instantiateDbServer = function() {
 					timezone: "utc",
 					user: dbSettings.dbUserName
 				});
+				this.attempts++;
+				this.isConnectPending = true;
 				this.connection.on('error', this.connectError);
 				this.connection.connect(this.connectCallback);
 			} else {
@@ -32,17 +33,23 @@ instantiateDbServer = function() {
 			thisDbServer.isConnectPending = false;
 			var error = response;
 			if(error) {
-				console.log("database connection error: " + error);
+				console.log("database connection-connect error:");
+				consoel.log(error);
 				if(thisDbServer.attempts <= 25) {
 					console.log("attempts before retry" + thisDbServer.attempts);
 					thisDbServer.retry();
 				} else {
-					thisDbServer.attempts = 0;
+					/*thisDbServer.attempts = 0;
 					console.log("attempts reached max tries of: " + thisDbServer.attempts);
 					console.log("---throwing error---");
-					response.send({"status": "erorr"});
-					throw error;
-					return;
+					response.send({"status": "erorr"});*/
+					if(error.code ==='PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR') {
+						//attempting to handle the error
+						this.connectError(error);
+					} else {
+						throw error;
+						return;
+					}
 				}
 			} else {
 				console.log("database connected");
@@ -52,15 +59,20 @@ instantiateDbServer = function() {
 		connectError: function(error) {
 			thisDbServer.isConnectPending = false;
 			error = error || {};
-			console.log("database connection error: ");
+			console.log("database connection-errorOnConnect error: ");
+			console.log(error);
+			if(error.code ==='PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR') {
+				this.close();
+				this.connect();
+			}
 			console.log(error.code ? error.code : "gremlins");
 			if(!error.code) {
 				console.log("connection error: no error code -- throwing error");
 				throw error;
 			} else {
 				console.log("connection error");
+				thisDbServer.retry();
 			}
-			thisDbServer.retry();
 		},
 		
 		retry: function() {
@@ -73,6 +85,7 @@ instantiateDbServer = function() {
 	    close: function() {
 	    	console.log("closing database connection");
 	    	if(this.connection) {
+	    		thisDbServer.attempts = 0;
 	    		this.connection.end();
 	    	}
 		},
@@ -93,7 +106,8 @@ instantiateDbServer = function() {
 				if (error) {
 					results = results || {};
 					results.error = error;
-					console.log("database error:");
+					results.sql = sql;
+					console.log("database sproc error: "+ sql);
 					console.log(error.code ? error.code : ": gremlins");
 				}
 				results.fields = fields;
