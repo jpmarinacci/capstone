@@ -169,11 +169,11 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			this.$(".studentsList").empty();
 			this.selectedClassId = Number(event.currentTarget.value);
 			if(this.selectedClassId) {
-				this.$(".studentsSection").show();
+				this.$(".studentsSection, .classFormDeleteBtn").show();
 				options.collegeClass = user.person.classes.get(this.selectedClassId);
 				this.getStudents(options.collegeClass);
 			} else {
-				this.$(".studentsSection").hide();
+				this.$(".studentsSection, .classFormDeleteBtn").hide();
 			}
 			
 			this.renderClassToForm(options);
