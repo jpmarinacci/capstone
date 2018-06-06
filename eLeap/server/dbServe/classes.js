@@ -123,7 +123,32 @@ var collegeClasses = {
 	    	}
 		});
 	},
-	
+		deleteStudent: function(request, response) {'use strict';
+		console.log('--- deleteStudent route called ---');
+		if(!request.body.classId) {
+			response.send({invalid:'invalid paramaters -- classId'});
+			return;
+		}
+		var params = [
+			request.body.classId
+		];
+		
+		console.log("calling sprocDeleteStudent");
+		dbServer.sproc("sprocDeleteClass", params, function(results) {
+			if (results && results.error) {
+				results.sprocThatErrored = "sprocDeleteStudent";
+				dbServer.processSprocError(results, response);
+	    	} else {
+	    		console.log("sprocDeleteStudent returned");
+	    		console.log(results);
+	    		var returnResults = (results && results[0] ? results[0]: results) || {};
+	    		returnResults.status = "success";
+	    		
+    			console.log("sprocDeleteStudent successful");
+	    		response.send(returnResults);
+	    	}
+		});
+	},
 	getOwnedClasses: function(request, response) { 'use strict';	
 		console.log("--- getOwnedClasses route called ---");
 		if(!request.body.ownerId) {
