@@ -280,6 +280,8 @@ ul, ol {
 	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+	border: solid 3px white;
+	background-color: #003d79;
 }
 
 .btn--decorated:before {
