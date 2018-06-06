@@ -1,0 +1,9 @@
+<li class='studentItem'>
+	<span class='studentEmail'>
+		<%= student.get('email') %>
+	</span>
+	<i class='removeStudentBtn fa fa-trash-alt' data-email='<%= student.get('email') %>'></i>
+	<% if(student.get('personId')) {%>
+		<i class='studentJoinedIcon fa fa-user-check' title='student has signed up'></i>
+	<% } %>
+</li>

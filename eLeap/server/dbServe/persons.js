@@ -32,7 +32,6 @@ var persons = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sproc Add per returned");
-	    		console.log(results);
 	    		
 	    		//CanNotInsert:1064
 	    		if(Array.isArray(results) && results[0]){
@@ -43,10 +42,10 @@ var persons = {
 	    				}
 	    			}
 	    		}
-	    		var person = results[0] ? results[0][0] || results[0]: {};
+	    		var person = (results && results[0] && results[1] && results[1][0]) ? results[1][0] : {};
+	    		person.status = (results && results[0] && results[0][0]) ? results[0][0].status : "invalid";
 	    		if(person && person.personId) {
 	    			delete person.credential;
-	    			person.status = "success";
 	    			console.log("sprocAddPer successful");
 	    			console.log("setting new cookie");
 					var personIdString = "" + person.personId;
@@ -120,13 +119,17 @@ var persons = {
 				results.sprocThatErrored = "sprocFindPerId";
 				dbServer.processSprocError(results, response);
 	    	} else {
+	    		console.log("sprocFindPerId returned");
+	    		console.log(results);
 	    		var returnResults = {};
 	    		if(Array.isArray(results) && results[0]){
 	    			if(Array.isArray(results[0])){
 	    				var person = results[1][0];
-	    				delete person.credential;
+	    				if(person && person.length) {
+	    					delete person.credential;
+	    					returnResults.status = "success";
+	    				}
 	    				returnResults = person;
-			    		returnResults.status = "success";
 			    		console.log("sprocFindPerId successful");
 			    		console.log(returnResults);
 	    			}

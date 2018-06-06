@@ -26,7 +26,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 		
 		renderFramework: function(){
 			this.$el.html(this.pageTmpl());
-			this.$(".loginBtn").html("Login");
 		},
 		
 		listenForEvents: function() {

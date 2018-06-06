@@ -7,19 +7,23 @@
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notifications', 'controllers/user',
 		'models/collegeClass', 'collections/collegeClasses', 'collections/persons',
-		'text!../../tmpl/pages/instructorSettingsPage.tmpl', 'text!../../tmpl/forms/classForm.tmpl'],
-	function (eLeap, $, _, Backbone, utils, notifications, user, CollegeClass, CollegeClasses, Persons, pageTmpl, classFormTmpl) { 'use strict';
+		'text!../../tmpl/pages/instructorSettingsPage.tmpl', 
+		'text!../../tmpl/forms/classForm.tmpl', 'text!../../tmpl/items/student.tmpl'],
+	function (eLeap, $, _, Backbone, utils, notifications, user, CollegeClass, CollegeClasses, Persons,
+		pageTmpl, classFormTmpl, studentTmpl) { 'use strict';
 	
 	eLeap.own.InstructorSettingsPage = Backbone.View.extend({
 		
 		pageTmpl: _.template(pageTmpl),
 		classFormTmpl: _.template(classFormTmpl),
+		studentTmpl: _.template(studentTmpl),
 		
 		events: {
 			'click .classFormSubmitBtn': 'commandSubmitClass',
 			'change .classSelector': 'commandSelectClass',
 			'click .addStudent': 'commandAddStudent',
-			'click .submitStudent': 'commandSubmitStudent'
+			'click .submitStudent': 'commandSubmitStudent',
+			'click .removeStudentBtn': 'commandRemoveStudent'
 		},
 		
 		initialize: function (options) {
@@ -168,7 +172,11 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		},
 		
 		renderStudent: function(student) {
-			if(student.get('personId')) {
+			this.$(".studentsList").append(this.studentTmpl({
+				student: student
+			}));
+			/*if(student.get('personId')) {
+				
 				this.$(".studentsList").append("<li class='studentItem'>"+
 				"<span class='studentEmail'>" + student.get('email') + "</span>" +
 				"<span class=''><icon class='studentJoinedIcon fa fa-user-check'></span>" +
@@ -176,7 +184,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			} else {
 				this.$(".studentsList").append("<li class='studentItem'>"+
 				"<span class='studentEmail'>" + student.get('email') + "</span></li>");
-			}
+			}*/
 		},
 			
 		commandSelectClass: function(event) {
@@ -276,6 +284,27 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 				this.$(".studentEmailInput").attr('color','red');
 				notifications.notifyUser("email isn't valid");
 			}
+		},
+		
+		commandRemoveStudent: function(event) {
+			var email = event.currentTarget.dataset.email;
+			var selectedClass = user.person.classes.get(this.selectedClassId);
+			var student = selectedClass.students.findWhere({'email': email});
+			selectedClass.students.remove(student);
+			var thisPage = this;
+			student.destroy({
+				success: function(response) {
+					if(response) {
+						console.log("student removed");
+						thisPage.$(event.currentTarget.parent).remove();
+					}
+				},
+				error: function() {
+					notifications.notifyUser("an error occurred removing student");
+					console.log(error);
+				}
+			});
+			
 		}
 	});
 	return eLeap.own.InstructorSettingsPage;
