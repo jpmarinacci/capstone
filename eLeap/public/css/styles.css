@@ -677,7 +677,7 @@ Main Video Background
 	color: #ff0000;
 }
 
-.deleteOppBtn {
+.deleteOppBtn, .classFormDeleteBtn {
 	margin-left: 10px;
 	background-color: #ba1512;
 } 
@@ -813,7 +813,7 @@ Main Video Background
 	padding-top: 2px;
 }
 .studentsList li{
-	padding-left: 4px;
+	padding-left: 8px;
 }
 .studentJoinedIcon {
 	float: right;
@@ -829,7 +829,7 @@ Main Video Background
 	float: right;
 	color: #ba1512;
 	margin-top: 3px;
-	padding-right: 3px;
+	padding-right: 7px;
 	padding-left: 3px;
 }
 /* About Page */

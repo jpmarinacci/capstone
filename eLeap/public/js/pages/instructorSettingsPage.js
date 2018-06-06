@@ -20,6 +20,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		
 		events: {
 			'click .classFormSubmitBtn': 'commandSubmitClass',
+			'click .classFormDeleteBtn': 'commandDeleteClass',
 			'change .classSelector': 'commandSelectClass',
 			'click .addStudent': 'commandAddStudent',
 			'click .submitStudent': 'commandSubmitStudent',
@@ -175,16 +176,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			this.$(".studentsList").append(this.studentTmpl({
 				student: student
 			}));
-			/*if(student.get('personId')) {
-				
-				this.$(".studentsList").append("<li class='studentItem'>"+
-				"<span class='studentEmail'>" + student.get('email') + "</span>" +
-				"<span class=''><icon class='studentJoinedIcon fa fa-user-check'></span>" +
-				"</li>");
-			} else {
-				this.$(".studentsList").append("<li class='studentItem'>"+
-				"<span class='studentEmail'>" + student.get('email') + "</span></li>");
-			}*/
 		},
 			
 		commandSelectClass: function(event) {
@@ -252,6 +243,20 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			this.collegeClass.save({}, options);
 		},
 		
+		commandDeleteClass: function() {
+			//this.selectedClassId
+			if (confirm('Remove this student?')) {
+				this.collegeClass.destroy({
+					success: function() {
+						
+					},
+					error: function() {
+						
+					}
+				});
+			}
+		},
+		
 		commandAddStudent: function() {
 			this.newStudent = {};
 			this.$(".studentInput").show();
@@ -287,7 +292,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		},
 		
 		commandRemoveStudent: function(event) {
-			
 			var email = event.currentTarget.dataset.email;
 			var selectedClass = user.person.classes.get(this.selectedClassId);
 			var student = selectedClass.students.findWhere({'email': email});
