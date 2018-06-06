@@ -142,8 +142,7 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocDeleteStudent returned");
-	    		console.log(results);
-	    		var returnResults = (results && results[0] ? results[0]: results) || {};
+	    		var returnResults = (results && results[0] && results[0][0] ? results[0][0]: results) || {};
 	    		returnResults.status = "success";
 	    		
     			console.log("sprocDeleteStudent successful");
