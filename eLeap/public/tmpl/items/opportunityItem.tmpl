@@ -55,8 +55,8 @@
 		    </div>
 	        <% if(opp.availableSeats){%>
 		        <div class="oppItemField card-subtitle progress mb10">
-		            <div class="progress-bar bg-info" role="progressbar" style="width: <%= opp.availableSeats/opp.totalSeats*100 %>%;" aria-valuenow="<%= opp.availableSeats/opp.totalSeats*100 %>" aria-valuemin="0" aria-valuemax="100">
-		            	<%= opp.availableSeats/opp.totalSeats*100 %>%</div>
+		            <div class="progress-bar bg-info" role="progressbar" style="width: <%= (opp.totalSeats-opp.availableSeats)/opp.totalSeats*100 %>%;" aria-valuenow="<%= (opp.totalSeats-opp.availableSeats)/opp.totalSeats*100 %>" aria-valuemin="0" aria-valuemax="100">
+		            	<%= Math.floor((opp.totalSeats-opp.availableSeats)/opp.totalSeats*100) %>%</div>
 		        </div>
 	        <% } else { %>
 		        <div class="oppItemField card-subtitle progress">

@@ -13,6 +13,7 @@ body {
 	height: 100%;
 	min-height: 100%;
 	position: relative;
+	/*background-color: #34495e;*/
 }
 
 /*  footer */
@@ -30,13 +31,15 @@ footer {
 }
 
 .content {
-	/* size of the footer*/
-	/*margin-bottom: 56px;*/
 	display: flex;
 }
 
 a , a:not([href]):not([tabindex]) {
     color: #00B7FF;
+}
+
+a:hover {
+	color: #85d6de;
 }
 
 ul, ol {
@@ -45,7 +48,11 @@ ul, ol {
 	padding: 0;
 }
 
-/* master page layout **/
+/* page layout **/
+
+#pages {
+	overflow-x: hidden;
+}
 
 #pages, .nav-sidebar  {
 	min-height: calc(80.25vh);
@@ -70,6 +77,10 @@ ul, ol {
 	-webkit-transition: none;
 	-o-transition: none;
 	transition: none;
+}
+
+.container-fluid {
+	width: calc(100% - 100px);
 }
 
 .backdrop {
@@ -311,12 +322,11 @@ ul, ol {
     background-color: #85d6de;
     border-color: white;
 }
-.btn-warning:hover {
+.btn-warning:hover, .btn--decorated:hover {
     color: #212529;
     background-color: #85d6de;
     border-color: white;
 }
-
 
 .largeButton {
 	background-color: #4CAF50; /* Green */
@@ -465,7 +475,7 @@ ul, ol {
 /*  sidebar  */
 
 .navLink {
-	color: #85d6de;
+	color: #3388c8;
 	cursor: pointer;
 	margin-top: 10px;
 }
@@ -478,12 +488,14 @@ ul, ol {
 	font-size: 12px;
 }
 .dashboardLink:hover {
-	color: #00B7FF;
+	/*color: #00B7FF;*/
+	color: #85d6de;
 	text-decoration: none;
 	cursor: pointer;
 }
 .navLink:hover {
-    color: #00B7FF;
+    /*color: #00B7FF;*/
+    color: #85d6de;
     text-decoration: none;
 }
 
@@ -655,7 +667,7 @@ Main Video Background
 }
 .oppFormList .oppFormTextInput {
 	display: inline-block;
-	width: 90%;
+	/*width: 90%;*/
 }
 .formSection {
 	width: 100%;
@@ -758,7 +770,7 @@ Main Video Background
 }
 
 .opportunitiesList {
-	margin: 0 20px;
+	margin: 0 12px;
 }
 
 .oppItemTitle {
@@ -784,7 +796,7 @@ Main Video Background
 
 /*  Opportunity Page */
 .opportunityView {
-	padding: 0 0 20px 0;
+	padding: 0;
 }
 
 /* DBTestPage	*/
@@ -811,13 +823,17 @@ Main Video Background
 .studentsList {
 	border: solid 0.5px slategrey;
 	padding-top: 2px;
+	overflow-x: hidden;
 }
 .studentsList li{
 	padding-left: 8px;
 }
+
+.studentItem {
+	
+}
 .studentJoinedIcon {
 	float: right;
-	cursor: pointer;
 	color: #0ef20e;
 	-webkit-text-stroke: 0.25px slategrey;
 	margin-top: 3px;
@@ -832,6 +848,11 @@ Main Video Background
 	padding-right: 7px;
 	padding-left: 3px;
 }
+
+.classFormSubmitBtn, .classFormDeleteBtn {
+	margin: 0 auto;
+}
+
 /* About Page */
 
 
@@ -1084,8 +1105,8 @@ Main Video Background
 }
 
 .opportunityPageCreateForm {
-	width:80%;
-	margin: 0 auto 0 auto;
+	padding-left: 25px;
+	/*margin: 0 auto 0 auto;*/
 }
 
 .createOppLine {
@@ -1112,9 +1133,11 @@ Main Video Background
 
 .required:before {
 	content:"*";
+	color: #ffc107;
+	font-size: 30px;
+	-webkit-text-stroke: 0.25px black;
+	vertical-align: top;
 	margin-left: -20px;
-	font-size: 18px;
-    color: #ffc107;
 }
 .requiredKey {
 	font-size: 14px;
@@ -1218,9 +1241,6 @@ Main Video Background
 	}
 }
 @media only screen and (max-width: 575px) {
-	#pages, #sidebar {
-	  /* margin-bottom: 20px;*/
-	}
 	.saveOppBtn.topBtns, .deleteOppBtn.topBtns {
 		display: none !important;
 	}
@@ -1245,7 +1265,7 @@ Main Video Background
 	.btnLogout {
 		padding: 2px 10px;
 		margin-right: 5px;
-		margin-top: 8px;
+		margin-top: 4px;
 		border-radius: 10px;
 	}
 	.btnLogout i {

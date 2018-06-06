@@ -30,6 +30,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			'change .oppFormTotalSeats': 'commandChangeTotalSeats',
 			
 			'click .oppFormIsClass': 'toggleClassSection',
+			'click .oppFormIsTeams': 'toggleTeamsSection',
 			'click .oppFormOppType': 'toggleTypeSection',
 			'click .saveOppBtn': 'commandSaveOpportunity',
 			'click .deleteOppBtn': 'commandDeleteOpportunity'
@@ -169,6 +170,10 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 		toggleClassSection: function() {
 			this.$(".oppFormClassSection").toggle();
 			this.$(".oppFormNonClassSection").toggle();
+		},
+		
+		toggleTeamsSection: function() {
+			this.$(".oppFormTeamsSection").toggle();
 		},
 		
 		toggleTypeSection: function(event, options) {
