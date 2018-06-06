@@ -290,19 +290,21 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			var email = event.currentTarget.dataset.email;
 			var selectedClass = user.person.classes.get(this.selectedClassId);
 			var student = selectedClass.students.findWhere({'email': email});
-			selectedClass.students.remove(student);
 			var thisPage = this;
-			student.destroy({
+			selectedClass.removeStudent({
+				classId: student.get('classId'),
+				email: student.get('email'),
 				success: function(response) {
 					if(response) {
 						console.log("student removed");
 						thisPage.$(event.currentTarget.parent).remove();
+						selectedClass.students.remove(student);
 					}
 				},
-				error: function() {
+				error: function(error) {
 					notifications.notifyUser("an error occurred removing student");
 					console.log(error);
-				}
+				}				
 			});
 			
 		}

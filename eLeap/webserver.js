@@ -72,14 +72,15 @@ app.post('/updateApplicationState', applicationState.updateApplicationState);
 /*****************************************************************
  * Classes
 *****************************************************************/
-app.post('/createClass', classes.createClass);
-app.post('/updateClass', classes.updateClass);
-app.post('/deleteClass', classes.deleteClass);
-app.post('/getOwnedClasses', classes.getOwnedClasses);
-app.post('/getJoinedClasses', classes.getJoinedClasses);
 app.post('/addStudent', classes.addStudent);
 app.post('/addStudents', classes.addStudents);
+app.post('/createClass', classes.createClass);
+app.post('/deleteClass', classes.deleteClass);
+app.post('/getJoinedClasses', classes.getJoinedClasses);
+app.post('/getOwnedClasses', classes.getOwnedClasses);
 app.post('/getStudentsForClass', classes.getStudentsForClass);
+app.post('/removeStudent', classes.removeStudent);
+app.post('/updateClass', classes.updateClass);
 
 /*****************************************************************
  * Login

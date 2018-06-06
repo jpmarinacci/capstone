@@ -123,18 +123,20 @@ var collegeClasses = {
 	    	}
 		});
 	},
-		deleteStudent: function(request, response) {'use strict';
-		console.log('--- deleteStudent route called ---');
-		if(!request.body.classId) {
-			response.send({invalid:'invalid paramaters -- classId'});
+	
+	removeStudent: function(request, response) {'use strict';
+		console.log('--- removeStudent route called ---');
+		if(!request.body.classId && request.body.email) {
+			response.send({invalid:'invalid paramaters -- no classId or email'});
 			return;
 		}
 		var params = [
-			request.body.classId
+			request.body.classId,
+			request.body.email
 		];
 		
 		console.log("calling sprocDeleteStudent");
-		dbServer.sproc("sprocDeleteClass", params, function(results) {
+		dbServer.sproc("sprocDeleteStudent", params, function(results) {
 			if (results && results.error) {
 				results.sprocThatErrored = "sprocDeleteStudent";
 				dbServer.processSprocError(results, response);
@@ -149,6 +151,7 @@ var collegeClasses = {
 	    	}
 		});
 	},
+	
 	getOwnedClasses: function(request, response) { 'use strict';	
 		console.log("--- getOwnedClasses route called ---");
 		if(!request.body.ownerId) {
@@ -277,7 +280,6 @@ var collegeClasses = {
 	    	}
 		});
 	}
-	
 };
 
 module.exports = collegeClasses;
