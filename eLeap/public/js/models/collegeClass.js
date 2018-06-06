@@ -26,7 +26,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'models/person', 'controlle
 			getOwnedClasses: "/getOwnedClasses",
 			updateClass: "/updateClass",
 			deleteClass: "/deleteClass",
-			addStudent: "/addStudent"
+			addStudent: "/addStudent",
+			removeStudent: "/removeStudent"
 		},
 		
 		sync: function (method, thisModel, options) {
@@ -138,7 +139,26 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'models/person', 'controlle
 				}
 			});
 		},
-
+		
+		removeStudent: function(options) {
+			var thisModel = this;
+			server.postRoute(this.routes.removeStudent, options, function (response) {
+				if (response.status && response.status !== "success") {
+					if (options.appError) {
+						options.appError(response);
+					}
+				} else {
+					if (options.success && response.email) {
+						var person = new Person(response);
+						options.success(person);
+					}
+				}
+			}, function (error) {
+				if (options.error) {
+					options.error(error);
+				}
+			});
+		},
 		
 		parse: function (dbClass) {
 			//optional
