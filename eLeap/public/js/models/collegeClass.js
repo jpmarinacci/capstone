@@ -157,13 +157,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'models/person', 'controlle
 					options.error(error);
 				}
 			});
-		},
-		
-		parse: function (dbClass) {
-			//optional
-			return dbClass;
 		}
-		
 	});
 
 	return eLeap.own.CollegeClass;

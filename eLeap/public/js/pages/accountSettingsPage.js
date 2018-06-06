@@ -1,5 +1,5 @@
 /**
- * @authors: JP Marinacci, Belete Zegeye, Sunny Wu, Aren Kasner, Leo Sinanian
+ * @authors: JP Marinacci
  */
 
 /*jshint devel:true, jquery:true, browser:true, strict: true */

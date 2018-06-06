@@ -27,7 +27,6 @@ function (eLeap, $, _, Backbone, utils, notifications, router, itemTmpl) { 'use 
 		},
 		
 		render: function() {
-			var dateTimeFunc = utils.dateTimeToDisplay;
 			this.$el.html(this.itemTmpl({
 				opp: this.opportunity.toJSON(),
 				utils: utils
@@ -41,3 +40,4 @@ function (eLeap, $, _, Backbone, utils, notifications, router, itemTmpl) { 'use 
 	});
 	return eLeap.own.OpportunityForm;
 });
+

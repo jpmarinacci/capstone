@@ -25,7 +25,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		sync: function (method, thisModel, options) {
 			options = options || {};
 			if(method === 'create') {
-				server.postRoute(this.routes.getAchievement, this.toJSON(), function (response) {
+				server.postRoute(this.routes.createAchievement, this.toJSON(), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
@@ -45,7 +45,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					}
 				});
 			} else if(method === 'read') {
-				server.postRoute(this.routes.updateAchievement, this.toJSON(), function (response) {
+				server.postRoute(this.routes.getAchievement, this.toJSON(), function (response) {
 					if (response.status && response.status !== "success") {
 						if (options.appError) {
 							options.appError(response);
@@ -105,25 +105,6 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					}
 				});
 			}
-		},
-		parse: function (dbAchievement) {
-			return this.translateAchievementClassFromDB(dbAchievement);
-		},
-		
-		translateAchievementFromDB: function(dbAchievement){
-			var jsonAchievement = {};
-			if(dbAchievement.AchievementID)					jsonAchievement.achievementId = dbAchievement.AchievementID;
-			if(dbAchievement.AchievementName)				jsonAchievement.achievementName = dbAchievement.AchievementName;
-			if(dbAchievement.AchievementDescription)		jsonAchievement.achievementDescription = dbAchievement.AchievementDescription;
-			return jsonAchievement;
-		},
-		
-		translateAchievementToDB: function(jsonAchievement){
-			var dbAchievement = {};
-			if(dbAchievement.AchievementID)					jsonAchievement.achievementId = dbAchievement.AchievementID;
-			if(dbAchievement.AchievementName)				jsonAchievement.achievementName = dbAchievement.AchievementName;
-			if(dbAchievement.AchievementDescription)		jsonAchievement.achievementDescription = dbAchievement.AchievementDescription;
-			return dbAchievement;
 		}
 	});
 

@@ -37,19 +37,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 					//router.navigate('/dashboard', {trigger: true});
 				}
 			}
-			//test code
-			/*var testClass = new CollegeClass({
-				classId: 3,
-				className: "testEditClass",
-				courseSummary: "blah edited summary",
-				estimatedClassSize: 5,
-				ownerId : 3,
-				section: "test",
-				term: "test",
-				year: 2018
-			});
-			//testClass.fetch();
-			testClass.destroy();*/
 		},
 				
 		renderFramework: function(){
@@ -304,4 +291,3 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 	});
 	return eLeap.own.OpportunityPage;
 });
-

@@ -23,3 +23,4 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/blan
 	});
 	return eLeap.own.BlankPage;
 });
+

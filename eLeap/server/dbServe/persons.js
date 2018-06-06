@@ -94,10 +94,10 @@ var persons = {
 	    			console.log("sprocUpdatePer successful");
 	    			console.log("personId: "+ person.personID);
 	    		} else {
-	    			console.log("sprocUpdatePer error:");
+	    			console.log("sprocUpdatePer invalid:");
 	    			console.log(results);
+	    			person.status = "invalid";
 	    		}
-	    		
 	    		response.send(person);
 	    	}
 		});

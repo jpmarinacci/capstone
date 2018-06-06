@@ -70,29 +70,14 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			}
 		},
 		
-		fetchOwnedClasses: function() {
-			if(user.person.classes.isFetched) {
-				this.gotOwnedClasses();
-			} else {
-				user.person.classes.isFetchPending = true;
-				user.person.classes.fetch({
-					ownerId: user.person.get('personId'),
-					reset: true,
-					success: function() {
-						user.person.classes.isFetched = true;
-					},
-					error: function(error) {
-						console.log("oppForm - fetch classes error");
-						console.log(error);
-					}
-				});
-			}
-		},
-		
 		getClasses: function() {
 			user.person.classes = user.person.classes || new CollegeClasses();
 			this.listenForClassesEvents();
-			this.fetchOwnedClasses();
+			if(user.person.classes.isFetched) {
+				this.gotOwnedClasses();
+			} else {
+				user.fetchClasses({ownerId: user.person.get('personId')});
+			}
 		},
 		
 		getStudents: function(collegeClass) {
@@ -111,11 +96,11 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 						thisPage.renderStudents(collegeClass.students);
 					},
 					appError: function(response) {
-						console.log("instructor settings - fetch students invalid: ");
-						console.log(response);
+						//console.log("instructor settings - fetch students invalid: ");
+						//console.log(response);
 					},
 					error: function(error) {
-						console.log("instructor settings - fetch students class error");
+						//console.log("instructor settings - fetch students class error");
 					},
 					reset: true
 				});
@@ -227,13 +212,13 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 					}
 				},
 				appError: function(response) {
-					console.log("instructor settings - submit class error");
-					console.log(response);
+					//console.log("instructor settings - submit class error");
+					//console.log(response);
 					notifications.notifyUser("error occurred submitting class");
 				},
 				error: function(error) {
-					console.log("instructor settings - submit class error");
-					console.log(error);
+					//console.log("instructor settings - submit class error");
+					//console.log(error);
 					notifications.notifyUser("error occurred submitting class");
 				},
 				wait: true,
@@ -252,7 +237,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 					},
 					error: function(error) {
 						notifications.notifyUser("an error occurred deleting class");
-						console.log(error);
+						//console.log(error);
 					}
 				});
 			}
@@ -282,7 +267,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 					},
 					error: function(error) {
 						notifications.notifyUser("an error occurred adding student");
-						console.log(error);
+						//console.log(error);
 					}
 				});
 				this.$(".studentEmailInput").attr('color','unset').empty();
@@ -303,14 +288,14 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 					email: student.get('email'),
 					success: function(response) {
 						if(response) {
-							console.log("student removed");
+							//console.log("student removed");
 							thisPage.$(event.currentTarget).parent().remove();
 							selectedClass.students.remove(student);
 						}
 					},
 					error: function(error) {
 						notifications.notifyUser("an error occurred removing student");
-						console.log(error);
+						//console.log(error);
 					}				
 				});
 			}

@@ -68,7 +68,6 @@ var httpServer = proxiedHttp.createServer(app).listen(app.get('port'), function(
 *****************************************************************/
 app.post('/updateApplicationState', applicationState.updateApplicationState);
 
-
 /*****************************************************************
  * Classes
 *****************************************************************/
@@ -116,7 +115,6 @@ app.post('/updateOpportunity', opportunities.updateOpportunity);
 *****************************************************************/
 app.post('/getRoles', roles.getRoles);
 
-
 /*****************************************************************
  * Dynamic Single Page App HTML
 *****************************************************************/
@@ -145,7 +143,6 @@ app.get('/sample', sendIndexFile);
 app.get('/signup', sendIndexFile);
 app.get('/team', sendIndexFile);
 app.get('/themesettings', sendIndexFile);
-
 
 /*****************************************************************
  * Handle Exceptions
@@ -184,3 +181,4 @@ app.use(function(error, req, res, next) {
 });
 
 module.exports = app;
+

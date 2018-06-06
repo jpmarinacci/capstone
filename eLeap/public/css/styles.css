@@ -6,8 +6,8 @@
 /* base html css */
 
 body {
-	/*font-family: "Lucida Grande", Oswald, Consolas, Georgia, Helvetica, Arial, sans-serif;*/
-	font-family: Helvetica, "Lucida Grande", "Lucida Console", "Consolas", "Oswald", "Charcoal", "Monaco", "monospace", "sans-serif"; 
+	font-family: Helvetica, "Lucida Grande", "Lucida Console", "Consolas", "Oswald", 
+				"Charcoal", "Monaco", Arial, Georgia, "monospace", "sans-serif"; 
 	font-size: 16px;
 	/*letter-spacing: 1px;*/
 	height: 100%;
@@ -15,8 +15,6 @@ body {
 	position: relative;
 	/*background-color: #34495e;*/
 }
-
-/*  footer */
 
 footer {
 	bottom: 0;
@@ -28,10 +26,6 @@ footer {
     text-align: center;
     color: #eeeeee;
     padding: 20px;
-}
-
-.content {
-	display: flex;
 }
 
 a , a:not([href]):not([tabindex]) {
@@ -49,6 +43,10 @@ ul, ol {
 }
 
 /* page layout **/
+
+.content {
+	display: flex;
+}
 
 #pages {
 	overflow-x: hidden;
@@ -648,57 +646,15 @@ Main Video Background
 	text-transform: uppercase;
 }
 
-/* Opportunity Form Page */
-
-.opportunityForm {
-	text-align: left;
-}
-.oppFormList li {
-	margin-bottom: 5px;	
-}
-.oppFormList .oppFormLabel {
-	display: inline-block;
-	width: 200px;
-	font-weight: 600;
-}
-.oppFormList .oppFormInputContainer {
-	display: inline-block;
-	width: 400px;
-}
-.oppFormList .oppFormTextInput {
-	display: inline-block;
-	/*width: 90%;*/
-}
-.formSection {
-	width: 100%;
-	padding: 10px;
-	border: 1px dashed grey;
-	border-radius: 5px;
-	margin-bottom: 5px;
-}
-.oppFormList .oppFormRadiosContainer {
-	width: 500px;
-}
-.asterisk {
-	cursor: pointer;
-	font-weight: bold;
-	vertical-align: text-top;
-}
-.warn {
-	font-size: 10px;
-	color: #ff0000;
-}
-
-.deleteOppBtn, .classFormDeleteBtn {
-	margin-left: 10px;
-	background-color: #ba1512;
-} 
-.deleteOppBtn:hover {
-	background-color: orange;
-	color: white;
-}
-
 /* Dashboard Page */
+
+.dashDesc {
+	display: -webkit-box;
+	word-wrap:break-word;
+	-webkit-box-orient: vertical;
+	/*-webkit-line-clamp: 5;*/
+	overflow: hidden;
+}
 
 .viewMode {
 	padding: .75rem  1rem 0 0;
@@ -794,30 +750,107 @@ Main Video Background
 	font-weight: 600;
 }
 
-/*  Opportunity Page */
+.card:hover {
+	/*background-color: #a7e6ff;*/
+	box-shadow: inset 0 0 2px #34495e;
+	cursor: pointer;
+}
+
+/*  Opportunity View Page */
 .opportunityView {
 	padding: 0;
 }
 
-/* DBTestPage	*/
-.roleItem, .personItem {
-	border: solid 0.5px darkslateblue;
-	padding: 2px;
+.detailDesc {
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	font-size: 16px;
 }
-.roleItem > div, .personItem > div {
+
+/* Opportunity Form Page */
+
+.opportunityPageCreateForm {
+	padding-left: 25px;
+	/*margin: 0 auto 0 auto;*/
+}
+
+.createOppLine {
+	margin-top: 20px;
+}
+
+.createOppLine .checkBoxes {
+	margin-top: 8px;
+}
+
+.opportunityForm {
+	text-align: left;
+}
+
+.oppFormList li {
+	margin-bottom: 5px;	
+}
+.oppFormList .oppFormLabel {
 	display: inline-block;
-	border: solid 0.5px lightgrey;
-	margin-right: 5px;
-	margin-top: 1px;
-	margin-bottom: 1px;
-	padding: 2px 4px 2px 4px;
+	width: 200px;
+	font-weight: 600;
 }
-.oppFormResults {
-	float: right;
-	margin-right: 10px;
-	width: 300px;
-	border: solid 0.5px slategrey;
+.oppFormList .oppFormInputContainer {
+	display: inline-block;
+	width: 400px;
 }
+.oppFormList .oppFormTextInput {
+	display: inline-block;
+	/*width: 90%;*/
+}
+.formSection {
+	width: 100%;
+	padding: 10px;
+	border: 1px dashed grey;
+	border-radius: 5px;
+	margin-bottom: 5px;
+}
+.oppFormList .oppFormRadiosContainer {
+	width: 500px;
+}
+
+.requiredKey {
+	font-size: 14px;
+    color: #ffc107;
+}
+
+.required:before {
+	content:"*";
+	color: #ffc107;
+	font-size: 30px;
+	-webkit-text-stroke: 0.25px black;
+	vertical-align: top;
+	margin-left: -20px;
+}
+
+.asterisk {
+	cursor: pointer;
+	font-weight: bold;
+	vertical-align: text-top;
+}
+.warn {
+	font-size: 10px;
+	color: #ff0000;
+}
+
+
+.col-form-label {
+	font-weight: 800;
+}
+
+.deleteOppBtn, .classFormDeleteBtn {
+	margin-left: 10px;
+	background-color: #ba1512;
+} 
+.deleteOppBtn:hover {
+	background-color: orange;
+	color: white;
+}
+
 /* Instructor Settings Page */
 
 .studentsList {
@@ -829,9 +862,6 @@ Main Video Background
 	padding-left: 8px;
 }
 
-.studentItem {
-	
-}
 .studentJoinedIcon {
 	float: right;
 	color: #0ef20e;
@@ -861,6 +891,24 @@ Main Video Background
 
 /* dbTest Page */
 
+.roleItem, .personItem {
+	border: solid 0.5px darkslateblue;
+	padding: 2px;
+}
+.roleItem > div, .personItem > div {
+	display: inline-block;
+	border: solid 0.5px lightgrey;
+	margin-right: 5px;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	padding: 2px 4px 2px 4px;
+}
+.oppFormResults {
+	float: right;
+	margin-right: 10px;
+	width: 300px;
+	border: solid 0.5px slategrey;
+}
 #dbTest li {
 	list-style-type: ethiopic-halehame;
 }
@@ -874,8 +922,6 @@ Main Video Background
 .chart_my {
 	color:#fed37f;
 }
-
-/**************** Imported from Custom Styles -- Sunny Wu -- *******/
 
 .widget-timetable-large {
 	padding-bottom: 50px;
@@ -1056,6 +1102,7 @@ Main Video Background
 	margin-left: -40px;
 	background-color: #85d6de;
 }*/
+
 .block-title--bottom {
 	margin-bottom: 60px;
 	/*color:white;*/
@@ -1091,69 +1138,10 @@ Main Video Background
 	color:#444;
 }
 
-.card:hover {
-	/*background-color: #a7e6ff;*/
-	box-shadow: inset 0 0 2px #34495e;
-	cursor: pointer;
-}
-
 .list-group-item:nth-child(odd) {
 	background-color: #fff;
 }
 .list-group-item:nth-child(even) {
-	background-color: #eee;
-}
-
-.opportunityPageCreateForm {
-	padding-left: 25px;
-	/*margin: 0 auto 0 auto;*/
-}
-
-.createOppLine {
-	margin-top: 20px;
-}
-
-.createOppLine .checkBoxes {
-	margin-top: 8px;
-}
-
-.dashDesc {
-	display: -webkit-box;
-	word-wrap:break-word;
-	-webkit-box-orient: vertical;
-	/*-webkit-line-clamp: 5;*/
-	overflow: hidden;
-}
-
-.detailDesc {
-	white-space: pre-wrap;
-	word-wrap: break-word;
-	font-size: 16px;
-}
-
-.required:before {
-	content:"*";
-	color: #ffc107;
-	font-size: 30px;
-	-webkit-text-stroke: 0.25px black;
-	vertical-align: top;
-	margin-left: -20px;
-}
-.requiredKey {
-	font-size: 14px;
-    color: #ffc107;
-}
-
-.oppFormHeader {
-	/*color: white;
-	text-shadow: 2px 2px black;*/
-}
-
-.col-form-label {
-	font-weight: 800;
-}
-
-.bg-full {
 	background-color: #eee;
 }
 
@@ -1291,4 +1279,3 @@ Main Video Background
 @media only screen and (max-width: 320px) {
 	/* STYLES GO HERE */
 }
-/* NOTHING BELOW THESE MEDIA QUERIES PLEASE **/

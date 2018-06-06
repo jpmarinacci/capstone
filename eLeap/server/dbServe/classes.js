@@ -46,7 +46,6 @@ var collegeClasses = {
 	    			console.log("sprocAddClass invalid");
 	    			returnResults.status = "invalid";
 	    		}
-	    		
 	    		response.send(returnResults);
 	    	}
 		});
@@ -77,7 +76,6 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocUpdateClass returned");
-	    		console.log(results);
 	    		
 	    		//CanNotInsert:1064
 	    		if(Array.isArray(results) && results[0]){
@@ -90,7 +88,6 @@ var collegeClasses = {
 	    		}
 	    		var returnResults = results[0] ? results[0][0] || results[0]: {};
 	    		returnResults.status = "success";
-	    		
     			console.log("sprocUpdateClass successful");
 	    		response.send(returnResults);
 	    	}
@@ -114,10 +111,8 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocDeleteClass returned");
-	    		console.log(results);
 	    		var returnResults = (results && results[0] && results[0][0] ? results[0][0]: results) || {};
 	    		returnResults.status = "success";
-	    		
     			console.log("sprocDeleteClass successful");
 	    		response.send(returnResults);
 	    	}
@@ -144,7 +139,6 @@ var collegeClasses = {
 	    		console.log("sprocDeleteStudent returned");
 	    		var returnResults = (results && results[0] && results[0][0] ? results[0][0]: results) || {};
 	    		returnResults.status = "success";
-	    		
     			console.log("sprocDeleteStudent successful");
 	    		response.send(returnResults);
 	    	}
@@ -190,7 +184,6 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAllJoinClass returned");
-	    		console.log(results);
 	    		var returnResults = results ? results[0] ? results[0]: results: {'status':'success', 'message':'no results'};
 	    		console.log("sprocAllJoinClass successful");
 	    		response.send(returnResults);
@@ -215,7 +208,6 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAddStudent returned");
-	    		console.log(results);
 	    		var returnResults = (results && results[0] && results[1] && results[1][0] ? results[1][0] : results) || {};
 	    		if(results && results[0] && results[0][0] && results[0][0].status) {
 	    			returnResults.status =  results[0][0].status;
@@ -245,7 +237,6 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAddStudents returned");
-	    		console.log(results);
 	    		var returnResults = (results && results[0] ? results[0] : results) || {};
 	    		returnResults.status = "success";
 	    		console.log("sprocAddStudents successful");
@@ -270,7 +261,6 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAllStudentInClass returned");
-	    		console.log(results);
 	    		var returnResults = (results && results[0] ? results[0]: results) || {};
 	    		returnResults.status = results[0] ? results[0] :"success";
 	    		console.log("sprocAllStudentInClass successful");

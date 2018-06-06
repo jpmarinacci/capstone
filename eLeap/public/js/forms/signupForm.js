@@ -190,7 +190,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'contro
 					notifications.notifyUser("you could not be signed up with that email");
 				},
 				error: function(error) {
-					console.log(error);
+					//console.log(error);
 					if(thisForm.options.person){
 						notifications.notifyUser("error -- update account failed :(   please try again.");
 					} else {

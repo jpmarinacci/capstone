@@ -39,7 +39,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		
 		renderFramework: function() {
 			this.$el.html(this.pageTmpl());
-			
 			this.commandDispatcher.trigger('show:allOpps');
 		},
 		
@@ -78,86 +77,100 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 			cache.fetchOwnedOpportunities({reset:true});
 		},
 		
-		fetchJoinedClasses: function() {
-			user.person.classes.fetch({
-				studentId: user.person.get('personId'),
-				reset: true
-			});
-		},
-		
-		getClassesForStudent: function() {
+		getClasses: function() {
 			user.person.classes = new CollegeClasses();
 			this.listenForClassesEvents();
-			this.fetchJoinedClasses();
+			var personId = user.person.get('personId');
+			var options = this.roleId === 2 ? {studentId: personId} : { ownerId: personId};
+			user.fetchClasses(options);
 		},
 		
 		gotPerson: function() {
-			if(user.person.get('personName') !== "") {
-				this.$(".welcomeName").text(user.person.get('personName'));
+			this.roleId = user.person.get('roleId');
+			if(this.roleId === 2 || this.roleId === 5) {
+				this.getClasses();
 			}
-			var roleId = user.person.get('roleId');
-			if(roleId === 2) {
-				this.getClassesForStudent();
-			}
-			if(roleId > 2) {
+			if(this.roleId > 2) {
 				if(this.commandDispatcher) {
 					this.commandDispatcher.trigger('show:create');
 				}
 			}
-			if(roleId === 5) {
+			if(this.roleId === 5) {
 				if(this.commandDispatcher) {
 					this.commandDispatcher.trigger('show:instructor');
 				}
+			}
+			if(user.person.get('personName') !== "") {
+				this.$(".welcomeName").text(user.person.get('personName'));
 			}
 		},
 		
 		gotAllOpps: function() {
 			this.allOppsFetched = true;
-			if(user.person.get('roleId') === 2) {
-				this.decideReadyAllOpps();
+			if(this.roleId === 2 || this.roleId === 5) {
+				this.decideReadyRender();
 			} else {
 				this.renderAllOpps();	
 			}
 		},
 		
 		gotJoinedOpps: function() {
+			this.isJoinedOppsFetched = true;
 			if(this.joinedOpps.length) {
 				this.commandDispatcher.trigger('show:joined');
+			}
+			if(this.roleId === 2) {
+				this.decideReadyRender();
 			}
 		},
 		
 		gotOwnedOpps: function() {
+			this.isOwnedOppsFetched = true;
 			if(this.ownedOpps.length) {
 				this.commandDispatcher.trigger('show:owned');
+			}
+			if(this.roleId === 5) {
+				this.decideReadyRender();
 			}
 		},
 		
 		gotClasses: function() {
 			this.isClassesFetched = true;
-			this.decideReadyAllOpps();
+			this.decideReadyRender();
 		},
 		
-		decideReadyAllOpps: function() {
-			if(this.isClassesFetched && this.allOppsFetched) {
-				this.renderAllOpps();
+		decideReadyRender: function() {
+			if(this.allOppsFetched && this.isClassesFetched) {
+				if(this.roleId === 5 && this.isOwnedOppsFetched) {
+					if(this.ownedOpps.length) {
+						this.renderOwnedOpps();
+					} else {
+						this.renderAllOpps();
+					}
+				} else if(this.roleId === 2 && this.isJoinedOppsFetched) { 
+					if(this.joinedOpps.length) {
+						this.renderJoinedOpps();
+					} else {
+						this.renderAllOpps();
+					}
+				}
 			}
 		},
 		
 		renderOpp: function(opp) {
 			var isShow = false;
-			var roleId = user.person.get('roleId');
 			if(opp.get('opportunityId')) {
 				var classId = opp.get('classId'); 
 				if(classId) {
 					isShow = false;
-					if((roleId === 2 || roleId === 5) && user.person.classes.get(classId)) {
+					if((this.roleId === 2 || this.roleId === 5) && user.person.classes.get(classId)) {
 						isShow = true;
 					}
 				}
-				//needs to updates dateTime to 00:00 -- also remember to format time {0:00}
+				//needs to updates dateTime to 00:00 
 				//to show opps on that day after now (ie past end time on that day)
 				isShow = opp.get('endDateTime') && opp.get('endDateTime') > new Date() ? true: false;
-				isShow = roleId === 7 ? true: isShow;
+				isShow = this.roleId === 7 ? true: isShow;
 				if(isShow) {
 					var oppItem = new OpportunityItem({
 						opportunity: opp
@@ -208,7 +221,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		},
 		
 		renderApprovalButtons: function(opp) {
-			if(user.person.get('roleId') > 5) {
+			if(this.roleId > 5) {
 				this.$("[data-oppId='"+opp.get('opportunityId') +"']").show();
 				var status = opp.get('status'); 
 				if(status === 'approved') {

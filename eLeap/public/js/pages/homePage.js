@@ -1,13 +1,12 @@
 /**
- * @authors: JP Marinacci, Belete Zegeye, Sunny Wu, Aren Kasner, Leo Sinanian
+ * @authors: JP Marinacci, Sunny Wu
  */
 
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/homePage.tmpl'],
-	function (eLeap, $, _, Backbone, homePageTmpl) {
-	'use strict';
+	function (eLeap, $, _, Backbone, homePageTmpl) { 'use strict';
 		
 	eLeap.own.HomePage = Backbone.View.extend({
 		
@@ -35,3 +34,4 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/home
 	});
 	return eLeap.own.HomePage;
 });
+

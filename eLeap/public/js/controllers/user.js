@@ -17,6 +17,16 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 			this.person = new Person();
 		},
 		
+		clientLogin: function() {
+			this.isLoggedIn = true;
+			this.trigger('user:loggedIn');
+		},
+		
+		clientLogout: function() {
+			this.isLoggedIn = false;
+			this.trigger('user:loggedOut');
+		},
+		
 		login: function () {
 			var loginSuccess = function(response) {
 				response = response || {};
@@ -39,16 +49,6 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 			}, loginSuccess, loginError, options);
 		},
 		
-		clientLogin: function() {
-			this.isLoggedIn = true;
-			this.trigger('user:loggedIn');
-		},
-		
-		clientLogout: function() {
-			this.isLoggedIn = false;
-			this.trigger('user:loggedOut');
-		},
-		
 		logout: function() {
 			this.clientLogout();
 			var logoutSuccess = function(response) {
@@ -60,17 +60,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 			};
 			server.postRoute('/logout', {}, logoutSuccess, logoutError);
 		},
-		
-		fetchPerson: function() {
-			var options = {
-				success: function(person) {
-					console.log(person);
-				},
-				error: function(error) {}
-			};
-			this.person.fetch({}, options);
-		},
-		
+				
 		checkLoginState: function() {
 			if(this.logInStatusChecked) {
 				return this.isLoggedIn;
@@ -91,10 +81,50 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 				thisUser.trigger('isLoggedInCheck:returned');
 			};
 			var loginError = function(error) {
-				console.log(error);
+				//console.log(error);
 			};
 			var options = {};
 			server.postRoute('/isUserLoggedIn', {}, isLoggedInSuccess, loginError, options);
+		},
+		
+		fetchPerson: function() {
+			var options = {
+				success: function(person) {
+					//console.log(person);
+				},
+				error: function(error) {}
+			};
+			this.person.fetch({}, options);
+		},
+		
+		fetchClasses: function(options) {
+			options = options || {};
+			if(this.person && this.person.classes) {
+				if(this.person.classes.isFetched) {
+					this.person.classes.trigger('reset');
+				} else {
+					this.person.classes.isFetchPending = true;
+					var chainedSuccess = options.success;
+					var chainedError = options.error;
+					var context = options.context || this;
+					options.success = function(response) {
+						thisUser.person.classes.isFetchPending = false;
+						thisUser.person.classes.isFetched = true;
+						if(chainedSuccess) {
+							chainedSuccess.call(response, context);
+						}
+					};
+					options.error = function(error) {
+						//console.log("user - fetch classes error");
+						//console.log(error);
+						if(chainedError) {
+							chainedError.call(response, context);
+						}
+					};
+					options.reset = true;
+					this.person.classes.fetch(options);
+				}
+			}
 		}
 	});
 	

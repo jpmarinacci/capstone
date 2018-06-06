@@ -2,7 +2,8 @@
  *	@authors: JP Marinacci
  */
 
-define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/cache', 'controllers/user', 'navigation/sidebar', 'navigation/navbar'], 
+define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/cache', 'controllers/user', 'navigation/sidebar',
+		'navigation/navbar'], 
 function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 	
 	var thisRouter;
@@ -57,6 +58,7 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 			} else {
 				this.navigate(this.lastRoute, { trigger: true });
 			}
+			
 			//fetch any neccessary data;
 			require(['controllers/cache'], function(cache) {
 				cache.fetchRoles();
@@ -255,5 +257,5 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 		return thisRouter;
 	}
 	return getRouter();
-
 });
+
