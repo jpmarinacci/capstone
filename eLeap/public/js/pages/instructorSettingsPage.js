@@ -245,13 +245,14 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		
 		commandDeleteClass: function() {
 			//this.selectedClassId
-			if (confirm('Remove this student?')) {
+			if (confirm('Delete this class?')) {
 				this.collegeClass.destroy({
-					success: function() {
-						
+					success: function(response) {
+						notifications.notifyUser("class deleted");
 					},
-					error: function() {
-						
+					error: function(error) {
+						notifications.notifyUser("an error occurred deleting class");
+						console.log(error);
 					}
 				});
 			}

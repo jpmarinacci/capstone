@@ -115,7 +115,7 @@ var collegeClasses = {
 	    	} else {
 	    		console.log("sprocDeleteClass returned");
 	    		console.log(results);
-	    		var returnResults = (results && results[0] ? results[0]: results) || {};
+	    		var returnResults = (results && results[0] && results[0][0] ? results[0][0]: results) || {};
 	    		returnResults.status = "success";
 	    		
     			console.log("sprocDeleteClass successful");
