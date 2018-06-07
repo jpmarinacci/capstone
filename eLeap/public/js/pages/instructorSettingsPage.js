@@ -157,6 +157,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		},
 		
 		renderStudent: function(student) {
+			this.$(".studentListSection").show();
 			this.$(".studentsList").append(this.studentTmpl({
 				student: student
 			}));
@@ -211,6 +212,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 							user.person.classes.add(collegeClass);
 							thisPage.renderClasses();
 							thisPage.$(".classSelector").val(collegeClass.get('classId'));
+							thisPage.$(".studentsSection, .classFormDeleteBtn").show();
 						}
 					} else {
 						notifications.notifyUser("class updated");
@@ -328,6 +330,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 										//console.log("student removed");
 										thisPage.$(event.currentTarget).parent().parent().remove();
 										selectedClass.students.remove(student);
+										if(!selectedClass.students.length) {
+											thisPage.$(".studentListSection").hide();
+										}
 									}
 								},
 								error: function(error) {
