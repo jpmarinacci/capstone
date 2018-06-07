@@ -183,8 +183,8 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 				classType: this.$(".classTypeSelector").val(),
 				term: this.$(".classTermInput").val(),
 				section: this.$(".classSectionInput").val(),
-				year: this.$(".classYearSelect").val(),
-				estimatedClassSize: this.$(".estimatedClassSizeInput").val(),
+				year: Number(this.$(".classYearSelect").val()),
+				estimatedClassSize: Number(this.$(".estimatedClassSizeInput").val()),
 				courseSummary: this.$(".courseSummaryInput").val()
 			};
 			this.collegeClass.set(classJson);
@@ -275,6 +275,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 					ownerId: user.person.get('personId'),
 					success: function(student) {
 						selectedClass.students.add(student, {merge:true});
+						thisPage.$(".studentEmailInput").val("");
 						thisPage.renderStudent(student);
 					},
 					appError: function(response) {

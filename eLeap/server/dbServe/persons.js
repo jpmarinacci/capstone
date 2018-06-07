@@ -42,7 +42,7 @@ var persons = {
 	    				}
 	    			}
 	    		}
-	    		var person = (results && results[0] && results[1] && results[1][0]) ? results[1][0] : {};
+	    		var person = (results && results[0] && results[1] && results[1][0]) ? results[1][0] : [];
 	    		person.status = (results && results[0] && results[0][0]) ? results[0][0].status : "invalid";
 	    		if(person && person.personId) {
 	    			delete person.credential;
@@ -122,21 +122,21 @@ var persons = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocFindPerId results");
-	    		var returnResults = {};
+	    		var returnResults = [];
 	    		if(Array.isArray(results) && results[0]) {
 	    			if(Array.isArray(results[0])){
 	    				var person = results[1][0];
 	    				if(person && person.credential) {
 	    					delete person.credential;
 	    				}
-	    				returnResults = person || {};
+	    				returnResults = person || [];
 			    		returnResults.status = "success";
 			    		console.log("sprocFindPerId successful");
 	    			} else {
-	    				returnResults = {'status':'invalid'};
+	    				returnResults = [{'status':'invalid'}];
 	    			}
 	    		} else {
-	    			returnResults = {'status':'invalid'};
+	    			returnResults = [{'status':'invalid'}];
 	    		}
 	    		response.send(returnResults);
 	    	}
@@ -152,7 +152,7 @@ var persons = {
 				results.sprocThatErrored = "sprocAllPer";
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0] || {};
+	    		var returnResults = results[0] || [];
 	    		returnReuslts.status = "success";
 	    		console.log("sprocAllPer successful");
 	    		response.send(returnResults);
