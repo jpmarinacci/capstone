@@ -1,0 +1,54 @@
+<div data-oppId="<%= opp.opportunityId %>">
+	<div class="oppItemPicContainer">
+        <!--i class="far fa-file icon-middle"></i-->
+        <img class="oppItemPic" src="img/docs.ico" />
+    </div>
+    <div class="oppItemField oppItemTitle col-11 ml5">
+        <div><%= opp.title %></div><small class="oppItemStatus">[<%= opp.status %>]</small>
+    </div>
+    <div class="col-12 col-sm-2">
+	    <div class="oppItemApproveDenyBlock row initHidden" data-oppId="<%= opp.opportunityId %>">
+	    	<div class="oppItemApproveBtn centerText inlineBlock pointer col-6" data-oppId="<%= opp.opportunityId %>">
+	        	<i class="fa fa-thumbs-up color-forest"></i><br>
+	        	<div class="fontExtraSmall">Approve</div>
+	    	</div>
+	    	<div class="oppItemDenyBtn inlineBlock centerText pointer col-6" data-oppId="<%= opp.opportunityId %>">
+	        	<i class="fa fa-thumbs-down color-crimson"></i><br>
+	        	<div class="fontExtraSmall">Deny</div>
+	    	</div>	
+		</div>
+	</div>
+    <div class="col-12 col-sm-4">
+        <div><%= utils.dateTimeToDisplay(opp.startDateTime) %></div>
+       	<div><%= utils.dateTimeToDisplay(opp.endDateTime) %></div>
+    </div>
+	<div class="col-12 col-sm-3">
+        <div>Type:</div>
+        <div><strong><%= opp.opportunityType %></strong></div>
+    </div>
+    <div class="col-12 col-sm-3">
+        <div>For a class:</div>
+        <div><strong><% if(opp.isClass) {%>yes<%}else{%>no<%}%></strong></div>
+    </div>
+    <div class="col-12 col-sm-4">
+        <div>Available seats:</div>
+        <% if(opp.totalSeats){ %>
+        	<div><%= opp.availableSeats %> out of <%= opp.totalSeats %></div>
+        <% } else {%>
+        	<div> Open </div>
+        <% } %>
+    	<div class="oppItemField card-subtitle progress centerText mb10">
+	    	<% if(availablePrct) {%>
+	    		<div class="progress-bar bg-info" role="progressbar" style="width: <%= availablePrct %>%;" aria-valuenow="<%= availablePrct %>" aria-valuemin="0" aria-valuemax="100">
+	        	<%= availablePrct %>%</div>
+	        <% } else { %>
+	        	<div class="progress-bar bg-info" role="progressbar" aria-valuenow="<%= availablePrct %>" aria-valuemin="0" aria-valuemax="100"></div>
+	       	<% } %>
+	    </div>
+    </div>
+    <div class="col-10 col-sm-12">
+    	<%= opp.description %>
+    </div>
+    <div class="oppItemMoreBtn btn btn--decorated">More&gt;&gt;</div>
+</div>
+

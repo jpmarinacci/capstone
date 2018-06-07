@@ -248,6 +248,9 @@ ul, ol {
 .pt30 {
 	padding-top: 30px;
 }
+.pl10 {
+	padding-left: 10px;
+}
 .pl20 {
 	padding-left: 20px;
 }
@@ -513,7 +516,7 @@ ul, ol {
     text-decoration: none;
 }
 
-.oppSettingsTitle {
+.oppSettingsTitle, .oppFilterTitle {
 	color: white;
 	font-size: 12px;
 	text-align: center;
@@ -684,6 +687,7 @@ Main Video Background
 }
 .breadcrumb {
 	border-radius: unset;
+	margin-bottom: 8px;
 }
 
 .breadcrumbNav {
@@ -695,7 +699,7 @@ Main Video Background
     border: 0.5px solid black;
     box-shadow: 8px 8px 4px #888;
     padding: 4px 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     /*background-color: #34495e;*/
 	background-color: white;
 	border-radius: 10px;
@@ -710,30 +714,63 @@ Main Video Background
 	font-weight: 600;
 }
 
-.opportunityItem {
+.opportunitiesList {
+	margin: 0 12px;
+}
+
+.oppListItem {
+	display: grid;
+	position: relative;
+	text-align: left;
+	min-height: 100px;
+	height: auto;
+	border: solid 1px #343a40;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+.oppListItem .col-sm-1, .oppListItem .col-sm-2, .oppListItem .col-sm-3, .oppListItem .col-sm-4, .oppListItem .col-sm-5,
+.oppListItem .col-sm-6, .oppListItem .col-sm-7, .oppListItem .col-sm-8, .oppListItem .col-sm-9, .oppListItem .col-sm-10,
+.oppListItem .col-sm-11, .oppListItem .col-sm-12 {
+  	display: inline-block;
+    float: left;
+    word-wrap: break-word;
+ }
+.oppListItem .oppItemField.oppItemTitle {
+	display: block;
+	padding: 3px;
+}
+.oppListItem .oppItemPicContainer {
+	display: block;
+	text-align: center;
+	width: 10%;
+}
+
+.oppCardItem {
 	display: inline-block;
+	position: relative;
 	width: 18rem;
-	padding-bottom: 10px;
+	padding-bottom: 50px;
 	border: solid 1px #343a40;
 	border-radius: 10px;
 	margin-right: 10px;
 	margin-bottom: 10px;
+	text-align: left;
+    height: 500px;
+    overflow: hidden;
 	cursor: pointer;
 }
-
-.opportunityItem .oppItemCard {
-	text-align: left;
-	height: 454px;
-    overflow: hidden;
+.oppCardItem .card-body {
+	max-height: 325px;
+    overflow-y: hidden;
 }
 
-.opportunityItem .oppItemCard .cardHeader {
+.oppCardItem .cardHeader {
 	background-color: rgba(0,0,0,.03);
     border-bottom: 1px solid rgba(0,0,0,.125);
     padding: 10px;
 }
 
-.opportunityItem .oppItemCard .oppItemField h6{
+.oppCardItem .oppItemField h6{
 	word-break: break-word;
 }
 
@@ -743,19 +780,16 @@ Main Video Background
 	color: #0000FF;
 }
 
-.opportunitiesList {
-	margin: 0 12px;
-}
-
 .oppItemTitle {
 	font-size: 18px;
 	font-weight: 600;
 }
 
 .oppItemPicContainer {
+	float: left;
 	width: 40px;
 	height: 40px;
-	float: left;
+	padding: 4px;
 }
 .oppItemPic {
 	height: auto;
@@ -772,6 +806,28 @@ Main Video Background
 	/*background-color: #a7e6ff;*/
 	box-shadow: inset 0 0 2px #34495e;
 	cursor: pointer;
+}
+
+.progress {
+	margin-top: 2px;
+	border: solid 0.5px #17a2b8;
+}
+
+.oppListItem .oppItemMoreBtn {
+	float: right;
+	margin: 10px;
+}
+.oppCardItem .oppItemMoreBtn {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+}
+.oppCardItem .oppItemFooter {
+	height: 70px;
+	position: absolute;
+	bottom: 0px;
+	left:0;
+	right:0;
 }
 
 /*  Opportunity View Page */
@@ -1172,8 +1228,14 @@ Main Video Background
 @media only screen and (min-width: 320px) {
 	/* STYLES GO HERE */
 }
+
 @media only screen and (min-width: 480px) {
 	/* STYLES GO HERE */
+}
+@media only screen and (min-width: 575px) {
+	.oppItemApproveDenyBlock .fontExtraSmall {
+		display: none;
+	}
 }
 @media only screen and (min-width: 768px) {
 	/* STYLES GO HERE */
@@ -1182,6 +1244,9 @@ Main Video Background
 	/* STYLES GO HERE */
 }
 @media only screen and (min-width: 1200px) {
+	.opportunitiesList {
+		text-align: left;
+	}
 	/* STYLES GO HERE */
 }
 @media only screen and (min-width: 1224px) {
@@ -1224,35 +1289,21 @@ Main Video Background
 		margin-top: 20px;
 		margin-right: 5px;
 	}
-	.nav-tabs.nav-justified > li {
-		display: table-cell;
-		width: 1%;
-	}
-	.nav-tabs.nav-justified > li > a {
-		margin-bottom: 0;
-	}
-	.nav-tabs.nav-justified > li > a {
-		margin-right: 0;
-		border-radius: 4px;
-	}
-	.nav-tabs.nav-justified > .active > a,
-	.nav-tabs.nav-justified > .active > a:hover,
-	.nav-tabs.nav-justified > .active > a:focus {
-		border: 1px solid #dddddd;
-	}
-	.nav-tabs.nav-justified > li > a {
-		border-bottom: 1px solid #dddddd;
-		border-radius: 4px 4px 0 0;
-	}
-	.nav-tabs.nav-justified > .active > a,
-	.nav-tabs.nav-justified > .active > a:hover,
-	.nav-tabs.nav-justified > .active > a:focus {
-		border-bottom-color: #ffffff;
+	.oppListItem .oppItemPicContainer {
+		width: 10%;
+		padding: 4px;
+		margin-right: 10px;
 	}
 }
 @media only screen and (max-width: 575px) {
 	.saveOppBtn.topBtns, .deleteOppBtn.topBtns {
 		display: none !important;
+	}
+	.oppListItem .oppItemTitle {
+		width: 100%;
+	}
+	.oppListItem .oppItemPicContainer {
+		display: none;
 	}
 }
 @media only screen and (max-width: 479px) {
@@ -1284,8 +1335,8 @@ Main Video Background
 	.hidden-xs {
 		display: none !important;
 	}
-	.opportunityItem {
-		width: 170px;
+	.oppCardItem {
+		max-width: 250px;
 	}
 	.welcomeBox {
 		width: 160px;
@@ -1297,7 +1348,16 @@ Main Video Background
 	.main-video__video {
 		top: 40px;
 	}
+	.oppItemMoreBtn {
+		float: none;
+		margin: 10px;
+	}
+	.progress {
+		/*width: 85%;*/ 
+   	}
 }
 @media only screen and (max-width: 320px) {
-	/* STYLES GO HERE */
+	.oppCardItem {
+	    width: 180px;
+	}
 }

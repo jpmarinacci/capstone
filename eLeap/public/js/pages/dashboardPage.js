@@ -15,11 +15,14 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		
 		pageTmpl: _.template(dashboardPageTmpl),
 		
+		mode: 'all',
+		view: 'oppCardItem',
+		
 		events: {
 			'click .cardModeBtn': 'commandCardView',
 			'click .listModeBtn': 'commandListView',
 			'click .oppItemApproveBtn': 'commandApproveOpp',
-			'click .oppItemDenyBtn': 'commandDenyOpp'
+			'click .oppItemDenyBtn': 'commandDenyOpp',
 		},
 		
 		initialize: function (options) {
@@ -29,6 +32,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 			this.allOpps = cache.allOpps;
 			this.joinedOpps = cache.joinedOpps;
 			this.ownedOpps = cache.ownedOpps;
+			
 			this.renderFramework();
 			this.listenForEvents();
 			
@@ -40,7 +44,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		
 		renderFramework: function() {
 			this.$el.html(this.pageTmpl());
-			this.commandDispatcher.trigger('show:allOpps');
+			this.commandDispatcher.trigger('show:allOpps show:oppFilterTitle');
 		},
 		
 		listenForEvents: function() {
@@ -173,17 +177,24 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 				isShow = opp.get('endDateTime') && opp.get('endDateTime') > new Date() ? true: false;
 				isShow = this.roleId === 7 ? true: isShow;
 				if(isShow) {
+					var availablePercentage = Math.floor((opp.get('totalSeats') - opp.get('availableSeats'))/opp.get('totalSeats')*100) || 0;
 					var oppItem = new OpportunityItem({
+						availablePrct: availablePercentage,
+						className: this.view,
 						itemDispatcher: this.itemDispatcher,
 						opportunity: opp
 					});
 					this.$(".opportunitiesList").append(oppItem.render());
+					this.$(".progress-bar").attr('title', availablePercentage + '% full').css({
+						'width': availablePercentage+ "%;"
+					});
 				}
 				this.renderApprovalButtons(opp);
 			}
 		},
 		
 		renderAllOpps: function() {
+			this.mode = 'all';
 			this.$(".dashboardBreadCrumbTitle").text("All Opportunities");
 			this.$(".opportunitiesList").empty();
 			if(this.allOpps) {
@@ -197,6 +208,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		},
 		
 		renderJoinedOpps: function() {
+			this.mode = 'joined';
 			this.$(".dashboardBreadCrumbTitle").text("Joined Opportunities");
 			this.$(".opportunitiesList").empty();
 			if(this.joinedOpps) {
@@ -210,6 +222,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		},
 		
 		renderOwnedOpps: function(){
+			this.mode = 'owned';
 			this.$(".dashboardBreadCrumbTitle").text("My Created Opportunities");
 			this.$(".opportunitiesList").empty();
 			if(this.ownedOpps) {
@@ -233,13 +246,29 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 				}
 			}
 		},
+		
+		switchView: function() {
+			switch(this.mode) {
+				case 'all':
+					this.renderAllOpps();
+					break;
+				case 'joined':
+					this.renderJoinedOpps();
+					break;
+				case 'owned':
+					this.renderOwnedOpps();
+					break;
+			}
+		},
 				
 		commandCardView: function() {
-			notifications.notifyUser('viewing card view');
+			this.view = 'oppCardItem';
+			this.switchView();
 		},
 		
 		commandListView: function() {
-			notifications.notifyUser('list view not implemented yet');
+			this.view = 'oppListItem';
+			this.switchView();
 		},
 		
 		commandApproveOpp: function() {
