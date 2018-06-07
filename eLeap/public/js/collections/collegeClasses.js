@@ -53,7 +53,7 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/col
 						personId: options.studentId
 					};
 					server.postRoute(this.routes.getJoinedClasses, getClassesInput, function (response) {
-						if (!response || response.status && response.status !== "success") {
+						if (response.status && response.status !== "success") {
 							if (options.appError) {
 								options.appError(response);
 							}

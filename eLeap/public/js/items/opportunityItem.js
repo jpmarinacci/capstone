@@ -9,7 +9,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		'controllers/router', 'text!../../tmpl/items/opportunityItem.tmpl'],
 function (eLeap, $, _, Backbone, utils, notifications, router, itemTmpl) { 'use strict';
 		
-	eLeap.own.OpportunityForm = Backbone.View.extend({
+	eLeap.own.OpportunityItem = Backbone.View.extend({
 		
 		tagName: 'li',
 		className: 'opportunityItem',
@@ -22,8 +22,15 @@ function (eLeap, $, _, Backbone, utils, notifications, router, itemTmpl) { 'use 
 		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
+			this.itemDispatcher = options.itemDispatcher;
 			this.opportunity = options.opportunity;
 			this.render();
+		},
+		
+		listenForEvents: function() {
+			if(this.itemDispatcher) {
+				this.listentTo(this.itemDispatcher, 'remove:items', this.remove);
+			}
 		},
 		
 		render: function() {
@@ -38,6 +45,6 @@ function (eLeap, $, _, Backbone, utils, notifications, router, itemTmpl) { 'use 
 			router.navigate('opportunity/'+this.opportunity.get('opportunityId'), {trigger: true});
 		}
 	});
-	return eLeap.own.OpportunityForm;
+	return eLeap.own.OpportunityItem;
 });
 

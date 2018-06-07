@@ -184,8 +184,19 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAllJoinClass returned");
-	    		var returnResults = results ? results[0] ? results[0]: results: {'status':'success', 'message':'no results'};
-	    		console.log("sprocAllJoinClass successful");
+	    		var returnResults = {};
+	    		if(results && results.length && Array.isArray(results[0])) {
+	    			console.log("sprocAllJoinClass successful");
+	    			console.log(results);
+	    			returnResults = results[0][0] && results[0][1] ? results[0][1] : {'status':'no results'};
+	    			console.log("joined classes: "+ returnResults.length);
+	    			/*if(results[0][0] && results[0][0].status) {
+	    				returnResults.status = results[0][0].status;
+	    			}*/
+	    		} else {
+	    			console.log("results returned malformed - sending status:invalid");
+	    			returnResults.status = "invalid";
+	    		}
 	    		response.send(returnResults);
 	    	}
 		});

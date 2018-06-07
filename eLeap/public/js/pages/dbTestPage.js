@@ -235,6 +235,19 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/dbTe
 					});
 				}
 			});
+		},
+		
+		remove: function() {
+			if(this.opportunityForm) {
+				this.opportunityForm.remove();
+			}
+			if(this.signupForm) {
+				this.signupForm.remove();	
+			}
+			
+			this.$el.remove();
+			this.stopListening();
+			return this;
 		}
 	});
 	return eLeap.own.DBTestPage;

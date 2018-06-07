@@ -33,10 +33,12 @@ var login = {
 				var foundCookie = headersCookie.slice(foundCookieSpot, foundCookieSpot + 12);
 				if(foundCookie){
 					console.log('found cookie');
+					console.log(foundCookie);
 					var encryptedCookieId = foundCookie.substr(8);
 					var decipher = crypto.createDecipher(cryptoAlgorithm, cryptoPassword);
 					var personId = decipher.update(encryptedCookieId, 'hex', 'utf8');
 					personId += decipher.final('utf8');
+					console.log(personId);
 					personId = Number(personId);
 					if(!isNaN(personId)){
 						isLoggedOut = false;

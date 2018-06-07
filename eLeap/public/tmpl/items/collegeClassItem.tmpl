@@ -1,0 +1,36 @@
+<li class="collegeClassItem form-group">
+    <div>
+    	<%= collegeClass.className %>
+    </div>
+    <div>
+    	<%= collegeClass.term || "" %>
+    </div>
+    <div>
+    	<%= collegeClass.section || "" %>
+    </div>
+    <div>
+    	<%= collegeClass.year || "" %>
+    </div>
+    
+    <div>Course Details:</div>
+        <div>
+    	<label class="col-sm-4 col-form-label">Instructor</label>
+    	 <div class="col-sm-8">
+    	 	<%= collegeClass.ownerName || "" %>
+    	</div>
+    </div>
+
+    <div>
+    	<label class="col-sm-4 col-form-label">Course Summary</label>
+    	<div class="col-sm-8">
+    		<%= collegeClass.courseSummary || "" %>
+    	</div>
+    </div>
+    <!--div>
+    	<label class="col-sm-4 col-form-label">Estimated Class Size</label>
+    	<div class="col-sm-8">
+    		<%= collegeClass.estimatedClassSize || "" %>
+    	</div>
+    </div-->
+
+</li>

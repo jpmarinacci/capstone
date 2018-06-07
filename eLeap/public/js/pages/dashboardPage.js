@@ -24,6 +24,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
+			this.itemDispatcher = _.clone(Backbone.Events);
 			this.commandDispatcher = options.commandDispatcher;
 			this.allOpps = cache.allOpps;
 			this.joinedOpps = cache.joinedOpps;
@@ -173,6 +174,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 				isShow = this.roleId === 7 ? true: isShow;
 				if(isShow) {
 					var oppItem = new OpportunityItem({
+						itemDispatcher: this.itemDispatcher,
 						opportunity: opp
 					});
 					this.$(".opportunitiesList").append(oppItem.render());
@@ -249,6 +251,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		},
 		
 		remove: function() {
+			if(this.itemDispatcher) {
+				this.itemDispatcher.trigger('remove:items');
+			}
 			if(this.commandDispatcher) {
 				this.commandDispatcher.trigger('hide:oppFilterBtns');
 			}

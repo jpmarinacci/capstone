@@ -23,6 +23,15 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'forms/signupForm', 'text!.
 		
 		renderFramework: function(){
 			this.$el.html(this.pageTmpl());
+		},
+		
+		remove: function() {
+			if(this.signupForm) {
+				this.signupForm.remove();
+			}
+			this.$el.remove();
+			this.stopListening();
+			return this;
 		}
 	});
 	return eLeap.own.SignupPage;

@@ -13,6 +13,9 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 		lastRoute: '/',
 		
 		initialize: function() {
+			// router owns the routing mechanisms, logged in/logged out display
+			// the page layout including the navbar and sidebar.
+			// it owns the main command dispatcher that handles event triggers throghout the app 
 			this.commandDispatcher = _.clone(Backbone.Events);
 			this.navbar = new Navbar({
 				commandDispatcher: this.commandDispatcher,
@@ -38,6 +41,8 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 		},
 		
 		listenForEvents: function() {
+			// always stop listening before listening to ensure
+			// only one listener of a given event is active
 			this.stopListening();
 			if(user) {
 				this.listenTo(user, 'user:loggedIn', this.successfulLogin);
@@ -87,6 +92,7 @@ function ($, _, Backbone, eLeap, cache, user, Sidebar, Navbar) { 'use strict';
 		},
 		
 		pageDeploy: function(deployPage) {
+			//user.logout();
 			var loginState = user.checkLoginState();
 			if(loginState === 'pending') {
 				this.pageToDeploy = deployPage;

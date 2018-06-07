@@ -6,9 +6,9 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'controllers/cache', 'controllers/notifications', 
-		'controllers/router', 'controllers/user', 'forms/opportunityForm', 'items/opportunityDetailItem',
+		'controllers/router', 'controllers/user', 'forms/opportunityForm', 'panels/opportunityDetailPanel',
 		'text!../../tmpl/pages/opportunityPage.tmpl'],
-	function (eLeap, $, _, Backbone, CollegeClass, cache, notifications, router, user, OpportunityForm, OpportunityDetailItem, 
+	function (eLeap, $, _, Backbone, CollegeClass, cache, notifications, router, user, OpportunityForm, OpportunityDetailPanel, 
 		opportunityPageTmpl) { 'use strict';
 	
 	eLeap.own.OpportunityPage = Backbone.View.extend({
@@ -98,6 +98,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 			this.mode = "create",
 			this.showEditView();
 			this.$(".oppBreadCrumbTitle").text("Create");
+			if(this.opportunityForm) {
+				this.opportunityForm.remove();
+			}
 			this.opportunityForm = new OpportunityForm({
 				el: this.$(".opportunityPageCreateForm")
 			});
@@ -162,7 +165,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 		
 		renderViewMode: function() {
 			if(this.opp.get('title')){
-				var opportunityView = new OpportunityDetailItem({
+				this.opportunityDetailPanel = new OpportunityDetailPanel({
 					opportunity: this.opp
 				});
 				this.$(".opportunityView").html(opportunityView.render());
@@ -280,6 +283,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 		remove: function() {
 			if(this.opportunityForm) {
 				this.opportunityForm.remove();
+			}
+			if(this.opportunityDetailPanel) {
+				this.opportunityDetailPanel.remove();
 			}
 			if(this.commandDispatcher) {
 				this.commandDispatcher.trigger('hide:oppViewBtns');

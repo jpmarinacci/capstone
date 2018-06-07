@@ -57,6 +57,8 @@ var persons = {
 						httpOnly: true
 					});
 					console.log(response.cookie);
+	    		} else {
+	    			response.clearCookie('eLeapId');
 	    		}
 	    		response.send(person);
 	    	}
@@ -119,20 +121,21 @@ var persons = {
 				results.sprocThatErrored = "sprocFindPerId";
 				dbServer.processSprocError(results, response);
 	    	} else {
+	    		console.log("sprocFindPerId results");
+	    		console.log(results);
 	    		var returnResults = {};
 	    		if(Array.isArray(results) && results[0]){
 	    			if(Array.isArray(results[0])){
 	    				var person = results[1][0];
-	    				delete person.credential;
-	    				returnResults = person;
+	    				if(person && person.credential) {
+	    					delete person.credential;
+	    				}
+	    				returnResults = person || {};
 			    		returnResults.status = "success";
 			    		console.log("sprocFindPerId successful");
-			    		console.log(returnResults);
 	    			}
 	    		} else {
-	    			returnResults = {
-		    			'status':'invalid'
-		    		};
+	    			returnResults = {'status':'invalid'};
 	    		}
 	    		response.send(returnResults);
 	    	}

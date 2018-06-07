@@ -6,12 +6,12 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notifications',
-		'controllers/router', 'text!../../tmpl/items/opportunityDetailItem.tmpl'],
+		'controllers/router', 'text!../../tmpl/panels/opportunityDetailPanel.tmpl'],
 function (eLeap, $, _, Backbone, utils, notifications, router, viewTempl) { 'use strict';
 		
-	eLeap.own.OpportunityDetailItem = Backbone.View.extend({
+	eLeap.own.OpportunityDetailPanel = Backbone.View.extend({
 		
-		className: 'opportunityDetailItem',
+		className: 'opportunityDetailPanel',
 		
 		viewTempl: _.template(viewTempl),
 		
@@ -29,6 +29,6 @@ function (eLeap, $, _, Backbone, utils, notifications, router, viewTempl) { 'use
 			return this.el;
 		}
 	});
-	return eLeap.own.OpportunityDetailItem;
+	return eLeap.own.OpportunityDetailPanel;
 });
 

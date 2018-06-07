@@ -2,8 +2,9 @@
  * @author: JP Marinacci
  */
 
-define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications', 'controllers/restServer', 'models/person'],
-	function ($, _, Backbone, eLeap, notifications, server, Person) { 'use strict';
+define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications', 'controllers/restServer',
+		'collections/collegeClasses', 'models/person'],
+	function ($, _, Backbone, eLeap, notifications, server, CollegeClasses, Person) { 'use strict';
 	
 	var thisUser = undefined;
 	
@@ -104,15 +105,26 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 					this.person.classes.trigger('reset');
 				} else {
 					this.person.classes.isFetchPending = true;
+					
 					var chainedSuccess = options.success;
 					var chainedError = options.error;
 					var context = options.context || this;
+					
 					options.success = function(response) {
 						thisUser.person.classes.isFetchPending = false;
 						thisUser.person.classes.isFetched = true;
+						var hmm = classesRetriever.length;
+						var hmm2 = response.length;
 						if(chainedSuccess) {
 							chainedSuccess.call(response, context);
 						}
+					};
+					options.appError = function(appError) {
+						thisUser.person.classes.isFetchPending = false;
+						thisUser.person.classes.isFetched = true;
+						thisUser.person.classes.trigger('reset');
+						//console.log("user - fetch classes appError");
+						//console.log(appError);
 					};
 					options.error = function(error) {
 						//console.log("user - fetch classes error");
@@ -122,7 +134,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 						}
 					};
 					options.reset = true;
-					this.person.classes.fetch(options);
+					var classesRetriever = new CollegeClasses();
+					classesRetriever.fetch(options);
+					//this.person.classes.fetch(options);
 				}
 			}
 		}
