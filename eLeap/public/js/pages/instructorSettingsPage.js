@@ -24,7 +24,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			'change .classSelector': 'commandSelectClass',
 			'click .addStudent': 'commandAddStudent',
 			'click .submitStudent': 'commandSubmitStudent',
-			'click .removeStudentBtn': 'commandRemoveStudent'
+			'click .removeStudentBtn': 'commandRemoveStudent',
 		},
 		
 		initialize: function (options) {
@@ -113,6 +113,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		
 		renderClasses: function() {
 			var thisPage = this;
+			this.$(".classSelector").empty().append("<option value='0'>create new class</option>");
 			user.person.classes.sort();
 			user.person.classes.each(function(collegeClass) {
 				thisPage.$(".classSelector").append(
@@ -191,6 +192,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		},
 
 		commandSubmitClass: function() {
+			var thisPage = this;
 			if(this.$(".classNameInput").val() === "") {
 				notifications.notifyUser("class name is required");
 				this.$(".classNameWarning").html("class name is required");
@@ -202,9 +204,14 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			this.gatherInput();
 			var isNewClass = this.collegeClass.get('classId') ? false: true;
 			var options = {
-				success: function(response) {
+				success: function(collegeClass) {
 					if(isNewClass) {
-						notifications.notifyUser("class created");	
+						notifications.notifyUser("class created");
+						if(collegeClass) {
+							user.person.classes.add(collegeClass);
+							thisPage.renderClasses();
+							thisPage.$(".classSelector").val(collegeClass.get('classId'));
+						}
 					} else {
 						notifications.notifyUser("class updated");
 					}

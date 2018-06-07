@@ -567,6 +567,23 @@ ul, ol {
 .signupForm.login {
 	margin-bottom: 25px;
 }
+
+/* Account Settings Page */
+
+.collegeClassItem {
+	text-align: left;
+	display: inline-block;
+	padding: 0px 20px 20px 20px;
+	min-width: 400px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	border: solid 0.5px slategrey;
+	border-radius: 4px;
+} 
+.collegeClassItemTitle {
+	font-weight: 600;
+}
+
 /* Home Page */
 
 #homePage {

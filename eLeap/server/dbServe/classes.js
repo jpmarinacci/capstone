@@ -37,7 +37,7 @@ var collegeClasses = {
 	    				}
 	    			}
 	    		}
-	    		var returnResults = (results[0] && results[1]) ? results[1]: [];
+	    		var returnResults = (results[0] && results[1] && results[1][0]) ? results[1][0]: [];
 	    		if(returnResults.classId) {
 	    			returnResults.status = "success";
 	    			console.log("sprocAddClass successful");
