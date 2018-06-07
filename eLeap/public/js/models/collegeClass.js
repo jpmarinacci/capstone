@@ -15,6 +15,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'models/person', 'controlle
 			classType: "",
 			courseSummary: "",
 			estimatedClassSize: 0,
+			ownerName: "",
 			ownerId : 0,
 			section: "",
 			term: "",

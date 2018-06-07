@@ -187,8 +187,7 @@ var collegeClasses = {
 	    		var returnResults = {};
 	    		if(results && results.length && Array.isArray(results[0])) {
 	    			console.log("sprocAllJoinClass successful");
-	    			console.log(results);
-	    			returnResults = results[0][0] && results[0][1] ? results[0][1] : {'status':'no results'};
+	    			returnResults = results[0][0] && results[1] ? results[1] : {'status':'no results'};
 	    			console.log("joined classes: "+ returnResults.length);
 	    			/*if(results[0][0] && results[0][0].status) {
 	    				returnResults.status = results[0][0].status;

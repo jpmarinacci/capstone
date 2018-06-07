@@ -113,8 +113,11 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 					options.success = function(response) {
 						thisUser.person.classes.isFetchPending = false;
 						thisUser.person.classes.isFetched = true;
-						var hmm = classesRetriever.length;
-						var hmm2 = response.length;
+						if(response && response.length) {
+							thisUser.person.classes.reset(response.models);
+						} else {
+							thisUser.person.classes.trigger('reset');
+						}
 						if(chainedSuccess) {
 							chainedSuccess.call(response, context);
 						}

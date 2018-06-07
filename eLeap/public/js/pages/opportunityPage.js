@@ -168,7 +168,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 				this.opportunityDetailPanel = new OpportunityDetailPanel({
 					opportunity: this.opp
 				});
-				this.$(".opportunityView").html(opportunityView.render());
+				this.$(".opportunityView").html(this.opportunityDetailPanel.render());
 				this.$(".oppBreadCrumbTitle").text(this.opp.get('title'));
 				this.commandDispatcher.trigger("show:oppViewBtns");
 				this.decideDisplayEdit();

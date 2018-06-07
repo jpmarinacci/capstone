@@ -58,7 +58,7 @@ var opportunities = {
 				results.sprocThatErrored = "sprocAddOpp";
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = {};
+	    		var returnResults = [];
 	    		if(results && results[0] && results[0][0] && results[1] && results[1][0]) {
 	    			returnResults = results[1][0];
 	    			if(results[0][0].status) {
@@ -132,7 +132,7 @@ var opportunities = {
 				results.sprocThatErrored = "sprocUpdateOpp";
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = {};
+	    		var returnResults = [];
 	    		if(results && results[0] && results[0][0] && results[1] && results[1][0]) {
 	    			returnResults = results[1][0];
 	    			if(results[0][0].status) {
@@ -166,7 +166,7 @@ var opportunities = {
 				results.sprocThatErrored = "sprocDeleteOpp";
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0] || {};
+	    		var returnResults = results[0] || [];
 	    		returnResults.status = "success";
 	    		console.log("sprocDeleteOpp successful");
 	    		response.send(returnResults);
@@ -188,7 +188,7 @@ var opportunities = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("---------------------get oppportunity results: -----------");
-	    		var returnResults = {};
+	    		var returnResults = [];
 	    		if(results && results[0] && results[0][0] && results[1] && results[1][0]) {
 	    			returnResults = results[1][0];
 	    			if(results[0][0].status) {
@@ -240,14 +240,11 @@ var opportunities = {
 				results.sprocThatErrored = "sprocMyOwnOpps";
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = {};
+	    		var returnResults = [];
 	    		if(results && Array.isArray(results)){
 		    		if(results && results[1] &&  Array.isArray(results[1]) && results[1].length) {
 		    			returnResults  = results[1];
 		    			console.log("total owned opportunities: " + returnResults.length);
-		    		} else if(results[0] && results[0][0]){
-		    			returnResults = results[0][0];
-		    			console.log("total owned opportunities: 0");
 		    		}
 		    		if(returnResults) {
 		    			console.log("sprocMyOwnOpps successful");
@@ -276,14 +273,12 @@ var opportunities = {
 				results.sprocThatErrored = "sprocMyJoinedOpps";
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = {};
+	    		var returnResults = [];
 	    		if(results && results[1] &&  Array.isArray(results[1]) && results[1].length) {
 	    			returnResults  = results[1];
+	    			returnResults.status = "success";
 	    			console.log("total joined opportunities: " + returnResults.length);	
-	    		} else if(results[0] && results[0][0]){
-	    			returnResults = results[0][0];
-	    			console.log("total joined opportunities: 0");
-	    		}
+	    		} 
 	    		if(returnResults) {
 	    			console.log("sprocMyJoinedOpps successful");
 	    		} else {
@@ -314,7 +309,7 @@ var opportunities = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocJoinOpp results:");
-	    		var returnResults = {};
+	    		var returnResults = [];
 	    		if(results[0] && results[0] === "invalid:1062") {
 	    			returnResults = results[0];
 	    			returnResults.status = "invalid";
@@ -349,11 +344,11 @@ var opportunities = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocLeaveOpp results:");
-	    		var returnResults = {};
+	    		var returnResults = [];
 	    		if(results[0]) {
 	    			returnResults = [0];
-	    			returnResults.status = "success";
-	    			returnResults.message = "person unjoined";
+	    			/*returnResults.status = "success";
+	    			returnResults.message = "person unjoined";*/
 	    		}
 	    		console.log(returnResults);
 	    		response.send(returnResults);

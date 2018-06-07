@@ -122,9 +122,8 @@ var persons = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocFindPerId results");
-	    		console.log(results);
 	    		var returnResults = {};
-	    		if(Array.isArray(results) && results[0]){
+	    		if(Array.isArray(results) && results[0]) {
 	    			if(Array.isArray(results[0])){
 	    				var person = results[1][0];
 	    				if(person && person.credential) {
@@ -133,6 +132,8 @@ var persons = {
 	    				returnResults = person || {};
 			    		returnResults.status = "success";
 			    		console.log("sprocFindPerId successful");
+	    			} else {
+	    				returnResults = {'status':'invalid'};
 	    			}
 	    		} else {
 	    			returnResults = {'status':'invalid'};
