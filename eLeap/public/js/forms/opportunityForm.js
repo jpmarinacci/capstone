@@ -528,7 +528,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 					//thisForm.renderResults(thisForm.opportunity);
 				},
 				error: function(error) {
-					notifications.notifyUser("error -- opportunity creation failed: /n"+ error);
+					notifications.notifyUser("error -- opportunity creation failed: "+ error);
 				},
 				wait: true
 			};
@@ -578,7 +578,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 									router.navigate('/dashboard', {trigger: true});
 								},
 								error: function(error) {
-									notifications.notifyUser("error -- opportunity deletion failed: /n"+ error);
+									notifications.notifyUser("error -- opportunity deletion failed: "+ error);
 								}
 							};
 							thisForm.opportunity.destroy(options);

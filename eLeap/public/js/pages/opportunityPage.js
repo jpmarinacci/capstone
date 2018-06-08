@@ -193,11 +193,11 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 				},
 				appError: function(error) {
 					var errorMessage = error ? error.message ? error.message : error: "couldn't join at this time";
-					notifications.notifyUser(error.message);
+					//notifications.notifyUser(error.message);
 				},
 				error: function(error) {
 					var errorMessage = error ? error.message ? error.message : error: "an error occurred";
-					notifications.notifyUser(error.message);
+					//notifications.notifyUser(error.message);
 				}
 			};
 			this.opp.joinOpportuntiy(options);

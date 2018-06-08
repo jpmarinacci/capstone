@@ -41,7 +41,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 			};
 			var loginError = function(error) {
 				var errorMessage = error ? error.message ? error.message : error : "unknown";
-				notifications.notifyUser("There was an error: "+ errorMessage);
+				//notifications.notifyUser("There was an error: "+ errorMessage);
 			};
 			var options = {};
 			server.postRoute('/login', {
