@@ -5,21 +5,22 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notifications',
-		'controllers/router', 'text!../../tmpl/items/opportunityCardItem.tmpl', 'text!../../tmpl/items/opportunityListItem.tmpl'],
-function (eLeap, $, _, Backbone, utils, notifications, router, itemTmpl, listItemTmpl) { 'use strict';
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notifications', 'controllers/router',
+		'controllers/user', 'text!../../tmpl/items/opportunityCardItem.tmpl', 'text!../../tmpl/items/opportunityListItem.tmpl'],
+	function (eLeap, $, _, Backbone, utils, notifications, router, user, itemTmpl, listItemTmpl) { 'use strict';
 		
 	eLeap.own.OpportunityItem = Backbone.View.extend({
 		
 		tagName: 'li',
 		className: 'oppCardItem',
+		isApprovalBtnsDisplayed: false,
 		
 		itemTmpl: _.template(itemTmpl),
 		listItemTmpl: _.template(listItemTmpl),
 		
 		events: {
 			'click': 'commandClickItem',
-			'click .oppItemMoreBtn': 'commandClickMoreBtn',
+			'click .oppItemMoreBtn': 'commandViewOpportunity',
 		},
 		
 		initialize: function (options) {
@@ -57,8 +58,18 @@ function (eLeap, $, _, Backbone, utils, notifications, router, itemTmpl, listIte
 			return this.el;
 		},
 		
+		commandToggleApproval: function() {
+			if(user.person.get('roleId') >5) {
+				var displayed = this.$(".oppItemApproveDenyBlock").css('display');
+				if(displayed === 'none') {
+					this.$(".oppItemApproveDenyBlock").show().css('display', 'flex');
+				} else {
+					this.$(".oppItemApproveDenyBlock").hide();
+				}
+			}
+		},
+		
 		commandClickItem: function(event) {
-			var target = event.target;
 			if(event.target.dataset) {
 				var type = event.target.dataset.buttonType;
 				var oppId = event.target.dataset.oppId;
@@ -74,6 +85,8 @@ function (eLeap, $, _, Backbone, utils, notifications, router, itemTmpl, listIte
 				} else {
 					this.commandApproveOpportunity();
 				}
+			} else if(event.target.className === 'oppItemStatus') {
+				this.commandToggleApproval();
 			} else if(this.className === 'oppCardItem') {
 				this.commandViewOpportunity();
 			}
@@ -129,10 +142,6 @@ function (eLeap, $, _, Backbone, utils, notifications, router, itemTmpl, listIte
 				},
 				wait: true
 			});
-		},
-		
-		commandClickMoreBtn: function() {
-			this.commandViewOpportunity();
 		},
 		
 		commandViewOpportunity: function(event) {

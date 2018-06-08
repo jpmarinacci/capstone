@@ -58,7 +58,8 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 				
 		decideIsInstructor: function() {
 			//handles refresh situation
-			if(user.person.get('roleId') === 5) {
+			var roleId = user.person.get('roleId'); 
+			if(roleId === 5 || roleId === 7) {
 				if(this.commandDispatcher) {
 					this.commandDispatcher.trigger('show:instructor');
 				}

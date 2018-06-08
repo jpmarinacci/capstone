@@ -98,7 +98,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 					this.commandDispatcher.trigger('show:create');
 				}
 			}
-			if(this.roleId === 5) {
+			if(this.roleId === 5 || this.roleId === 7) {
 				if(this.commandDispatcher) {
 					this.commandDispatcher.trigger('show:instructor');
 				}
@@ -187,7 +187,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 						'width': availablePercentage+ "%;"
 					});
 				}
-				this.renderApprovalButtons(opp);
+				//this.renderApprovalButtons(opp);
 			}
 		},
 		
