@@ -12,7 +12,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 
 		defaults: {
 			roleName: "",
-			roleDescription: ""
+			roleDescription: "",
+			verificationCode: ""
 		},
 		
 		routes: {

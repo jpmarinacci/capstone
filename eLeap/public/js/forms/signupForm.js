@@ -18,7 +18,13 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'contro
 			'change .signupEmail': 'commandChangedSignupEmail',
 			'change .signupPhone': 'commandChangedSignupPhone',
 			'change .signupRetypeCredential': 'commandMatchPasswords',
-			'click .signupButton': 'createNewPerson'
+			'click .signupBtn': 'commandSignupPerson',
+			'keyup .signupEmail': 'commandEmailKeyPress',
+			'keyup .signupName': 'commandNameKeyPress',
+			'keyup .signupPhone': 'commandPhoneKeyPress',
+			'keyup .signupCredential': 'commandCredentialKeyPress',
+			'keyup .signupRetypeCredential': 'commandRetypeCredentialKeyPress',
+			'keyup .signupBtn': 'commandSignupBtnKeyPress'
 		},
 		
 		initialize: function (options) {
@@ -29,11 +35,10 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'contro
 			cache.fetchRoles();
 		},
 		
-		renderFramework: function(){
+		renderFramework: function() {
 			this.$el.html(this.formTmpl());
 			if(this.options.person){
 				this.renderPerson();
-				
 			}
 		},
 		
@@ -129,6 +134,69 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'contro
 			}
 		},
 		
+		commandEmailKeyPress: function(event) {
+			var o = event.originalEvent;
+			if(o.key === "Enter" || o.keyCode === 13 || o.key ==="ArrowDown") {
+				this.$(".signupName").focus();
+			}
+			if(o.key ==="ArrowUp") {
+				this.$(".selectRoles").focus();
+			}
+		},
+		
+		commandNameKeyPress: function(event) {
+			var o = event.originalEvent;
+			if(o.key === "Enter" || o.keyCode === 13 || o.key ==="ArrowDown") {
+				this.$(".signupPhone").focus();
+			}
+			if(o.key ==="ArrowUp") {
+				this.$(".signupEmail").focus();
+			}
+		},
+		
+		commandPhoneKeyPress: function(event) {
+			var o = event.originalEvent;
+			if(o.key === "Enter" || o.keyCode === 13 || o.key ==="ArrowDown") {
+				this.$(".signupCredential").focus();
+			}
+			if(o.key ==="ArrowUp") {
+				this.$(".signupName").focus();
+			}
+		},
+		
+		commandCredentialKeyPress: function(event) {
+			var o = event.originalEvent;
+			if(o.key === "Enter" || o.keyCode === 13 || o.key ==="ArrowDown") {
+				this.$(".signupRetypeCredential").focus();
+			}
+			if(o.key ==="ArrowUp") {
+				this.$(".signupPhone").focus();
+			}
+		},
+		
+		commandRetypeCredentialKeyPress: function(event) {
+			var o = event.originalEvent;
+			if(o.key === "Enter" || o.keyCode === 13) {
+				this.commandSignupPerson();
+			}
+			if(o.key ==="ArrowUp") {
+				this.$(".signupCredential").focus();
+			}
+			if(o.key ==="ArrowDown") {
+				this.$(".signupBtn").focus();
+			}
+		},
+		
+		commandSignupBtnKeyPress: function(event) {
+			var o = event.originalEvent;
+			if(o.key === "Enter" || o.keyCode === 13) {
+				this.commandSignupPerson();
+			}
+			if(o.key ==="ArrowUp") {
+				this.$(".signupRetypeCredential").focus();
+			}
+		},
+		
 		checkUserFilledInputs: function() {
 			if(this.isEmpty(this.$(".signupEmail").val())) {
 				notifications.notifyUser("please enter email");
@@ -167,13 +235,46 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'contro
 			this.person.set(personJson);
 		},
 		
-		createNewPerson: function() {
-			this.checkUserFilledInputs();
-			
-			this.gatherInput();
+		commandSignupPerson: function() {
+			if(!this.signupPending) {
+				this.signupPending = true;
+				this.checkUserFilledInputs();
+				this.gatherInput();
+				if(this.person.get('email') && this.person.get('credential')) {
+					var roleId = this.person.get('roleId'); 
+					if(roleId > 2) {
+						var basicVerifyCode = cache.roles.get(roleId).get('verificationCode');
+						var thisForm = this;
+						require(['bootbox'], function(bootbox) {
+							bootbox.prompt({
+								title: "Please enter a provided verification code",
+							    callback: function (result) {
+							    	if(result) {
+							    		if(result == basicVerifyCode) {
+							    			thisForm.submitNewPerson(); 
+							    		} else {
+							    			thisForm.signupPending = false;
+							    			notifications.notifyUser("invalid code");
+							    			thisForm.$(".selectRoles").focus();
+							    		}
+									}
+							    }
+							});
+						});
+					} else {
+						this.submitNewPerson();
+					}
+				} else {
+					notifications.notifyUser("email, name and password are required");
+				}
+			}
+		},
+		
+		submitNewPerson: function() {
 			var thisForm = this;
 			var options = {
 				success: function(person) {
+					thisForm.signupPending = false;
 					delete person.attributes.credential;
 					if(person && person.get('personId')) {
 						user.person.set(person.toJSON());
@@ -191,8 +292,9 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'contro
 					notifications.notifyUser("you could not be signed up with that email");
 				},
 				error: function(error) {
+					thisForm.signupPending = false;
 					//console.log(error);
-					if(thisForm.options.person){
+					if(thisForm.options.person) {
 						notifications.notifyUser("error -- update account failed :(   please try again.");
 					} else {
 						notifications.notifyUser("error -- sign up failed :(   please try again.");
@@ -200,11 +302,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'contro
 				},
 				wait: true
 			};
-			if(this.person.get('email') && this.person.get('credential')) {
-				this.person.save({}, options);
-			} else {
-				notifications.notifyUser("email, name and password are required");
-			}
+			this.person.save({}, options);
 		}
 	});
 	

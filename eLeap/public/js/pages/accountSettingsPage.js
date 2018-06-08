@@ -40,7 +40,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/user', 'collec
 		
 		renderFramework: function() {
 			this.$el.html(this.pageTmpl());
-			this.$(".signupButton").text('Update');
+			this.$(".signupBtn").text('Update');
 		},
 		
 		listenForEvents: function() {

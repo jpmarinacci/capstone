@@ -15,7 +15,11 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 		
 		events: {
 			'click .loginBtn': 'commandLogin',
-			'click .signupLinkBtn': 'commandSignup'
+			'click .signupLinkBtn': 'commandSignup',
+			'keyup .loginEmail': 'commandEmailKeyPress',
+			'keyup .loginCredential': 'commandCredentialKeyPress',
+			'keyup .loginBtn': 'commandLoginBtnKeyPress',
+			'keyup .signupLinkBtn': 'commandSignupBtnKeyPress',
 		},
 		
 		initialize: function (options) {
@@ -54,6 +58,43 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 				router.lastRoute = '/dashboard';
 				user.login();
 			}, 800);*/
+		},
+		
+		commandEmailKeyPress: function(event) {
+			var o = event.originalEvent;
+			if(o.key === "Enter" || o.keyCode === 13 || o.key ==="ArrowDown") {
+				this.$(".loginCredential").focus();
+			}
+		},
+		
+		commandCredentialKeyPress: function(event) {
+			var o = event.originalEvent;
+			if(o.key === "Enter" || o.keyCode === 13) {
+				this.commandLogin();
+			}
+			if(o.key ==="ArrowUp") {
+				this.$(".loginEmail").focus();
+			}
+			if(o.key ==="ArrowDown") {
+				this.$(".loginBtn").focus();
+			}
+		},
+		
+		commandLoginBtnKeyPress: function(event) {
+			var o = event.originalEvent;
+			if(o.key ==="ArrowUp") {
+				this.$(".loginCredential").focus();
+			}
+			if(o.key ==="ArrowDown") {
+				this.$(".signupLinkBtn").focus();
+			}
+		},
+		
+		commandSignupBtnKeyPress: function(event) {
+			var o = event.originalEvent;
+			if(o.key ==="ArrowUp") {
+				this.$(".loginBtn").focus();
+			}
 		},
 		
 		commandSignup: function() {
