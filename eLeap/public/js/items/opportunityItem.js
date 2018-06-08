@@ -59,7 +59,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		},
 		
 		commandToggleApproval: function() {
-			if(user.person.get('roleId') >5) {
+			if(user.person.get('roleId') >5 && this.opportunity.get('status') !== 'for class') {
 				var displayed = this.$(".oppItemApproveDenyBlock").css('display');
 				if(displayed === 'none') {
 					this.$(".oppItemApproveDenyBlock").show().css('display', 'flex');

@@ -126,8 +126,8 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 		},
 		
 		decideDisplayApprove: function() {
-			if(user.person.get('roleId') > 5) {
-				var status = this.opp.get('status'); 
+			var status = this.opp.get('status');
+			if(user.person.get('roleId') > 5 && status !== 'for class') {
 				if(status === 'approved') {
 					this.commandDispatcher.trigger('show:deny');
 				} else if(status === 'denied'){

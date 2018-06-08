@@ -456,6 +456,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			};
 			if(isClass) {
 				oppJson.classId = Number(this.$(".oppFormClassSelector").val());
+				oppJson.status = 'for class';
 			} 
 			switch(oppType) {
 				case 'project':

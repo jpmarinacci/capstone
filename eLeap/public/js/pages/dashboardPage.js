@@ -174,7 +174,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 							isShow = true;
 						}
 					}
-					if((opp.get('status') === 'pending' || opp.get('status')==='denied') && this.roleId < 5) {
+					if((opp.get('status') === 'pending' || opp.get('status') ==='denied') && this.roleId < 5) {
 						isShow = false;
 					}
 					isShow = opp.get('ownerId') === user.person.get('personId') ? true: isShow; 
@@ -240,7 +240,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		},
 		
 		renderApprovalButtons: function(opp) {
-			if(this.roleId > 5) {
+			if(this.roleId > 5 && opp.get('status') !== 'for class') {
 				this.$("[data-opp-id='"+opp.get('opportunityId') +"']").show();
 				var status = opp.get('status'); 
 				if(status === 'approved') {
