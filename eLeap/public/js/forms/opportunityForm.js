@@ -39,6 +39,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
+			this.commandDispatcher = options.commandDispatcher;
 			this.opportunity = options.opportunity || new Opportunity();
 			this.editingOpp = new Opportunity(this.opportunity.toJSON());
 			this.editingOpp.set({
@@ -519,6 +520,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 					notifications.notifyUser(message);
 					
 					if(!thisForm.options.opportunity && opportunity && opportunity.get('opportunityId')) {
+						thisForm.commandDispatcher.trigger('show:owned');
 						router.navigate('opportunity/'+ opportunity.get('opportunityId'), {trigger: true});	
 					}
 					/* used for early stage development*/

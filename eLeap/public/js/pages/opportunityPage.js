@@ -102,6 +102,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 				this.opportunityForm.remove();
 			}
 			this.opportunityForm = new OpportunityForm({
+				commandDispatcher: this.commandDispatcher,
 				el: this.$(".opportunityPageCreateForm")
 			});
 		},

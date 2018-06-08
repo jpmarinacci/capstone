@@ -163,16 +163,22 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		renderOpp: function(opp) {
 			var isShow = false;
 			if(opp.get('opportunityId')) {
-				var classId = opp.get('classId'); 
-				if(classId) {
-					isShow = false;
-					if((this.roleId === 2 || this.roleId === 5) && user.person.classes.get(classId)) {
-						isShow = true;
-					}
-				}
 				//needs to updates dateTime to 00:00 
 				//to show opps on that day after now (ie past end time on that day)
-				isShow = opp.get('endDateTime') && opp.get('endDateTime') > new Date() ? true: false;
+				if(opp.get('endDateTime') && opp.get('endDateTime') > new Date()) {
+					isShow = true;
+					var classId = opp.get('classId');
+					if(classId) {
+						isShow = false;
+						if((this.roleId === 2 || this.roleId === 5) && user.person.classes.get(classId)) {
+							isShow = true;
+						}
+					}
+					if((opp.get('status') === 'pending' || opp.get('status')==='denied') && this.roleId < 5) {
+						isShow = false;
+					}
+					isShow = opp.get('ownerId') === user.person.get('personId') ? true: isShow; 
+				}
 				isShow = this.roleId === 7 ? true: isShow;
 				if(isShow) {
 					var availablePercentage = Math.floor((opp.get('totalSeats') - opp.get('availableSeats'))/opp.get('totalSeats')*100) || 0;
