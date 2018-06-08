@@ -30,15 +30,37 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/abou
 		
 		loadSlideShow: function() {
 			this.slides = $(".aboutSlides").toArray();
+			this.currentSlideId = 0;
 		},
 		
 		commandClickNextBtn: function(event) {
-			this.$(this.slides[0]).hide();
-			this.$(this.slides[1]).show();
+			this.$(this.slides[this.currentSlideId]).hide();
+			if(this.currentSlideId === this.slides.length-1) {
+				this.currentSlideId = 0;
+			} else {
+				this.currentSlideId ++;
+			}
+			this.$(this.slides[this.currentSlideId]).show();
+			this.showHideTeamLink();
 		},
 		
 		commandClickPrevBtn: function(event) {
-			
+			this.$(this.slides[this.currentSlideId]).hide();
+			if(this.currentSlideId === 0) {
+				this.currentSlideId = this.slides.length-1;
+			} else {
+				this.currentSlideId --;
+			}
+			this.$(this.slides[this.currentSlideId]).show();
+			this.showHideTeamLink();
+		},
+		
+		showHideTeamLink: function() {
+			if(this.currentSlideId === 7) {
+				this.$(".teamLink").show();
+			} else {
+				this.$(".teamLink").hide();
+			}
 		}
 	});
 	return eLeap.own.AboutPage;

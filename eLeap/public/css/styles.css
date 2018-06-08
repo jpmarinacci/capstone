@@ -52,7 +52,7 @@ ul, ol {
 }
 
 #pages, .nav-sidebar  {
-	min-height: calc(90vh);
+	min-height: calc(89vh);
 }
 
 #pages > div {
@@ -671,7 +671,9 @@ Main Video Background
 }
 
 /* Dashboard Page */
-
+#dashboardPage {
+	margin-bottom: 70px;
+}
 .dashDesc {
 	display: -webkit-box;
 	word-wrap:break-word;
@@ -985,6 +987,8 @@ Main Video Background
     border: solid 1px slategrey;
     border-radius: 2px;
 }
+.teamLink {
+}
 /* Team Page */
 
 #flashContent {
@@ -1294,8 +1298,8 @@ Main Video Background
 	    max-width: 700px;
 	}
 	#Team {
-		width: 560px;
-		height: 560px;
+		width: 530px;
+		height: 530px;
 	}
 }
 @media only screen and (min-width: 1200px) {
@@ -1303,14 +1307,24 @@ Main Video Background
 		text-align: left;
 	}
 	.aboutSlideShow .aboutSlides {
-	    max-width: 850px;
+	    max-width: 600px;
 	}
 }
 @media only screen and (min-width: 1224px) {
-	/* STYLES GO HERE */
+	.aboutSlideShow .aboutSlides {
+	    max-width: 650px;
+	}
 }
+@media only screen and (min-width: 1524px) {
+	.aboutSlideShow .aboutSlides {
+	    max-width: 700px;
+	}
+}
+
 @media only screen and (min-width: 1824px) {
-	/* STYLES GO HERE */
+	.aboutSlideShow .aboutSlides {
+	    max-width: 750px;
+	}
 }
 @media only screen and (max-width: 1823px) {
 	/* STYLES GO HERE */
@@ -1322,7 +1336,6 @@ Main Video Background
 	.btnLogoutText {
 		display: none;
 	}
-
 }
 @media only screen and (max-width: 767px) {
 	.hidden-sm {
@@ -1367,7 +1380,7 @@ Main Video Background
 @media only screen and (max-width: 479px) {
 	#pages, #sidebar {
 	    margin-top: 40px;
-	    min-height: calc(93.25vh);
+	    min-height: calc(95.25vh);
 	}
 	.bannerWrapper {
 		height: 40px;
