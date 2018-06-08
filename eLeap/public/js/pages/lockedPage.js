@@ -24,3 +24,4 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/lock
 	});
 	return eLeap.own.LockedPage;
 });
+

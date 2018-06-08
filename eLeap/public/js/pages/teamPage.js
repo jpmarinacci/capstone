@@ -6,8 +6,7 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/teamPage.tmpl'],
-function (eLeap, $, _, Backbone, teamPageTmpl) {
-	'use strict';
+	function (eLeap, $, _, Backbone, teamPageTmpl) {'use strict';
 		
 	eLeap.own.TeamPage = Backbone.View.extend({
 		
@@ -24,3 +23,4 @@ function (eLeap, $, _, Backbone, teamPageTmpl) {
 	});
 	return eLeap.own.TeamPage;
 });
+

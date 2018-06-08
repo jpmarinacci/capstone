@@ -15,6 +15,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'models/person', 'controlle
 			classType: "",
 			courseSummary: "",
 			estimatedClassSize: 0,
+			ownerName: "",
 			ownerId : 0,
 			section: "",
 			term: "",
@@ -148,9 +149,8 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'models/person', 'controlle
 						options.appError(response);
 					}
 				} else {
-					if (options.success && response.email) {
-						var person = new Person(response);
-						options.success(person);
+					if (options.success) {
+						options.success(response);
 					}
 				}
 			}, function (error) {
@@ -158,13 +158,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'models/person', 'controlle
 					options.error(error);
 				}
 			});
-		},
-		
-		parse: function (dbClass) {
-			//optional
-			return dbClass;
 		}
-		
 	});
 
 	return eLeap.own.CollegeClass;

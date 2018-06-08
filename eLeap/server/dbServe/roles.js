@@ -12,7 +12,7 @@ var roles = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAppState successful");
-	    		var returnResults = results[0] || {};
+	    		var returnResults = results[0] || [];
 	    		returnResults.status = "success";
 	    		response.send(returnResults);
 	    	}

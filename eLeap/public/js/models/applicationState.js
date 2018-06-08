@@ -17,7 +17,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 		
 		routes: {
 			getApplicationState: "/getApplicationState",
-			updateTheme: "/updateApplicationState",
+			updateTheme: "/updateTheme",
 		},
 		
 		sync: function (method, thisModel, options) {
@@ -63,25 +63,6 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					}
 				});
 			}
-		},
-		parse: function (dbApplicationState) {
-			return this.translateApplicatonStateClassFromDB(dbApplicationState);
-		},
-		
-		translateApplicatonStateFromDB: function(dbApplicationState){
-			var jsonApplicationState = {};
-			if(dbApplicationState.ApplicatonStateID)			jsonApplicationState.applicatonStateId = dbApplicationState.ApplicatonStateID;
-			if(dbApplicationState.ThemeData)					jsonApplicationState.themeData = dbApplicationState.ThemeData;
-			if(dbApplicationState.ThemeDescription)				jsonApplicationState.themeDescription = dbApplicationState.ThemeDescription;
-			return jsonApplicationState;
-		},
-		
-		translateApplicatonStateToDB: function(jsonApplicationState){
-			var dbApplicationState = {};
-			if(jsonApplicationState.applicatonStateID)			dbApplicationState.ApplicatonStateID = jsonApplicationState.applicatonStateId;
-			if(jsonApplicationState.themeData)					dbApplicationState.ThemeData = jsonApplicationState.themeData;
-			if(jsonApplicationState.themeDescription)			dbApplicationState.ThemeDescription = jsonApplicationState.themeDescription;
-			return dbApplicationState;
 		}
 	});
 

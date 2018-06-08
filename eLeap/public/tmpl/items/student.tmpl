@@ -1,9 +1,13 @@
-<li class='studentItem'>
-	<span class='studentEmail'>
+<li class='studentItem row'>
+	<span class='studentEmail col-12 col-sm-9' title="<%= student.get('email') %>">
 		<%= student.get('email') %>
 	</span>
-	<i class='removeStudentBtn fa fa-trash-alt' data-email='<%= student.get('email') %>'></i>
-	<% if(student.get('personId')) {%>
-		<i class='studentJoinedIcon fa fa-user-check' title='student has signed up'></i>
-	<% } %>
+	<span class="col-12 col-sm-3">
+		<i class='removeStudentBtn fa fa-trash-alt' data-email='<%= student.get('email') %>' title='remove student'></i>
+		<% if(student.get('personId')) {%>
+			<i class='studentJoinedIcon fa fa-user-check' title='student has signed up'></i>
+		<% } else {%>
+			<i class='studentNotJoinedIcon fa fa-user-check' title='student has not signed up'></i>
+		<% } %>
+	</span>
 </li>

@@ -1,5 +1,5 @@
 /**
- * @authors: JP Marinacci
+ * @authors: JP Marinacci, Sunny Wu
  */
 
 /*jshint devel:true, jquery:true, browser:true, strict: true */
@@ -46,6 +46,7 @@ function (eLeap, $, _, Backbone) { 'use strict';
 				var suffix = (hours >= 12) ? 'pm' : 'am';
 				hours = ((hours + 11) % 12 + 1);
 				var min = dateObj.getMinutes();
+				min = min < 10 ? 0+""+min : min; 
 				var convertTime = hours + ':' + min + suffix;
 				return convertTime;
 			}

@@ -30,7 +30,7 @@ var login = {
 			headersCookie = headersCookie.toString();
 			var foundCookieSpot = headersCookie.indexOf("eLeapId=");
 			if(foundCookieSpot >= 0) {
-				var foundCookie = headersCookie.slice(foundCookieSpot, foundCookieSpot + 12);
+				var foundCookie = headersCookie.slice(foundCookieSpot, foundCookieSpot + 20);
 				if(foundCookie){
 					console.log('found cookie');
 					var encryptedCookieId = foundCookie.substr(8);
@@ -78,13 +78,12 @@ var login = {
 		    			returnResults.loginStatus = 'valid';
 		    			delete person.credential;
 		    			returnResults.person = person;
-		    			
-						console.log("setting new cookie");
 						var personIdString=""+person.personId;
-						
 						var cipher = crypto.createCipher(cryptoAlgorithm, cryptoPassword);
 						var encyrptedPersonId = cipher.update(personIdString, 'utf8', 'hex');
 						encyrptedPersonId += cipher.final('hex');
+						
+						console.log("setting new cookie");
 						response.cookie('eLeapId', encyrptedPersonId,{
 							maxAge: 2592000, //1 month
 							httpOnly: true

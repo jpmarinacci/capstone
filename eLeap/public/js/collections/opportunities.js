@@ -24,7 +24,7 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/opp
 			if(method === 'read') {
 				if(options.isOwned){
 					server.postRoute(this.routes.getOwnedOpportunities, options, function (response) {
-						if (!response || response.status && response.status !== "success") {
+						if (response.status && response.status !== "success") {
 							if (options.appError) {
 								options.appError(response);
 							}
@@ -44,7 +44,7 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/opp
 					});
 				} else if(options.isJoined) {
 					server.postRoute(this.routes.getJoinedOpportunities, options, function (response) {
-						if (!response || response.status && response.status !== "success") {
+						if (response.status && response.status !== "success") {
 							if (options.appError) {
 								options.appError(response);
 							}
@@ -64,7 +64,7 @@ define(['underscore', 'backbone', 'eLeap', 'controllers/restServer', 'models/opp
 					});
 				} else {
 					server.postRoute(this.routes.getAllOpportunities, this.toJSON(), function (response) {
-						if (!response || response.status && response.status !== "success") {
+						if (response.status && response.status !== "success") {
 							if (options.appError) {
 								options.appError(response);
 							}

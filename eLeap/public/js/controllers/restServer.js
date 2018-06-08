@@ -12,17 +12,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap'],
 		initialize: function(options) {
 			options = options || {};
 		},
-			
-		navigateOut: function(route, options) {
-			options = options || {};
-			window.location.href = route;
-		},
-		
-		navigateWithin: function(route, options) {
-			options = options || {};
-			window.location.href = window.location.origin + route;
-		},
-		
+
 		postRoute: function(route, dbInput, success, error, options) {
 			
 			$.ajax({

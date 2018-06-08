@@ -6,16 +6,15 @@
 /* base html css */
 
 body {
-	/*font-family: "Lucida Grande", Oswald, Consolas, Georgia, Helvetica, Arial, sans-serif;*/
-	font-family: Helvetica, "Lucida Grande", "Lucida Console", "Consolas", "Oswald", "Charcoal", "Monaco", "monospace", "sans-serif"; 
+	font-family: Helvetica, "Lucida Grande", "Lucida Console", "Consolas", "Oswald", 
+				"Charcoal", "Monaco", Arial, Georgia, "monospace", "sans-serif"; 
 	font-size: 16px;
 	/*letter-spacing: 1px;*/
 	height: 100%;
 	min-height: 100%;
 	position: relative;
+	/*background-color: #34495e;*/
 }
-
-/*  footer */
 
 footer {
 	bottom: 0;
@@ -29,14 +28,12 @@ footer {
     padding: 20px;
 }
 
-.content {
-	/* size of the footer*/
-	/*margin-bottom: 56px;*/
-	display: flex;
-}
-
 a , a:not([href]):not([tabindex]) {
     color: #00B7FF;
+}
+
+a:hover {
+	color: #85d6de;
 }
 
 ul, ol {
@@ -45,7 +42,15 @@ ul, ol {
 	padding: 0;
 }
 
-/* master page layout **/
+/* page layout **/
+
+.content {
+	display: flex;
+}
+
+#pages {
+	overflow-x: hidden;
+}
 
 #pages, .nav-sidebar  {
 	min-height: calc(80.25vh);
@@ -72,6 +77,10 @@ ul, ol {
 	transition: none;
 }
 
+.container-fluid {
+	width: calc(100% - 100px);
+}
+
 .backdrop {
 	background-color: white;
 	/*background-color: #51cee2;*/
@@ -85,7 +94,7 @@ ul, ol {
 
 /* utility css classes */
 
-.initialDisplayNone {
+.initHidden {
 	display: none;
 }
 
@@ -239,6 +248,9 @@ ul, ol {
 .pt30 {
 	padding-top: 30px;
 }
+.pl10 {
+	padding-left: 10px;
+}
 .pl20 {
 	padding-left: 20px;
 }
@@ -280,7 +292,7 @@ ul, ol {
 	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-	border: solid 3px white;
+	border: solid 2px white;
 	background-color: #003d79;
 }
 
@@ -311,12 +323,11 @@ ul, ol {
     background-color: #85d6de;
     border-color: white;
 }
-.btn-warning:hover {
+.btn-warning:hover, .btn--decorated:hover {
     color: #212529;
     background-color: #85d6de;
     border-color: white;
 }
-
 
 .largeButton {
 	background-color: #4CAF50; /* Green */
@@ -359,12 +370,27 @@ ul, ol {
 	font-size: 60px;
 }
 
+.form-group input, .form-group textarea, .selector {
+	background-color: white;
+	border-radius: 4px;
+    border: solid black 0.5px;
+    padding-left: 7px;
+    padding: 2px 0px 2px 7px;
+    margin: 10px 0 10px 0;
+    font-size: 18px;
+    /*min-width: 300px;*/ 
+}
+.form-group input::placeholder {
+	color: lightblue;
+	/*color: lightslategray;*/
+}
+
 /* navbar  */
 
 .bannerWrapper {
     position: fixed;
     top: 0;
-    z-index: 2002;
+    z-index: 1001;
     width: 100%;
     height: 80px;
     background-color: #34495e;
@@ -446,6 +472,7 @@ ul, ol {
 	border: solid 0.5px slategrey;
 	box-shadow: 10px 10px 5px #888;
 	padding: 20px;
+	overflow-x: hidden;
 }
 
 #notificationMessage {
@@ -465,7 +492,7 @@ ul, ol {
 /*  sidebar  */
 
 .navLink {
-	color: #85d6de;
+	color: #3388c8;
 	cursor: pointer;
 	margin-top: 10px;
 }
@@ -478,16 +505,18 @@ ul, ol {
 	font-size: 12px;
 }
 .dashboardLink:hover {
-	color: #00B7FF;
+	/*color: #00B7FF;*/
+	color: #85d6de;
 	text-decoration: none;
 	cursor: pointer;
 }
 .navLink:hover {
-    color: #00B7FF;
+    /*color: #00B7FF;*/
+    color: #85d6de;
     text-decoration: none;
 }
 
-.oppSettingsTitle {
+.oppSettingsTitle, .oppFilterTitle {
 	color: white;
 	font-size: 12px;
 	text-align: center;
@@ -532,21 +561,6 @@ ul, ol {
 
 /* Login Page */
 
-.login input {
-	background-color: white;
-	border-radius: 4px;
-    border: solid black 0.5px;
-    padding-left: 7px;
-    padding: 2px 0px 2px 7px;
-    margin: 10px 0 10px 0;
-    font-size: 18px;
-    /*min-width: 300px;*/ 
-}
-.login input::placeholder {
-	color: lightblue;
-	/*color: lightslategray;*/
-}
-
 /* Signup Page */
 .selectRoles {
 	background-color: white;
@@ -556,6 +570,23 @@ ul, ol {
 .signupForm.login {
 	margin-bottom: 25px;
 }
+
+/* Account Settings Page */
+
+.collegeClassItem {
+	text-align: left;
+	display: inline-block;
+	padding: 0px 20px 20px 20px;
+	min-width: 400px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	border: solid 0.5px slategrey;
+	border-radius: 4px;
+} 
+.collegeClassItemTitle {
+	font-weight: 600;
+}
+
 /* Home Page */
 
 #homePage {
@@ -636,57 +667,15 @@ Main Video Background
 	text-transform: uppercase;
 }
 
-/* Opportunity Form Page */
-
-.opportunityForm {
-	text-align: left;
-}
-.oppFormList li {
-	margin-bottom: 5px;	
-}
-.oppFormList .oppFormLabel {
-	display: inline-block;
-	width: 200px;
-	font-weight: 600;
-}
-.oppFormList .oppFormInputContainer {
-	display: inline-block;
-	width: 400px;
-}
-.oppFormList .oppFormTextInput {
-	display: inline-block;
-	width: 90%;
-}
-.formSection {
-	width: 100%;
-	padding: 10px;
-	border: 1px dashed grey;
-	border-radius: 5px;
-	margin-bottom: 5px;
-}
-.oppFormList .oppFormRadiosContainer {
-	width: 500px;
-}
-.asterisk {
-	cursor: pointer;
-	font-weight: bold;
-	vertical-align: text-top;
-}
-.warn {
-	font-size: 10px;
-	color: #ff0000;
-}
-
-.deleteOppBtn {
-	margin-left: 10px;
-	background-color: #ba1512;
-} 
-.deleteOppBtn:hover {
-	background-color: orange;
-	color: white;
-}
-
 /* Dashboard Page */
+
+.dashDesc {
+	display: -webkit-box;
+	word-wrap:break-word;
+	-webkit-box-orient: vertical;
+	/*-webkit-line-clamp: 5;*/
+	overflow: hidden;
+}
 
 .viewMode {
 	padding: .75rem  1rem 0 0;
@@ -698,6 +687,7 @@ Main Video Background
 }
 .breadcrumb {
 	border-radius: unset;
+	margin-bottom: 8px;
 }
 
 .breadcrumbNav {
@@ -709,7 +699,7 @@ Main Video Background
     border: 0.5px solid black;
     box-shadow: 8px 8px 4px #888;
     padding: 4px 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     /*background-color: #34495e;*/
 	background-color: white;
 	border-radius: 10px;
@@ -724,30 +714,63 @@ Main Video Background
 	font-weight: 600;
 }
 
-.opportunityItem {
+.opportunitiesList {
+	margin: 0 12px;
+}
+
+.oppListItem {
+	display: grid;
+	position: relative;
+	text-align: left;
+	min-height: 100px;
+	height: auto;
+	border: solid 1px #343a40;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+.oppListItem .col-sm-1, .oppListItem .col-sm-2, .oppListItem .col-sm-3, .oppListItem .col-sm-4, .oppListItem .col-sm-5,
+.oppListItem .col-sm-6, .oppListItem .col-sm-7, .oppListItem .col-sm-8, .oppListItem .col-sm-9, .oppListItem .col-sm-10,
+.oppListItem .col-sm-11, .oppListItem .col-sm-12 {
+  	display: inline-block;
+    float: left;
+    word-wrap: break-word;
+ }
+.oppListItem .oppItemField.oppItemTitle {
+	display: block;
+	padding: 3px;
+}
+.oppListItem .oppItemPicContainer {
+	display: block;
+	text-align: center;
+	width: 10%;
+}
+
+.oppCardItem {
 	display: inline-block;
+	position: relative;
 	width: 18rem;
-	padding-bottom: 10px;
+	padding-bottom: 50px;
 	border: solid 1px #343a40;
 	border-radius: 10px;
 	margin-right: 10px;
 	margin-bottom: 10px;
+	text-align: left;
+    height: 500px;
+    overflow: hidden;
 	cursor: pointer;
 }
-
-.opportunityItem .oppItemCard {
-	text-align: left;
-	height: 454px;
-    overflow: hidden;
+.oppCardItem .card-body {
+	max-height: 325px;
+    overflow-y: hidden;
 }
 
-.opportunityItem .oppItemCard .cardHeader {
+.oppCardItem .cardHeader {
 	background-color: rgba(0,0,0,.03);
     border-bottom: 1px solid rgba(0,0,0,.125);
     padding: 10px;
 }
 
-.opportunityItem .oppItemCard .oppItemField h6{
+.oppCardItem .oppItemField h6{
 	word-break: break-word;
 }
 
@@ -757,19 +780,16 @@ Main Video Background
 	color: #0000FF;
 }
 
-.opportunitiesList {
-	margin: 0 20px;
-}
-
 .oppItemTitle {
 	font-size: 18px;
 	font-weight: 600;
 }
 
 .oppItemPicContainer {
+	float: left;
 	width: 40px;
 	height: 40px;
-	float: left;
+	padding: 4px;
 }
 .oppItemPic {
 	height: auto;
@@ -782,12 +802,190 @@ Main Video Background
 	font-weight: 600;
 }
 
-/*  Opportunity Page */
-.opportunityView {
-	padding: 0 0 20px 0;
+.card:hover {
+	/*background-color: #a7e6ff;*/
+	box-shadow: inset 0 0 2px #34495e;
+	cursor: pointer;
 }
 
-/* DBTestPage	*/
+.progress {
+	margin-top: 2px;
+	border: solid 0.5px #17a2b8;
+}
+
+.oppListItem .oppItemMoreBtn {
+	float: right;
+	margin: 10px;
+}
+.oppCardItem .oppItemMoreBtn {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+}
+.oppCardItem .oppItemFooter {
+	height: 70px;
+	position: absolute;
+	bottom: 0px;
+	left:0;
+	right:0;
+}
+
+/*  Opportunity View Page */
+.opportunityView {
+	padding: 0;
+}
+.card-title, .oppItemTitle {
+	/*color: #3388c8;*/
+	color: #003d79;
+}
+
+.detailDesc {
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	font-size: 16px;
+}
+
+/* Opportunity Form Page */
+
+.opportunityPageCreateForm {
+	padding-left: 25px;
+	/*margin: 0 auto 0 auto;*/
+}
+
+.createOppLine {
+	margin-top: 20px;
+}
+
+.createOppLine .checkBoxes {
+	margin-top: 8px;
+}
+
+.opportunityForm {
+	text-align: left;
+}
+
+.oppFormList li {
+	margin-bottom: 5px;	
+}
+.oppFormList .oppFormLabel {
+	display: inline-block;
+	width: 200px;
+	font-weight: 600;
+}
+.oppFormList .oppFormInputContainer {
+	display: inline-block;
+	width: 400px;
+}
+.oppFormList .oppFormTextInput {
+	display: inline-block;
+	/*width: 90%;*/
+}
+.formSection {
+	width: 100%;
+	padding: 10px;
+	border: 1px dashed grey;
+	border-radius: 5px;
+	margin-bottom: 5px;
+}
+.oppFormList .oppFormRadiosContainer {
+	width: 500px;
+}
+
+.requiredKey {
+	font-size: 14px;
+    color: #ffc107;
+}
+
+.required:before {
+	content:"*";
+	color: #ffc107;
+	font-size: 30px;
+	-webkit-text-stroke: 0.25px black;
+	vertical-align: top;
+	margin-left: -20px;
+}
+
+.asterisk {
+	cursor: pointer;
+	font-weight: bold;
+	vertical-align: text-top;
+}
+.warn {
+	font-size: 10px;
+	color: #ff0000;
+}
+
+
+.col-form-label {
+	font-weight: 800;
+}
+
+.deleteOppBtn, .classFormDeleteBtn {
+	margin-left: 10px;
+	background-color: #ba1512;
+} 
+.deleteOppBtn:hover {
+	background-color: orange;
+	color: white;
+}
+
+/* Instructor Settings Page */
+
+.studentsList {
+	border: solid 0.5px slategrey;
+	padding-top: 2px;
+	overflow-x: hidden;
+}
+.studentsList li{
+	padding-left: 8px;
+}
+
+.studentJoinedIcon {
+	float: right;
+	color: #0ef20e;
+	-webkit-text-stroke: 0.25px slategrey;
+	margin-top: 3px;
+	margin-right: 4px;
+}
+.studentNotJoinedIcon {
+	float: right;
+	color: #ffc107;
+	-webkit-text-stroke: 0.25px slategrey;
+	margin-top: 3px;
+	margin-right: 4px;
+}
+
+.removeStudentBtn {
+	cursor: pointer;
+	float: right;
+	color: #ba1512;
+	margin-top: 3px;
+	padding-right: 7px;
+	padding-left: 3px;
+}
+
+.classFormSubmitBtn, .classFormDeleteBtn {
+	margin: 0 auto;
+}
+
+/* About Page */
+
+
+/* Team Page */
+
+#flashContent {
+	width:100%;
+	height:100%;
+}
+#Team {
+	float: none;
+	vertical-align: middle;
+	width: 700px;
+	height: 700px;
+}
+
+/* dbTest Page */
+
 .roleItem, .personItem {
 	border: solid 0.5px darkslateblue;
 	padding: 2px;
@@ -806,40 +1004,6 @@ Main Video Background
 	width: 300px;
 	border: solid 0.5px slategrey;
 }
-/* Instructor Settings Page */
-
-.studentsList {
-	border: solid 0.5px slategrey;
-	padding-top: 2px;
-}
-.studentsList li{
-	padding-left: 4px;
-}
-.studentJoinedIcon {
-	float: right;
-	cursor: pointer;
-	color: #0ef20e;
-	-webkit-text-stroke: 0.25px slategrey;
-	margin-top: 3px;
-	margin-right: 4px;
-}
-
-.removeStudentBtn {
-	cursor: pointer;
-	float: right;
-	color: #ba1512;
-	margin-top: 3px;
-	padding-right: 3px;
-	padding-left: 3px;
-}
-/* About Page */
-
-
-/* Team Page */
-
-
-/* dbTest Page */
-
 #dbTest li {
 	list-style-type: ethiopic-halehame;
 }
@@ -853,8 +1017,6 @@ Main Video Background
 .chart_my {
 	color:#fed37f;
 }
-
-/**************** Imported from Custom Styles -- Sunny Wu -- *******/
 
 .widget-timetable-large {
 	padding-bottom: 50px;
@@ -1035,6 +1197,7 @@ Main Video Background
 	margin-left: -40px;
 	background-color: #85d6de;
 }*/
+
 .block-title--bottom {
 	margin-bottom: 60px;
 	/*color:white;*/
@@ -1070,67 +1233,10 @@ Main Video Background
 	color:#444;
 }
 
-.card:hover {
-	/*background-color: #a7e6ff;*/
-	box-shadow: inset 0 0 2px #34495e;
-	cursor: pointer;
-}
-
 .list-group-item:nth-child(odd) {
 	background-color: #fff;
 }
 .list-group-item:nth-child(even) {
-	background-color: #eee;
-}
-
-.opportunityPageCreateForm {
-	width:80%;
-	margin: 0 auto 0 auto;
-}
-
-.createOppLine {
-	margin-top: 20px;
-}
-
-.createOppLine .checkBoxes {
-	margin-top: 8px;
-}
-
-.dashDesc {
-	display: -webkit-box;
-	word-wrap:break-word;
-	-webkit-box-orient: vertical;
-	/*-webkit-line-clamp: 5;*/
-	overflow: hidden;
-}
-
-.detailDesc {
-	white-space: pre-wrap;
-	word-wrap: break-word;
-	font-size: 16px;
-}
-
-.required:before {
-	content:"*";
-	margin-left: -20px;
-	font-size: 18px;
-    color: #ffc107;
-}
-.requiredKey {
-	font-size: 14px;
-    color: #ffc107;
-}
-
-.oppFormHeader {
-	/*color: white;
-	text-shadow: 2px 2px black;*/
-}
-
-.col-form-label {
-	font-weight: 800;
-}
-
-.bg-full {
 	background-color: #eee;
 }
 
@@ -1139,8 +1245,14 @@ Main Video Background
 @media only screen and (min-width: 320px) {
 	/* STYLES GO HERE */
 }
+
 @media only screen and (min-width: 480px) {
 	/* STYLES GO HERE */
+}
+@media only screen and (min-width: 575px) {
+	.oppItemApproveDenyBlock .fontExtraSmall {
+		display: none;
+	}
 }
 @media only screen and (min-width: 768px) {
 	/* STYLES GO HERE */
@@ -1149,6 +1261,9 @@ Main Video Background
 	/* STYLES GO HERE */
 }
 @media only screen and (min-width: 1200px) {
+	.opportunitiesList {
+		text-align: left;
+	}
 	/* STYLES GO HERE */
 }
 @media only screen and (min-width: 1224px) {
@@ -1191,38 +1306,21 @@ Main Video Background
 		margin-top: 20px;
 		margin-right: 5px;
 	}
-	.nav-tabs.nav-justified > li {
-		display: table-cell;
-		width: 1%;
-	}
-	.nav-tabs.nav-justified > li > a {
-		margin-bottom: 0;
-	}
-	.nav-tabs.nav-justified > li > a {
-		margin-right: 0;
-		border-radius: 4px;
-	}
-	.nav-tabs.nav-justified > .active > a,
-	.nav-tabs.nav-justified > .active > a:hover,
-	.nav-tabs.nav-justified > .active > a:focus {
-		border: 1px solid #dddddd;
-	}
-	.nav-tabs.nav-justified > li > a {
-		border-bottom: 1px solid #dddddd;
-		border-radius: 4px 4px 0 0;
-	}
-	.nav-tabs.nav-justified > .active > a,
-	.nav-tabs.nav-justified > .active > a:hover,
-	.nav-tabs.nav-justified > .active > a:focus {
-		border-bottom-color: #ffffff;
+	.oppListItem .oppItemPicContainer {
+		width: 10%;
+		padding: 4px;
+		margin-right: 10px;
 	}
 }
 @media only screen and (max-width: 575px) {
-	#pages, #sidebar {
-	  /* margin-bottom: 20px;*/
-	}
 	.saveOppBtn.topBtns, .deleteOppBtn.topBtns {
 		display: none !important;
+	}
+	.oppListItem .oppItemTitle {
+		width: 100%;
+	}
+	.oppListItem .oppItemPicContainer {
+		display: none;
 	}
 }
 @media only screen and (max-width: 479px) {
@@ -1245,7 +1343,7 @@ Main Video Background
 	.btnLogout {
 		padding: 2px 10px;
 		margin-right: 5px;
-		margin-top: 8px;
+		margin-top: 4px;
 		border-radius: 10px;
 	}
 	.btnLogout i {
@@ -1254,8 +1352,8 @@ Main Video Background
 	.hidden-xs {
 		display: none !important;
 	}
-	.opportunityItem {
-		width: 170px;
+	.oppCardItem {
+		max-width: 250px;
 	}
 	.welcomeBox {
 		width: 160px;
@@ -1267,8 +1365,16 @@ Main Video Background
 	.main-video__video {
 		top: 40px;
 	}
+	.oppItemMoreBtn {
+		float: none;
+		margin: 10px;
+	}
+	.progress {
+		/*width: 85%;*/ 
+   	}
 }
 @media only screen and (max-width: 320px) {
-	/* STYLES GO HERE */
+	.oppCardItem {
+	    width: 180px;
+	}
 }
-/* NOTHING BELOW THESE MEDIA QUERIES PLEASE **/

@@ -7,7 +7,7 @@ require.config({
 	baseUrl: 'js',
 	paths: {
 		"backbone": "../bower_components/backbone/backbone-min",
-		"bootbox": "../bower_components/bootbox.js/bootbox.js",
+		"bootbox": "../bower_components/bootbox/bootbox",
 		"bootstrap": "../bower_components/bootstrap/dist/js/bootstrap.min",
 		"datetimepicker": "../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min",
 		"dropzone": "../bower_components/dropzone/dist/dropzone",
@@ -30,9 +30,6 @@ require.config({
 		},
 		"dropzone": {
 			exports: 'Dropzone'
-		},
-		"jquery-ui": {
-			deps: ["jquery"]
 		},
 		"jquery.autogrow-textarea": {
 			deps: ["jquery"]

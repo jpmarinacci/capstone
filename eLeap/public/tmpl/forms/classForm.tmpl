@@ -1,24 +1,24 @@
 <div class="classForm login col-12 pt30">
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Class Name</label>
-        <div class="col-sm-9">
+        <label class="col-sm-4 col-form-label">Class Name</label>
+        <div class="col-sm-8">
             <input type="text" class="classNameInput form-control-plaintext" placeholder="">
             <span class="classNameWarning warn" ></span>
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Term</label>
-        <div class="col-sm-9">
+        <label class="col-sm-4 col-form-label">Term</label>
+        <div class="col-sm-8">
             <input class="classTermInput form-control-plaintext" type="text" placeholder="">
 
         </div>
     </div>
     
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Year</label>
-        <div class="col-sm-9">
-             <select class="classYearSelect form-control">
+        <label class="col-sm-4 col-form-label">Year</label>
+        <div class="col-sm-8">
+             <select class="classYearSelect selector form-control">
 				<option value="2018" selected>2018</option>
 				<option value="2019">2019</option>
 				<option value="2020">2020</option>
@@ -29,23 +29,23 @@
     </div>
     
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Section</label>
-        <div class="col-sm-9">
+        <label class="col-sm-4 col-form-label">Section</label>
+        <div class="col-sm-8">
             <input class="classSectionInput form-control-plaintext" placeholder="">
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Estimated Class Size</label>
-        <div class="col-sm-9">
+        <label class="col-sm-4 col-form-label">Estimated Class Size</label>
+        <div class="col-sm-8">
             <input class="estimatedClassSizeInput form-control-plaintext" placeholder="">
         </div>
     </div>
     
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Class Type</label>
-        <div class="col-sm-9">
-            <select class="classTypeSelector form-control">
+        <label class="col-sm-4 col-form-label">Class Type</label>
+        <div class="col-sm-8">
+            <select class="classTypeSelector selector form-control">
             	<option value="online">online</option>
             	<option value="hybrid">hybrid</option>
             	<option value="in class">in class</option> 
@@ -54,14 +54,15 @@
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Course Summary</label>
-        <div class="col-sm-9">
-            <input class="courseSummaryInput form-control-plaintext" placeholder="">
+        <label class="col-sm-4 col-form-label">Course Summary</label>
+        <div class="col-sm-8">
+            <textarea class="courseSummaryInput form-control-plaintext" placeholder=""></textarea>
         </div>
     </div>
 
 	<div class="signupButtonContainer centerText">
-	    <button class="classFormSubmitBtn btn btn--decorated btn-warning ">Submit</button>
+	    <button class="classFormSubmitBtn btn btn--decorated btn-warning">Submit</button>
+	    <button class="classFormDeleteBtn btn btn--decorated btn-warning initHidden">Delete</button>
 	</div>
 </div>
 

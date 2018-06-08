@@ -25,3 +25,4 @@ var applicationState = {
 };
 
 module.exports = applicationState;
+

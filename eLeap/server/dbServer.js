@@ -10,8 +10,7 @@ instantiateDbServer = function() {
 		
 		connect: function() {
 			if(!this.isConnectPending) {
-				this.isConnectPending = true;
-				this.attempts++;
+				console.log("starging database server connection");
 				this.connection = mysql.createConnection({
 					charset: "utf8mb4",
 					connectTimeout: 20000,
@@ -21,6 +20,8 @@ instantiateDbServer = function() {
 					timezone: "utc",
 					user: dbSettings.dbUserName
 				});
+				this.attempts++;
+				this.isConnectPending = true;
 				this.connection.on('error', this.connectError);
 				this.connection.connect(this.connectCallback);
 			} else {
@@ -32,17 +33,15 @@ instantiateDbServer = function() {
 			thisDbServer.isConnectPending = false;
 			var error = response;
 			if(error) {
-				console.log("database connection error: " + error);
-				if(thisDbServer.attempts <= 25) {
+				console.log("database connection-connect error:");
+				consoel.log(error);
+				if(thisDbServer.attempts <= 20) {
 					console.log("attempts before retry" + thisDbServer.attempts);
 					thisDbServer.retry();
 				} else {
-					thisDbServer.attempts = 0;
 					console.log("attempts reached max tries of: " + thisDbServer.attempts);
-					console.log("---throwing error---");
-					response.send({"status": "erorr"});
+					console.log("Database unavailable. closing connection");
 					throw error;
-					return;
 				}
 			} else {
 				console.log("database connected");
@@ -50,14 +49,20 @@ instantiateDbServer = function() {
 		},
 		
 		connectError: function(error) {
+			thisDbServer.isConnectPending = false;
 			error = error || {};
-			console.log("database connection error: ");
+			console.log("database connection-errorOnConnect error: ");
 			console.log(error.code ? error.code : "gremlins");
 			if(!error.code) {
 				console.log("connection error: no error code -- throwing error");
 				throw error;
 			} else {
-				console.log("connection error");
+				if(error.code === 'PROTOCOL_CONNECTION_LOST' || 'ECONNREFUSED'|| 'ENOTFOUND') {
+					thisDbServer.retry();
+				} else {
+					console.log("connection idle timeout");
+					throw error;
+				}
 			}
 		},
 		
@@ -65,12 +70,13 @@ instantiateDbServer = function() {
 			console.log('-- retry --');
 			setTimeout(function() {
 				thisDbServer.connect();
-			}, 3000);
+			}, 4000);
 		},
 		
 	    close: function() {
 	    	console.log("closing database connection");
 	    	if(this.connection) {
+	    		thisDbServer.attempts = 0;
 	    		this.connection.end();
 	    	}
 		},
@@ -91,7 +97,8 @@ instantiateDbServer = function() {
 				if (error) {
 					results = results || {};
 					results.error = error;
-					console.log("database error:");
+					results.sql = sql;
+					console.log("database sproc error: "+ sql);
 					console.log(error.code ? error.code : ": gremlins");
 				}
 				results.fields = fields;
@@ -103,28 +110,16 @@ instantiateDbServer = function() {
 	    },
 	    
 		processSprocError: function(results, response) {
-			if(response && !response.error) {
-				console.log("^*^*^*^*^^*^*^*^*^*^*^*^**^*^*^*^*^*^*^**^*^**^*^*^**^*");
-				console.log("<------ error slipped through the error handler ------>");
-				console.log("<------ 		Is node running already? 		 ------>");
-				console.log("<-  If ECONNRESET - node is probably running already ->");
-				console.log("<------            check results                ------>");
-				console.log(results);
-			}
-			console.log("*^*^*^*^*^**^*^*^*^*^**^^*^*^*^*^^*^*^*^*^*^*^*^*^*^**^*^*^*");
-			console.log("database error occurred");
-			console.log("*^*^*^*^*^**^*^*^*^*^**^^*^*^*^*^^*^*^*^*^*^*^*^*^*^**^*^*^*");	
-			if(results && results.error) {
-				console.log("*^*^*^*^*^**^*^*^*^*^**^^*^*^*^*^^*^*^*^*^*^*^*^*^*^**^*^*^*");
-				console.log(results.error);
+			if(results.error.code === "ECONNRESET" || results.error.code === "ENOTFOUND") {
+				results.errorMessage = "no database connection";
+	  			response.status(500).send(results);
+				this.connect();
+				return;
+			} else {
 				if(results.sprocThatErrored) {
 					console.log("sproc that errored: "+ results.sprocThatErrored);
-					response.send("database error: " + results.error+ " <br>-------<br> "+results.sprocThatErrored);
-				} else {
-					response.send("database error: " + results.error);
 				}
-				thisDbServer.retry();
-				return;
+				response.status(400).send("database error occurred: " + results.sql);
 			}
 			return;
 	    }

@@ -5,11 +5,11 @@
 /*jshint devel:true, jquery:true, browser:true, strict: true */
 /*global eLeap:true */
 
-define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notifications', 'controllers/user',
-		'models/collegeClass', 'collections/collegeClasses', 'collections/persons',
+define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notifications', 'controllers/router',
+		'controllers/user', 'models/collegeClass', 'collections/collegeClasses', 'collections/persons',
 		'text!../../tmpl/pages/instructorSettingsPage.tmpl', 
 		'text!../../tmpl/forms/classForm.tmpl', 'text!../../tmpl/items/student.tmpl'],
-	function (eLeap, $, _, Backbone, utils, notifications, user, CollegeClass, CollegeClasses, Persons,
+	function (eLeap, $, _, Backbone, utils, notifications, router, user, CollegeClass, CollegeClasses, Persons,
 		pageTmpl, classFormTmpl, studentTmpl) { 'use strict';
 	
 	eLeap.own.InstructorSettingsPage = Backbone.View.extend({
@@ -20,10 +20,11 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		
 		events: {
 			'click .classFormSubmitBtn': 'commandSubmitClass',
+			'click .classFormDeleteBtn': 'commandDeleteClass',
 			'change .classSelector': 'commandSelectClass',
 			'click .addStudent': 'commandAddStudent',
 			'click .submitStudent': 'commandSubmitStudent',
-			'click .removeStudentBtn': 'commandRemoveStudent'
+			'click .removeStudentBtn': 'commandRemoveStudent',
 		},
 		
 		initialize: function (options) {
@@ -63,35 +64,18 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 				}
 				this.getClasses();
 			} else {
-				require(['controllers/router',], function(router) {
-					router.navigate('/dashboard', {trigger: true});
-				});
-			}
-		},
-		
-		fetchOwnedClasses: function() {
-			if(user.person.classes.isFetched) {
-				this.gotOwnedClasses();
-			} else {
-				user.person.classes.isFetchPending = true;
-				user.person.classes.fetch({
-					ownerId: user.person.get('personId'),
-					reset: true,
-					success: function() {
-						user.person.classes.isFetched = true;
-					},
-					error: function(error) {
-						console.log("oppForm - fetch classes error");
-						console.log(error);
-					}
-				});
+				router.navigate('/dashboard', {trigger: true});
 			}
 		},
 		
 		getClasses: function() {
 			user.person.classes = user.person.classes || new CollegeClasses();
 			this.listenForClassesEvents();
-			this.fetchOwnedClasses();
+			if(user.person.classes.isFetched) {
+				this.gotOwnedClasses();
+			} else {
+				user.fetchClasses({ownerId: user.person.get('personId')});
+			}
 		},
 		
 		getStudents: function(collegeClass) {
@@ -110,11 +94,11 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 						thisPage.renderStudents(collegeClass.students);
 					},
 					appError: function(response) {
-						console.log("instructor settings - fetch students invalid: ");
-						console.log(response);
+						//console.log("instructor settings - fetch students invalid: ");
+						//console.log(response);
 					},
 					error: function(error) {
-						console.log("instructor settings - fetch students class error");
+						//console.log("instructor settings - fetch students class error");
 					},
 					reset: true
 				});
@@ -129,6 +113,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		
 		renderClasses: function() {
 			var thisPage = this;
+			this.$(".classSelector").empty().append("<option value='0'>create new class</option>");
 			user.person.classes.sort();
 			user.person.classes.each(function(collegeClass) {
 				thisPage.$(".classSelector").append(
@@ -172,19 +157,10 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		},
 		
 		renderStudent: function(student) {
+			this.$(".studentListSection").show();
 			this.$(".studentsList").append(this.studentTmpl({
 				student: student
 			}));
-			/*if(student.get('personId')) {
-				
-				this.$(".studentsList").append("<li class='studentItem'>"+
-				"<span class='studentEmail'>" + student.get('email') + "</span>" +
-				"<span class=''><icon class='studentJoinedIcon fa fa-user-check'></span>" +
-				"</li>");
-			} else {
-				this.$(".studentsList").append("<li class='studentItem'>"+
-				"<span class='studentEmail'>" + student.get('email') + "</span></li>");
-			}*/
 		},
 			
 		commandSelectClass: function(event) {
@@ -193,11 +169,11 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			this.$(".studentsList").empty();
 			this.selectedClassId = Number(event.currentTarget.value);
 			if(this.selectedClassId) {
-				this.$(".studentsSection").show();
+				this.$(".studentsSection, .classFormDeleteBtn").show();
 				options.collegeClass = user.person.classes.get(this.selectedClassId);
 				this.getStudents(options.collegeClass);
 			} else {
-				this.$(".studentsSection").hide();
+				this.$(".studentsSection, .classFormDeleteBtn").hide();
 			}
 			
 			this.renderClassToForm(options);
@@ -209,14 +185,15 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 				classType: this.$(".classTypeSelector").val(),
 				term: this.$(".classTermInput").val(),
 				section: this.$(".classSectionInput").val(),
-				year: this.$(".classYearSelect").val(),
-				estimatedClassSize: this.$(".estimatedClassSizeInput").val(),
+				year: Number(this.$(".classYearSelect").val()),
+				estimatedClassSize: Number(this.$(".estimatedClassSizeInput").val()),
 				courseSummary: this.$(".courseSummaryInput").val()
 			};
 			this.collegeClass.set(classJson);
 		},
 
 		commandSubmitClass: function() {
+			var thisPage = this;
 			if(this.$(".classNameInput").val() === "") {
 				notifications.notifyUser("class name is required");
 				this.$(".classNameWarning").html("class name is required");
@@ -228,21 +205,28 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			this.gatherInput();
 			var isNewClass = this.collegeClass.get('classId') ? false: true;
 			var options = {
-				success: function(response) {
+				success: function(collegeClass) {
 					if(isNewClass) {
-						notifications.notifyUser("class created");	
+						notifications.notifyUser("class created");
+						if(collegeClass) {
+							user.person.classes.add(collegeClass);
+							thisPage.renderClasses();
+							thisPage.selectedClassId = collegeClass.get('classId');
+							thisPage.$(".classSelector").val(collegeClass.get('classId'));
+							thisPage.$(".studentsSection, .classFormDeleteBtn").show();
+						}
 					} else {
 						notifications.notifyUser("class updated");
 					}
 				},
 				appError: function(response) {
-					console.log("instructor settings - submit class error");
-					console.log(response);
+					//console.log("instructor settings - submit class error");
+					//console.log(response);
 					notifications.notifyUser("error occurred submitting class");
 				},
 				error: function(error) {
-					console.log("instructor settings - submit class error");
-					console.log(error);
+					//console.log("instructor settings - submit class error");
+					//console.log(error);
 					notifications.notifyUser("error occurred submitting class");
 				},
 				wait: true,
@@ -250,6 +234,39 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			};
 
 			this.collegeClass.save({}, options);
+		},
+		
+		commandDeleteClass: function() {
+			//this.selectedClassId
+			var className = this.collegeClass.get('className');
+			var thisPage = this;
+			require(['bootbox'], function(bootbox) {
+				bootbox.confirm({
+				    //title: "Remove student from class",
+				    message: "Delete "+className+"?",
+				    buttons: {
+				        cancel: {
+				            label: '<i class="fa fa-times"></i> Cancel'
+				        },
+				        confirm: {
+				            label: '<i class="fa fa-check"></i> Confirm'
+				        }
+				    },
+				    callback: function (result) {
+				    	if(result) {
+					        thisPage.collegeClass.destroy({
+								success: function(response) {
+									notifications.notifyUser("class deleted");
+								},
+								error: function(error) {
+									notifications.notifyUser("an error occurred deleting class");
+									//console.log(error);
+								}
+							});
+						}
+				    }
+				});
+			});
 		},
 		
 		commandAddStudent: function() {
@@ -260,26 +277,31 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		commandSubmitStudent: function() {
 			var emailInput = this.$(".studentEmailInput").val();
 			if(utils.isValidEmail(emailInput)) {
-				var selectedClass = user.person.classes.get(this.selectedClassId);
-				var thisPage = this;
-				selectedClass.addStudent({
-					email: emailInput,
-					classId: this.selectedClassId,
-					ownerId: user.person.get('personId'),
-					success: function(student) {
-						selectedClass.students.add(student, {merge:true});
-						thisPage.renderStudent(student);
-					},
-					appError: function(response) {
-						response.message = response.message || response;
-						notifications.notifyUser("student couldn't be added: " + response.message);
-					},
-					error: function(error) {
-						notifications.notifyUser("an error occurred adding student");
-						console.log(error);
-					}
-				});
-				this.$(".studentEmailInput").attr('color','unset').empty();
+				if(user.person.classes && this.selectedClassId) {
+					var selectedClass = user.person.classes.get(this.selectedClassId);
+					var thisPage = this;
+					selectedClass.addStudent({
+						email: emailInput,
+						classId: this.selectedClassId,
+						ownerId: user.person.get('personId'),
+						success: function(student) {
+							selectedClass.students.add(student, {merge:true});
+							thisPage.$(".studentEmailInput").val("");
+							thisPage.renderStudent(student);
+						},
+						appError: function(response) {
+							response.message = response.message || response;
+							notifications.notifyUser("student couldn't be added: " + response.message);
+						},
+						error: function(error) {
+							notifications.notifyUser("an error occurred adding student");
+							//console.log(error);
+						}
+					});
+					this.$(".studentEmailInput").attr('color','unset').empty();
+				} else {
+					notifications.notifyUser("cannot find selected class, please refresh page and try again.");
+				}
 			} else {
 				this.$(".studentEmailInput").attr('color','red');
 				notifications.notifyUser("email isn't valid");
@@ -291,22 +313,42 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			var selectedClass = user.person.classes.get(this.selectedClassId);
 			var student = selectedClass.students.findWhere({'email': email});
 			var thisPage = this;
-			selectedClass.removeStudent({
-				classId: student.get('classId'),
-				email: student.get('email'),
-				success: function(response) {
-					if(response) {
-						console.log("student removed");
-						thisPage.$(event.currentTarget.parent).remove();
-						selectedClass.students.remove(student);
-					}
-				},
-				error: function(error) {
-					notifications.notifyUser("an error occurred removing student");
-					console.log(error);
-				}				
+			require(['bootbox'], function(bootbox) {
+				bootbox.confirm({
+				    //title: "Remove student from class",
+				    message: "Remove "+ email + "?",
+				    buttons: {
+				        cancel: {
+				            label: '<i class="fa fa-times"></i> Cancel'
+				        },
+				        confirm: {
+				            label: '<i class="fa fa-check"></i> Confirm'
+				        }
+				    },
+				    callback: function (result) {
+				    	if(result) {
+					        selectedClass.removeStudent({
+								classId: student.get('classId'),
+								email: student.get('email'),
+								success: function(response) {
+									if(response) {
+										//console.log("student removed");
+										thisPage.$(event.currentTarget).parent().parent().remove();
+										selectedClass.students.remove(student);
+										if(!selectedClass.students.length) {
+											thisPage.$(".studentListSection").hide();
+										}
+									}
+								},
+								error: function(error) {
+									notifications.notifyUser("an error occurred removing student");
+									//console.log(error);
+								}				
+							});
+						}
+				    }
+				});
 			});
-			
 		}
 	});
 	return eLeap.own.InstructorSettingsPage;

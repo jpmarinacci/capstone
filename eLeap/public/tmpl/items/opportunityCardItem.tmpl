@@ -1,4 +1,4 @@
-<div class="oppItemCard" data-oppId="<%= opp.opportunityId %>">
+<div data-oppId="<%= opp.opportunityId %>">
 	<div class="cardHeader">
 	    <div class="oppItemPicContainer">
 	        <!--i class="far fa-file icon-middle"></i-->
@@ -13,7 +13,7 @@
             	[<%= opp.status %>]
             </small>
 	    </div>
-	    <div class="oppItemApproveDenyBlock row initialDisplayNone" data-oppId="<%= opp.opportunityId %>">
+	    <div class="oppItemApproveDenyBlock row initHidden" data-oppId="<%= opp.opportunityId %>">
 		    <div class="col-12 mb10">
 		    	<div class="row">
 		        	<div class="oppItemApproveBtn col-6 inlineBlock centerText pointer" data-oppId="<%= opp.opportunityId %>">
@@ -28,49 +28,50 @@
 		    </div>
 		</div>
 	</div>
-	
 	<div class="card-body">
-				
 	    <% if((opp.startDateTime) && (opp.endDateTime)) {%>
 		    <div class="oppItemField card-subtitle mb-2">
 		        <span><%= utils.dateTimeToDisplay(opp.startDateTime) %> - <br><%= utils.dateTimeToDisplay(opp.endDateTime) %></span>
-		    <hr>
+		    	<hr>
 		    </div>
 	    <% } %>
-	    
 		<div class="oppItemField card-subtitle mb-2">
 	        <span>type:</span>
 	        <span><b><%= opp.opportunityType %></b></span>
 	    </div>
-			
 	    <div class="oppItemField card-subtitle mb-2">
 	        <span>class opportunity:</span>
 	        <span><b><% if(opp.isClass) {%>yes<%}else{%>no<%}%></b></span>
 	    </div>
-	    
-	    <% if(opp.totalSeats){%>
+	    <% if(opp.totalSeats){ %>
 		    <div class="oppItemField card-subtitle mt5 mb5">
 		        <span>Available seats:</span>
 		        <span><%= opp.availableSeats %> out of <%= opp.totalSeats %></span>
 		    </div>
-	        <% if(opp.availableSeats){%>
-		        <div class="oppItemField card-subtitle progress mb10">
-		            <div class="progress-bar bg-info" role="progressbar" style="width: <%= opp.availableSeats/opp.totalSeats*100 %>%;" aria-valuenow="<%= opp.availableSeats/opp.totalSeats*100 %>" aria-valuemin="0" aria-valuemax="100">
-		            	<%= opp.availableSeats/opp.totalSeats*100 %>%</div>
-		        </div>
-	        <% } else { %>
-		        <div class="oppItemField card-subtitle progress">
-		            <div class="progress-bar bg-full" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">FULL</div>
-		        </div>
-	        <% } %>
-	    <% } %>
-		
+		<% } %>
+        <!--<% if(opp.availableSeats){%>-->
+        <div class="oppItemField card-subtitle progress mb10">
+        	<% if(availablePrct) {%>
+        		<div class="progress-bar bg-info" role="progressbar" style="width: <%= availablePrct %>%;" aria-valuenow="<%= availablePrct %>" aria-valuemin="0" aria-valuemax="100">
+        			<%= availablePrct %>%
+            	</div>
+            <% } else { %>
+            	<div class="progress-bar bg-info" role="progressbar" aria-valuenow="<%= availablePrct %>" aria-valuemin="0" aria-valuemax="100"></div>
+           	<% } %>
+        </div>
+        <!--<% } else { %>
+	        <div class="oppItemField card-subtitle progress">
+	            <div class="progress-bar bg-full" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">FULL</div>
+	        </div>
+        <% } %>-->
 	    <div class="oppItemField dashDesc">
-	    	<hr>
-	        <div class="card-text mt-4 mb-2">
+	    	<!--hr-->
+	        <div class="card-text mb-2">
 	        	<%= opp.description %>
 	        </div>
 	    </div>
-	    <div class="col-12 card-link centerText">More&gt;&gt;</div>
 	</div>
+	<div class="oppItemFooter">
+    	<div class="oppItemMoreBtn btn btn--decorated">More&gt;&gt;</div>
+    </div>
 </div>

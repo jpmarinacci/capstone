@@ -6,9 +6,9 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'controllers/cache', 'controllers/notifications', 
-		'controllers/router', 'controllers/user', 'forms/opportunityForm', 'items/opportunityDetailItem',
+		'controllers/router', 'controllers/user', 'forms/opportunityForm', 'panels/opportunityDetailPanel',
 		'text!../../tmpl/pages/opportunityPage.tmpl'],
-	function (eLeap, $, _, Backbone, CollegeClass, cache, notifications, router, user, OpportunityForm, OpportunityDetailItem, 
+	function (eLeap, $, _, Backbone, CollegeClass, cache, notifications, router, user, OpportunityForm, OpportunityDetailPanel, 
 		opportunityPageTmpl) { 'use strict';
 	
 	eLeap.own.OpportunityPage = Backbone.View.extend({
@@ -37,19 +37,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 					//router.navigate('/dashboard', {trigger: true});
 				}
 			}
-			//test code
-			/*var testClass = new CollegeClass({
-				classId: 3,
-				className: "testEditClass",
-				courseSummary: "blah edited summary",
-				estimatedClassSize: 5,
-				ownerId : 3,
-				section: "test",
-				term: "test",
-				year: 2018
-			});
-			//testClass.fetch();
-			testClass.destroy();*/
 		},
 				
 		renderFramework: function(){
@@ -111,6 +98,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 			this.mode = "create",
 			this.showEditView();
 			this.$(".oppBreadCrumbTitle").text("Create");
+			if(this.opportunityForm) {
+				this.opportunityForm.remove();
+			}
 			this.opportunityForm = new OpportunityForm({
 				el: this.$(".opportunityPageCreateForm")
 			});
@@ -175,10 +165,10 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 		
 		renderViewMode: function() {
 			if(this.opp.get('title')){
-				var opportunityView = new OpportunityDetailItem({
+				this.opportunityDetailPanel = new OpportunityDetailPanel({
 					opportunity: this.opp
 				});
-				this.$(".opportunityView").html(opportunityView.render());
+				this.$(".opportunityView").html(this.opportunityDetailPanel.render());
 				this.$(".oppBreadCrumbTitle").text(this.opp.get('title'));
 				this.commandDispatcher.trigger("show:oppViewBtns");
 				this.decideDisplayEdit();
@@ -294,6 +284,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 			if(this.opportunityForm) {
 				this.opportunityForm.remove();
 			}
+			if(this.opportunityDetailPanel) {
+				this.opportunityDetailPanel.remove();
+			}
 			if(this.commandDispatcher) {
 				this.commandDispatcher.trigger('hide:oppViewBtns');
 			}
@@ -304,4 +297,3 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 	});
 	return eLeap.own.OpportunityPage;
 });
-

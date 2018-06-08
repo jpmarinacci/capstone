@@ -2,8 +2,9 @@
  * @author: JP Marinacci
  */
 
-define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications', 'controllers/restServer', 'models/person'],
-	function ($, _, Backbone, eLeap, notifications, server, Person) { 'use strict';
+define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications', 'controllers/restServer',
+		'collections/collegeClasses', 'models/person'],
+	function ($, _, Backbone, eLeap, notifications, server, CollegeClasses, Person) { 'use strict';
 	
 	var thisUser = undefined;
 	
@@ -15,6 +16,16 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 		initialize: function(options) {
 			options = options || {};
 			this.person = new Person();
+		},
+		
+		clientLogin: function() {
+			this.isLoggedIn = true;
+			this.trigger('user:loggedIn');
+		},
+		
+		clientLogout: function() {
+			this.isLoggedIn = false;
+			this.trigger('user:loggedOut');
 		},
 		
 		login: function () {
@@ -39,16 +50,6 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 			}, loginSuccess, loginError, options);
 		},
 		
-		clientLogin: function() {
-			this.isLoggedIn = true;
-			this.trigger('user:loggedIn');
-		},
-		
-		clientLogout: function() {
-			this.isLoggedIn = false;
-			this.trigger('user:loggedOut');
-		},
-		
 		logout: function() {
 			this.clientLogout();
 			var logoutSuccess = function(response) {
@@ -60,17 +61,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 			};
 			server.postRoute('/logout', {}, logoutSuccess, logoutError);
 		},
-		
-		fetchPerson: function() {
-			var options = {
-				success: function(person) {
-					console.log(person);
-				},
-				error: function(error) {}
-			};
-			this.person.fetch({}, options);
-		},
-		
+				
 		checkLoginState: function() {
 			if(this.logInStatusChecked) {
 				return this.isLoggedIn;
@@ -91,10 +82,66 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/notifications'
 				thisUser.trigger('isLoggedInCheck:returned');
 			};
 			var loginError = function(error) {
-				console.log(error);
+				//console.log(error);
 			};
 			var options = {};
 			server.postRoute('/isUserLoggedIn', {}, isLoggedInSuccess, loginError, options);
+		},
+		
+		fetchPerson: function() {
+			var options = {
+				success: function(person) {
+					//console.log(person);
+				},
+				error: function(error) {}
+			};
+			this.person.fetch({}, options);
+		},
+		
+		fetchClasses: function(options) {
+			options = options || {};
+			if(this.person && this.person.classes) {
+				if(this.person.classes.isFetched) {
+					this.person.classes.trigger('reset');
+				} else {
+					this.person.classes.isFetchPending = true;
+					
+					var chainedSuccess = options.success;
+					var chainedError = options.error;
+					var context = options.context || this;
+					
+					options.success = function(response) {
+						thisUser.person.classes.isFetchPending = false;
+						thisUser.person.classes.isFetched = true;
+						if(response && response.length) {
+							thisUser.person.classes.reset(response.models);
+						} else {
+							thisUser.person.classes.trigger('reset');
+						}
+						if(chainedSuccess) {
+							chainedSuccess.call(response, context);
+						}
+					};
+					options.appError = function(appError) {
+						thisUser.person.classes.isFetchPending = false;
+						thisUser.person.classes.isFetched = true;
+						thisUser.person.classes.trigger('reset');
+						//console.log("user - fetch classes appError");
+						//console.log(appError);
+					};
+					options.error = function(error) {
+						//console.log("user - fetch classes error");
+						//console.log(error);
+						if(chainedError) {
+							chainedError.call(response, context);
+						}
+					};
+					options.reset = true;
+					var classesRetriever = new CollegeClasses();
+					classesRetriever.fetch(options);
+					//this.person.classes.fetch(options);
+				}
+			}
 		}
 	});
 	

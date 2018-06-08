@@ -6,8 +6,7 @@
 /*global eLeap:true */
 
 define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/themeSettingsPage.tmpl'],
-function (eLeap, $, _, Backbone, themeSettingsPageTmpl) {
-	'use strict';
+	function (eLeap, $, _, Backbone, themeSettingsPageTmpl) {'use strict';
 		
 	eLeap.own.ThemeSettingsPage = Backbone.View.extend({
 		
@@ -24,3 +23,4 @@ function (eLeap, $, _, Backbone, themeSettingsPageTmpl) {
 	});
 	return eLeap.own.ThemeSettingsPage;
 });
+

@@ -105,27 +105,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/restServer'],
 					}
 				});
 			}
-		},
-		
-		/*parse: function (dbRole) {
-			return this.translateRoleFromDB(dbRole);
-		},
-		
-		translateRoleFromDB: function(dbRole){
-			var jsonRole = {};
-			if(dbRole.RoleID)					jsonRole.roleId = dbRole.RoleID;
-			if(dbRole.RoleDescription)			jsonRole.roleDescription = dbRole.RoleDescription;
-			if(dbRole.RoleName)					jsonRole.roleName = dbRole.RoleName;
-			return jsonRole;
-		},
-		
-		translateRoleToDB: function(){
-			var dbRole = {};
-			if(dbRole.roleId)					jsonRole.RoleID = dbRole.roleId;
-			if(dbRole.roleDescription)			jsonRole.RoleDescription = dbRole.roleDescription;
-			if(dbRole.roleName)					jsonRole.RoleName = dbRole.roleName;
-			return dbRole;
-		}*/
+		}
 	});
 
 	return eLeap.own.Role;

@@ -42,7 +42,7 @@ var persons = {
 	    				}
 	    			}
 	    		}
-	    		var person = (results && results[0] && results[1] && results[1][0]) ? results[1][0] : {};
+	    		var person = (results && results[0] && results[1] && results[1][0]) ? results[1][0] : [];
 	    		person.status = (results && results[0] && results[0][0]) ? results[0][0].status : "invalid";
 	    		if(person && person.personId) {
 	    			delete person.credential;
@@ -57,6 +57,8 @@ var persons = {
 						httpOnly: true
 					});
 					console.log(response.cookie);
+	    		} else {
+	    			response.clearCookie('eLeapId');
 	    		}
 	    		response.send(person);
 	    	}
@@ -94,10 +96,10 @@ var persons = {
 	    			console.log("sprocUpdatePer successful");
 	    			console.log("personId: "+ person.personID);
 	    		} else {
-	    			console.log("sprocUpdatePer error:");
+	    			console.log("sprocUpdatePer invalid:");
 	    			console.log(results);
+	    			person.status = "invalid";
 	    		}
-	    		
 	    		response.send(person);
 	    	}
 		});
@@ -119,24 +121,22 @@ var persons = {
 				results.sprocThatErrored = "sprocFindPerId";
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		console.log("sprocFindPerId returned");
-	    		console.log(results);
-	    		var returnResults = {};
-	    		if(Array.isArray(results) && results[0]){
+	    		console.log("sprocFindPerId results");
+	    		var returnResults = [];
+	    		if(Array.isArray(results) && results[0]) {
 	    			if(Array.isArray(results[0])){
 	    				var person = results[1][0];
-	    				if(person && person.length) {
+	    				if(person && person.credential) {
 	    					delete person.credential;
-	    					returnResults.status = "success";
 	    				}
-	    				returnResults = person;
+	    				returnResults = person || [];
+			    		returnResults.status = "success";
 			    		console.log("sprocFindPerId successful");
-			    		console.log(returnResults);
+	    			} else {
+	    				returnResults = [{'status':'invalid'}];
 	    			}
 	    		} else {
-	    			returnResults = {
-		    			'status':'invalid'
-		    		};
+	    			returnResults = [{'status':'invalid'}];
 	    		}
 	    		response.send(returnResults);
 	    	}
@@ -152,7 +152,7 @@ var persons = {
 				results.sprocThatErrored = "sprocAllPer";
 				dbServer.processSprocError(results, response);
 	    	} else {
-	    		var returnResults = results[0] || {};
+	    		var returnResults = results[0] || [];
 	    		returnReuslts.status = "success";
 	    		console.log("sprocAllPer successful");
 	    		response.send(returnResults);

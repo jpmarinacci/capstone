@@ -10,6 +10,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 		'text!../../tmpl/forms/opportunityForm.tmpl'],
 	function (eLeap, $, _, Backbone, datetimepicker, utils, cache, user, notifications, router, CollegeClasses, Opportunity, 
 		 opportunityFormTmpl) { 'use strict';
+		 
 	eLeap.own.OpportunityForm = Backbone.View.extend({
 		
 		formTmpl: _.template(opportunityFormTmpl),
@@ -30,6 +31,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			'change .oppFormTotalSeats': 'commandChangeTotalSeats',
 			
 			'click .oppFormIsClass': 'toggleClassSection',
+			'click .oppFormIsTeams': 'toggleTeamsSection',
 			'click .oppFormOppType': 'toggleTypeSection',
 			'click .saveOppBtn': 'commandSaveOpportunity',
 			'click .deleteOppBtn': 'commandDeleteOpportunity'
@@ -79,17 +81,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
                     down: "fa fa-arrow-down",
                     previous: "glyphicon glyphicon-chevron-left",
                     next: "glyphicon glyphicon-chevron-right"
-                    /*previous: "fa fa-angle-left",
-                    next: "fa fa-angle-right",
-                    time: 'glyphicon glyphicon-time',
-		            date: 'glyphicon glyphicon-calendar',
-		            up: 'glyphicon glyphicon-chevron-up',
-		            down: 'glyphicon glyphicon-chevron-down',
-		            previous: 'glyphicon glyphicon-chevron-left',
-		            next: 'glyphicon glyphicon-chevron-right',
-		            today: 'glyphicon glyphicon-screenshot',
-		            clear: 'glyphicon glyphicon-trash',
-		            close: 'glyphicon glyphicon-remove'*/
                 }
 			});
 			
@@ -121,30 +112,15 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 				this.listenTo(user.person.classes, 'reset', this.gotOwnedClasses);
 			}
 		},
-		
-		fetchOwnedClasses: function() {
-			if(user.person.classes.isFetched) {
-				this.gotOwnedClasses();
-			} else {
-				user.person.classes.isFetchPending = true;
-				user.person.classes.fetch({
-					ownerId: user.person.get('personId'),
-					reset: true,
-					success: function() {
-						user.person.classes.isFetched = true;
-					},
-					error: function(error) {
-						console.log("oppForm - fetch classes error");
-						console.log(error);
-					}
-				});
-			}
-		},
-		
+
 		getClasses: function() {
 			user.person.classes = user.person.classes || new CollegeClasses();
 			this.listenForClassesEvents();
-			this.fetchOwnedClasses();
+			if(user.person.classes.isFetched) {
+				this.gotOwnedClasses();
+			} else {
+				user.fetchClasses({ownerId: user.person.get('personId')});
+			}
 		},
 				
 		gotOwnedClasses: function() {
@@ -169,6 +145,10 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 		toggleClassSection: function() {
 			this.$(".oppFormClassSection").toggle();
 			this.$(".oppFormNonClassSection").toggle();
+		},
+		
+		toggleTeamsSection: function() {
+			this.$(".oppFormTeamsSection").toggle();
 		},
 		
 		toggleTypeSection: function(event, options) {
@@ -379,7 +359,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			if(this.opportunity.get('opportunityType') === 'deliverable') {
 				this.$(".oppFormDeliverables").val(this.opportunity.get('deliverables'));
 			} else {
-				this.$(".oppFormProductDeliverables").val(this.opportunity.get('deliverables'));
+				this.$(".oppFormProjectDeliverables").val(this.opportunity.get('deliverables'));
 			}
 			this.$(".oppFormDescription").val(this.opportunity.get('description'));
 			this.$(".oppFormDonation").val(this.opportunity.get('donation'));
@@ -478,7 +458,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			} 
 			switch(oppType) {
 				case 'project':
-					oppJson.deliverables = this.$(".oppFormProductDeliverables").val();
+					oppJson.deliverables = this.$(".oppFormProjectDeliverables").val();
 					oppJson.notAllowed = this.$(".oppFormNotAllowed").val();
 					oppJson.agencyCommitment = this.$(".oppFormAgencyCommitment").val();
 					oppJson.preferredAgencyType = this.$(".oppFormAgencyType").val();
@@ -512,6 +492,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 		},
 		
 		renderResults: function(opportunity) {
+			/* used for early stage development*/
 			var thisForm = this;
 			this.$(".oppFormResults").show();
 			this.$(".oppFormResults .resultsList").empty();
@@ -519,9 +500,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 				thisForm.$(".oppFormResults .resultsList").append("<li>"+index+": "+ item +"</li>");
 			});
 			
-			/*setTimeout(function() {
+			setTimeout(function() {
 				thisForm.$(".oppFormResults").fadeOut(1000);			
-			}, 10000);*/
+			}, 10000);
 		},
 		
 		commandSaveOpportunity: function() {
@@ -537,9 +518,10 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 					}
 					notifications.notifyUser(message);
 					
-					if(!thisForm.options.opportunity) {
+					if(!thisForm.options.opportunity && opportunity && opportunity.get('opportunityId')) {
 						router.navigate('opportunity/'+ opportunity.get('opportunityId'), {trigger: true});	
 					}
+					/* used for early stage development*/
 					//thisForm.renderResults(thisForm.opportunity);
 				},
 				error: function(error) {
@@ -571,19 +553,38 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 		},
 		
 		commandDeleteOpportunity: function() {
-			if (confirm('Confirm delete this opportunity?')) {
-			    var options = {
-		        	success: function(opportunity) {
-						notifications.notifyUser("opportunity deleted");
-						router.navigate('/dashboard', {trigger: true});
-					},
-					error: function(error) {
-						notifications.notifyUser("error -- opportunity deletion failed: /n"+ error);
-					}
-				};
-				this.opportunity.destroy(options);
-			}
+			var thisForm = this;
+			var title = this.opportunity.get('title');
+			require(['bootbox'], function(bootbox) {
+				bootbox.confirm({
+				    //title: "Remove student from class",
+				    message: "delete "+title+"?",
+				    buttons: {
+				        cancel: {
+				            label: '<i class="fa fa-times"></i> Cancel'
+				        },
+				        confirm: {
+				            label: '<i class="fa fa-check"></i> Confirm'
+				        }
+				    },
+				    callback: function (result) {
+				    	if(result) {
+					       var options = {
+					        	success: function(opportunity) {
+									notifications.notifyUser("opportunity deleted");
+									router.navigate('/dashboard', {trigger: true});
+								},
+								error: function(error) {
+									notifications.notifyUser("error -- opportunity deletion failed: /n"+ error);
+								}
+							};
+							thisForm.opportunity.destroy(options);
+						}
+				    }
+				});
+			});
 		}
 	});
 	return eLeap.own.OpportunityForm;
 });
+

@@ -49,6 +49,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/notifications'
 			});
 			router.lastRoute = '/dashboard';
 			user.login();
+			
 			/*setTimeout(function(){
 				router.lastRoute = '/dashboard';
 				user.login();

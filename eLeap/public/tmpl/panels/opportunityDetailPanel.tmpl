@@ -18,11 +18,28 @@
             </div>
         <%}%>
     </div>
-    <div class="row mt-2 mb-2 ml-2 mr-2">
-        <div class="col-12 col-sm-5">
-            <div class="card">
-                <div class="oppItemField">
+    <div class="row mt-2 mb-2 ml-2">
+        <div class="col-12 col-md-5">
+            <div class="card oppItemField">
                 <ul class="list-group list-group-flush">
+                	<% if(opp.status) {%>
+                        <li class="list-group-item">
+                            <b>Status: </b><br>
+                            <%= opp.status %>
+                        </li>
+                    <%}%>
+                	<% if(opp.startDateTime) {%>
+                        <li class="list-group-item">
+                            <b>Start date time:</b><br>
+                            <%= utils.dateTimeToDisplay(opp.startDateTime) %>
+                        </li>
+                    <%}%>
+                    <% if(opp.endDateTime) {%>
+                        <li class="list-group-item">
+                            <b>End date:</b><br>
+                            <%= utils.dateTimeToDisplay(opp.endDateTime) %>
+                        </li>
+                    <%}%>
                     <% if(opp.ownerName) {%>
                         <li class="list-group-item">
                             <b>Owner Name:</b><br>
@@ -35,12 +52,7 @@
                              <%= utils.dateTimeToDisplay(opp.createDate) %>
                         </li>
                     <%}%>
-                    <% if(opp.status) {%>
-                        <li class="list-group-item">
-                            <b>Status: </b><br>
-                            <%= opp.status %>
-                        </li>
-                    <%}%>
+
                     <% if(opp.totalSeats) {%>
                         <li class="list-group-item">
                             <b>Total seats:</b><br>
@@ -113,12 +125,7 @@
                             <%= opp.duration %>
                         </li>
                     <%}%>
-                    <% if(opp.endDateTime) {%>
-                        <li class="list-group-item">
-                            <b>End date:</b><br>
-                            <%= utils.dateTimeToDisplay(opp.endDateTime) %>
-                        </li>
-                    <%}%>
+
                     <% if(opp.estimatedClassSize) {%>
                         <li class="list-group-item">
                             <b>Estimated class size:</b><br>
@@ -257,12 +264,6 @@
                             <%= opp.requirements %>
                         </li>
                     <%}%>
-                    <% if(opp.startDateTime) {%>
-                        <li class="list-group-item">
-                            <b>Start date time:</b><br>
-                            <%= utils.dateTimeToDisplay(opp.startDateTime) %>
-                        </li>
-                    <%}%>
                     <% if(opp.supportDescription) {%>
                         <li class="list-group-item">
                             <b>Support description:</b><br>
@@ -301,17 +302,16 @@
                     <%}%>
                 </ul>
             </div>
-            </div>
         </div>
-        <div class="col-12 col-sm-7">
-            <% if(opp.description) {%>
+        <% if(opp.description) {%>
+	        <div class="col-12 col-md-7">
                 <div class="card-body">
                     <div class="card-text detailDesc">
                         <%= opp.description %>
                     </div>
                 </div>
-            <%}%>
-        </div>
+	        </div>
+        <%}%>
     </div>
 </div>
 

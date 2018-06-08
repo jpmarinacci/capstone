@@ -2,7 +2,6 @@
  * @author: JP Marinacci
  */
 
-
 define(['jquery', 'underscore', 'backbone', 'eLeap'],
 	function ($, _, Backbone, eLeap) { 'use strict';
 	
@@ -22,17 +21,14 @@ define(['jquery', 'underscore', 'backbone', 'eLeap'],
 		
 		notifyUser: function(message, options) {
 			options = options || {};
-			options.isFade = options.isFade === false ? false : true;
 			options.displayTime = options.displayTime || 8000;
 			options.fadeTime = options.fadeTime || 1000;
-			options.classes = options.classes || "";
 			
-			this.$("#notificationMessage").html(message).show(); //.addClass(options.classes);
-			if(options.isFade){
-				setTimeout(function(){
-					thisNotifications.fadeOutMessage(options.fadeTime);			
-				}, options.displayTime);
-			}
+			this.$("#notificationMessage").html(message).show();
+			
+			setTimeout(function(){
+				thisNotifications.fadeOutMessage(options.fadeTime);			
+			}, options.displayTime);
 			this.$("#notifications").css('display','inline-block');
 		},
 		

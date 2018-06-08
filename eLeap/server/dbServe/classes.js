@@ -11,13 +11,13 @@ var collegeClasses = {
 		}
 		var params = [
 			request.body.className ? request.body.className : null,
-			request.boyd.classType ? request.body.classType: null,
+			request.body.classType ? request.body.classType: null,
 			request.body.courseSummary ? request.body.courseSummary : null,
-			request.body.estimatedClassSize ? request.body.estimatedClassSize: null,
-			request.body.ownerId ? request.body.ownerId : 3,
+			request.body.estimatedClassSize ? Number(request.body.estimatedClassSize): null,
+			request.body.ownerId ? Number(request.body.ownerId) : 3,
 			request.body.section ? request.body.section: null,
 			request.body.term ? request.body.term: null,
-			request.body.year ? request.body.year: null,
+			request.body.year ? Number(request.body.year): null,
 		];
 		
 		console.log("calling sprocAddClass");
@@ -37,7 +37,7 @@ var collegeClasses = {
 	    				}
 	    			}
 	    		}
-	    		var returnResults = results[0] ? results[0][0] || results[0]: {};
+	    		var returnResults = (results[0] && results[1] && results[1][0]) ? results[1][0]: [];
 	    		if(returnResults.classId) {
 	    			returnResults.status = "success";
 	    			console.log("sprocAddClass successful");
@@ -46,7 +46,6 @@ var collegeClasses = {
 	    			console.log("sprocAddClass invalid");
 	    			returnResults.status = "invalid";
 	    		}
-	    		
 	    		response.send(returnResults);
 	    	}
 		});
@@ -77,7 +76,6 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocUpdateClass returned");
-	    		console.log(results);
 	    		
 	    		//CanNotInsert:1064
 	    		if(Array.isArray(results) && results[0]){
@@ -90,7 +88,6 @@ var collegeClasses = {
 	    		}
 	    		var returnResults = results[0] ? results[0][0] || results[0]: {};
 	    		returnResults.status = "success";
-	    		
     			console.log("sprocUpdateClass successful");
 	    		response.send(returnResults);
 	    	}
@@ -114,10 +111,8 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocDeleteClass returned");
-	    		console.log(results);
-	    		var returnResults = (results && results[0] ? results[0]: results) || {};
+	    		var returnResults = (results && results[0] && results[0][0] ? results[0][0]: results) || {};
 	    		returnResults.status = "success";
-	    		
     			console.log("sprocDeleteClass successful");
 	    		response.send(returnResults);
 	    	}
@@ -142,10 +137,8 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocDeleteStudent returned");
-	    		console.log(results);
-	    		var returnResults = (results && results[0] ? results[0]: results) || {};
+	    		var returnResults = (results && results[0] && results[0][0] ? results[0][0]: results) || {};
 	    		returnResults.status = "success";
-	    		
     			console.log("sprocDeleteStudent successful");
 	    		response.send(returnResults);
 	    	}
@@ -168,7 +161,6 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAllOwnClass returned");
-	    		console.log(results);
 	    		var returnResults = results ? results[0] ? results[0]: results: {'status':'success', 'message':'no results'};
 	    		console.log("sprocAllCommunities successful");
 	    		response.send(returnResults);
@@ -192,9 +184,18 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAllJoinClass returned");
-	    		console.log(results);
-	    		var returnResults = results ? results[0] ? results[0]: results: {'status':'success', 'message':'no results'};
-	    		console.log("sprocAllJoinClass successful");
+	    		var returnResults = {};
+	    		if(results && results.length && Array.isArray(results[0])) {
+	    			console.log("sprocAllJoinClass successful");
+	    			returnResults = results[0][0] && results[1] ? results[1] : {'status':'no results'};
+	    			console.log("joined classes: "+ returnResults.length);
+	    			/*if(results[0][0] && results[0][0].status) {
+	    				returnResults.status = results[0][0].status;
+	    			}*/
+	    		} else {
+	    			console.log("results returned malformed - sending status:invalid");
+	    			returnResults.status = "invalid";
+	    		}
 	    		response.send(returnResults);
 	    	}
 		});
@@ -218,12 +219,7 @@ var collegeClasses = {
 	    	} else {
 	    		console.log("sprocAddStudent returned");
 	    		console.log(results);
-	    		var returnResults = (results && results[0] && results[1] && results[1][0] ? results[1][0] : results) || {};
-	    		if(results && results[0] && results[0][0] && results[0][0].status) {
-	    			returnResults.status =  results[0][0].status;
-	    		} else {
-	    			returnResults.status = "success";
-	    		}
+	    		var returnResults = (results && results[0] && results[1] && results[1][0] ? results[1][0] : results) || [];
 	    		
 	    		console.log("sprocAddStudent successful");
 	    		response.send(returnResults);
@@ -247,7 +243,6 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAddStudents returned");
-	    		console.log(results);
 	    		var returnResults = (results && results[0] ? results[0] : results) || {};
 	    		returnResults.status = "success";
 	    		console.log("sprocAddStudents successful");
@@ -272,7 +267,6 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAllStudentInClass returned");
-	    		console.log(results);
 	    		var returnResults = (results && results[0] ? results[0]: results) || {};
 	    		returnResults.status = results[0] ? results[0] :"success";
 	    		console.log("sprocAllStudentInClass successful");
