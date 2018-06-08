@@ -211,6 +211,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 						if(collegeClass) {
 							user.person.classes.add(collegeClass);
 							thisPage.renderClasses();
+							thisPage.selectedClassId = collegeClass.get('classId');
 							thisPage.$(".classSelector").val(collegeClass.get('classId'));
 							thisPage.$(".studentsSection, .classFormDeleteBtn").show();
 						}
