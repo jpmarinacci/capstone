@@ -266,6 +266,12 @@ ul, ol {
 .pb40 {
 	padding-bottom: 40px;
 }
+.pb50 {
+	padding-bottom: 50px;
+}
+.pb60 {
+	padding-bottom: 60px;
+}
 
 .relative {
 	position: relative;
@@ -660,8 +666,8 @@ Main Video Background
 
 .main-video__title {
 	position: relative;
+	/*font-size: 7.3vmin;*/
 	font-size: 40px;
-	font-size: 7.3vmin;
 	color: #fff;
 	letter-spacing: 6px;
 	word-spacing: 6px;
@@ -675,9 +681,9 @@ Main Video Background
 	margin: 5% 0 10%;
 	/*margin: 5.5vmin 0 10vmin;*/
 	margin: 0 0 10vmin;
+	/*font-size: 3.5vmin;*/
 	font-size: 22px;
 	/*font-size: 2.3vmin;*/
-	font-size: 3.5vmin;
 	color: #fff;
 	text-transform: uppercase;
 }
@@ -1313,6 +1319,14 @@ Main Video Background
 		width: 530px;
 		height: 530px;
 	}
+	.main-video__title {
+		/*font-size: 28px;
+		padding: 10px;*/
+		margin-bottom: 40px;
+	}
+	.main-video__text .subText{
+		margin-bottom: 100px;
+	}
 }
 @media only screen and (min-width: 1200px) {
 	.opportunitiesList {
@@ -1378,6 +1392,15 @@ Main Video Background
 		margin-right: 10px;
 	}
 }
+@media only screen and (max-width: 620px) {
+	.main-video__title {
+		font-size: 32px;
+		padding: 20px;
+	}
+	.main-video__text {
+		font-size: 18px;
+	}
+}
 @media only screen and (max-width: 575px) {
 	.saveOppBtn.topBtns, .deleteOppBtn.topBtns {
 		display: none !important;
@@ -1435,9 +1458,13 @@ Main Video Background
 		float: none;
 		margin: 10px;
 	}
-	.progress {
-		/*width: 85%;*/ 
-   	}
+	.main-video__title {
+		font-size: 28px;
+		padding: 10px;
+	}
+	.main-video__text {
+		font-size: 14px;
+	}
 }
 @media only screen and (max-width: 320px) {
 	.oppCardItem {
