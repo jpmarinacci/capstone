@@ -857,7 +857,11 @@ Main Video Background
 	color: #17a2b8;
 	font-weight: 600;
 }
-
+.oppItemMoreBtn{
+	font-size: 14px;
+    padding: 10px 18px 8px 20px;
+    border-radius: 16px;
+}
 .oppListItem .oppItemMoreBtn {
 	float: right;
 	margin: 10px;
