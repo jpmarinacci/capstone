@@ -939,6 +939,7 @@ Main Video Background
 .requiredKey {
 	font-size: 14px;
     color: #ffc107;
+    -webkit-text-stroke: 0.25px black;
 }
 
 .required:before {
