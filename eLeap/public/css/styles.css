@@ -947,6 +947,13 @@ Main Video Background
 	margin-top: 3px;
 	margin-right: 4px;
 }
+.studentNotJoinedIcon {
+	float: right;
+	color: #ba1512;
+	-webkit-text-stroke: 0.25px slategrey;
+	margin-top: 3px;
+	margin-right: 4px;
+}
 
 .removeStudentBtn {
 	cursor: pointer;

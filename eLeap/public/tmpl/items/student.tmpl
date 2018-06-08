@@ -6,6 +6,8 @@
 		<i class='removeStudentBtn fa fa-trash-alt' data-email='<%= student.get('email') %>' title='remove student'></i>
 		<% if(student.get('personId')) {%>
 			<i class='studentJoinedIcon fa fa-user-check' title='student has signed up'></i>
+		<% } else {%>
+			<i class='studentNotJoinedIcon fa fa-user-check' title='student has not signed up'></i>
 		<% } %>
 	</span>
 </li>
