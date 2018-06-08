@@ -56,10 +56,11 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/user', 'collec
 		},
 		
 		renderClasses: function() {
-			this.$(".studentClasses").empty();
+			this.$(".studentClasses").show();
+			this.$(".studentClassList").empty();
 			var thisPage = this;
 			user.person.classes.each(function(collegClass) {
-				thisPage.$(".studentClasses").append(thisPage.classItemTmpl({
+				thisPage.$(".studentClassList").append(thisPage.classItemTmpl({
 					collegeClass: collegClass.toJSON()
 				}));
 			});
