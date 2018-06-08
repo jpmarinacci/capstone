@@ -211,6 +211,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 						if(collegeClass) {
 							user.person.classes.add(collegeClass);
 							thisPage.renderClasses();
+							thisPage.selectedClassId = collegeClass.get('classId');
 							thisPage.$(".classSelector").val(collegeClass.get('classId'));
 							thisPage.$(".studentsSection, .classFormDeleteBtn").show();
 						}
@@ -276,27 +277,31 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		commandSubmitStudent: function() {
 			var emailInput = this.$(".studentEmailInput").val();
 			if(utils.isValidEmail(emailInput)) {
-				var selectedClass = user.person.classes.get(this.selectedClassId);
-				var thisPage = this;
-				selectedClass.addStudent({
-					email: emailInput,
-					classId: this.selectedClassId,
-					ownerId: user.person.get('personId'),
-					success: function(student) {
-						selectedClass.students.add(student, {merge:true});
-						thisPage.$(".studentEmailInput").val("");
-						thisPage.renderStudent(student);
-					},
-					appError: function(response) {
-						response.message = response.message || response;
-						notifications.notifyUser("student couldn't be added: " + response.message);
-					},
-					error: function(error) {
-						notifications.notifyUser("an error occurred adding student");
-						//console.log(error);
-					}
-				});
-				this.$(".studentEmailInput").attr('color','unset').empty();
+				if(user.person.classes && this.selectedClassId) {
+					var selectedClass = user.person.classes.get(this.selectedClassId);
+					var thisPage = this;
+					selectedClass.addStudent({
+						email: emailInput,
+						classId: this.selectedClassId,
+						ownerId: user.person.get('personId'),
+						success: function(student) {
+							selectedClass.students.add(student, {merge:true});
+							thisPage.$(".studentEmailInput").val("");
+							thisPage.renderStudent(student);
+						},
+						appError: function(response) {
+							response.message = response.message || response;
+							notifications.notifyUser("student couldn't be added: " + response.message);
+						},
+						error: function(error) {
+							notifications.notifyUser("an error occurred adding student");
+							//console.log(error);
+						}
+					});
+					this.$(".studentEmailInput").attr('color','unset').empty();
+				} else {
+					notifications.notifyUser("cannot find selected class, please refresh page and try again.");
+				}
 			} else {
 				this.$(".studentEmailInput").attr('color','red');
 				notifications.notifyUser("email isn't valid");
