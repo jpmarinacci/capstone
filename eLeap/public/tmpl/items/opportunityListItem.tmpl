@@ -1,4 +1,4 @@
-<div data-oppId="<%= opp.opportunityId %>">
+<div data-opp-id="<%= opp.opportunityId %>">
 	<div class="oppItemPicContainer">
         <!--i class="far fa-file icon-middle"></i-->
         <img class="oppItemPic" src="img/docs.ico" />
@@ -7,14 +7,14 @@
         <div><%= opp.title %></div><small class="oppItemStatus">[<%= opp.status %>]</small>
     </div>
     <div class="col-12 col-sm-2">
-	    <div class="oppItemApproveDenyBlock row initHidden" data-oppId="<%= opp.opportunityId %>">
-	    	<div class="oppItemApproveBtn centerText inlineBlock pointer col-6" data-oppId="<%= opp.opportunityId %>">
-	        	<i class="fa fa-thumbs-up color-forest"></i><br>
-	        	<div class="fontExtraSmall">Approve</div>
+	    <div class="oppItemApproveDenyBlock row initHidden" data-opp-id="<%= opp.opportunityId %>">
+	    	<div class="oppItemApproveBtn centerText inlineBlock pointer col-6 initHidden" data-opp-id="<%= opp.opportunityId %>" data-button-type='approve'>
+	        	<i class="fa fa-thumbs-up color-forest" data-button-type='approve'></i><br>
+	        	<div class="fontExtraSmall" data-button-type='approve'>Approve</div>
 	    	</div>
-	    	<div class="oppItemDenyBtn inlineBlock centerText pointer col-6" data-oppId="<%= opp.opportunityId %>">
-	        	<i class="fa fa-thumbs-down color-crimson"></i><br>
-	        	<div class="fontExtraSmall">Deny</div>
+	    	<div class="oppItemDenyBtn inlineBlock centerText pointer col-6 initHidden" data-opp-id="<%= opp.opportunityId %>" data-button-type="deny">
+	        	<i class="fa fa-thumbs-down color-crimson" data-button-type="deny"></i><br>
+	        	<div class="fontExtraSmall" data-button-type="deny">Deny</div>
 	    	</div>	
 		</div>
 	</div>

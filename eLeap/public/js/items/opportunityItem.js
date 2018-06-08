@@ -28,11 +28,15 @@ function (eLeap, $, _, Backbone, utils, notifications, router, itemTmpl, listIte
 			this.opportunity = options.opportunity;
 			this.availablePrct = options.availablePrct;
 			this.render();
+			this.listenForEvents();
 		},
 		
 		listenForEvents: function() {
 			if(this.itemDispatcher) {
-				this.listentTo(this.itemDispatcher, 'remove:items', this.remove);
+				this.listenTo(this.itemDispatcher, 'remove:items', this.remove);
+			}
+			if(this.opportunity) {
+				//this.listenTo(this.opportunity, 'change', this.render);
 			}
 		},
 		
@@ -53,10 +57,78 @@ function (eLeap, $, _, Backbone, utils, notifications, router, itemTmpl, listIte
 			return this.el;
 		},
 		
-		commandClickItem: function() {
-			if(this.className === 'oppCardItem') {
+		commandClickItem: function(event) {
+			var target = event.target;
+			if(event.target.dataset) {
+				var type = event.target.dataset.buttonType;
+				var oppId = event.target.dataset.oppId;
+				if(type || oppId) {
+					if(!oppId) {
+						oppId = this.$(event.target).parent().data().oppId;
+					}
+				}
+			}
+			if(oppId) {
+				if(type === 'deny') {
+					this.commandDenyOpportunity();
+				} else {
+					this.commandApproveOpportunity();
+				}
+			} else if(this.className === 'oppCardItem') {
 				this.commandViewOpportunity();
 			}
+		},
+		
+		commandApproveOpportunity: function() {
+			var thisItem = this;
+			this.opportunity.save({'status':'approved'}, {
+				success: function(response) {
+					thisItem.render();
+					thisItem.$(".oppItemApproveDenyBlock, .oppItemDenyBtn").show();
+					thisItem.$(".oppItemApproveBtn").hide();
+				},
+				appError: function(response) {
+					var errorMessage = "update errored";
+					if(response && response.message) {
+						errorMessage = response.message;
+					}
+					notifications.notifyUser(errorMessage);
+				},
+				error: function(error){
+					var errorMessage = "update errored";
+					if(response && response.message) {
+						errorMessage = response.message;
+					}
+					notifications.notifyUser(errorMessage);
+				},
+				wait: true
+			});
+		},
+		
+		commandDenyOpportunity: function() {
+			var thisItem = this;
+			this.opportunity.save({'status':'denied'},{
+				success: function(response) {
+					thisItem.render();
+					thisItem.$(".oppItemApproveDenyBlock, .oppItemApproveBtn").show();
+					thisItem.$(".oppItemDenyBtn").hide();
+				},
+				appError: function(response) {
+					var errorMessage = "update errored";
+					if(response && response.message) {
+						errorMessage = response.message;
+					}
+					notifications.notifyUser(errorMessage);
+				},
+				error: function(error){
+					var errorMessage = "update errored";
+					if(response && response.message) {
+						errorMessage = response.message;
+					}
+					notifications.notifyUser(errorMessage);
+				},
+				wait: true
+			});
 		},
 		
 		commandClickMoreBtn: function() {

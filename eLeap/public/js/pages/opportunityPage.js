@@ -229,7 +229,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 		commandEditOpportunity: function() {
 			this.openEditMode();
 		},
-		
+				
 		commandApproveOpportunity: function() {
 			var thisPage = this;
 			this.opp.save({'status':'approved'}, {

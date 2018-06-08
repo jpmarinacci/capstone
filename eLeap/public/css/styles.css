@@ -1296,7 +1296,7 @@ Main Video Background
 	}
 }
 @media only screen and (min-width: 575px) {
-	.oppItemApproveDenyBlock .fontExtraSmall {
+	.oppListItem .oppItemApproveDenyBlock .fontExtraSmall {
 		display: none;
 	}
 	#Team {
@@ -1320,8 +1320,6 @@ Main Video Background
 		height: 530px;
 	}
 	.main-video__title {
-		/*font-size: 28px;
-		padding: 10px;*/
 		margin-bottom: 40px;
 	}
 	.main-video__text .subText{

@@ -21,8 +21,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		events: {
 			'click .cardModeBtn': 'commandCardView',
 			'click .listModeBtn': 'commandListView',
-			'click .oppItemApproveBtn': 'commandApproveOpp',
-			'click .oppItemDenyBtn': 'commandDenyOpp',
 		},
 		
 		initialize: function (options) {
@@ -237,12 +235,12 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		
 		renderApprovalButtons: function(opp) {
 			if(this.roleId > 5) {
-				this.$("[data-oppId='"+opp.get('opportunityId') +"']").show();
+				this.$("[data-opp-id='"+opp.get('opportunityId') +"']").show();
 				var status = opp.get('status'); 
 				if(status === 'approved') {
-					this.$(".oppItemApproveBtn[data-oppId='"+opp.get('opportunityId') +"']").hide();
+					this.$(".oppItemApproveBtn[data-opp-id='"+opp.get('opportunityId') +"']").hide();
 				} else if(status === 'denied') {
-					this.$(".oppItemDenyBtn[data-oppId='"+opp.get('opportunityId') +"']").hide();
+					this.$(".oppItemDenyBtn[data-opp-id='"+opp.get('opportunityId') +"']").hide();
 				}
 			}
 		},
@@ -269,14 +267,6 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 		commandListView: function() {
 			this.view = 'oppListItem';
 			this.switchView();
-		},
-		
-		commandApproveOpp: function() {
-			this.opp.save({'status':'approved'});
-		},
-		
-		commandDenyOpp: function() {
-			this.opp.save({'status':'denied'});
 		},
 		
 		remove: function() {
