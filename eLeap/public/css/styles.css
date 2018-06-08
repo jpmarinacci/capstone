@@ -822,6 +822,7 @@ Main Video Background
 	width: 40px;
 	height: 40px;
 	padding: 4px;
+	margin-right: 5px;
 }
 .oppItemPic {
 	height: auto;
@@ -839,10 +840,18 @@ Main Video Background
 	box-shadow: inset 0 0 2px #34495e;
 	cursor: pointer;
 }
-
 .progress {
-	margin-top: 2px;
+	display: block;
+	margin-top: -1px;
 	border: solid 0.5px #17a2b8;
+	height: 18px;
+}
+.progress-bar {
+	background-color: unset;
+}
+.progress-bar.bg-none {
+	color: #17a2b8;
+	font-weight: 600;
 }
 
 .oppListItem .oppItemMoreBtn {
@@ -872,7 +881,7 @@ Main Video Background
 }
 
 .detailDesc {
-	white-space: pre-wrap;
+	white-space: pre-line;
 	word-wrap: break-word;
 	font-size: 16px;
 }
