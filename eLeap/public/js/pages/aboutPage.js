@@ -13,13 +13,32 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'text!../../tmpl/pages/abou
 		
 		pageTmpl: _.template(aboutPageTmpl),
 		
+		events: {
+			'click .nextBtn': 'commandClickNextBtn',
+			'click .prevBtn': 'commandClickPrevBtn'
+		},
+		
 		initialize: function (options) {
 			this.options = _.extend({}, options);
 			this.renderFramework();
+			this.loadSlideShow();
 		},
 		
 		renderFramework: function(){
 			this.$el.html(this.pageTmpl({}));
+		},
+		
+		loadSlideShow: function() {
+			this.slides = $(".aboutSlides").toArray();
+		},
+		
+		commandClickNextBtn: function(event) {
+			this.$(this.slides[0]).hide();
+			this.$(this.slides[1]).show();
+		},
+		
+		commandClickPrevBtn: function(event) {
+			
 		}
 	});
 	return eLeap.own.AboutPage;

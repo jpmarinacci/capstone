@@ -10,8 +10,7 @@ body {
 				"Charcoal", "Monaco", Arial, Georgia, "monospace", "sans-serif"; 
 	font-size: 16px;
 	/*letter-spacing: 1px;*/
-	height: 100%;
-	min-height: 100%;
+	/*height: calc(100vh);*/
 	position: relative;
 	/*background-color: #34495e;*/
 }
@@ -53,7 +52,7 @@ ul, ol {
 }
 
 #pages, .nav-sidebar  {
-	min-height: calc(80.25vh);
+	min-height: calc(90vh);
 }
 
 #pages > div {
@@ -63,7 +62,11 @@ ul, ol {
 #pages, #sidebar {
 	/* corresponds with .bannerWrapper & footer*/
 	margin-top: 80px;
-	margin-bottom: 64px;
+	/*margin-bottom: 64px;*/
+}
+
+#sidebar {
+	background-color: #34495e;
 }
 
 .nav-sidebar {
@@ -970,18 +973,27 @@ Main Video Background
 
 /* About Page */
 
-
+.aboutTitle {
+	font-size: 20px;
+	font-weight: 600;
+	color: #34495e;
+}
+.aboutSlideShow .aboutSlides {
+	max-width: 240px;
+	width: auto;
+	height: auto;
+    border: solid 1px slategrey;
+    border-radius: 2px;
+}
 /* Team Page */
 
 #flashContent {
-	width:100%;
-	height:100%;
+	width: 100%;
+	height: 100%;
 }
 #Team {
 	float: none;
 	vertical-align: middle;
-	width: 700px;
-	height: 700px;
 }
 
 /* dbTest Page */
@@ -1243,28 +1255,56 @@ Main Video Background
 /**************** Media Queries *********************/
 
 @media only screen and (min-width: 320px) {
-	/* STYLES GO HERE */
+	#Team {
+		width: 220px;
+		height: 330px;
+	}
+	.aboutSlideShow .aboutSlides {
+	    max-width: 240px;
+	}
 }
 
 @media only screen and (min-width: 480px) {
-	/* STYLES GO HERE */
+	#Team {
+		height: 300px;
+		width: 350px;
+	}
+	.aboutSlideShow .aboutSlides {
+	    max-width: 360px;
+	}
 }
 @media only screen and (min-width: 575px) {
 	.oppItemApproveDenyBlock .fontExtraSmall {
 		display: none;
 	}
+	#Team {
+		width: 450px;
+	}
+	.aboutSlideShow .aboutSlides {
+	    max-width: 450px;
+	}
 }
 @media only screen and (min-width: 768px) {
-	/* STYLES GO HERE */
+	.aboutSlideShow .aboutSlides {
+	    max-width: 500px;
+	}
 }
 @media only screen and (min-width: 992px) {
-	/* STYLES GO HERE */
+	.aboutSlideShow .aboutSlides {
+	    max-width: 700px;
+	}
+	#Team {
+		width: 560px;
+		height: 560px;
+	}
 }
 @media only screen and (min-width: 1200px) {
 	.opportunitiesList {
 		text-align: left;
 	}
-	/* STYLES GO HERE */
+	.aboutSlideShow .aboutSlides {
+	    max-width: 850px;
+	}
 }
 @media only screen and (min-width: 1224px) {
 	/* STYLES GO HERE */
@@ -1282,6 +1322,7 @@ Main Video Background
 	.btnLogoutText {
 		display: none;
 	}
+
 }
 @media only screen and (max-width: 767px) {
 	.hidden-sm {
@@ -1326,7 +1367,7 @@ Main Video Background
 @media only screen and (max-width: 479px) {
 	#pages, #sidebar {
 	    margin-top: 40px;
-	    min-height: calc(85.75vh);
+	    min-height: calc(93.25vh);
 	}
 	.bannerWrapper {
 		height: 40px;
