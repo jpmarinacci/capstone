@@ -1,4 +1,6 @@
-I'm JP Marinacci, a full stack developer.  I work as a full time web developer at <a href='Arczap.com'>ArcZap.com</a>.  There we host a MTG calendar website for gamers. 
+I'm JP Marinacci, a full stack developer.  I work as a full time web developer at ArcZap.com.  We host a MTG calendar website for gamers. 
 I'm nearly finished with getting my BAS in Information Systems here at Bellevue College.  I also am certified in Web Programming and Intermediate Web Development.  
 Im proficient in client side code, HTML, CSS and Javascript. For this project I helped develop the node express server and our mySQL database hosted on Amazon. 
-Im into great music, karaoke, MTG gaming, and sports, especially basketball. 
+I like great music, karaoke, gaming and sports. 
+
+checkout MTG events on ArcZap.com
