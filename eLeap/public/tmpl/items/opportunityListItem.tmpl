@@ -4,6 +4,12 @@
         <img class="oppItemPic" src="img/docs.ico" />
     </div>
     <div class="oppItemField oppItemTitle col-11 ml5">
+    	<% if (opp.isJoined) { %>
+            <div class="oppItemJoined">
+            	<i class="fa fa-check-square color-forest"></i><br>
+                <span class='joinedText'>Joined</span>
+            </div>
+        <% } %>
         <div><%= opp.title %></div><small class="oppItemStatus">[<%= opp.status %>]</small>
     </div>
     <div class="col-12 col-sm-2">

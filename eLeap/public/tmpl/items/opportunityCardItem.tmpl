@@ -5,6 +5,12 @@
 	        <img class="oppItemPic" src="img/docs.ico" />
 	    </div>
 	    <div class="oppItemField oppItemTitle">
+	    	<% if (opp.isJoined) { %>
+                <div class="oppItemJoined">
+                	<i class="fa fa-check-square color-forest"></i><br>
+                    <span class='joinedText'>Joined</span>
+                </div>
+            <% } %>
             <span>
                 <%= opp.title %>
             </span>

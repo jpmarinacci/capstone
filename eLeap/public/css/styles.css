@@ -807,7 +807,16 @@ Main Video Background
 	font-size: 18px;
 	font-weight: 600;
 }
+.oppItemJoined {
+	display: inline-block;
+	float: right;
+}
+.oppItemJoined .joinedText {
+	font-size: 10px;
+}
+.oppItemJoined i {
 
+}
 .oppItemPicContainer {
 	float: left;
 	width: 40px;

@@ -51,7 +51,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 				this.listenTo(user.person, 'sync change', this.gotPerson);
 			}
 			if(this.commandDispatcher) {
-				this.listenTo(this.commandDispatcher, 'filter:all', this.gotAllOpps);
+				this.listenTo(this.commandDispatcher, 'filter:all', this.renderAllOpps);
 				this.listenTo(this.commandDispatcher, 'filter:joined', this.renderJoinedOpps);
 				this.listenTo(this.commandDispatcher, 'filter:owned', this.renderOwnedOpps);
 			}

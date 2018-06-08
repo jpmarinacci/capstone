@@ -88,6 +88,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'controllers/user', 'collec
 					if(joinedOppsRetriever && joinedOppsRetriever.models){
 						var cachedJoinedOpps = new Opportunities();
 						joinedOppsRetriever.each(function(opp) {
+							opp.set('isJoined', true);
 							var addedJoinedOpp = thisCache.allOpps.add(opp, {merge: true});
 							addedJoinedOpp.isFetched = true;
 							cachedJoinedOpps.add(addedJoinedOpp);
