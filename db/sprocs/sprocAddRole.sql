@@ -1,16 +1,23 @@
 DELIMITER $$
-CREATE DEFINER=`eLeapisit`@`%` PROCEDURE `sprocAddRole`(in RoleID_v int,in RoleName_v varchar(45),in RoleDescription_v varchar(45))
+CREATE DEFINER=`eLeapisit`@`%` PROCEDURE `sprocAddRole`(in verificationCode_v varchar(45),in RoleID_v int,in RoleName_v varchar(45),in RoleDescription_v varchar(45))
 BEGIN
 INSERT INTO roleTable(
 	RoleID,
 	roleName,
-    RoleDescription
+    RoleDescription,
+    varificationCode
 )
 values(
 RoleID_v,
 RoleName_v,
-RoleDescription_v
+RoleDescription_v,
+verificationCode
 );
-SELECT * from eLeapData.roleTable Where eLeapData.roleTable.RoleID =LAST_INSERT_ID();
+SELECT 
+    *
+FROM
+    eLeapData.roleTable
+WHERE
+    eLeapData.roleTable.RoleID = LAST_INSERT_ID();
 END$$
 DELIMITER ;

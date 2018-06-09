@@ -2,23 +2,24 @@ CREATE
     ALGORITHM = UNDEFINED 
     DEFINER = `eLeapisit`@`%` 
     SQL SECURITY DEFINER
-VIEW `opportunity` AS
+VIEW `eLeapData`.`opportunity` AS
     SELECT 
         `opp`.`opportunityId` AS `opportunityId`,
         `opp`.`agencyCommitment` AS `agencyCommitment`,
         `opp`.`applicationDueDate` AS `applicationDueDate`,
         (`opp`.`totalSeats` - COUNT(`fill`.`personId`)) AS `availableSeats`,
-        `opp`.`className` AS `className`,
-        `opp`.`classType` AS `classType`,
-        `opp`.`classYear` AS `classYear`,
-        `opp`.`courseSummary` AS `courseSummary`,
+        `cla`.`classId` AS `classId`,
+        `cla`.`className` AS `className`,
+        `cla`.`classType` AS `classType`,
+        `cla`.`year` AS `classYear`,
+        `cla`.`courseSummary` AS `courseSummary`,
         `opp`.`createDate` AS `createDate`,
         `opp`.`deliverables` AS `deliverables`,
         `opp`.`description` AS `description`,
         `opp`.`donation` AS `donation`,
         `opp`.`duration` AS `duration`,
         `opp`.`endDateTime` AS `endDateTime`,
-        `opp`.`estimatedClassSize` AS `estimatedClassSize`,
+        `cla`.`estimatedClassSize` AS `estimatedClassSize`,
         `opp`.`examples` AS `examples`,
         `opp`.`hoursRequired` AS `hoursRequired`,
         `opp`.`isClass` AS `isClass`,
@@ -40,22 +41,24 @@ VIEW `opportunity` AS
         `opp`.`ownerId` AS `ownerId`,
         `opp`.`pay` AS `payAmount`,
         `per`.`personName` AS `ownerName`,
-        `opp`.`preferedAgencyType` AS `preferedAgencyType`,
-        `opp`.`preferedServiceWorkType` AS `preferedServiceWorkType`,
+        `opp`.`preferredAgencyType` AS `preferredAgencyType`,
+        `opp`.`preferredServiceWorkType` AS `preferredServiceWorkType`,
         `opp`.`recurrence` AS `recurrence`,
         `opp`.`requirements` AS `requirements`,
+        `cla`.`section` AS `section`,
         `opp`.`startDateTime` AS `startDateTime`,
         `opp`.`status` AS `status`,
         `opp`.`supportDescription` AS `supportDescription`,
         `opp`.`supportPreference` AS `supportPreference`,
         `opp`.`teamSize` AS `teamSize`,
-        `opp`.`term` AS `term`,
+        `cla`.`term` AS `term`,
         `opp`.`timePeriodStartDate` AS `timePeriodStartDate`,
         `opp`.`timePeriodEndDate` AS `timePeriodEndDate`,
         `opp`.`title` AS `title`,
         `opp`.`totalSeats` AS `totalSeats`
     FROM
-        ((`opportunityTable` `opp`
-        JOIN `personTable` `per` ON ((`opp`.`ownerId` = `per`.`personId`)))
-        LEFT JOIN `filledSeatTable` `fill` ON ((`fill`.`opportunityId` = `opp`.`opportunityId`)))
+        (((`eLeapData`.`opportunityTable` `opp`
+        JOIN `eLeapData`.`personTable` `per` ON ((`opp`.`ownerId` = `per`.`personId`)))
+        LEFT JOIN `eLeapData`.`collegeClassTable` `cla` ON ((`opp`.`classId` = `cla`.`classId`)))
+        LEFT JOIN `eLeapData`.`filledSeatTable` `fill` ON ((`fill`.`opportunityId` = `opp`.`opportunityId`)))
     GROUP BY `opp`.`opportunityId`;

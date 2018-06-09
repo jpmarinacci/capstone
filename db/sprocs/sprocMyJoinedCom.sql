@@ -1,5 +1,5 @@
 DELIMITER $$
-CREATE DEFINER=`eLeapisit`@`%` PROCEDURE `sprocLeaveOpp`(in oppId int, in userId int)
+CREATE DEFINER=`eLeapisit`@`%` PROCEDURE `sprocMyJoinedCom`(in personId_v int)
 BEGIN
     DECLARE errno INT;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -9,17 +9,14 @@ SELECT errno AS MYSQL_ERROR;
     ROLLBACK;
     END;
 	START TRANSACTION;
-SELECT 'success' AS 'status';
-  
-DELETE FROM eLeapData.filledSeatTable 
-WHERE
-    opportunityId = oppId
-    AND personId = userId;
 SELECT 
     *
 FROM
-    eLeapData.filledSeatTable;
+    eLeapData.communityPersonTable per
+        JOIN
+    eLeapData.community com ON com.communityId = per.communityId
+WHERE
+    per.personId = personId_v;
 commit;
-
 END$$
 DELIMITER ;

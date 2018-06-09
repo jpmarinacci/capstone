@@ -1,7 +1,15 @@
 DELIMITER $$
-CREATE DEFINER=`eLeapisit`@`%` PROCEDURE `sprocFindPer`(in email varchar(45))
+CREATE DEFINER=`eLeapisit`@`%` PROCEDURE `sprocFindPer`(in email_v varchar(45))
 BEGIN
-SELECT * FROM eLeapData.personTable
-WHERE eLeapData.personTable.email = email;
+
+select if(exists(
+select * from eLeapData.personTable
+where personTable.email = email_v),'valid','invalid') as loginStatus;
+SELECT 
+    *
+FROM
+    eLeapData.personTable
+WHERE
+    personTable.email = email_v;
 END$$
 DELIMITER ;

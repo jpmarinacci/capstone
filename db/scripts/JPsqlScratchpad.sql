@@ -1,9 +1,6 @@
-UPDATE dbo.roleTable (RoleID, RoleName, RoleDescription)
- VALUES (2, 'person', 'a person');
- 
- select * from dbo.roleTable;
- 
- insert into dbo.opportunitytable(Title,Description,TotalSeats)
- values ('opportunity alpha','an opportunity object.. more description',5);
- 
- select * from dbo.opportunitytable;
+select * from eLeapData.studentTable;
+select * from eLeapData.collegeClassTable;
+select * from eLeapData.personTable;
+select * from eLeapData.opportunityTable;
+select * from eLeapData.roleTable;
+select * from eLeapData.filledSeatTable;

@@ -1,0 +1,19 @@
+DELIMITER $$
+CREATE DEFINER=`eLeapisit`@`%` PROCEDURE `sprocDeleteCom`(in communityId_v int)
+BEGIN
+DECLARE errno INT;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
+		SELECT errno AS MYSQL_ERROR;
+		ROLLBACK;
+	END;
+START TRANSACTION;
+SELECT 'success' AS 'status';
+DELETE FROM `eLeapData`.`communityTable` 
+WHERE
+    communityId_v;
+
+commit;
+END$$
+DELIMITER ;
