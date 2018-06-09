@@ -139,7 +139,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'models/collegeClass', 'con
 		},
 		
 		decideDisplayEdit: function() {
-			if(this.opp.get('ownerId') === user.person.get('personId')) {
+			if(user.person.get('roleId') ===7 || this.opp.get('ownerId') === user.person.get('personId')) {
 				this.commandDispatcher.trigger('show:edit');
 			}
 		},

@@ -97,7 +97,6 @@ var persons = {
 	    			console.log("personId: "+ person.personID);
 	    		} else {
 	    			console.log("sprocUpdatePer invalid:");
-	    			console.log(results);
 	    			person.status = "invalid";
 	    		}
 	    		response.send(person);

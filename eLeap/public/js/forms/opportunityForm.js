@@ -95,7 +95,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
                     next: "glyphicon glyphicon-chevron-right"
                 }
 			});
-			this.$(".oppFormApplicationDueDate").datetimepicker({
+			/*this.$(".oppFormApplicationDueDate").datetimepicker({
 				 icons: {
                     time: "fa fa-clock",
                     date: "fa fa-calendar",
@@ -104,7 +104,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
                     previous: "glyphicon glyphicon-chevron-left",
                     next: "glyphicon glyphicon-chevron-right"
                 }
-			});
+			});*/
 		},
 		
 		listenForClassesEvents: function() {
@@ -405,7 +405,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 			this.$(".oppFormStartDateTime").datetimepicker({
 			    date: this.opportunity.get('startDateTime')
 			});
-		    this.$(".oppFormGivenSupport").val(this.opportunity.get('supportDescription'));
+		    this.$(".oppFormSupportDescription").val(this.opportunity.get('supportDescription'));
 			this.$(".oppFormSupportPref").val(this.opportunity.get('supportPreference'));
 			this.$(".oppFormTeamSize").val(this.opportunity.get('teamSize'));
 			this.$(".oppFormTitle").val(this.opportunity.get('title'));
@@ -479,7 +479,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 				case 'deliverable':
 					oppJson.deliverables =  this.$(".oppFormDeliverables").val();
 					oppJson.isVirtual = this.$(".oppFormIsVirtual:checked").val() ? true: false;
-					oppJson.supportDescription = this.$(".oppFormGivenSupport").val();
+					oppJson.supportDescription = this.$(".oppFormSupportDescription").val();
 					oppJson.requirements = this.$(".oppFormRequirements").val();
 					oppJson.isPaid = this.$(".oppFormIsPaid:checked").val() ? true: false,
 					oppJson.payAmount = Number(this.$(".oppFormPayAmount").val());
@@ -578,7 +578,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'datetimepicker', 'utils', 
 									router.navigate('/dashboard', {trigger: true});
 								},
 								error: function(error) {
-									notifications.notifyUser("error -- opportunity deletion failed: "+ error);
+									notifications.notifyUser("error -- opportunity deletion failed");
 								}
 							};
 							thisForm.opportunity.destroy(options);

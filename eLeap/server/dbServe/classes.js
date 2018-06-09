@@ -189,9 +189,6 @@ var collegeClasses = {
 	    			console.log("sprocAllJoinClass successful");
 	    			returnResults = results[0][0] && results[1] ? results[1] : {'status':'no results'};
 	    			console.log("joined classes: "+ returnResults.length);
-	    			/*if(results[0][0] && results[0][0].status) {
-	    				returnResults.status = results[0][0].status;
-	    			}*/
 	    		} else {
 	    			console.log("results returned malformed - sending status:invalid");
 	    			returnResults.status = "invalid";
@@ -218,8 +215,8 @@ var collegeClasses = {
 				dbServer.processSprocError(results, response);
 	    	} else {
 	    		console.log("sprocAddStudent returned");
-	    		console.log(results);
-	    		var returnResults = (results && results[0] && results[1] && results[1][0] ? results[1][0] : results[0] && results[0][0] ? results[0][0]: results) || [];
+	    		var returnResults = (results && results[0] && results[1] && results[1][0] ? results[1][0] : 
+	    			results[0] && results[0][0] ? results[0][0]: results) || [];
 	    		
 	    		console.log("sprocAddStudent successful");
 	    		response.send(returnResults);
