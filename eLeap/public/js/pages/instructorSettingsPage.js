@@ -180,6 +180,14 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 			this.renderClassToForm(options);
 		},
 		
+		resetCollegeClass: function() {
+			this.collegeClass = new CollegeClass();
+			this.renderClassToForm();
+			this.$(".studentListSection, .studentsSection").hide();
+			this.$(".studentsList").empty();
+			this.renderClasses();
+		},
+		
 		gatherInput: function() {
 			var classJson = {
 				className: this.$(".classNameInput").val(),
@@ -211,6 +219,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 						notifications.notifyUser("class created");
 						if(collegeClass) {
 							user.person.classes.add(collegeClass);
+							collegeClass.students = collegeClass.students || new Persons();
 							thisPage.renderClasses();
 							thisPage.selectedClassId = collegeClass.get('classId');
 							thisPage.$(".classSelector").val(collegeClass.get('classId'));
@@ -238,9 +247,22 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 		},
 		
 		commandDeleteClass: function() {
-			//this.selectedClassId
-			var className = this.collegeClass.get('className');
 			var thisPage = this;
+			var className = this.collegeClass.get('className');
+			
+			var destroyClass = function() {
+				this.collegeClass.destroy({
+					success: function() {
+						notifications.notifyUser("class deleted");
+						thisPage.resetCollegeClass();
+					},
+					error: function(error) {
+						notifications.notifyUser("an error occurred deleting class");
+						//console.log(error);
+					}
+				});
+			};
+
 			require(['bootbox'], function(bootbox) {
 				bootbox.confirm({
 				    //title: "Remove student from class",
@@ -255,15 +277,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 				    },
 				    callback: function (result) {
 				    	if(result) {
-					        thisPage.collegeClass.destroy({
-								success: function(response) {
-									notifications.notifyUser("class deleted");
-								},
-								error: function(error) {
-									notifications.notifyUser("an error occurred deleting class");
-									//console.log(error);
-								}
-							});
+					        destroyClass.call(thisPage);
 						}
 				    }
 				});
@@ -292,7 +306,7 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'utils', 'controllers/notif
 						},
 						appError: function(response) {
 							response.message = response.message || response;
-							notifications.notifyUser("student couldn't be added: " + response.message);
+							notifications.notifyUser("student exists and/or could not be added");
 						},
 						error: function(error) {
 							notifications.notifyUser("an error occurred adding student");

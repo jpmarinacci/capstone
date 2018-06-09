@@ -59,8 +59,8 @@ var collegeClasses = {
 		}
 		var params = [
 			request.body.classId ? request.body.classId : null,
-			request.boyd.classType ? request.body.classType: null,
 			request.body.className ? request.body.className : null,
+			request.body.classType ? request.body.classType: null,
 			request.body.courseSummary ? request.body.courseSummary : null,
 			request.body.estimatedClassSize ? request.body.estimatedClassSize: null,
 			request.body.ownerId ? request.body.ownerId : 3,
@@ -219,7 +219,7 @@ var collegeClasses = {
 	    	} else {
 	    		console.log("sprocAddStudent returned");
 	    		console.log(results);
-	    		var returnResults = (results && results[0] && results[1] && results[1][0] ? results[1][0] : results) || [];
+	    		var returnResults = (results && results[0] && results[1] && results[1][0] ? results[1][0] : results[0] && results[0][0] ? results[0][0]: results) || [];
 	    		
 	    		console.log("sprocAddStudent successful");
 	    		response.send(returnResults);

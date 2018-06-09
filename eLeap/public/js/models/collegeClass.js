@@ -124,7 +124,7 @@ define(['jquery', 'underscore', 'backbone', 'eLeap', 'models/person', 'controlle
 		addStudent: function(options) {
 			var thisModel = this;
 			server.postRoute(this.routes.addStudent, options, function (response) {
-				if (response.status && response.status !== "success") {
+				if (response.invalid || response.status && response.status !== "success") {
 					if (options.appError) {
 						options.appError(response);
 					}
