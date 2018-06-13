@@ -10,7 +10,7 @@ instantiateDbServer = function() {
 		
 		connect: function() {
 			if(!this.isConnectPending) {
-				console.log("starging database server connection");
+				console.log("starting database server connection");
 				this.connection = mysql.createConnection({
 					charset: "utf8mb4",
 					connectTimeout: 20000,
