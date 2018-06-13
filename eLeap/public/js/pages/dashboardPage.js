@@ -169,15 +169,9 @@ define(['eLeap', 'jquery', 'underscore', 'backbone', 'controllers/cache', 'contr
 				if(opp.get('endDateTime')) {
 					dateOfOppDay = new Date(opp.get('endDateTime'));
 					dateOfOppDay.setHours(0,0,0,0);
-					/*dateOfOppDay.setMinutes(0);
-					dateOfOppDay.setSeconds(0);
-					dateOfOppDay.setMilliseconds(0);*/
 				}
 				var nowDateTime = new Date();
 				nowDateTime.setHours(0,0,0,0);
-				/*nowDateTime.setMinutes(0);
-				nowDateTime.setSeconds(0);
-				nowDateTime.setMilliseconds(0);*/
 				if(dateOfOppDay.getTime() >= nowDateTime.getTime()) {
 					isShow = true;
 					var classId = opp.get('classId');
